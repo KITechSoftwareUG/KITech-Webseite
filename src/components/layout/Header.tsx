@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import cleverFuchsLogo from "@/assets/clever-fuchs-logo.png";
 
 const navigation = [
   { name: "Leistungen", href: "/leistungen" },
@@ -23,11 +24,9 @@ export function Header() {
       <div className="container">
         <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Terminal className="h-6 w-6" />
-            </div>
+            <img src={cleverFuchsLogo} alt="Cleverfuchs Logo" className="h-12 w-12 rounded-lg" />
             <span className="text-xl font-light text-foreground">
-              KITech<span className="font-thin text-muted-foreground">Software</span>
+              Clever<span className="font-thin text-muted-foreground">fuchs</span>
             </span>
           </Link>
 
