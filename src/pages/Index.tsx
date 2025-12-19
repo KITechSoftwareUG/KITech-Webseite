@@ -12,12 +12,13 @@ import appStoreBadge from "@/assets/appstore-badge.svg";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
+import kremaLogo from "@/assets/krema-logo.png";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2, logo: niimmoLogo },
   { name: "Alltagshilfe Fischer GmbH", icon: Shield, logo: alltagshilfeLogo },
   { name: "cert consulting Pane", icon: Clipboard, logo: certconsultingLogo },
-  { name: "KREMA Group", icon: Factory, logo: null },
+  { name: "KREMA Group", icon: Factory, logo: kremaLogo },
   { name: "Vantage Partner", icon: Database, logo: null },
 ];
 
