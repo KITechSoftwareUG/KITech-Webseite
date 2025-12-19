@@ -6,11 +6,19 @@ import {
   Shield, 
   Factory, 
   ShoppingCart, 
-  TrendingUp,
-  Star,
   ArrowRight,
-  Building2
+  Building2,
+  Smartphone,
+  Dna,
+  ImageIcon
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
 
 const caseStudies = [
   {
@@ -67,42 +75,143 @@ const metrics = [
   { value: "100%", label: "DSGVO-konform" },
 ];
 
+const clients = [
+  { name: "NiImmo Holding GmbH" },
+  { name: "Alltagshilfe Fischer GmbH" },
+  { name: "Certconsulting Pane, Spark und Partner" },
+  { name: "KREMA Group" },
+  { name: "Vantage Partner" },
+];
+
+const products = [
+  {
+    name: "CleverFuchs",
+    description: "Intelligente iOS-App für smarte Alltagsunterstützung mit KI-gestützten Features.",
+    type: "iOS App",
+    icon: Smartphone,
+  },
+  {
+    name: "KI-DNA Generator",
+    description: "SaaS-Plattform zur Erstellung einer individuellen KI-DNA für Ihr Unternehmen.",
+    type: "SaaS Platform",
+    icon: Dna,
+  },
+];
+
 export default function Referenzen() {
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false })
+  );
+
   return (
     <Layout>
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              <span className="gradient-text">Referenzen</span> & Case Studies
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Keine Marketing-Versprechen, sondern dokumentierte Ergebnisse. 
-              Erfahren Sie, wie wir echte Geschäftsprobleme mit KI gelöst haben.
-            </p>
-          </motion.div>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Main Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+                <span className="gradient-text">Referenzen</span> & Case Studies
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8">
+                Keine Marketing-Versprechen, sondern dokumentierte Ergebnisse. 
+                Erfahren Sie, wie wir echte Geschäftsprobleme mit KI gelöst haben.
+              </p>
 
-          {/* Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-            {metrics.map((metric, i) => (
-              <motion.div
-                key={metric.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="text-center"
-              >
-                <p className="text-3xl sm:text-4xl font-bold gradient-text">{metric.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{metric.label}</p>
-              </motion.div>
-            ))}
+              {/* Metrics */}
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                {metrics.map((metric, i) => (
+                  <motion.div
+                    key={metric.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="text-center p-4 bg-card rounded-xl border border-border"
+                  >
+                    <p className="text-2xl sm:text-3xl font-bold gradient-text">{metric.value}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{metric.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right: Products */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <h3 className="text-lg font-semibold text-foreground">Unsere Produkte</h3>
+              {products.map((product, i) => (
+                <motion.div
+                  key={product.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                  className="bg-card rounded-2xl border border-border p-6 shadow-card hover:shadow-elevated transition-shadow"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                      <product.icon className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-semibold text-foreground">{product.name}</h4>
+                        <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full">
+                          {product.type}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{product.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Client Carousel */}
+      <section className="py-12 bg-card/50 border-y border-border">
+        <div className="container">
+          <p className="text-center text-sm text-muted-foreground mb-8">
+            Ausgewählte Kunden, die uns vertrauen
+          </p>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[autoplayPlugin.current]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {clients.map((client, i) => (
+                <CarouselItem key={i} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.05 }}
+                    className="flex flex-col items-center gap-3 p-6 bg-card rounded-xl border border-border h-full"
+                  >
+                    <div className="w-16 h-16 rounded-xl bg-muted flex items-center justify-center">
+                      <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
+                    </div>
+                    <p className="text-sm font-medium text-center text-foreground leading-tight">
+                      {client.name}
+                    </p>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
       </section>
 
