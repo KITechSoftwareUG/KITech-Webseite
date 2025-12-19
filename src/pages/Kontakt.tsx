@@ -226,8 +226,12 @@ export default function Kontakt() {
                   Buchen Sie einen kostenlosen 30-Minuten-Termin für ein 
                   unverbindliches Erstgespräch.
                 </p>
-                <Button variant="outline" className="w-full">
-                  Termin vereinbaren
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}
+                >
+                  Erstgespräch vereinbaren
                 </Button>
               </div>
 
