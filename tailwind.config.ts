@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Spline Sans", "system-ui", "sans-serif"],
-        display: ["Spline Sans", "system-ui", "sans-serif"],
-        body: ["Spline Sans", "system-ui", "sans-serif"],
+        sans: ["Onest", "system-ui", "sans-serif"],
+        display: ["Onest", "system-ui", "sans-serif"],
+        body: ["Onest", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
