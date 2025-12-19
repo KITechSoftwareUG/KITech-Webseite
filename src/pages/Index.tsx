@@ -128,21 +128,22 @@ export default function Index() {
         }} className="text-center">
             
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
               KI-Lösungen, die Bestand haben.
               <br />
-              <span className="gradient-text inline-block h-[1.2em] overflow-hidden">
+              <span className="gradient-text inline-block h-[1.35em] overflow-hidden">
                 <TextRotate
                   texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "Ohne Hype, mit Substanz"]}
                   rotationInterval={3000}
-                  staggerDuration={0.02}
-                  staggerFrom="first"
+                  splitBy="none"
+                  staggerDuration={0}
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ type: "spring", damping: 20, stiffness: 200 }}
-                  mainClassName="justify-center"
-                  elementLevelClassName="inline-block"
+                  mainClassName="w-full justify-center"
+                  splitLevelClassName="w-full justify-center"
+                  elementLevelClassName="inline-block whitespace-nowrap"
                 />
               </span>
             </h1>

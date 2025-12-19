@@ -10,11 +10,11 @@ import {
 } from "react"
 import {
   AnimatePresence,
-  AnimatePresenceProps,
+  type AnimatePresenceProps,
   motion,
-  MotionProps,
-  Transition,
-} from "motion/react"
+  type MotionProps,
+  type Transition,
+} from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface TextRotateProps {
@@ -178,16 +178,22 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
 
     useEffect(() => {
       if (!auto) return
-      const intervalId = setInterval(next, rotationInterval)
-      return () => clearInterval(intervalId)
-    }, [next, rotationInterval, auto])
+      const intervalId = window.setInterval(() => {
+        setCurrentTextIndex((prev) => {
+          const nextIndex =
+            prev === texts.length - 1 ? (loop ? 0 : prev) : prev + 1
+          if (nextIndex !== prev) onNext?.(nextIndex)
+          return nextIndex
+        })
+      }, rotationInterval)
+
+      return () => window.clearInterval(intervalId)
+    }, [auto, rotationInterval, texts.length, loop, onNext])
 
     return (
       <motion.span
         className={cn("flex flex-wrap whitespace-pre-wrap", mainClassName)}
         {...props}
-        layout
-        transition={transition}
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
 
@@ -201,7 +207,6 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
               "flex flex-wrap",
               splitBy === "lines" && "flex-col w-full"
             )}
-            layout
             aria-hidden="true"
           >
             {(splitBy === "characters"
