@@ -6,6 +6,7 @@ import { TextRotate } from "@/components/ui/text-rotate";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
+import { Users, Briefcase, HelpCircle } from "lucide-react";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2 },
@@ -107,6 +108,37 @@ const testimonials = [{
 export default function Index() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
+  const [qualifierStep, setQualifierStep] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const qualifierOptions = [
+    {
+      id: "unternehmen",
+      icon: Briefcase,
+      title: "Ich habe ein Unternehmen",
+      subtitle: "und möchte KI sinnvoll einsetzen"
+    },
+    {
+      id: "vertrieb",
+      icon: Users,
+      title: "Ich bin im Vertrieb/Beratung",
+      subtitle: "und suche nach KI-Lösungen für meine Kunden"
+    },
+    {
+      id: "neugierig",
+      icon: HelpCircle,
+      title: "Ich bin einfach neugierig",
+      subtitle: "und möchte mehr über KI erfahren"
+    }
+  ];
+
+  const handleQualifierSelect = (optionId: string) => {
+    setSelectedOption(optionId);
+    setTimeout(() => {
+      setQualifierStep(1);
+    }, 300);
+  };
+
   const nextTestimonial = () => {
     setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
   };
@@ -214,6 +246,86 @@ export default function Index() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Qualifier Section */}
+      <section className="py-16 lg:py-20">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-12 text-center shadow-elevated"
+          >
+            {qualifierStep === 0 ? (
+              <>
+                <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                  Was beschreibt Sie am besten?
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  Wir zeigen Ihnen passende Lösungen für Ihre Situation.
+                </p>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {qualifierOptions.map((option) => (
+                    <motion.button
+                      key={option.id}
+                      onClick={() => handleQualifierSelect(option.id)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all duration-200 ${
+                        selectedOption === option.id
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-primary/50 hover:bg-muted/50"
+                      }`}
+                    >
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <option.icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <p className="font-light text-foreground">{option.title}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center"
+              >
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-4">
+                  <Check className="h-8 w-8" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                  Perfekt! Lassen Sie uns sprechen.
+                </h2>
+                <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                  In einem kurzen Gespräch finden wir heraus, wie KI in Ihrer Situation echten Mehrwert schaffen kann.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button variant="default" size="lg" asChild>
+                    <Link to="/kontakt">
+                      Kostenlos beraten lassen
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    onClick={() => {
+                      setQualifierStep(0);
+                      setSelectedOption(null);
+                    }}
+                  >
+                    Zurück
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
         </div>
       </section>
 
