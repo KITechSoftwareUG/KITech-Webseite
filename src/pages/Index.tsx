@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { LampContainer } from "@/components/ui/lamp";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
@@ -116,14 +117,18 @@ export default function Index() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background to-card py-20 lg:py-32">
-        <div className="container relative z-10">
+      {/* Hero Section with Lamp Effect */}
+      <section className="relative overflow-hidden">
+        <LampContainer className="min-h-[700px] lg:min-h-[800px]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto max-w-4xl text-center"
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            className="text-center"
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
               <span className="relative flex h-2 w-2">
@@ -133,8 +138,9 @@ export default function Index() {
               Software Made in Germany
             </span>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              KI-Lösungen, die Bestand haben.{" "}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
+              KI-Lösungen, die Bestand haben.
+              <br />
               <span className="gradient-text">Ohne Hype, mit Substanz.</span>
             </h1>
             
@@ -153,13 +159,7 @@ export default function Index() {
               </Button>
             </div>
           </motion.div>
-        </div>
-
-        {/* Background decoration */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl"></div>
-        </div>
+        </LampContainer>
       </section>
 
       {/* Trust Logos */}
