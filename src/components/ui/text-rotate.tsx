@@ -99,6 +99,10 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
           : currentText.split(splitBy)
     }, [texts, currentTextIndex, splitBy])
 
+    const maxText = useMemo(() => {
+      return texts.reduce((longest, t) => (t.length > longest.length ? t : longest), "")
+    }, [texts])
+
     const getStaggerDelay = useCallback(
       (index: number, totalChars: number) => {
         const total = totalChars
@@ -193,7 +197,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       <motion.span
         className={cn(
           splitBy === "none"
-            ? "relative inline-flex h-full w-full overflow-hidden align-baseline"
+            ? "relative inline-flex h-full overflow-hidden align-baseline"
             : "inline-flex flex-wrap whitespace-pre-wrap",
           mainClassName
         )}
@@ -201,17 +205,12 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
 
-        <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
-          {splitBy === "none" ? (
-            <span
-              className={cn("relative inline-flex h-full w-full", splitLevelClassName)}
-              aria-hidden="true"
-            >
-              {/* keeps height/width stable even though the animated item is absolutely positioned */}
-              <span className={cn("invisible whitespace-pre-wrap", elementLevelClassName)}>
-                {texts[currentTextIndex]}
-              </span>
+        {splitBy === "none" ? (
+          <span className={cn("relative inline-flex h-full", splitLevelClassName)} aria-hidden="true">
+            {/* keeps height/width stable even though the animated item is absolutely positioned */}
+            <span className={cn("invisible whitespace-pre-wrap", elementLevelClassName)}>{maxText}</span>
 
+            <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
               <motion.span
                 key={currentTextIndex}
                 initial={initial}
@@ -219,7 +218,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                 exit={exit}
                 transition={transition}
                 className={cn(
-                  "absolute inset-0 inline-flex w-full items-center justify-center",
+                  "absolute inset-0 inline-flex items-center justify-center",
                   splitLevelClassName
                 )}
               >
@@ -227,8 +226,10 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                   {texts[currentTextIndex]}
                 </span>
               </motion.span>
-            </span>
-          ) : (
+            </AnimatePresence>
+          </span>
+        ) : (
+          <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
             <motion.div
               key={currentTextIndex}
               className={cn("flex flex-wrap", splitBy === "lines" && "flex-col w-full")}
@@ -270,8 +271,8 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                 )
               })}
             </motion.div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>
+        )}
       </motion.span>
     )
   }
