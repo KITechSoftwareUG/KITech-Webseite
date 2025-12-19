@@ -191,26 +191,43 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
 
     return (
       <motion.span
-        className={cn("inline-flex flex-wrap whitespace-pre-wrap", mainClassName)}
+        className={cn(
+          splitBy === "none"
+            ? "relative inline-flex h-full w-full overflow-hidden align-baseline"
+            : "inline-flex flex-wrap whitespace-pre-wrap",
+          mainClassName
+        )}
         {...props}
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
 
         <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
           {splitBy === "none" ? (
-            <motion.span
-              key={currentTextIndex}
-              initial={initial}
-              animate={animate}
-              exit={exit}
-              transition={transition}
-              className={cn("inline-flex w-full justify-center", splitLevelClassName)}
+            <span
+              className={cn("relative inline-flex h-full w-full", splitLevelClassName)}
               aria-hidden="true"
             >
-              <span className={cn("inline-block whitespace-pre-wrap", elementLevelClassName)}>
+              {/* keeps height/width stable even though the animated item is absolutely positioned */}
+              <span className={cn("invisible whitespace-pre-wrap", elementLevelClassName)}>
                 {texts[currentTextIndex]}
               </span>
-            </motion.span>
+
+              <motion.span
+                key={currentTextIndex}
+                initial={initial}
+                animate={animate}
+                exit={exit}
+                transition={transition}
+                className={cn(
+                  "absolute inset-0 inline-flex w-full items-center justify-center",
+                  splitLevelClassName
+                )}
+              >
+                <span className={cn("inline-block whitespace-pre-wrap", elementLevelClassName)}>
+                  {texts[currentTextIndex]}
+                </span>
+              </motion.span>
+            </span>
           ) : (
             <motion.div
               key={currentTextIndex}
