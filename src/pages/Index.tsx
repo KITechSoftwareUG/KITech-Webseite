@@ -13,13 +13,14 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
+import expatvantageLogo from "@/assets/expatvantage-logo.png";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2, logo: niimmoLogo },
   { name: "Alltagshilfe Fischer GmbH", icon: Shield, logo: alltagshilfeLogo },
   { name: "cert consulting Pane", icon: Clipboard, logo: certconsultingLogo },
   { name: "KREMA Group", icon: Factory, logo: kremaLogo },
-  { name: "Vantage Partner", icon: Database, logo: null },
+  { name: "ExpatVantage", icon: Database, logo: expatvantageLogo },
 ];
 
 const products = [
