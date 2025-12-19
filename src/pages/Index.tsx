@@ -884,8 +884,12 @@ export default function Index() {
               Ihrem Unternehmen echten Mehrwert stiftet – und wo nicht.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="cta" size="xl" asChild>
-                <Link to="/kontakt">Unverbindliches Erstgespräch</Link>
+              <Button 
+                variant="cta" 
+                size="xl"
+                onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}
+              >
+                Unverbindliches Erstgespräch
               </Button>
               <Button variant="ctaOutline" size="xl" asChild>
                 <Link to="/kontakt">Kontakt aufnehmen</Link>

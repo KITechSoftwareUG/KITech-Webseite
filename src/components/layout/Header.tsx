@@ -61,8 +61,13 @@ export function Header() {
               )}
             </button>
 
-            <Button variant="hero" size="lg" className="hidden sm:flex" asChild>
-              <Link to="/kontakt">Erstgespräch vereinbaren</Link>
+            <Button 
+              variant="hero" 
+              size="lg" 
+              className="hidden sm:flex"
+              onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}
+            >
+              Erstgespräch vereinbaren
             </Button>
 
             <button
@@ -103,8 +108,15 @@ export function Header() {
                   {item.name}
                 </Link>
               ))}
-              <Button variant="hero" className="mt-2" asChild>
-                <Link to="/kontakt">Erstgespräch vereinbaren</Link>
+              <Button 
+                variant="hero" 
+                className="mt-2"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  window.open('https://calendly.com/kitech-software-info/30min', '_blank');
+                }}
+              >
+                Erstgespräch vereinbaren
               </Button>
             </nav>
           </motion.div>
