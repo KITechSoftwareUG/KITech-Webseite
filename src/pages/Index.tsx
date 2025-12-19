@@ -10,10 +10,11 @@ import { Users, Briefcase, HelpCircle } from "lucide-react";
 import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
 import appStoreBadge from "@/assets/appstore-badge.svg";
 import niimmoLogo from "@/assets/niimmo-logo.png";
+import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2, logo: niimmoLogo },
-  { name: "Alltagshilfe Fischer GmbH", icon: Shield, logo: null },
+  { name: "Alltagshilfe Fischer GmbH", icon: Shield, logo: alltagshilfeLogo },
   { name: "Certconsulting Pane, Spark und Partner", icon: Clipboard, logo: null },
   { name: "KREMA Group", icon: Factory, logo: null },
   { name: "Vantage Partner", icon: Database, logo: null },
@@ -270,13 +271,11 @@ export default function Index() {
                 {clientReferences.map(client => (
                   <div key={client.name} className="flex items-center gap-2 text-muted-foreground/70">
                     {client.logo ? (
-                      <img src={client.logo} alt={client.name} className="h-8 w-auto object-contain" />
+                      <img src={client.logo} alt={client.name} className="h-6 w-auto object-contain" />
                     ) : (
-                      <>
-                        <client.icon className="h-5 w-5" />
-                        <span className="font-light text-sm">{client.name}</span>
-                      </>
+                      <client.icon className="h-5 w-5" />
                     )}
+                    <span className="font-light text-sm">{client.name}</span>
                   </div>
                 ))}
               </div>
