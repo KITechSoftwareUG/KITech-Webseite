@@ -478,7 +478,7 @@ export default function Index() {
           y: 0
         }} viewport={{
           once: true
-        }} className="relative overflow-hidden rounded-3xl bg-card border border-border p-8 md:p-16 text-center gradient-cta">
+        }} className="relative overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-16 text-center shadow-elevated">
             <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">
               Bereit für KI mit Substanz?
             </h2>
