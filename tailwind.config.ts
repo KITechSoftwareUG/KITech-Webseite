@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: ["Spline Sans", "system-ui", "sans-serif"],
         display: ["Spline Sans", "system-ui", "sans-serif"],
         body: ["Spline Sans", "system-ui", "sans-serif"],
       },
