@@ -281,6 +281,9 @@ export default function Index() {
                     <span className="font-light text-sm">{client.name}</span>
                   </div>
                 ))}
+                <div className="flex items-center gap-2 text-muted-foreground/70">
+                  <span className="font-medium text-lg">+</span>
+                </div>
               </div>
             </div>
 
