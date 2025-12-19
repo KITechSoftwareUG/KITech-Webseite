@@ -7,6 +7,7 @@ import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Datab
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
+import cleverFuchsLogo from "@/assets/clever-fuchs-logo.png";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2 },
@@ -316,9 +317,9 @@ export default function Index() {
             >
               <button
                 onClick={closePopup}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors"
+                className="absolute top-4 right-4 p-1 rounded-full hover:bg-muted transition-colors"
               >
-                <X className="h-5 w-5 text-muted-foreground" />
+                <img src={cleverFuchsLogo} alt="Clever Fuchs" className="h-10 w-10 rounded-lg" />
               </button>
 
               {/* Progress Bar */}
