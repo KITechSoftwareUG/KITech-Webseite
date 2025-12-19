@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
 import { TextRotate } from "@/components/ui/text-rotate";
-import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles } from "lucide-react";
+import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
@@ -72,44 +72,44 @@ const processSteps = [{
   icon: Rocket
 }];
 const caseStudies = [{
-  industry: "Wirtschaftskanzlei",
-  subtitle: "LEGAL TECH",
-  problem: "Manuelle Prüfung von hunderten Vertragspositionen",
-  solution: "Lokales LLM zur Extraktion von Risikoklauseln",
-  result: "75% Zeitersparnis",
+  industry: "Bauunternehmen",
+  subtitle: "IMMOBILIEN",
+  problem: "Manuelle Zuordnung von Zahlungen zu Mietverträgen",
+  solution: "Datenbank mit intelligenter Zuordnung",
+  result: "50% Zeitersparnis",
   resultDetail: "Bei voller Entlastung der Partner",
-  icon: Shield
+  icon: Building2
 }, {
-  industry: "Maschinenbau KMU",
-  subtitle: "QUALITÄTSSICHERUNG",
-  problem: "Hohe Ausschussquote durch visuelle Fehler",
-  solution: "Computer Vision Modell auf Edge-Hardware",
-  result: "12% weniger Ausschuss",
-  resultDetail: "ROI nach drei Monaten erreicht",
-  icon: Factory
+  industry: "Zertifizierungsgesellschaft",
+  subtitle: "CONSULTING",
+  problem: "Chaotische Terminverwaltung",
+  solution: "CRM-System, Auditsystem mit Outlook-Kalender-Schnittstelle",
+  result: "40% Zeitersparnis",
+  resultDetail: "Saubere Übersicht von kritischen Themen",
+  icon: FileCheck
 }, {
-  industry: "E-Commerce Player",
-  subtitle: "KUNDENSUPPORT",
-  problem: "Support-Überlastung bei Standard-anfragen",
-  solution: "RAG-System mit eigenem FAQ/Dokumenten",
-  result: "40% Automatisierung",
-  resultDetail: "Ohne Qualitätseinbußen im Support",
-  icon: ShoppingCart
+  industry: "Glasbau",
+  subtitle: "HANDWERK",
+  problem: "Ineffiziente Auftragsverarbeitung",
+  solution: "Automatisierte Auftragsverarbeitung, Angebotserstellung und Rechnungserstellung",
+  result: "70% kürzerer Verkaufsprozess",
+  resultDetail: "Alle Prozesse laufen nun halbautomatisch und der Mensch segnet nur noch ab",
+  icon: Wrench
 }];
 const testimonials = [{
-  quote: "Endlich ein Partner, der KI technisch versteht statt sie uns als Marketing-Allheilmittel zu verkaufen.",
-  author: "Dr. Marcus Weber",
-  role: "CTO, TechVenture GmbH",
+  quote: "Sehr tolle Zusammenarbeit",
+  author: "Eugen Kretschmann",
+  role: "Geschäftsführer KREMA Group",
   rating: 5
 }, {
-  quote: "Nachweisbare Ergebnisse und deutsche Server - ein Unterschied für uns als DSGVO-relevantes Unternehmen.",
-  author: "Ing. Thomas Klein",
-  role: "Geschäftsführer, Precision Engineering",
+  quote: "Super",
+  author: "..",
+  role: "..",
   rating: 5
 }, {
-  quote: "Professionell, uneigenständig und technisch versiert. Keine Buzzwords, nur Umsetzung.",
-  author: "Julia Schmidt",
-  role: "Head of Digital, FinanceFirst AG",
+  quote: "..",
+  author: "..",
+  role: "..",
   rating: 5
 }];
 export default function Index() {
