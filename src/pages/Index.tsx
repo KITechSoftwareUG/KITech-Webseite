@@ -139,19 +139,20 @@ export default function Index() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
               KI-Lösungen, die Bestand haben.
               <br />
-              <span className="gradient-text inline-block h-[1.35em] overflow-hidden">
+              <span className="inline-block h-[1.35em] overflow-hidden">
                 <TextRotate
                   texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "Ohne Hype, mit Substanz"]}
                   rotationInterval={3000}
+                  auto
                   splitBy="none"
                   staggerDuration={0}
                   initial={{ y: "-120%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "120%", opacity: 0 }}
                   transition={{ type: "spring", damping: 20, stiffness: 200 }}
-                  mainClassName="w-full justify-center"
+                  mainClassName="justify-center"
                   splitLevelClassName="w-full justify-center"
-                  elementLevelClassName="inline-block whitespace-nowrap"
+                  elementLevelClassName="text-primary inline-block whitespace-nowrap"
                 />
               </span>
             </h1>
