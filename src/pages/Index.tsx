@@ -136,7 +136,7 @@ export default function Index() {
         }} className="text-center">
             
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
               KI-Lösungen, die Bestand haben.
               <br />
               <span className="gradient-text inline-block h-[1.35em] overflow-hidden">
@@ -187,7 +187,7 @@ export default function Index() {
                 {clientReferences.map(client => (
                   <div key={client.name} className="flex items-center gap-2 text-muted-foreground/70">
                     <client.icon className="h-5 w-5" />
-                    <span className="font-medium text-sm">{client.name}</span>
+                    <span className="font-light text-sm">{client.name}</span>
                   </div>
                 ))}
               </div>
@@ -205,7 +205,7 @@ export default function Index() {
                       <product.icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="font-semibold text-sm">{product.name}</p>
+                      <p className="font-light text-sm">{product.name}</p>
                       <p className="text-xs text-muted-foreground">{product.description}</p>
                     </div>
                   </div>
@@ -232,8 +232,8 @@ export default function Index() {
             }} transition={{
               duration: 0.5
             }}>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-2">Warum KITech?</h2>
-                <p className="text-2xl sm:text-3xl font-bold gradient-text mb-6">
+                <h2 className="text-3xl sm:text-4xl font-light mb-2">Warum KITech?</h2>
+                <p className="text-2xl sm:text-3xl font-light gradient-text mb-6">
                   Haltung statt Hype.
                 </p>
                 <p className="text-muted-foreground mb-6">
@@ -282,11 +282,11 @@ export default function Index() {
             duration: 0.5,
             delay: 0.2
           }} className="bg-card rounded-2xl border border-border p-6 shadow-card">
-              <h3 className="font-semibold text-lg mb-6">Der Unterschied</h3>
+              <h3 className="font-light text-lg mb-6">Der Unterschied</h3>
               <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
                 <div></div>
-                <div className="text-center text-primary font-medium">TYPISCHE KI-AGENTUR</div>
-                <div className="text-center text-primary font-medium">KITECH SOFTWARE</div>
+                <div className="text-center text-primary font-light">TYPISCHE KI-AGENTUR</div>
+                <div className="text-center text-primary font-light">KITECH SOFTWARE</div>
               </div>
               <div className="space-y-3">
                 {comparisonData.map((row, i) => <div key={i} className="grid grid-cols-3 gap-4 items-center py-3 border-b border-border last:border-0">
@@ -314,7 +314,7 @@ export default function Index() {
         }} viewport={{
           once: true
         }} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl font-light mb-4">
               Unser Vorgehen: Strukturiert & Transparent
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -342,7 +342,7 @@ export default function Index() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                   <step.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                <h3 className="text-xl font-light mb-3">{step.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{step.description}</p>
                 <div className="space-y-2">
                   {step.features.map((feature, j) => <div key={j} className="flex items-center gap-2 text-sm">
@@ -368,7 +368,7 @@ export default function Index() {
           once: true
         }} className="flex items-end justify-between mb-12">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              <h2 className="text-3xl sm:text-4xl font-light mb-4">
                 Echte Probleme. Echte Lösungen.
               </h2>
               <p className="text-muted-foreground max-w-2xl">
@@ -404,7 +404,7 @@ export default function Index() {
                     <study.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">{study.industry}</h3>
+                    <h3 className="font-light">{study.industry}</h3>
                     <span className="text-xs text-muted-foreground uppercase tracking-wider">
                       {study.subtitle}
                     </span>
@@ -413,13 +413,13 @@ export default function Index() {
 
                 <div className="space-y-3 mb-6">
                   <div>
-                    <span className="inline-block px-2 py-0.5 bg-destructive/10 text-destructive text-xs font-medium rounded mb-1">
+                    <span className="inline-block px-2 py-0.5 bg-destructive/10 text-destructive text-xs font-light rounded mb-1">
                       Problem
                     </span>
                     <p className="text-sm text-muted-foreground">{study.problem}</p>
                   </div>
                   <div>
-                    <span className="inline-block px-2 py-0.5 bg-success/10 text-success text-xs font-medium rounded mb-1">
+                    <span className="inline-block px-2 py-0.5 bg-success/10 text-success text-xs font-light rounded mb-1">
                       Lösung
                     </span>
                     <p className="text-sm text-muted-foreground">{study.solution}</p>
@@ -427,7 +427,7 @@ export default function Index() {
                 </div>
 
                 <div className="pt-4 border-t border-border">
-                  <p className="text-2xl font-bold text-success">{study.result}</p>
+                  <p className="text-2xl font-light text-success">{study.result}</p>
                   <p className="text-xs text-muted-foreground">{study.resultDetail}</p>
                 </div>
               </motion.div>)}
@@ -458,7 +458,7 @@ export default function Index() {
                   "{testimonial.quote}"
                 </blockquote>
                 <div>
-                  <p className="font-semibold text-sm">{testimonial.author}</p>
+                  <p className="font-light text-sm">{testimonial.author}</p>
                   <p className="text-xs text-muted-foreground">{testimonial.role}</p>
                 </div>
               </motion.div>)}
@@ -478,7 +478,7 @@ export default function Index() {
         }} viewport={{
           once: true
         }} className="relative overflow-hidden rounded-3xl bg-card border border-border p-8 md:p-16 text-center gradient-cta">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+            <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">
               Bereit für KI mit Substanz?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
