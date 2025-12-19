@@ -262,47 +262,53 @@ export default function Index() {
       </section>
 
       {/* Trust Logos & Products */}
-      <section className="border-y border-border bg-card/50 py-10">
+      <section className="border-y border-border bg-card/50 py-16 md:py-20">
         <div className="container">
-          <div className="grid lg:grid-cols-[1fr,auto] gap-10 items-start">
+          <div className="grid lg:grid-cols-[1fr,auto] gap-12 lg:gap-16 items-start">
             {/* Client References */}
             <div>
-              <p className="text-sm text-muted-foreground mb-5">
+              <h3 className="text-lg font-medium text-foreground mb-2">
+                Referenzen
+              </h3>
+              <p className="text-muted-foreground mb-8">
                 Vertraut von innovativen Unternehmen
               </p>
-              <div className="flex flex-wrap items-center gap-6 md:gap-8">
+              <div className="flex flex-wrap items-center gap-8 md:gap-10">
                 {clientReferences.map(client => (
-                  <div key={client.name} className="flex items-center gap-2 text-muted-foreground/70">
+                  <div key={client.name} className="flex items-center gap-3 text-foreground/80">
                     {client.logo ? (
-                      <img src={client.logo} alt={client.name} className="h-6 w-auto object-contain" />
+                      <img src={client.logo} alt={client.name} className="h-8 w-auto object-contain" />
                     ) : (
-                      <client.icon className="h-5 w-5" />
+                      <client.icon className="h-6 w-6" />
                     )}
-                    <span className="font-light text-sm">{client.name}</span>
+                    <span className="font-light text-base">{client.name}</span>
                   </div>
                 ))}
-                <div className="flex items-center gap-2 text-muted-foreground/70">
-                  <span className="font-light text-sm italic">Und mehr</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <span className="font-light text-base italic">Und mehr</span>
                 </div>
               </div>
             </div>
 
             {/* Products */}
-            <div className="lg:border-l lg:border-border lg:pl-10">
-              <p className="text-sm text-muted-foreground mb-5">
+            <div className="lg:border-l lg:border-border lg:pl-12">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Eigene Produkte
+              </h3>
+              <p className="text-muted-foreground mb-8">
+                Von mir entwickelte Lösungen
               </p>
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-4">
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-5">
                 {/* CleverFuchs with App Store Button */}
-                <div className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
+                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
                   <img 
                     src={cleverfuchsLogo} 
                     alt="CleverFuchs Logo" 
-                    className="h-10 w-10 rounded-lg object-cover"
+                    className="h-12 w-12 rounded-xl object-cover"
                   />
                   <div className="flex-1">
-                    <p className="font-light text-sm">CleverFuchs</p>
-                    <p className="text-xs text-muted-foreground">iOS App</p>
+                    <p className="font-medium text-base">CleverFuchs</p>
+                    <p className="text-sm text-muted-foreground">iOS App</p>
                   </div>
                   <a 
                     href="https://apps.apple.com/app/cleverfuchs" 
@@ -313,19 +319,19 @@ export default function Index() {
                     <img 
                       src={appStoreBadge} 
                       alt="Download im App Store" 
-                      className="h-8"
+                      className="h-10"
                     />
                   </a>
                 </div>
                 
                 {/* KI-DNA Generator */}
-                <div className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Sparkles className="h-5 w-5" />
+                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Sparkles className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="font-light text-sm">KI-DNA Generator</p>
-                    <p className="text-xs text-muted-foreground">SaaS Platform</p>
+                    <p className="font-medium text-base">KI-DNA Generator</p>
+                    <p className="text-sm text-muted-foreground">SaaS Platform</p>
                   </div>
                 </div>
               </div>
