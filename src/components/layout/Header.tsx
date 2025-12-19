@@ -33,8 +33,8 @@ export function Header() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Terminal className="h-6 w-6" />
             </div>
-            <span className="text-xl font-bold text-foreground">
-              KITech<span className="font-normal text-muted-foreground">Software</span>
+            <span className="text-xl font-light text-foreground">
+              KITech<span className="font-thin text-muted-foreground">Software</span>
             </span>
           </Link>
 
@@ -44,7 +44,7 @@ export function Header() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm font-light transition-colors hover:text-primary ${
                   location.pathname === item.href
                     ? "text-primary"
                     : "text-muted-foreground"
@@ -101,7 +101,7 @@ export function Header() {
                   key={item.name}
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`py-3 px-4 rounded-lg text-sm font-light transition-colors ${
                     location.pathname === item.href
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground hover:bg-accent"

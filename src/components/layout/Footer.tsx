@@ -26,8 +26,8 @@ export function Footer() {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Terminal className="h-6 w-6" />
               </div>
-              <span className="text-xl font-bold text-foreground">
-                KITech<span className="font-normal text-muted-foreground">Software</span>
+              <span className="text-xl font-light text-foreground">
+                KITech<span className="font-thin text-muted-foreground">Software</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm mb-6">
@@ -48,7 +48,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Navigation</h4>
+            <h4 className="font-light text-foreground mb-4">Navigation</h4>
             <ul className="space-y-3">
               {footerLinks.navigation.map((link) => (
                 <li key={link.name}>
@@ -65,7 +65,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Rechtliches</h4>
+            <h4 className="font-light text-foreground mb-4">Rechtliches</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
