@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const navigation = [
   { name: "Leistungen", href: "/leistungen" },
@@ -13,17 +14,9 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
   const location = useLocation();
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [isDark]);
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md">
@@ -57,9 +50,9 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setIsDark(!isDark)}
+              onClick={() => setTheme(isDark ? "light" : "dark")}
               className="p-2 rounded-lg hover:bg-accent transition-colors"
-              aria-label="Toggle dark mode"
+              aria-label="Theme umschalten"
             >
               {isDark ? (
                 <Sun className="h-5 w-5 text-muted-foreground" />
