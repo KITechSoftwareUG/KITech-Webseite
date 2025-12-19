@@ -109,9 +109,15 @@ export default function Index() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
   const [qualifierStep, setQualifierStep] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showQualifierPopup, setShowQualifierPopup] = useState(false);
   const [popupDismissed, setPopupDismissed] = useState(false);
+  const [qualifierAnswers, setQualifierAnswers] = useState({
+    role: "",
+    industry: "",
+    challenge: "",
+    revenue: "",
+    budget: ""
+  });
 
   // Show popup after scrolling 300px
   useEffect(() => {
@@ -129,33 +135,56 @@ export default function Index() {
     setPopupDismissed(true);
   };
 
-  const qualifierOptions = [
-    {
-      id: "unternehmen",
-      icon: Briefcase,
-      title: "Ich habe ein Unternehmen",
-      subtitle: "und möchte KI sinnvoll einsetzen"
-    },
-    {
-      id: "vertrieb",
-      icon: Users,
-      title: "Ich bin im Vertrieb/Beratung",
-      subtitle: "und suche nach KI-Lösungen für meine Kunden"
-    },
-    {
-      id: "neugierig",
-      icon: HelpCircle,
-      title: "Ich bin einfach neugierig",
-      subtitle: "und möchte mehr über KI erfahren"
-    }
+  const roleOptions = [
+    { id: "unternehmen", icon: Briefcase, title: "Unternehmer/in", subtitle: "Ich leite ein Unternehmen" },
+    { id: "fuehrung", icon: Users, title: "Führungskraft", subtitle: "Ich bin in einer Führungsposition" },
+    { id: "berater", icon: HelpCircle, title: "Berater/in", subtitle: "Ich berate andere Unternehmen" }
   ];
 
-  const handleQualifierSelect = (optionId: string) => {
-    setSelectedOption(optionId);
+  const industryOptions = [
+    { id: "dienstleistung", label: "Dienstleistung" },
+    { id: "handel", label: "Handel & E-Commerce" },
+    { id: "produktion", label: "Produktion & Industrie" },
+    { id: "finanzen", label: "Finanzen & Versicherung" },
+    { id: "gesundheit", label: "Gesundheit & Pflege" },
+    { id: "andere", label: "Andere Branche" }
+  ];
+
+  const challengeOptions = [
+    { id: "kosten", label: "Kosten senken & Effizienz steigern" },
+    { id: "automatisierung", label: "Prozesse automatisieren" },
+    { id: "kundenservice", label: "Kundenservice verbessern" },
+    { id: "daten", label: "Daten besser nutzen" },
+    { id: "wettbewerb", label: "Wettbewerbsfähig bleiben" },
+    { id: "unsicher", label: "Weiß noch nicht genau" }
+  ];
+
+  const revenueOptions = [
+    { id: "unter500k", label: "Unter 500.000 €" },
+    { id: "500k-2m", label: "500.000 € – 2 Mio. €" },
+    { id: "2m-10m", label: "2 – 10 Mio. €" },
+    { id: "10m-50m", label: "10 – 50 Mio. €" },
+    { id: "ueber50m", label: "Über 50 Mio. €" }
+  ];
+
+  const budgetOptions = [
+    { id: "unter10k", label: "Unter 10.000 €" },
+    { id: "10k-25k", label: "10.000 – 25.000 €" },
+    { id: "25k-50k", label: "25.000 – 50.000 €" },
+    { id: "50k-100k", label: "50.000 – 100.000 €" },
+    { id: "ueber100k", label: "Über 100.000 €" },
+    { id: "unklar", label: "Noch nicht definiert" }
+  ];
+
+  const handleAnswer = (field: string, value: string) => {
+    setQualifierAnswers(prev => ({ ...prev, [field]: value }));
     setTimeout(() => {
-      setQualifierStep(1);
+      setQualifierStep(prev => prev + 1);
     }, 300);
   };
+
+  const totalSteps = 6;
+  const progressPercent = (qualifierStep / (totalSteps - 1)) * 100;
 
   const nextTestimonial = () => {
     setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
@@ -282,7 +311,7 @@ export default function Index() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-12 text-center shadow-elevated"
+              className="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-12 shadow-elevated"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -292,72 +321,249 @@ export default function Index() {
                 <X className="h-5 w-5 text-muted-foreground" />
               </button>
 
-              {qualifierStep === 0 ? (
-                <>
-                  <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
-                    Was beschreibt Sie am besten?
-                  </h2>
-                  <p className="text-muted-foreground mb-8">
-                    Wir zeigen Ihnen passende Lösungen für Ihre Situation.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {qualifierOptions.map((option) => (
-                      <motion.button
-                        key={option.id}
-                        onClick={() => handleQualifierSelect(option.id)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all duration-200 ${
-                          selectedOption === option.id
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-primary/50 hover:bg-muted/50"
-                        }`}
+              {/* Progress Bar */}
+              <div className="mb-8">
+                <div className="flex justify-between text-xs text-muted-foreground mb-2">
+                  <span>Schritt {qualifierStep + 1} von {totalSteps}</span>
+                  <span>{Math.round(progressPercent)}%</span>
+                </div>
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-primary rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progressPercent}%` }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {/* Step 0: Role */}
+                {qualifierStep === 0 && (
+                  <motion.div
+                    key="step0"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      Was beschreibt Sie am besten?
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                      Wir zeigen Ihnen passende Lösungen für Ihre Situation.
+                    </p>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      {roleOptions.map((option) => (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleAnswer("role", option.id)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`flex flex-col items-center gap-3 p-6 rounded-2xl border-2 transition-all duration-200 ${
+                            qualifierAnswers.role === option.id
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/50 hover:bg-muted/50"
+                          }`}
+                        >
+                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <option.icon className="h-6 w-6" />
+                          </div>
+                          <div>
+                            <p className="font-light text-foreground">{option.title}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
+                          </div>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 1: Industry */}
+                {qualifierStep === 1 && (
+                  <motion.div
+                    key="step1"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      In welcher Branche sind Sie tätig?
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                      So können wir Ihnen relevante Beispiele zeigen.
+                    </p>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {industryOptions.map((option) => (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleAnswer("industry", option.id)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`p-4 rounded-xl border-2 transition-all duration-200 ${
+                            qualifierAnswers.industry === option.id
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/50 hover:bg-muted/50"
+                          }`}
+                        >
+                          <p className="font-light text-foreground text-sm">{option.label}</p>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 2: Challenge */}
+                {qualifierStep === 2 && (
+                  <motion.div
+                    key="step2"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      Was ist Ihre größte Herausforderung?
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                      Wir helfen Ihnen, die richtige Lösung zu finden.
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {challengeOptions.map((option) => (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleAnswer("challenge", option.id)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+                            qualifierAnswers.challenge === option.id
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/50 hover:bg-muted/50"
+                          }`}
+                        >
+                          <p className="font-light text-foreground text-sm">{option.label}</p>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 3: Revenue */}
+                {qualifierStep === 3 && (
+                  <motion.div
+                    key="step3"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      Wie hoch ist Ihr Jahresumsatz?
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                      Hilft uns, passende Lösungen für Ihre Unternehmensgröße zu empfehlen.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto">
+                      {revenueOptions.map((option) => (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleAnswer("revenue", option.id)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`p-4 rounded-xl border-2 transition-all duration-200 ${
+                            qualifierAnswers.revenue === option.id
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/50 hover:bg-muted/50"
+                          }`}
+                        >
+                          <p className="font-light text-foreground text-sm">{option.label}</p>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 4: Budget */}
+                {qualifierStep === 4 && (
+                  <motion.div
+                    key="step4"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      Welches Budget planen Sie für KI?
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                      Keine Sorge, das ist völlig unverbindlich.
+                    </p>
+                    <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                      {budgetOptions.map((option) => (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleAnswer("budget", option.id)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`p-4 rounded-xl border-2 transition-all duration-200 ${
+                            qualifierAnswers.budget === option.id
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/50 hover:bg-muted/50"
+                          }`}
+                        >
+                          <p className="font-light text-foreground text-sm">{option.label}</p>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 5: Success */}
+                {qualifierStep === 5 && (
+                  <motion.div
+                    key="step5"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="text-center"
+                  >
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-4">
+                      <Check className="h-8 w-8" />
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
+                      Perfekt! Wir haben alles, was wir brauchen.
+                    </h2>
+                    <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                      Basierend auf Ihren Antworten können wir Ihnen maßgeschneiderte KI-Lösungen vorschlagen. Lassen Sie uns in einem kurzen Gespräch die Details besprechen.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button variant="default" size="lg" asChild onClick={closePopup}>
+                        <Link to="/kontakt">
+                          Kostenlos beraten lassen
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="lg"
+                        onClick={closePopup}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                          <option.icon className="h-6 w-6" />
-                        </div>
-                        <div>
-                          <p className="font-light text-foreground">{option.title}</p>
-                          <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
-                        </div>
-                      </motion.button>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center"
+                        Später
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Back Button */}
+              {qualifierStep > 0 && qualifierStep < 5 && (
+                <button
+                  onClick={() => setQualifierStep(prev => prev - 1)}
+                  className="mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-4">
-                    <Check className="h-8 w-8" />
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl font-light mb-2 text-foreground">
-                    Perfekt! Lassen Sie uns sprechen.
-                  </h2>
-                  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                    In einem kurzen Gespräch finden wir heraus, wie KI in Ihrer Situation echten Mehrwert schaffen kann.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="default" size="lg" asChild onClick={closePopup}>
-                      <Link to="/kontakt">
-                        Kostenlos beraten lassen
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="lg"
-                      onClick={() => {
-                        setQualifierStep(0);
-                        setSelectedOption(null);
-                      }}
-                    >
-                      Zurück
-                    </Button>
-                  </div>
-                </motion.div>
+                  ← Zurück
+                </button>
               )}
             </motion.div>
           </motion.div>
