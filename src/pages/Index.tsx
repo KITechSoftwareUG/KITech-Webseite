@@ -3,22 +3,30 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
 import { TextRotate } from "@/components/ui/text-rotate";
-import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal } from "lucide-react";
+import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
-const trustLogos = [{
-  name: "INDU-CORP",
-  icon: Building2
-}, {
-  name: "Kanzlei Müller",
-  icon: Shield
-}, {
-  name: "LogistikWest",
-  icon: Factory
-}, {
-  name: "MedTech Solutions",
-  icon: Database
-}];
+
+const clientReferences = [
+  { name: "NiImmo Holding GmbH", icon: Building2 },
+  { name: "Alltagshilfe Fischer GmbH", icon: Shield },
+  { name: "Certconsulting Pane, Spark und Partner", icon: Clipboard },
+  { name: "KREMA Group", icon: Factory },
+  { name: "Vantage Partner", icon: Database },
+];
+
+const products = [
+  { 
+    name: "CleverFuchs", 
+    description: "iOS App", 
+    icon: Smartphone 
+  },
+  { 
+    name: "KI-DNA Generator", 
+    description: "SaaS Platform", 
+    icon: Sparkles 
+  },
+];
 const comparisonData = [{
   feature: 'Standard "Prompts"',
   typical: true,
@@ -166,17 +174,44 @@ export default function Index() {
         </LampContainer>
       </section>
 
-      {/* Trust Logos */}
-      <section className="border-y border-border bg-card/50 py-8">
+      {/* Trust Logos & Products */}
+      <section className="border-y border-border bg-card/50 py-10">
         <div className="container">
-          <p className="text-center text-sm text-muted-foreground mb-6">
-            Vertraut von innovativen Unternehmen
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {trustLogos.map(logo => <div key={logo.name} className="flex items-center gap-2 text-muted-foreground/60">
-                <logo.icon className="h-5 w-5" />
-                <span className="font-medium">{logo.name}</span>
-              </div>)}
+          <div className="grid lg:grid-cols-[1fr,auto] gap-10 items-start">
+            {/* Client References */}
+            <div>
+              <p className="text-sm text-muted-foreground mb-5">
+                Vertraut von innovativen Unternehmen
+              </p>
+              <div className="flex flex-wrap items-center gap-6 md:gap-8">
+                {clientReferences.map(client => (
+                  <div key={client.name} className="flex items-center gap-2 text-muted-foreground/70">
+                    <client.icon className="h-5 w-5" />
+                    <span className="font-medium text-sm">{client.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Products */}
+            <div className="lg:border-l lg:border-border lg:pl-10">
+              <p className="text-sm text-muted-foreground mb-5">
+                Eigene Produkte
+              </p>
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-4">
+                {products.map(product => (
+                  <div key={product.name} className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <product.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">{product.name}</p>
+                      <p className="text-xs text-muted-foreground">{product.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
