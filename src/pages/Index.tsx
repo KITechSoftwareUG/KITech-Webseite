@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
+import { TextRotate } from "@/components/ui/text-rotate";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
@@ -130,7 +131,16 @@ export default function Index() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
               KI-Lösungen, die Bestand haben.
               <br />
-              <span className="gradient-text">Ohne Hype, mit Substanz.</span>
+              <span className="gradient-text inline-flex items-center">
+                <TextRotate
+                  texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "Ohne Hype, mit Substanz"]}
+                  rotationInterval={3000}
+                  staggerDuration={0.02}
+                  staggerFrom="first"
+                  mainClassName="overflow-hidden justify-center"
+                  elementLevelClassName="inline-block"
+                />
+              </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
