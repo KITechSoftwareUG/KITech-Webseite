@@ -5,138 +5,127 @@ import { LampContainer } from "@/components/ui/lamp";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
-
-const trustLogos = [
-  { name: "INDU-CORP", icon: Building2 },
-  { name: "Kanzlei Müller", icon: Shield },
-  { name: "LogistikWest", icon: Factory },
-  { name: "MedTech Solutions", icon: Database },
-];
-
-const comparisonData = [
-  { feature: 'Standard "Prompts"', typical: true, kitech: "Technische Integration" },
-  { feature: "Unklare/feltige Datenfüsse", typical: true, kitech: "DSGVO-konforme Architektur" },
-  { feature: "Demo-Effekte", typical: true, kitech: "Produktivsysteme" },
-  { feature: "Kurzfristiger Hype", typical: true, kitech: "Langfristige Wartbarkeit" },
-];
-
-const processSteps = [
-  {
-    number: "01",
-    title: "KI-Audit & Standortbestimmung",
-    description: "Kein Blindflug. Wir analysieren Ihre Datenqualität, Prozesseignung und organisatorische Reife. Das Ergebnis ist eine objektive Entscheidungsgrundlage, kein Verkaufs-Pitch.",
-    features: ["Risikoanalyse", "Machbarkeitsprüfung"],
-    icon: Clipboard,
-  },
-  {
-    number: "02",
-    title: "Individuelle KI-Systeme",
-    description: "Wir entwickeln maßgeschneiderte KI-Automatisierungen, die genau auf Ihre Schnittstellen passen. Auditierbar, sicher und dokumentiert.",
-    features: ["Lokale/EU Deployments", "Clean Code & Docs"],
-    icon: Database,
-  },
-  {
-    number: "03",
-    title: "Begleitete Umsetzung",
-    description: "Von der ersten Codezeile bis zum Betrieb. Wir sorgen für iterative Entwicklung, transparente Architektur und klare Verantwortlichkeiten.",
-    features: ["Wissenstransfer", "Laufende Wartung"],
-    icon: Rocket,
-  },
-];
-
-const caseStudies = [
-  {
-    industry: "Wirtschaftskanzlei",
-    subtitle: "LEGAL TECH",
-    problem: "Manuelle Prüfung von hunderten Vertragspositionen",
-    solution: "Lokales LLM zur Extraktion von Risikoklauseln",
-    result: "75% Zeitersparnis",
-    resultDetail: "Bei voller Entlastung der Partner",
-    icon: Shield,
-  },
-  {
-    industry: "Maschinenbau KMU",
-    subtitle: "QUALITÄTSSICHERUNG",
-    problem: "Hohe Ausschussquote durch visuelle Fehler",
-    solution: "Computer Vision Modell auf Edge-Hardware",
-    result: "12% weniger Ausschuss",
-    resultDetail: "ROI nach drei Monaten erreicht",
-    icon: Factory,
-  },
-  {
-    industry: "E-Commerce Player",
-    subtitle: "KUNDENSUPPORT",
-    problem: "Support-Überlastung bei Standard-anfragen",
-    solution: "RAG-System mit eigenem FAQ/Dokumenten",
-    result: "40% Automatisierung",
-    resultDetail: "Ohne Qualitätseinbußen im Support",
-    icon: ShoppingCart,
-  },
-];
-
-const testimonials = [
-  {
-    quote: "Endlich ein Partner, der KI technisch versteht statt sie uns als Marketing-Allheilmittel zu verkaufen.",
-    author: "Dr. Marcus Weber",
-    role: "CTO, TechVenture GmbH",
-    rating: 5,
-  },
-  {
-    quote: "Nachweisbare Ergebnisse und deutsche Server - ein Unterschied für uns als DSGVO-relevantes Unternehmen.",
-    author: "Ing. Thomas Klein",
-    role: "Geschäftsführer, Precision Engineering",
-    rating: 5,
-  },
-  {
-    quote: "Professionell, uneigenständig und technisch versiert. Keine Buzzwords, nur Umsetzung.",
-    author: "Julia Schmidt",
-    role: "Head of Digital, FinanceFirst AG",
-    rating: 5,
-  },
-];
-
+const trustLogos = [{
+  name: "INDU-CORP",
+  icon: Building2
+}, {
+  name: "Kanzlei Müller",
+  icon: Shield
+}, {
+  name: "LogistikWest",
+  icon: Factory
+}, {
+  name: "MedTech Solutions",
+  icon: Database
+}];
+const comparisonData = [{
+  feature: 'Standard "Prompts"',
+  typical: true,
+  kitech: "Technische Integration"
+}, {
+  feature: "Unklare/feltige Datenfüsse",
+  typical: true,
+  kitech: "DSGVO-konforme Architektur"
+}, {
+  feature: "Demo-Effekte",
+  typical: true,
+  kitech: "Produktivsysteme"
+}, {
+  feature: "Kurzfristiger Hype",
+  typical: true,
+  kitech: "Langfristige Wartbarkeit"
+}];
+const processSteps = [{
+  number: "01",
+  title: "KI-Audit & Standortbestimmung",
+  description: "Kein Blindflug. Wir analysieren Ihre Datenqualität, Prozesseignung und organisatorische Reife. Das Ergebnis ist eine objektive Entscheidungsgrundlage, kein Verkaufs-Pitch.",
+  features: ["Risikoanalyse", "Machbarkeitsprüfung"],
+  icon: Clipboard
+}, {
+  number: "02",
+  title: "Individuelle KI-Systeme",
+  description: "Wir entwickeln maßgeschneiderte KI-Automatisierungen, die genau auf Ihre Schnittstellen passen. Auditierbar, sicher und dokumentiert.",
+  features: ["Lokale/EU Deployments", "Clean Code & Docs"],
+  icon: Database
+}, {
+  number: "03",
+  title: "Begleitete Umsetzung",
+  description: "Von der ersten Codezeile bis zum Betrieb. Wir sorgen für iterative Entwicklung, transparente Architektur und klare Verantwortlichkeiten.",
+  features: ["Wissenstransfer", "Laufende Wartung"],
+  icon: Rocket
+}];
+const caseStudies = [{
+  industry: "Wirtschaftskanzlei",
+  subtitle: "LEGAL TECH",
+  problem: "Manuelle Prüfung von hunderten Vertragspositionen",
+  solution: "Lokales LLM zur Extraktion von Risikoklauseln",
+  result: "75% Zeitersparnis",
+  resultDetail: "Bei voller Entlastung der Partner",
+  icon: Shield
+}, {
+  industry: "Maschinenbau KMU",
+  subtitle: "QUALITÄTSSICHERUNG",
+  problem: "Hohe Ausschussquote durch visuelle Fehler",
+  solution: "Computer Vision Modell auf Edge-Hardware",
+  result: "12% weniger Ausschuss",
+  resultDetail: "ROI nach drei Monaten erreicht",
+  icon: Factory
+}, {
+  industry: "E-Commerce Player",
+  subtitle: "KUNDENSUPPORT",
+  problem: "Support-Überlastung bei Standard-anfragen",
+  solution: "RAG-System mit eigenem FAQ/Dokumenten",
+  result: "40% Automatisierung",
+  resultDetail: "Ohne Qualitätseinbußen im Support",
+  icon: ShoppingCart
+}];
+const testimonials = [{
+  quote: "Endlich ein Partner, der KI technisch versteht statt sie uns als Marketing-Allheilmittel zu verkaufen.",
+  author: "Dr. Marcus Weber",
+  role: "CTO, TechVenture GmbH",
+  rating: 5
+}, {
+  quote: "Nachweisbare Ergebnisse und deutsche Server - ein Unterschied für uns als DSGVO-relevantes Unternehmen.",
+  author: "Ing. Thomas Klein",
+  role: "Geschäftsführer, Precision Engineering",
+  rating: 5
+}, {
+  quote: "Professionell, uneigenständig und technisch versiert. Keine Buzzwords, nur Umsetzung.",
+  author: "Julia Schmidt",
+  role: "Head of Digital, FinanceFirst AG",
+  rating: 5
+}];
 export default function Index() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
-
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
   };
-
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
   };
-
   const nextCaseStudy = () => {
-    setCurrentCaseStudy((prev) => (prev + 1) % caseStudies.length);
+    setCurrentCaseStudy(prev => (prev + 1) % caseStudies.length);
   };
-
   const prevCaseStudy = () => {
-    setCurrentCaseStudy((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
+    setCurrentCaseStudy(prev => (prev - 1 + caseStudies.length) % caseStudies.length);
   };
-
-  return (
-    <Layout>
+  return <Layout>
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
         <LampContainer className="min-h-[700px] lg:min-h-[800px]">
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            className="text-center"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-              </span>
-              Software Made in Germany
-            </span>
+          <motion.div initial={{
+          opacity: 0,
+          y: 100
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          delay: 0.3,
+          duration: 0.8,
+          ease: "easeInOut"
+        }} className="text-center">
+            
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
               KI-Lösungen, die Bestand haben.
@@ -169,12 +158,10 @@ export default function Index() {
             Vertraut von innovativen Unternehmen
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {trustLogos.map((logo) => (
-              <div key={logo.name} className="flex items-center gap-2 text-muted-foreground/60">
+            {trustLogos.map(logo => <div key={logo.name} className="flex items-center gap-2 text-muted-foreground/60">
                 <logo.icon className="h-5 w-5" />
                 <span className="font-medium">{logo.name}</span>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -184,12 +171,17 @@ export default function Index() {
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
+              <motion.div initial={{
+              opacity: 0,
+              y: 20
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} transition={{
+              duration: 0.5
+            }}>
                 <h2 className="text-3xl sm:text-4xl font-bold mb-2">Warum KITech?</h2>
                 <p className="text-2xl sm:text-3xl font-bold gradient-text mb-6">
                   Haltung statt Hype.
@@ -205,31 +197,41 @@ export default function Index() {
                 </p>
                 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    { icon: Check, text: "Auditierbare Ergebnisse" },
-                    { icon: MapPin, text: "Hosting in Deutschland/EU" },
-                    { icon: Check, text: "Reale Prozessintegration" },
-                    { icon: Check, text: "Kein Vendor-Lock-In" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm">
+                  {[{
+                  icon: Check,
+                  text: "Auditierbare Ergebnisse"
+                }, {
+                  icon: MapPin,
+                  text: "Hosting in Deutschland/EU"
+                }, {
+                  icon: Check,
+                  text: "Reale Prozessintegration"
+                }, {
+                  icon: Check,
+                  text: "Kein Vendor-Lock-In"
+                }].map((item, i) => <div key={i} className="flex items-center gap-3 text-sm">
                       <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success/10">
                         <item.icon className="h-4 w-4 text-success" />
                       </div>
                       <span className="text-foreground">{item.text}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </motion.div>
             </div>
 
             {/* Comparison Table */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-card rounded-2xl border border-border p-6 shadow-card"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.5,
+            delay: 0.2
+          }} className="bg-card rounded-2xl border border-border p-6 shadow-card">
               <h3 className="font-semibold text-lg mb-6">Der Unterschied</h3>
               <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
                 <div></div>
@@ -237,15 +239,13 @@ export default function Index() {
                 <div className="text-center text-primary font-medium">KITECH SOFTWARE</div>
               </div>
               <div className="space-y-3">
-                {comparisonData.map((row, i) => (
-                  <div key={i} className="grid grid-cols-3 gap-4 items-center py-3 border-b border-border last:border-0">
+                {comparisonData.map((row, i) => <div key={i} className="grid grid-cols-3 gap-4 items-center py-3 border-b border-border last:border-0">
                     <span className="text-sm text-muted-foreground">{row.feature}</span>
                     <div className="text-center">
                       {row.typical && <X className="h-5 w-5 text-destructive mx-auto" />}
                     </div>
                     <span className="text-sm text-success text-center">{row.kitech}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </motion.div>
           </div>
@@ -255,12 +255,15 @@ export default function Index() {
       {/* Process Section */}
       <section className="py-20 lg:py-28 bg-card/50">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Unser Vorgehen: Strukturiert & Transparent
             </h2>
@@ -271,15 +274,18 @@ export default function Index() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative bg-card rounded-2xl border border-border p-6 shadow-card"
-              >
+            {processSteps.map((step, i) => <motion.div key={step.number} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.5,
+            delay: i * 0.1
+          }} className="relative bg-card rounded-2xl border border-border p-6 shadow-card">
                 <div className="absolute -top-4 -right-4 text-6xl font-bold text-primary/10">
                   {step.number}
                 </div>
@@ -289,15 +295,12 @@ export default function Index() {
                 <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{step.description}</p>
                 <div className="space-y-2">
-                  {step.features.map((feature, j) => (
-                    <div key={j} className="flex items-center gap-2 text-sm">
+                  {step.features.map((feature, j) => <div key={j} className="flex items-center gap-2 text-sm">
                       <Check className="h-4 w-4 text-success" />
                       <span className="text-foreground">{feature}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -305,12 +308,15 @@ export default function Index() {
       {/* Case Studies Section */}
       <section className="py-20 lg:py-28">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-end justify-between mb-12"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} className="flex items-end justify-between mb-12">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Echte Probleme. Echte Lösungen.
@@ -321,31 +327,28 @@ export default function Index() {
               </p>
             </div>
             <div className="hidden md:flex gap-2">
-              <button
-                onClick={prevCaseStudy}
-                className="p-2 rounded-lg border border-border hover:bg-accent transition-colors"
-              >
+              <button onClick={prevCaseStudy} className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
                 <ChevronLeft className="h-5 w-5" />
               </button>
-              <button
-                onClick={nextCaseStudy}
-                className="p-2 rounded-lg border border-border hover:bg-accent transition-colors"
-              >
+              <button onClick={nextCaseStudy} className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {caseStudies.map((study, i) => (
-              <motion.div
-                key={study.industry}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-card rounded-2xl border border-border p-6 shadow-card"
-              >
+            {caseStudies.map((study, i) => <motion.div key={study.industry} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.5,
+            delay: i * 0.1
+          }} className="bg-card rounded-2xl border border-border p-6 shadow-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <study.icon className="h-5 w-5" />
@@ -377,8 +380,7 @@ export default function Index() {
                   <p className="text-2xl font-bold text-success">{study.result}</p>
                   <p className="text-xs text-muted-foreground">{study.resultDetail}</p>
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -387,19 +389,20 @@ export default function Index() {
       <section className="py-20 lg:py-28 bg-card/50">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-card rounded-2xl border border-border p-6 shadow-card"
-              >
+            {testimonials.map((testimonial, i) => <motion.div key={i} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.5,
+            delay: i * 0.1
+          }} className="bg-card rounded-2xl border border-border p-6 shadow-card">
                 <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, j) => (
-                    <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
+                  {[...Array(testimonial.rating)].map((_, j) => <Star key={j} className="h-4 w-4 fill-primary text-primary" />)}
                 </div>
                 <blockquote className="text-foreground mb-6">
                   "{testimonial.quote}"
@@ -408,8 +411,7 @@ export default function Index() {
                   <p className="font-semibold text-sm">{testimonial.author}</p>
                   <p className="text-xs text-muted-foreground">{testimonial.role}</p>
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -417,12 +419,15 @@ export default function Index() {
       {/* CTA Section */}
       <section className="py-20 lg:py-28">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-card border border-border p-8 md:p-16 text-center gradient-cta"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} className="relative overflow-hidden rounded-3xl bg-card border border-border p-8 md:p-16 text-center gradient-cta">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
               Bereit für KI mit Substanz?
             </h2>
@@ -451,6 +456,5 @@ export default function Index() {
           </motion.div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
