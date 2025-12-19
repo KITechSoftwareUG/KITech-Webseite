@@ -7,6 +7,8 @@ import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Datab
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
+import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
+import appStoreBadge from "@/assets/appstore-badge.svg";
 
 const clientReferences = [
   { name: "NiImmo Holding GmbH", icon: Building2 },
@@ -279,17 +281,41 @@ export default function Index() {
                 Eigene Produkte
               </p>
               <div className="flex flex-col sm:flex-row lg:flex-col gap-4">
-                {products.map(product => (
-                  <div key={product.name} className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <product.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-light text-sm">{product.name}</p>
-                      <p className="text-xs text-muted-foreground">{product.description}</p>
-                    </div>
+                {/* CleverFuchs with App Store Button */}
+                <div className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
+                  <img 
+                    src={cleverfuchsLogo} 
+                    alt="CleverFuchs Logo" 
+                    className="h-10 w-10 rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <p className="font-light text-sm">CleverFuchs</p>
+                    <p className="text-xs text-muted-foreground">iOS App</p>
                   </div>
-                ))}
+                  <a 
+                    href="https://apps.apple.com/app/cleverfuchs" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="shrink-0"
+                  >
+                    <img 
+                      src={appStoreBadge} 
+                      alt="Download im App Store" 
+                      className="h-8"
+                    />
+                  </a>
+                </div>
+                
+                {/* KI-DNA Generator */}
+                <div className="flex items-center gap-3 bg-background/50 rounded-lg px-4 py-3 border border-border/50">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-light text-sm">KI-DNA Generator</p>
+                    <p className="text-xs text-muted-foreground">SaaS Platform</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
