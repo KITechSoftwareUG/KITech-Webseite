@@ -141,7 +141,7 @@ export default function Index() {
               <br />
               <span className="inline-block h-[1.35em] overflow-hidden">
                 <TextRotate
-                  texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "Ohne Hype, mit Substanz"]}
+                  texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "über 8 Jahre Konzernerfahrung"]}
                   rotationInterval={3000}
                   auto
                   splitBy="none"
