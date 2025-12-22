@@ -78,8 +78,8 @@ export const LampContainer = ({
         <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-background"></div>
       </div>
 
-      {/* Mobile & Tablet: subtle glow effect */}
-      <div className="lg:hidden absolute top-16 sm:top-20 left-1/2 -translate-x-1/2 w-48 sm:w-72 h-24 sm:h-36 bg-primary/20 blur-3xl rounded-full"></div>
+      {/* Mobile & Tablet: subtle glow effect - only shown when main lamp is hidden */}
+      <div className="lg:hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-72 h-24 sm:h-36 bg-primary/20 blur-3xl rounded-full"></div>
 
       <div className="relative z-50 flex translate-y-0 lg:-translate-y-60 flex-col items-center px-5 pt-8 lg:pt-0">
         {children}
