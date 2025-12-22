@@ -19,7 +19,7 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Kontakt</h2>
               <p className="text-muted-foreground">
-                Telefon: +49 (0) 123 456 789<br />
+                Telefon: +49 151 64682544<br />
                 E-Mail: info@kitech-software.de
               </p>
             </div>
@@ -27,7 +27,7 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Vertreten durch</h2>
               <p className="text-muted-foreground">
-                Geschäftsführer: Max Mustermann
+                Geschäftsführer: A. Alkhalil
               </p>
             </div>
 
@@ -51,9 +51,9 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
               <p className="text-muted-foreground">
-                Max Mustermann<br />
-                Musterstraße 123<br />
-                12345 Musterstadt
+                A. Alkhalil<br />
+                Wedekindstraße 14<br />
+                30161 Hannover
               </p>
             </div>
 
