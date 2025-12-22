@@ -13,11 +13,12 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-[500px] md:min-h-[600px] flex-col items-center justify-center overflow-hidden bg-background w-full rounded-md z-0",
+        "relative flex min-h-[450px] sm:min-h-[500px] md:min-h-[600px] flex-col items-center justify-center overflow-hidden bg-background w-full rounded-md z-0",
         className
       )}
     >
-      <div className="relative flex w-full flex-1 scale-y-100 md:scale-y-125 items-center justify-center isolate z-0">
+      {/* Lamp effect - hidden on mobile for cleaner look */}
+      <div className="hidden sm:flex relative w-full flex-1 scale-y-100 md:scale-y-125 items-center justify-center isolate z-0">
         <motion.div
           initial={{ opacity: 0.5, width: "8rem" }}
           whileInView={{ opacity: 1, width: "12rem" }}
@@ -81,7 +82,10 @@ export const LampContainer = ({
         <div className="absolute inset-auto z-40 h-24 md:h-44 w-full -translate-y-[6rem] md:-translate-y-[12.5rem] bg-background"></div>
       </div>
 
-      <div className="relative z-50 flex -translate-y-32 md:-translate-y-60 flex-col items-center px-5">
+      {/* Mobile: subtle glow only */}
+      <div className="sm:hidden absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-primary/20 blur-3xl rounded-full"></div>
+
+      <div className="relative z-50 flex -translate-y-0 sm:-translate-y-32 md:-translate-y-60 flex-col items-center px-5 pt-8 sm:pt-0">
         {children}
       </div>
     </div>
