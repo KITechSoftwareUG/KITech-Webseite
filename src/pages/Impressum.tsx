@@ -1,8 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
-
 export default function Impressum() {
-  return (
-    <Layout>
+  return <Layout>
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Impressum</h1>
@@ -12,8 +10,8 @@ export default function Impressum() {
               <h2 className="text-xl font-semibold mb-3">Angaben gemäß § 5 TMG</h2>
               <p className="text-muted-foreground">
                 KITech Software UG (haftungsbeschränkt)<br />
-                Musterstraße 123<br />
-                12345 Musterstadt<br />
+                Wedekindstraße 14    <br />
+                30161 Hannover    <br />
                 Deutschland
               </p>
             </div>
@@ -69,6 +67,5 @@ export default function Impressum() {
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>;
 }
