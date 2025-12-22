@@ -208,10 +208,10 @@ export default function Index() {
   return <Layout>
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
-        <LampContainer className="min-h-[700px] lg:min-h-[800px]">
+        <LampContainer className="min-h-[550px] sm:min-h-[650px] lg:min-h-[800px]">
           <motion.div initial={{
           opacity: 0,
-          y: 100
+          y: 60
         }} whileInView={{
           opacity: 1,
           y: 0
@@ -219,13 +219,13 @@ export default function Index() {
           delay: 0.3,
           duration: 0.8,
           ease: "easeInOut"
-        }} className="text-center">
+        }} className="text-center px-4 sm:px-6">
             
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
               KI-Lösungen, die Bestand haben.
               <br />
-              <span className="inline-block h-[1.35em] overflow-hidden">
+              <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
                 <TextRotate
                   texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "über 8 Jahre Konzernerfahrung"]}
                   rotationInterval={3000}
@@ -238,22 +238,22 @@ export default function Index() {
                   transition={{ type: "spring", damping: 20, stiffness: 200 }}
                   mainClassName="justify-center"
                   splitLevelClassName="w-full justify-center"
-                  elementLevelClassName="text-primary inline-block whitespace-nowrap"
+                  elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl"
                 />
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+            <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
               Individuelle, sichere und auditierbare KI-Systeme für Ihre realen 
               Geschäftsprozesse. Wir ersetzen Buzzwords durch Ingenieurskunst und 
               Marketing-Versprechen durch technische Validierung.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
                 <Link to="/kontakt">KI-Reifegrad prüfen lassen</Link>
               </Button>
-              <Button variant="heroOutline" size="xl" asChild>
+              <Button variant="heroOutline" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
                 <Link to="/leistungen">Technische Standortbestimmung</Link>
               </Button>
             </div>
@@ -754,7 +754,7 @@ export default function Index() {
       </section>
 
       {/* Case Studies Section */}
-      <section className="py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-28">
         <div className="container">
           <motion.div initial={{
           opacity: 0,
@@ -764,17 +764,17 @@ export default function Index() {
           y: 0
         }} viewport={{
           once: true
-        }} className="flex items-end justify-between mb-12">
+        }} className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-light mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light mb-3 sm:mb-4">
                 Echte Probleme. Echte Lösungen.
               </h2>
-              <p className="text-muted-foreground max-w-2xl">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl">
                 Wir sprechen nicht über Möglichkeiten, sondern über Ergebnisse. 
                 Hier sind Auszüge aus unserer Arbeit.
               </p>
             </div>
-            <div className="hidden md:flex gap-2">
+            <div className="flex gap-2 self-end sm:self-auto">
               <button onClick={prevCaseStudy} className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -784,7 +784,85 @@ export default function Index() {
             </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          {/* Mobile: Swipeable cards */}
+          <div className="md:hidden">
+            <motion.div 
+              className="overflow-hidden"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) * velocity.x;
+                if (swipe < -500) {
+                  nextCaseStudy();
+                } else if (swipe > 500) {
+                  prevCaseStudy();
+                }
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentCaseStudy}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-card rounded-2xl border border-border p-5 shadow-card"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      {(() => {
+                        const Icon = caseStudies[currentCaseStudy].icon;
+                        return <Icon className="h-5 w-5" />;
+                      })()}
+                    </div>
+                    <div>
+                      <h3 className="font-light text-base">{caseStudies[currentCaseStudy].industry}</h3>
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                        {caseStudies[currentCaseStudy].subtitle}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-5">
+                    <div>
+                      <span className="inline-block px-2 py-0.5 bg-destructive/10 text-destructive text-xs font-light rounded mb-1">
+                        Problem
+                      </span>
+                      <p className="text-sm text-muted-foreground">{caseStudies[currentCaseStudy].problem}</p>
+                    </div>
+                    <div>
+                      <span className="inline-block px-2 py-0.5 bg-success/10 text-success text-xs font-light rounded mb-1">
+                        Lösung
+                      </span>
+                      <p className="text-sm text-muted-foreground">{caseStudies[currentCaseStudy].solution}</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-xl font-light text-success">{caseStudies[currentCaseStudy].result}</p>
+                    <p className="text-xs text-muted-foreground">{caseStudies[currentCaseStudy].resultDetail}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+            
+            {/* Dot indicators */}
+            <div className="flex justify-center gap-2 mt-4">
+              {caseStudies.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentCaseStudy(i)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    i === currentCaseStudy ? 'bg-primary' : 'bg-muted-foreground/30'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: Grid layout */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6">
             {caseStudies.map((study, i) => <motion.div key={study.industry} initial={{
             opacity: 0,
             y: 20
