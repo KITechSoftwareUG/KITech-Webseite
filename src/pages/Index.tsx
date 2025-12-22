@@ -332,10 +332,18 @@ export default function Index() {
                     alt="KI-DNA Generator Logo" 
                     className="h-12 w-12 rounded-xl object-contain"
                   />
-                  <div>
+                  <div className="flex-1">
                     <p className="font-medium text-base">KI-DNA Generator</p>
                     <p className="text-sm text-muted-foreground">SaaS Platform</p>
                   </div>
+                  <a 
+                    href="https://ki-dna.org" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    Ihre KI-DNA
+                  </a>
                 </div>
               </div>
             </div>
