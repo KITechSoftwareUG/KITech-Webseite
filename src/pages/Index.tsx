@@ -337,7 +337,7 @@ export default function Index() {
                     <p className="text-sm text-muted-foreground">SaaS Platform</p>
                   </div>
                   <a 
-                    href="https://ki-dna.org" 
+                    href="https://ethixAI.io" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
