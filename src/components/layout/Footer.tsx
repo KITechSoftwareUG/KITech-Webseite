@@ -31,8 +31,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm mb-6">
-              Individuelle, sichere und auditierbare KI-Systeme für Ihre realen 
-              Geschäftsprozesse. Made in Germany.
+              Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. Made in Germany.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
@@ -52,10 +51,7 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.navigation.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -69,10 +65,7 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -83,7 +76,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt). Alle Rechte vorbehalten.
+            © 2024 KITech Software UG (haftungsbeschränkt). Alle Rechte vorbehalten.
           </p>
         </div>
       </div>
