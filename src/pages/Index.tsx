@@ -355,7 +355,7 @@ export default function Index() {
                   <img src={cleverfuchsLogo} alt="CleverFuchs Logo" className="h-12 w-12 rounded-xl object-cover" />
                   <div className="flex-1">
                     <p className="font-medium text-base">CleverFuchs</p>
-                    <p className="text-sm text-muted-foreground">iOS App</p>
+                    <p className="text-sm text-muted-foreground">iOS App · <span className="text-green-600 dark:text-green-400 font-medium">Live</span></p>
                   </div>
                   <a href="https://apps.apple.com/app/cleverfuchs" target="_blank" rel="noopener noreferrer" className="shrink-0">
                     <img src={appStoreBadge} alt="Download im App Store" className="h-10" />
@@ -367,7 +367,7 @@ export default function Index() {
                   <img src={ethixaiLogo} alt="ethixAI Logo" className="h-12 w-12 rounded-xl object-contain" />
                   <div className="flex-1">
                     <p className="font-medium text-base">ethixAI</p>
-                    <p className="text-sm text-muted-foreground">SaaS Platform</p>
+                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="text-green-600 dark:text-green-400 font-medium">Live</span></p>
                   </div>
                   <a href="https://ethixAI.io" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
                     Ihre KI-DNA
@@ -381,8 +381,11 @@ export default function Index() {
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-base">Klargehalt</p>
-                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="italic">erscheint am 01.03.2026</span></p>
+                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="text-amber-600 dark:text-amber-400 font-medium italic">erscheint 01.03.2026</span></p>
                   </div>
+                  <a href="https://klargehalt.de" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors">
+                    Coming Soon
+                  </a>
                 </div>
               </div>
             </div>
