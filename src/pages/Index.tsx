@@ -362,16 +362,27 @@ export default function Index() {
                   </a>
                 </div>
                 
-                {/* KI-DNA Generator */}
+                {/* ethixAI */}
                 <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
                   <img src={ethixaiLogo} alt="ethixAI Logo" className="h-12 w-12 rounded-xl object-contain" />
                   <div className="flex-1">
-                    <p className="font-medium text-base">​ethixAi</p>
+                    <p className="font-medium text-base">ethixAI</p>
                     <p className="text-sm text-muted-foreground">SaaS Platform</p>
                   </div>
                   <a href="https://ethixAI.io" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
                     Ihre KI-DNA
                   </a>
+                </div>
+
+                {/* Klargehalt */}
+                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
+                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
+                    <Sparkles className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-base">Klargehalt</p>
+                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="italic">erscheint am 01.03.2026</span></p>
+                  </div>
                 </div>
               </div>
             </div>
