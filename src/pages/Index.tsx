@@ -14,7 +14,7 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
-import kiDnaGeneratorLogo from "@/assets/ki-dna-generator-logo.png";
+import ethixaiLogo from "@/assets/ethixai-logo.png";
 const clientReferences = [{
   name: "NiImmo Holding GmbH",
   icon: Building2,
@@ -364,7 +364,7 @@ export default function Index() {
                 
                 {/* KI-DNA Generator */}
                 <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
-                  <img src={kiDnaGeneratorLogo} alt="KI-DNA Generator Logo" className="h-12 w-12 rounded-xl object-contain" />
+                  <img src={ethixaiLogo} alt="ethixAI Logo" className="h-12 w-12 rounded-xl object-contain" />
                   <div className="flex-1">
                     <p className="font-medium text-base">​ethixAi</p>
                     <p className="text-sm text-muted-foreground">SaaS Platform</p>
