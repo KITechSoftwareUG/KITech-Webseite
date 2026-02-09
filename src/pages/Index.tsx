@@ -113,14 +113,14 @@ const testimonials = [{
   role: "Geschäftsführer KREMA Group",
   rating: 5
 }, {
-  quote: "Super",
-  author: "..",
-  role: "..",
+  quote: "Hier versteht jemand die Nutzung von KI",
+  author: "Dennis Mikyas",
+  role: "Geschäftsführer NiImmo Holding GmbH",
   rating: 5
 }, {
-  quote: "..",
-  author: "..",
-  role: "..",
+  quote: "KI-TEXT hat uns gezeigt, wie Künstliche Intelligenz unsere Kanzleiprozesse spürbar effizienter macht – praxisnah, verständlich und mit echtem Mehrwert.",
+  author: "Frank Locke",
+  role: "Geschäftsführer Kanzlei Locke und Partner",
   rating: 5
 }];
 export default function Index() {
