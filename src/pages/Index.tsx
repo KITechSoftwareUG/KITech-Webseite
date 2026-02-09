@@ -118,7 +118,7 @@ const testimonials = [{
   role: "Geschäftsführer NiImmo Holding GmbH",
   rating: 5
 }, {
-  quote: "KI-TEXT hat uns gezeigt, wie Künstliche Intelligenz unsere Kanzleiprozesse spürbar effizienter macht – praxisnah, verständlich und mit echtem Mehrwert.",
+  quote: "Dank KI-TEXT konnten wir unsere internen Abläufe neu denken – die Zusammenarbeit war professionell, lösungsorientiert und hat uns echten Mehrwert gebracht.",
   author: "Frank Locke",
   role: "Geschäftsführer Kanzlei Locke und Partner",
   rating: 5
