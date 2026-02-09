@@ -15,6 +15,7 @@ import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
 import ethixaiLogo from "@/assets/ethixai-logo.png";
+import klargehaltLogo from "@/assets/klargehalt-logo.png";
 const clientReferences = [{
   name: "NiImmo Holding GmbH",
   icon: Building2,
@@ -355,10 +356,10 @@ export default function Index() {
                   <img src={cleverfuchsLogo} alt="CleverFuchs Logo" className="h-12 w-12 rounded-xl object-cover" />
                   <div className="flex-1">
                     <p className="font-medium text-base">CleverFuchs</p>
-                    <p className="text-sm text-muted-foreground">iOS App · <span className="text-green-600 dark:text-green-400 font-medium">Live</span></p>
+                    <p className="text-sm text-muted-foreground">iOS App · <span className="text-amber-600 dark:text-amber-400 font-medium italic">Coming Soon</span></p>
                   </div>
-                  <a href="https://apps.apple.com/app/cleverfuchs" target="_blank" rel="noopener noreferrer" className="shrink-0">
-                    <img src={appStoreBadge} alt="Download im App Store" className="h-10" />
+                  <a href="https://apps.apple.com/app/cleverfuchs" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors">
+                    Coming Soon
                   </a>
                 </div>
                 
@@ -376,9 +377,7 @@ export default function Index() {
 
                 {/* Klargehalt */}
                 <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
-                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
-                    <Sparkles className="h-6 w-6 text-primary" />
-                  </div>
+                  <img src={klargehaltLogo} alt="Klargehalt Logo" className="h-12 w-12 rounded-xl object-contain" />
                   <div className="flex-1">
                     <p className="font-medium text-base">Klargehalt</p>
                     <p className="text-sm text-muted-foreground">SaaS Platform · <span className="text-amber-600 dark:text-amber-400 font-medium italic">erscheint 01.03.2026</span></p>
