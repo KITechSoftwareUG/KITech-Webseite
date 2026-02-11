@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { SEOHead } from "@/components/seo/SEOHead";
+import {
+  StructuredData,
+  getOrganizationSchema,
+  getLocalBusinessSchema,
+  getFAQSchema,
+  getReviewSchema,
+  getSoftwareAppSchema,
+  getWebPageSchema,
+} from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
 import { TextRotate } from "@/components/ui/text-rotate";
@@ -264,6 +274,21 @@ export default function Index() {
     setCurrentCaseStudy(prev => (prev - 1 + caseStudies.length) % caseStudies.length);
   };
   return <Layout>
+      <SEOHead
+        title="KITech Software – Hannovers KI-Experte"
+        description="Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany."
+        canonical="/"
+      />
+      <StructuredData data={getOrganizationSchema()} />
+      <StructuredData data={getLocalBusinessSchema()} />
+      <StructuredData data={getWebPageSchema("KITech Software – Hannovers KI-Experte", "Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
+      <StructuredData data={getReviewSchema(testimonials.map(t => ({ author: t.author, text: t.quote, rating: t.rating })))} />
+      <StructuredData data={getSoftwareAppSchema("ethixAI", "SaaS-Plattform für KI-Ethik und Compliance", "SaaS Platform", "https://ethixAI.io")} />
+      <StructuredData data={getFAQSchema([
+        { question: "Was macht KITech Software?", answer: "KITech Software entwickelt individuelle, sichere und auditierbare KI-Systeme für reale Geschäftsprozesse. DSGVO-konform, Made in Germany." },
+        { question: "Für wen eignen sich die KI-Lösungen?", answer: "Unsere Lösungen richten sich an den deutschen Mittelstand – von Dienstleistung über Handel bis Produktion und Industrie." },
+        { question: "Ist KITech DSGVO-konform?", answer: "Ja, DSGVO-Konformität ist Grundprinzip. Lokales/EU Hosting möglich, keine proprietären Lock-Ins." },
+      ])} />
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
         <LampContainer className="min-h-[550px] sm:min-h-[650px] lg:min-h-[800px]">

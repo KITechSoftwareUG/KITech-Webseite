@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
@@ -105,6 +107,13 @@ export default function Referenzen() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Referenzen & Case Studies – KITech Software"
+        description="Dokumentierte KI-Ergebnisse: 50+ Projekte, 98% Kundenzufriedenheit. Case Studies aus Immobilien, Maschinenbau und E-Commerce."
+        canonical="/referenzen"
+      />
+      <StructuredData data={getWebPageSchema("Referenzen", "Case Studies und Kundenprojekte", "https://kitech-software.de/referenzen")} />
+      <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Referenzen", url: "https://kitech-software.de/referenzen" }])} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">

@@ -1,7 +1,16 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
+
 export default function Impressum() {
   return (
     <Layout>
+      <SEOHead
+        title="Impressum – KITech Software"
+        description="Impressum der KITech Software UG (haftungsbeschränkt). Angaben gemäß § 5 TMG."
+        canonical="/impressum"
+      />
+      <StructuredData data={getWebPageSchema("Impressum", "Impressum der KITech Software UG", "https://kitech-software.de/impressum")} />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Impressum</h1>

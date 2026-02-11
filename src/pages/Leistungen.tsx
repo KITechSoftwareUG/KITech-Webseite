@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
@@ -98,6 +100,14 @@ const techStack = [
 export default function Leistungen() {
   return (
     <Layout>
+      <SEOHead
+        title="Leistungen – KI-Beratung & Entwicklung | KITech Software"
+        description="Von KI-Audit über LLM-Integration bis Computer Vision – maßgeschneiderte KI-Lösungen für den deutschen Mittelstand. DSGVO-konform."
+        canonical="/leistungen"
+      />
+      <StructuredData data={getWebPageSchema("Leistungen", "KI-Beratung und Entwicklung", "https://kitech-software.de/leistungen")} />
+      <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Leistungen", url: "https://kitech-software.de/leistungen" }])} />
+      <StructuredData data={getServiceSchema("KI-Beratung & Softwareentwicklung", "Von der strategischen Analyse bis zur produktionsreifen Implementierung – nachhaltige KI-Lösungen für den Mittelstand.")} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
@@ -59,6 +61,13 @@ const differentiators = [
 export default function Haltung() {
   return (
     <Layout>
+      <SEOHead
+        title="Unsere Haltung – Engineering statt Marketing | KITech Software"
+        description="Substanz statt Hype: Unsere Werte und Prinzipien für nachhaltige KI-Lösungen. Sicherheit, Transparenz und echten Mehrwert."
+        canonical="/haltung"
+      />
+      <StructuredData data={getWebPageSchema("Haltung", "Unsere Werte und Prinzipien", "https://kitech-software.de/haltung")} />
+      <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Haltung", url: "https://kitech-software.de/haltung" }])} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
