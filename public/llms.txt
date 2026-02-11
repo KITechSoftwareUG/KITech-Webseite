@@ -1,0 +1,87 @@
+# KITech Software
+
+> Individuelle, sichere und auditierbare KI-Systeme für reale Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany.
+
+## Unternehmen
+
+KITech Software UG (haftungsbeschränkt) ist ein spezialisiertes KI-Beratungs- und Softwareunternehmen mit Sitz in Hannover, Deutschland. Das Unternehmen entwickelt maßgeschneiderte KI-Lösungen für den deutschen Mittelstand, mit Fokus auf Datensicherheit, Auditierbarkeit und DSGVO-Konformität.
+
+- Gründung: 2023
+- Geschäftsführer: A. Alkhalil
+- Standort: Wedekindstraße 14, 30161 Hannover
+- Kontakt: info@kitech-software.de | +49 151 64682544
+- Registernummer: HRB 230077 (Amtsgericht Hannover)
+
+## Leistungen
+
+### KI-Audit & Potenzialanalyse
+Objektive Bewertung der KI-Reife von Unternehmen. Inkl. Datenqualitätsbewertung, Prozesseignungsprüfung, technische Machbarkeitsanalyse und ROI-Kalkulation.
+
+### Custom LLM-Integrationen
+Maßgeschneiderte Sprachmodell-Lösungen mit lokalem/EU Deployment. RAG-Systeme, Fine-Tuning, API-Integrationen.
+
+### Computer Vision
+Bilderkennungs- und Analysesysteme für Qualitätskontrolle, Dokumentenverarbeitung, Objekterkennung, OCR und Edge-Deployment.
+
+### Intelligente Assistenten
+KI-gestützte Chatbots und Assistenten für Kundenservice-Automatisierung, interne Wissensassistenten, Prozessautomatisierung.
+
+### Datenplattform-Aufbau
+Data Warehousing, ETL-Pipelines, Datenqualitätsmanagement, Analytics-Dashboards.
+
+### MLOps & Wartung
+Modell-Monitoring, automatisiertes Retraining, Performance-Optimierung, 24/7 Support.
+
+## Eigene Produkte
+
+- **CleverFuchs**: iOS-App für smarte Alltagsunterstützung (Coming Soon)
+- **ethixAI**: SaaS-Plattform für KI-Ethik und Compliance (Live, https://ethixAI.io)
+- **Klargehalt**: SaaS-Plattform für Gehaltstransparenz (erscheint 01.03.2026, https://klargehalt.de)
+
+## Technologie-Stack
+
+Python, PyTorch, Hugging Face, LangChain, PostgreSQL, Docker, Kubernetes, Azure/AWS
+
+## Referenzkunden
+
+- NiImmo Holding GmbH (Immobilien)
+- Alltagshilfe Fischer GmbH (Pflege)
+- cert consulting Pane (Zertifizierung)
+- KREMA Group (Industrie)
+- ExpatVantage (Dienstleistung)
+
+## Case Studies
+
+### Bauunternehmen – Automatisierte Zahlungszuordnung
+- Problem: Manuelle Zuordnung von Zahlungen zu Mietverträgen
+- Lösung: Datenbank mit intelligenter Zuordnung
+- Ergebnis: 50% Zeitersparnis
+
+### Zertifizierungsgesellschaft – CRM & Auditsystem
+- Problem: Chaotische Terminverwaltung
+- Lösung: CRM-System mit Outlook-Kalender-Schnittstelle
+- Ergebnis: 40% Zeitersparnis
+
+### Glasbau – Auftragsverarbeitung
+- Problem: Ineffiziente Auftragsverarbeitung
+- Lösung: Automatisierte Angebots- und Rechnungserstellung
+- Ergebnis: 70% kürzerer Verkaufsprozess
+
+## Werte & Haltung
+
+- Sicherheit vor Features: DSGVO-Konformität als Grundprinzip
+- Transparenz statt Blackbox: Keine proprietären Lock-Ins
+- Engineering statt Marketing: Technische Exzellenz statt Buzzwords
+- Fokus auf echten Mehrwert: Ehrliche Beratung, ob KI die richtige Lösung ist
+- Nachhaltige Architekturen: Wartbar, erweiterbar, wirtschaftlich
+- Partnerschaft auf Augenhöhe
+
+## Links
+
+- Website: https://kitech-software.de
+- Leistungen: https://kitech-software.de/leistungen
+- Haltung: https://kitech-software.de/haltung
+- Referenzen: https://kitech-software.de/referenzen
+- Kontakt: https://kitech-software.de/kontakt
+- Impressum: https://kitech-software.de/impressum
+- Datenschutz: https://kitech-software.de/datenschutz

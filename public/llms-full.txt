@@ -1,0 +1,133 @@
+# KITech Software – Vollständige Projektdokumentation
+
+> Individuelle, sichere und auditierbare KI-Systeme für reale Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany.
+
+---
+
+## 1. Über KITech Software
+
+KITech Software UG (haftungsbeschränkt) ist ein auf Künstliche Intelligenz spezialisiertes Beratungs- und Softwareunternehmen mit Sitz in Hannover, Deutschland. Das Unternehmen wurde 2023 gegründet und richtet sich an den deutschen Mittelstand.
+
+### Kernkompetenzen
+- **KI-Audit & Potenzialanalyse**: Objektive Bewertung der KI-Reife, Datenqualitätsbewertung, Machbarkeitsanalysen
+- **Custom LLM-Integrationen**: RAG-Systeme, Fine-Tuning, lokale/EU Deployments
+- **Computer Vision**: Qualitätskontrolle, OCR, Objekterkennung, Edge-Deployment
+- **Intelligente Assistenten**: Chatbots, Wissensassistenten, Prozessautomatisierung
+- **Datenplattform-Aufbau**: Data Warehousing, ETL-Pipelines, Analytics
+- **MLOps & Wartung**: Monitoring, Retraining, Performance-Optimierung
+
+### Differenzierung
+KITech Software unterscheidet sich von typischen "KI-Agenturen" durch:
+1. Keine Standard-"Prompts", sondern technische Integration
+2. DSGVO-konforme Architektur statt unklarer Datenflüsse
+3. Produktivsysteme statt Demo-Effekte
+4. Langfristige Wartbarkeit statt kurzfristigem Hype
+5. Kein Vendor-Lock-In – der Kunde besitzt seinen Code
+6. Hosting in Deutschland/EU möglich
+
+---
+
+## 2. Leistungsportfolio (Detail)
+
+### KI-Audit & Potenzialanalyse
+Umfassende Bewertung der KI-Readiness eines Unternehmens. Beinhaltet Risikoanalyse, Machbarkeitsprüfung, Datenqualitätsbewertung, Prozesseignungsprüfung und ROI-Kalkulation. Ergebnis: Objektive Entscheidungsgrundlage, kein Verkaufs-Pitch.
+
+### Custom LLM-Integrationen
+Maßgeschneiderte Sprachmodell-Lösungen, die sicher in bestehende Infrastruktur eingebettet werden. Features: Lokale/EU Deployments, RAG-Systeme, Fine-Tuning, API-Integrationen. Alle Systeme sind auditierbar und dokumentiert.
+
+### Computer Vision
+Bilderkennungs- und Analysesysteme für industrielle Anwendungen. Einsatzgebiete: Qualitätskontrolle, Objekterkennung, OCR & Dokumentenanalyse, Edge-Deployment. Echtzeitfähig mit < 100ms Erkennungszeit.
+
+### Intelligente Assistenten
+KI-gestützte Chatbots und Assistenten, die Geschäftsprozesse verstehen. Kundenservice-Automatisierung, interne Wissensassistenten, Prozessautomatisierung, Multi-Channel-Support.
+
+### Datenplattform-Aufbau
+Solide Dateninfrastruktur als Fundament für nachhaltige KI-Initiativen. Data Warehousing, ETL-Pipelines, Datenqualitätsmanagement, Analytics-Dashboards.
+
+### MLOps & Wartung
+Professioneller Betrieb und kontinuierliche Verbesserung von KI-Systemen. Modell-Monitoring, automatisiertes Retraining, Performance-Optimierung, 24/7 Support.
+
+---
+
+## 3. Eigene Produkte
+
+### ethixAI (Live)
+SaaS-Plattform für KI-Ethik und Compliance-Prüfung. Erstellt eine individuelle "KI-DNA" für Unternehmen.
+- URL: https://ethixAI.io
+- Status: Live
+
+### CleverFuchs (Coming Soon)
+Intelligente iOS-App für smarte Alltagsunterstützung mit KI-gestützten Features.
+- Plattform: iOS
+- Status: In Entwicklung
+
+### Klargehalt (Coming Soon)
+SaaS-Plattform für Gehaltstransparenz und faire Vergütung.
+- URL: https://klargehalt.de
+- Status: Erscheint 01.03.2026
+
+---
+
+## 4. Referenzen & Case Studies
+
+### Referenzkunden
+- NiImmo Holding GmbH – Immobilienholding
+- Alltagshilfe Fischer GmbH – Pflegedienstleister
+- cert consulting Pane – Zertifizierungsgesellschaft
+- KREMA Group – Industrieunternehmen
+- ExpatVantage – Expatriate-Dienstleistungen
+
+### Case Study: Bauunternehmen (Immobilien)
+- **Problem**: Manuelle Zuordnung von Zahlungen zu Mietverträgen
+- **Lösung**: Datenbank mit intelligenter Zuordnung
+- **Ergebnis**: 50% Zeitersparnis bei voller Entlastung der Partner
+
+### Case Study: Zertifizierungsgesellschaft (Consulting)
+- **Problem**: Chaotische Terminverwaltung
+- **Lösung**: CRM-System, Auditsystem mit Outlook-Kalender-Schnittstelle
+- **Ergebnis**: 40% Zeitersparnis, saubere Übersicht kritischer Themen
+
+### Case Study: Glasbau (Handwerk)
+- **Problem**: Ineffiziente Auftragsverarbeitung
+- **Lösung**: Automatisierte Auftragsverarbeitung, Angebots- und Rechnungserstellung
+- **Ergebnis**: 70% kürzerer Verkaufsprozess
+
+### Kundenstimmen
+- "Hier versteht jemand die Nutzung von KI" – Dennis Mikyas, NiImmo Holding GmbH
+- "Sehr tolle Zusammenarbeit" – Eugen Kretschmann, KREMA Group
+- "Die Zusammenarbeit war professionell, lösungsorientiert und hat uns echten Mehrwert gebracht." – Frank Locke, Kanzlei Locke und Partner
+
+---
+
+## 5. Technologie-Stack
+
+| Technologie | Kategorie |
+|---|---|
+| Python | Backend |
+| PyTorch | ML Framework |
+| Hugging Face | LLMs |
+| LangChain | LLM Orchestrierung |
+| PostgreSQL | Database |
+| Docker | Containerization |
+| Kubernetes | Orchestrierung |
+| Azure/AWS | Cloud |
+
+---
+
+## 6. Prozess
+
+1. **KI-Audit & Standortbestimmung**: Analyse von Datenqualität, Prozesseignung und organisatorischer Reife
+2. **Individuelle KI-Systeme**: Maßgeschneiderte Automatisierungen, auditierbar und dokumentiert
+3. **Begleitete Umsetzung**: Iterative Entwicklung, transparente Architektur, Wissenstransfer
+
+---
+
+## 7. Kontakt & Rechtliches
+
+- **Website**: https://kitech-software.de
+- **E-Mail**: info@kitech-software.de
+- **Telefon**: +49 151 64682544
+- **Adresse**: Wedekindstraße 14, 30161 Hannover, Deutschland
+- **Geschäftsführer**: A. Alkhalil
+- **Handelsregister**: HRB 230077 (Amtsgericht Hannover)
+- **Erstgespräch**: https://calendly.com/kitech-software-info/30min

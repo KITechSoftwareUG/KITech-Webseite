@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -63,6 +65,13 @@ export default function Kontakt() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Kontakt – KI-Beratung anfragen | KITech Software"
+        description="Kontaktieren Sie KITech Software für ein unverbindliches Erstgespräch. KI-Beratung, Audit und Entwicklung aus Hannover."
+        canonical="/kontakt"
+      />
+      <StructuredData data={getWebPageSchema("Kontakt", "Kontaktformular und Erstgespräch", "https://kitech-software.de/kontakt")} />
+      <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Kontakt", url: "https://kitech-software.de/kontakt" }])} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
