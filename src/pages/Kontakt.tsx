@@ -28,8 +28,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Telefon",
-    value: "+49 (0) 123 456 789",
-    href: "tel:+49123456789",
+    value: "+49 (0) 511 89738590",
+    href: "tel:+4951189738590",
   },
   {
     icon: MapPin,
