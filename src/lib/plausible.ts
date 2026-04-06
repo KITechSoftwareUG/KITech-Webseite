@@ -2,15 +2,15 @@
  * Plausible Analytics – Custom Event Tracking
  * 
  * Sendet Events an die Plausible-Instanz (self-hosted oder cloud).
- * Funktioniert nur, wenn der User Analytics-Cookies akzeptiert hat
- * und das Plausible-Script geladen ist.
+ * Verwendet sendBeacon als Fallback, damit Events auch bei
+ * sofortiger Navigation (Link-Klicks) nicht abgebrochen werden.
  */
 
 declare global {
   interface Window {
     plausible?: (
       event: string,
-      options?: { props?: Record<string, string | number | boolean> }
+      options?: { props?: Record<string, string | number | boolean>; callback?: () => void }
     ) => void;
   }
 }
@@ -24,12 +24,48 @@ type PlausibleEvent =
   | "Telefon_Klick"
   | "Email_Klick";
 
+/**
+ * Sendet ein Custom Event an Plausible.
+ * Nutzt window.plausible wenn verfügbar, sonst sendBeacon als Fallback.
+ */
 export function trackEvent(
   event: PlausibleEvent,
   props?: Record<string, string | number | boolean>
 ) {
-  if (typeof window !== "undefined" && window.plausible) {
+  if (typeof window === "undefined") return;
+
+  // Versuche zuerst über das Plausible-Script
+  if (window.plausible) {
     window.plausible(event, props ? { props } : undefined);
+  }
+
+  // Zusätzlich via sendBeacon als Backup (überlebt Navigation)
+  sendBeaconEvent(event, props);
+}
+
+function sendBeaconEvent(
+  event: string,
+  props?: Record<string, string | number | boolean>
+) {
+  if (!navigator.sendBeacon) return;
+
+  const domain =
+    (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN?.trim() ||
+    window.location.hostname;
+  const apiHost =
+    (import.meta as any).env?.VITE_PLAUSIBLE_API_HOST?.trim();
+
+  const payload = JSON.stringify({
+    n: event,
+    u: window.location.href,
+    d: domain,
+    r: document.referrer || null,
+    p: props ? JSON.stringify(props) : undefined,
+  });
+
+  // An self-hosted Instanz senden
+  if (apiHost) {
+    navigator.sendBeacon(apiHost, payload);
   }
 }
 
@@ -54,6 +90,5 @@ export function initScrollTracking() {
 
   window.addEventListener("scroll", handler, { passive: true });
 
-  // Cleanup-Funktion für React useEffect
   return () => window.removeEventListener("scroll", handler);
 }

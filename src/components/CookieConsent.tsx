@@ -63,6 +63,11 @@ const injectPlausible = () => {
   const { domain, src, apiHost } = getPlausibleConfig();
   if (!domain) return;
 
+  // Queue für Custom Events bereitstellen, bevor das Script lädt
+  (window as any).plausible = (window as any).plausible || function(...args: any[]) {
+    ((window as any).plausible.q = (window as any).plausible.q || []).push(args);
+  };
+
   const script = document.createElement("script");
   script.defer = true;
   script.src = src;
