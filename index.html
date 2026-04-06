@@ -2,11 +2,28 @@
 <html lang="de">
   <head>
     <!-- Plausible Analytics -->
-    <script
-      async
-      src="https://stats.kitech-software.de/js/pa-Y116E7vVWJSC8rAyBPwRJ.js"
-      data-api="https://stats.kitech-software.de/api/event"
-    ></script>
+    <script>
+      window.plausible = window.plausible || function() {
+        (window.plausible.q = window.plausible.q || []).push(arguments)
+      }
+
+      window.plausible = new Proxy(window.plausible, {
+        apply(target, thisArg, args) {
+          const payload = args[0] || {}
+          fetch("https://stats.kitech-software.de/api/event", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: payload.name || "pageview",
+              url: window.location.href,
+              domain: "kitech-software.de"
+            })
+          })
+        }
+      })
+    </script>
+
+    <script async src="https://stats.kitech-software.de/js/pa-Y116E7vVWJSC8rAyBPwRJ.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
