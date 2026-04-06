@@ -16,6 +16,7 @@ import { TextRotate } from "@/components/ui/text-rotate";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
+import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
 import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
 import appStoreBadge from "@/assets/appstore-badge.svg";

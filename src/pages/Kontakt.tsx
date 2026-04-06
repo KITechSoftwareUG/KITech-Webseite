@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/plausible";
 
 const contactInfo = [
   {
