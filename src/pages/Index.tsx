@@ -351,75 +351,47 @@ export default function Index() {
         </LampContainer>
       </section>
 
-      {/* Trust Logos & Products */}
-      <section className="border-y border-border bg-card/50 py-16 md:py-20">
+      {/* Client References – Marquee */}
+      <section className="border-y border-border/50 py-10 overflow-hidden">
+        <div className="container mb-6">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground text-center">Vertraut von innovativen Unternehmen</p>
+        </div>
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...clientReferences, ...clientReferences, ...clientReferences].map((client, i) => (
+              <div key={`${client.name}-${i}`} className="flex items-center gap-3 mx-10 shrink-0">
+                {client.logo ? (
+                  <img src={client.logo} alt={client.name} className="h-6 w-auto object-contain grayscale opacity-60" />
+                ) : (
+                  <client.icon className="h-5 w-5 text-muted-foreground" />
+                )}
+                <span className="text-sm text-muted-foreground font-light">{client.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Eigene Produkte – kompakt */}
+      <section className="py-10">
         <div className="container">
-          <div className="grid lg:grid-cols-[1fr,auto] gap-12 lg:gap-16 items-start">
-            {/* Client References */}
-            <div>
-              <h3 className="text-lg font-medium text-foreground mb-2">
-                Referenzen
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Vertraut von innovativen Unternehmen
-              </p>
-              <div className="flex flex-wrap items-center gap-8 md:gap-10">
-                {clientReferences.map(client => <div key={client.name} className="flex items-center gap-3 text-foreground/80">
-                    {client.logo ? <img src={client.logo} alt={client.name} className="h-8 w-auto object-contain" /> : <client.icon className="h-6 w-6" />}
-                    <span className="font-light text-base">{client.name}</span>
-                  </div>)}
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <span className="font-light text-base italic">Und mehr</span>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground text-center mb-6">Eigene Produkte</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              { logo: cleverfuchsLogo, name: "CleverFuchs", desc: "iOS App", status: "Coming Soon", href: "#" },
+              { logo: ethixaiLogo, name: "ethixAI", desc: "SaaS Platform", status: "Live", href: "https://ethixAI.io" },
+              { logo: klargehaltLogo, name: "Klargehalt", desc: "SaaS Platform", status: "Coming Soon", href: "https://klargehalt.de" },
+            ].map((p) => (
+              <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2.5 rounded-lg border border-border/40 hover:border-border transition-colors group">
+                <img src={p.logo} alt={p.name} className="h-8 w-8 rounded-lg object-contain grayscale group-hover:grayscale-0 transition-all" />
+                <div>
+                  <p className="text-sm font-medium text-foreground leading-tight">{p.name}</p>
+                  <p className="text-xs text-muted-foreground">{p.desc} · {p.status}</p>
                 </div>
-              </div>
-            </div>
-
-            {/* Products */}
-            <div className="lg:border-l lg:border-border lg:pl-12">
-              <h3 className="text-lg font-medium text-foreground mb-2">
-                Eigene Produkte
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Von mir entwickelte Lösungen
-              </p>
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-5">
-                {/* CleverFuchs with App Store Button */}
-                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
-                  <img src={cleverfuchsLogo} alt="CleverFuchs Logo" className="h-12 w-12 rounded-xl object-cover" />
-                  <div className="flex-1">
-                    <p className="font-medium text-base">CleverFuchs</p>
-                    <p className="text-sm text-muted-foreground">iOS App · <span className="text-amber-600 dark:text-amber-400 font-medium italic">Coming Soon</span></p>
-                  </div>
-                  <a href="https://apps.apple.com/app/cleverfuchs" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors">
-                    Coming Soon
-                  </a>
-                </div>
-                
-                {/* ethixAI */}
-                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
-                  <img src={ethixaiLogo} alt="ethixAI Logo" className="h-12 w-12 rounded-xl object-contain" />
-                  <div className="flex-1">
-                    <p className="font-medium text-base">ethixAI</p>
-                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="text-green-600 dark:text-green-400 font-medium">Live</span></p>
-                  </div>
-                  <a href="https://ethixAI.io" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-                    Ihre KI-DNA
-                  </a>
-                </div>
-
-                {/* Klargehalt */}
-                <div className="flex items-center gap-4 bg-background/80 rounded-xl px-5 py-4 border border-border/50 shadow-sm">
-                  <img src={klargehaltLogo} alt="Klargehalt Logo" className="h-12 w-12 rounded-xl object-contain" />
-                  <div className="flex-1">
-                    <p className="font-medium text-base">Klargehalt</p>
-                    <p className="text-sm text-muted-foreground">SaaS Platform · <span className="text-amber-600 dark:text-amber-400 font-medium italic">erscheint 01.03.2026</span></p>
-                  </div>
-                  <a href="https://klargehalt.de" target="_blank" rel="noopener noreferrer" className="shrink-0 px-4 py-2 text-sm font-medium rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors">
-                    Coming Soon
-                  </a>
-                </div>
-              </div>
-            </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
