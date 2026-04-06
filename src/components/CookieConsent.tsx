@@ -1,61 +1,165 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Cookie, X } from "lucide-react";
+import { Cookie } from "lucide-react";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
+
+type ConsentPreferences = {
+  analytics: boolean;
+};
+
+type StoredConsent = {
+  version: 1;
+  preferences: ConsentPreferences;
+  updatedAt: string;
+};
+
+const STORAGE_KEY = "cookie-consent-v1";
+
+const getDefaultPreferences = (): ConsentPreferences => ({
+  analytics: false,
+});
+
+const loadStoredConsent = (): StoredConsent | null => {
+  if (typeof window === "undefined") return null;
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as StoredConsent;
+    if (parsed?.version !== 1) return null;
+    if (typeof parsed?.preferences?.analytics !== "boolean") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+};
+
+const persistConsent = (preferences: ConsentPreferences) => {
+  const payload: StoredConsent = {
+    version: 1,
+    preferences,
+    updatedAt: new Date().toISOString(),
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+};
+
+const getPlausibleConfig = () => {
+  const domain =
+    import.meta.env.VITE_PLAUSIBLE_DOMAIN?.trim() ||
+    (typeof window !== "undefined" ? window.location.hostname : "");
+  const src =
+    import.meta.env.VITE_PLAUSIBLE_SRC?.trim() ||
+    "https://plausible.io/js/script.js";
+  const apiHost = import.meta.env.VITE_PLAUSIBLE_API_HOST?.trim();
+  return { domain, src, apiHost };
+};
+
+const injectPlausible = () => {
+  if (typeof document === "undefined") return;
+  if (document.querySelector('script[data-plausible="true"]')) return;
+
+  const { domain, src, apiHost } = getPlausibleConfig();
+  if (!domain) return;
+
+  const script = document.createElement("script");
+  script.defer = true;
+  script.src = src;
+  script.setAttribute("data-domain", domain);
+  if (apiHost) {
+    script.setAttribute("data-api", apiHost);
+  }
+  script.setAttribute("data-plausible", "true");
+  document.head.appendChild(script);
+};
 
 export function CookieConsent() {
   const [consentStatus, setConsentStatus] = useState<ConsentStatus>("pending");
   const [showBanner, setShowBanner] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [preferences, setPreferences] = useState<ConsentPreferences>(
+    getDefaultPreferences(),
+  );
 
   useEffect(() => {
-    const savedConsent = localStorage.getItem("cookie-consent");
-    if (savedConsent === "accepted" || savedConsent === "declined") {
-      setConsentStatus(savedConsent);
-      if (savedConsent === "accepted") {
-        enableTracking();
+    const stored = loadStoredConsent();
+    if (stored) {
+      setPreferences(stored.preferences);
+      if (stored.preferences.analytics) {
+        setConsentStatus("accepted");
+        injectPlausible();
+      } else {
+        setConsentStatus("declined");
       }
-    } else {
-      // Show banner after short delay for better UX
-      const timer = setTimeout(() => setShowBanner(true), 1000);
-      return () => clearTimeout(timer);
+      return;
     }
+
+    const timer = setTimeout(() => setShowBanner(true), 500);
+    return () => clearTimeout(timer);
   }, []);
 
-  const enableTracking = () => {
-    // Enable GTM dataLayer
-    if (typeof window !== "undefined") {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "consent_granted",
-        consent: {
-          analytics: true,
-          marketing: true,
-        },
-      });
-    }
-  };
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleOpen = () => {
+      const stored = loadStoredConsent();
+      if (stored) {
+        setPreferences(stored.preferences);
+      }
+      setShowSettings(true);
+      setShowBanner(true);
+    };
+    window.addEventListener("cookie-consent:open", handleOpen);
+    return () => window.removeEventListener("cookie-consent:open", handleOpen);
+  }, []);
+
+  const complianceText = useMemo(
+    () => (
+      <>
+        Wir verwenden notwendige Cookies, um die Website sicher und stabil zu
+        betreiben. Mit Ihrer Einwilligung nutzen wir zusätzlich{" "}
+        <strong>anonyme Reichweitenmessung</strong> via Plausible Analytics. Es
+        werden keine personenbezogenen Profile erstellt, kein Dritt‑Tracking und
+        keine Werbung ausgeliefert. Sie können Ihre Auswahl jederzeit in der{" "}
+        <Link
+          to="/datenschutz"
+          className="text-primary hover:underline font-medium"
+        >
+          Datenschutzerklärung
+        </Link>{" "}
+        ändern.
+      </>
+    ),
+    [],
+  );
 
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
+    const next = { analytics: true };
+    persistConsent(next);
+    setPreferences(next);
     setConsentStatus("accepted");
     setShowBanner(false);
-    enableTracking();
+    injectPlausible();
   };
 
   const handleDecline = () => {
-    localStorage.setItem("cookie-consent", "declined");
+    const next = { analytics: false };
+    persistConsent(next);
+    setPreferences(next);
     setConsentStatus("declined");
     setShowBanner(false);
   };
 
-  const handleClose = () => {
+  const handleSaveSettings = () => {
+    persistConsent(preferences);
+    setConsentStatus(preferences.analytics ? "accepted" : "declined");
     setShowBanner(false);
+    if (preferences.analytics) {
+      injectPlausible();
+    }
   };
 
-  if (consentStatus !== "pending" || !showBanner) {
+  if (!showBanner) {
     return null;
   }
 
@@ -71,14 +175,6 @@ export function CookieConsent() {
         >
           <div className="mx-auto max-w-4xl">
             <div className="relative rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl p-6 md:p-8">
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Schließen"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
               <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
                 <div className="flex-shrink-0 hidden md:block">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -86,39 +182,103 @@ export function CookieConsent() {
                   </div>
                 </div>
 
-                <div className="flex-1 pr-8 md:pr-0">
+                <div className="flex-1">
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    Cookie-Einstellungen
+                    Datenschutz & Cookies
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern 
-                    und anonymisierte Nutzungsstatistiken zu erheben. Mit "Akzeptieren" stimmen 
-                    Sie der Verwendung von Cookies zu. Weitere Informationen finden Sie in unserer{" "}
-                    <Link 
-                      to="/datenschutz" 
-                      className="text-primary hover:underline font-medium"
-                    >
-                      Datenschutzerklärung
-                    </Link>
-                    .
+                    {complianceText}
                   </p>
+
+                  {showSettings && (
+                    <div className="mt-5 space-y-3 text-sm text-muted-foreground">
+                      <div className="flex items-center justify-between rounded-lg border border-border/60 bg-background/80 px-4 py-3">
+                        <div>
+                          <p className="font-medium text-foreground">
+                            Notwendige Cookies
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Erforderlich für Sicherheit, Seitennavigation und
+                            Speicherung Ihrer Auswahl.
+                          </p>
+                        </div>
+                        <span className="text-xs font-medium text-foreground">
+                          Immer aktiv
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between rounded-lg border border-border/60 bg-background/80 px-4 py-3">
+                        <div>
+                          <p className="font-medium text-foreground">
+                            Statistik (Plausible)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Hilft uns zu verstehen, welche Inhalte nützlich
+                            sind. Keine personenbezogenen Daten.
+                          </p>
+                        </div>
+                        <label className="inline-flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4"
+                            checked={preferences.analytics}
+                            onChange={(event) =>
+                              setPreferences((prev) => ({
+                                ...prev,
+                                analytics: event.target.checked,
+                              }))
+                            }
+                            aria-label="Statistik-Cookies aktivieren"
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                  <Button
-                    variant="outline"
-                    onClick={handleDecline}
-                    className="w-full sm:w-auto"
-                  >
-                    Ablehnen
-                  </Button>
-                  <Button
-                    variant="hero"
-                    onClick={handleAccept}
-                    className="w-full sm:w-auto"
-                  >
-                    Akzeptieren
-                  </Button>
+                  {showSettings ? (
+                    <>
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowSettings(false)}
+                        className="w-full sm:w-auto"
+                      >
+                        Zurück
+                      </Button>
+                      <Button
+                        variant="hero"
+                        onClick={handleSaveSettings}
+                        className="w-full sm:w-auto"
+                      >
+                        Auswahl speichern
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="outline"
+                        onClick={handleDecline}
+                        className="w-full sm:w-auto"
+                      >
+                        Nur notwendige
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowSettings(true)}
+                        className="w-full sm:w-auto"
+                      >
+                        Anpassen
+                      </Button>
+                      <Button
+                        variant="hero"
+                        onClick={handleAccept}
+                        className="w-full sm:w-auto"
+                      >
+                        Alle akzeptieren
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -127,11 +287,4 @@ export function CookieConsent() {
       )}
     </AnimatePresence>
   );
-}
-
-// Add dataLayer type to window
-declare global {
-  interface Window {
-    dataLayer: Record<string, unknown>[];
-  }
 }
