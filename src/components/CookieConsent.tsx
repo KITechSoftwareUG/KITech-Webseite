@@ -18,6 +18,14 @@ type StoredConsent = {
 
 const STORAGE_KEY = "cookie-consent-v1";
 
+/**
+ * Plausible Self-Hosted Config
+ * Hardcoded – KEIN plausible.io, alles über stats.kitech-software.de
+ */
+const PLAUSIBLE_DOMAIN = "kitech-software.de";
+const PLAUSIBLE_SCRIPT = "https://stats.kitech-software.de/js/script.js";
+const PLAUSIBLE_API = "https://stats.kitech-software.de/api/event";
+
 const getDefaultPreferences = (): ConsentPreferences => ({
   analytics: false,
 });
@@ -45,36 +53,31 @@ const persistConsent = (preferences: ConsentPreferences) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 };
 
-const getPlausibleConfig = () => {
-  const domain =
-    import.meta.env.VITE_PLAUSIBLE_DOMAIN?.trim() ||
-    (typeof window !== "undefined" ? window.location.hostname : "");
-  const src =
-    import.meta.env.VITE_PLAUSIBLE_SRC?.trim() ||
-    "https://plausible.io/js/script.js";
-  const apiHost = import.meta.env.VITE_PLAUSIBLE_API_HOST?.trim();
-  return { domain, src, apiHost };
-};
-
+/**
+ * Injiziert das Plausible-Script in den <head>.
+ * Wird NUR aufgerufen, wenn der User Consent gegeben hat.
+ * 
+ * - data-domain: kitech-software.de
+ * - data-api: https://stats.kitech-software.de/api/event
+ * - src: https://stats.kitech-software.de/js/script.js
+ * 
+ * Das data-plausible="true" Attribut dient als Consent-Marker
+ * für die trackEvent()-Funktion in plausible.ts.
+ */
 const injectPlausible = () => {
   if (typeof document === "undefined") return;
   if (document.querySelector('script[data-plausible="true"]')) return;
 
-  const { domain, src, apiHost } = getPlausibleConfig();
-  if (!domain) return;
-
-  // Queue für Custom Events bereitstellen, bevor das Script lädt
+  // Event-Queue bereitstellen, damit Events vor Script-Load gepuffert werden
   (window as any).plausible = (window as any).plausible || function(...args: any[]) {
     ((window as any).plausible.q = (window as any).plausible.q || []).push(args);
   };
 
   const script = document.createElement("script");
   script.defer = true;
-  script.src = src;
-  script.setAttribute("data-domain", domain);
-  if (apiHost) {
-    script.setAttribute("data-api", apiHost);
-  }
+  script.src = PLAUSIBLE_SCRIPT;
+  script.setAttribute("data-domain", PLAUSIBLE_DOMAIN);
+  script.setAttribute("data-api", PLAUSIBLE_API);
   script.setAttribute("data-plausible", "true");
   document.head.appendChild(script);
 };
@@ -123,9 +126,10 @@ export function CookieConsent() {
       <>
         Wir verwenden notwendige Cookies, um die Website sicher und stabil zu
         betreiben. Mit Ihrer Einwilligung nutzen wir zusätzlich{" "}
-        <strong>anonyme Reichweitenmessung</strong> via Plausible Analytics. Es
-        werden keine personenbezogenen Profile erstellt, kein Dritt‑Tracking und
-        keine Werbung ausgeliefert. Sie können Ihre Auswahl jederzeit in der{" "}
+        <strong>anonyme Reichweitenmessung</strong> via Plausible Analytics
+        (self-hosted in Deutschland). Es werden keine personenbezogenen Profile
+        erstellt, kein Dritt‑Tracking und keine Werbung ausgeliefert. Sie können
+        Ihre Auswahl jederzeit in der{" "}
         <Link
           to="/datenschutz"
           className="text-primary hover:underline font-medium"
@@ -215,11 +219,11 @@ export function CookieConsent() {
                       <div className="flex items-center justify-between rounded-lg border border-border/60 bg-background/80 px-4 py-3">
                         <div>
                           <p className="font-medium text-foreground">
-                            Statistik (Plausible)
+                            Statistik (Plausible · self-hosted)
                           </p>
                           <p className="text-xs text-muted-foreground">
                             Hilft uns zu verstehen, welche Inhalte nützlich
-                            sind. Keine personenbezogenen Daten.
+                            sind. Keine personenbezogenen Daten. Hosted in Deutschland.
                           </p>
                         </div>
                         <label className="inline-flex items-center gap-2 cursor-pointer">

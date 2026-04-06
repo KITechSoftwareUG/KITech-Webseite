@@ -1,10 +1,17 @@
 /**
- * Plausible Analytics – Custom Event Tracking
+ * Plausible Analytics – Self-Hosted Custom Event Tracking
  * 
- * Sendet Events an die Plausible-Instanz (self-hosted oder cloud).
- * Verwendet sendBeacon als Fallback, damit Events auch bei
- * sofortiger Navigation (Link-Klicks) nicht abgebrochen werden.
+ * Endpoint: https://stats.kitech-software.de/api/event
+ * Script:   https://stats.kitech-software.de/js/script.js
+ * Domain:   kitech-software.de
+ * 
+ * KEIN Request geht an plausible.io – alles self-hosted.
+ * Events werden NUR gesendet, wenn der User Consent gegeben hat
+ * (= Plausible-Script wurde per CookieConsent injiziert).
  */
+
+const PLAUSIBLE_API = "https://stats.kitech-software.de/api/event";
+const PLAUSIBLE_DOMAIN = "kitech-software.de";
 
 declare global {
   interface Window {
@@ -15,62 +22,72 @@ declare global {
   }
 }
 
-type PlausibleEvent =
+export type PlausibleEvent =
   | "CTA_Klick"
   | "Kontaktformular_gesendet"
   | "Calendly_Klick"
   | "Scroll_90"
+  | "Angebot_Seite"
   | "Lead_Qualifier_abgeschlossen"
   | "Telefon_Klick"
   | "Email_Klick";
 
 /**
- * Sendet ein Custom Event an Plausible.
- * Nutzt window.plausible wenn verfügbar, sonst sendBeacon als Fallback.
+ * Prüft, ob der User Analytics-Consent gegeben hat.
+ * Consent = Plausible-Script wurde in den DOM injiziert.
+ */
+function hasAnalyticsConsent(): boolean {
+  return !!document.querySelector('script[data-plausible="true"]');
+}
+
+/**
+ * Sendet ein Custom Event an Plausible (self-hosted).
+ * 
+ * 1. Prüft Consent (kein Tracking ohne Einwilligung)
+ * 2. Nutzt window.plausible wenn verfügbar
+ * 3. Fallback via sendBeacon (überlebt Navigation)
  */
 export function trackEvent(
   event: PlausibleEvent,
   props?: Record<string, string | number | boolean>
 ) {
   if (typeof window === "undefined") return;
+  if (!hasAnalyticsConsent()) return;
 
-  // Versuche zuerst über das Plausible-Script
+  // Primär: Plausible-Script API
   if (window.plausible) {
     window.plausible(event, props ? { props } : undefined);
+    return;
   }
 
-  // Zusätzlich via sendBeacon als Backup (überlebt Navigation)
+  // Fallback: sendBeacon direkt an self-hosted API
   sendBeaconEvent(event, props);
 }
 
+/**
+ * sendBeacon Fallback – sendet direkt an self-hosted Endpoint.
+ * Überlebt sofortige Navigation (Link-Klicks, Seiten-Wechsel).
+ */
 function sendBeaconEvent(
   event: string,
   props?: Record<string, string | number | boolean>
 ) {
   if (!navigator.sendBeacon) return;
 
-  const domain =
-    (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN?.trim() ||
-    window.location.hostname;
-  const apiHost =
-    (import.meta as any).env?.VITE_PLAUSIBLE_API_HOST?.trim();
-
   const payload = JSON.stringify({
     n: event,
     u: window.location.href,
-    d: domain,
+    d: PLAUSIBLE_DOMAIN,
     r: document.referrer || null,
     p: props ? JSON.stringify(props) : undefined,
   });
 
-  // An self-hosted Instanz senden
-  if (apiHost) {
-    navigator.sendBeacon(apiHost, payload);
-  }
+  navigator.sendBeacon(PLAUSIBLE_API, payload);
 }
 
 /**
- * Scroll-Depth Tracker – feuert einmalig bei 90% Scroll-Tiefe
+ * Scroll-Depth Tracker – feuert EINMALIG bei 90% Scroll-Tiefe.
+ * Throttled via passive scroll listener, einmal pro Session.
  */
 export function initScrollTracking() {
   if (typeof window === "undefined") return;
