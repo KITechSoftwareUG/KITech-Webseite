@@ -56,6 +56,7 @@ export default function Kontakt() {
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
     
+    trackEvent("Kontaktformular_gesendet");
     toast.success("Nachricht gesendet!", {
       description: "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
     });
