@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Cookie } from "lucide-react";
+import { trackVisitor } from "@/lib/visitor-enrichment";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
 
@@ -97,6 +98,7 @@ export function CookieConsent() {
       if (stored.preferences.analytics) {
         setConsentStatus("accepted");
         injectPlausible();
+        trackVisitor();
       } else {
         setConsentStatus("declined");
       }
@@ -149,6 +151,7 @@ export function CookieConsent() {
     setConsentStatus("accepted");
     setShowBanner(false);
     injectPlausible();
+    trackVisitor();
   };
 
   const handleDecline = () => {
@@ -165,6 +168,7 @@ export function CookieConsent() {
     setShowBanner(false);
     if (preferences.analytics) {
       injectPlausible();
+      trackVisitor();
     }
   };
 
