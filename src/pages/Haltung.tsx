@@ -62,8 +62,8 @@ export default function Haltung() {
   return (
     <Layout>
       <SEOHead
-        title="Unsere Haltung – Engineering statt Marketing | KITech Software"
-        description="Substanz statt Hype: Unsere Werte und Prinzipien für nachhaltige KI-Lösungen. Sicherheit, Transparenz und echten Mehrwert."
+        title="Unsere Haltung – Agenten statt Abteilungen | KITech Software"
+        description="Wir denken in Agenten-Orchestrierungen statt in Jobrollen. Substanz statt Hype, autonome Systeme statt manuelle Prozesse."
         canonical="/haltung"
       />
       <StructuredData data={getWebPageSchema("Haltung", "Unsere Werte und Prinzipien", "https://kitech-software.de/haltung")} />
@@ -81,8 +81,8 @@ export default function Haltung() {
               Unsere <span className="gradient-text">Haltung</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              In einer Branche voller Hype und leerer Versprechen setzen wir auf 
-              Substanz, Ehrlichkeit und handwerkliche Exzellenz.
+              Wir denken nicht in Jobrollen, sondern in Agenten-Orchestrierungen. 
+              Prozesse automatisieren statt Stellen besetzen – mit Substanz und Engineering-Exzellenz.
             </p>
           </motion.div>
         </div>
@@ -99,13 +99,13 @@ export default function Haltung() {
           >
             <Heart className="h-12 w-12 text-primary mx-auto mb-6" />
             <blockquote className="text-2xl sm:text-3xl font-medium mb-6">
-              "Wir glauben, dass KI nur dann wertvoll ist, wenn sie echte Probleme löst – 
-              <span className="gradient-text"> nicht, wenn sie nur beeindruckend klingt.</span>"
+              "Wir ersetzen keine Menschen – wir orchestrieren Agenten, die 
+              <span className="gradient-text"> Prozesse übernehmen, nicht Rollen.</span>"
             </blockquote>
             <p className="text-muted-foreground">
-              Während andere "KI-Agenturen" schnelle Wrapper um ChatGPT verkaufen, entwickeln wir 
-              robuste Systeme, die tief in bestehende IT-Landschaften integriert werden und 
-              langfristig Mehrwert schaffen.
+              Statt Jobrollen zu automatisieren, zerlegen wir Prozesse in Aufgaben und weisen 
+              jedem Schritt einen spezialisierten KI-Agenten zu. So entsteht ein orchestriertes 
+              System, das skaliert, auditierbar ist und langfristig Mehrwert schafft.
             </p>
           </motion.div>
         </div>
