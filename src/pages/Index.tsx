@@ -16,6 +16,7 @@ import { TextRotate } from "@/components/ui/text-rotate";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
+import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
 import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
 import appStoreBadge from "@/assets/appstore-badge.svg";
@@ -157,6 +158,12 @@ export default function Index() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [popupDismissed]);
+
+  // Plausible: Scroll-Tiefe 90% tracken
+  useEffect(() => {
+    const cleanup = initScrollTracking();
+    return cleanup;
+  }, []);
   const closePopup = () => {
     setShowQualifierPopup(false);
     setPopupDismissed(true);
@@ -334,7 +341,7 @@ export default function Index() {
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
-                <Link to="/kontakt">KI-Reifegrad prüfen lassen</Link>
+                <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "KI-Reifegrad" })}>KI-Reifegrad prüfen lassen</Link>
               </Button>
               <Button variant="heroOutline" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
                 <Link to="/leistungen">Technische Standortbestimmung</Link>
@@ -633,7 +640,7 @@ export default function Index() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button variant="default" size="lg" asChild onClick={closePopup}>
-                        <Link to="/kontakt">
+                        <Link to="/kontakt" onClick={() => trackEvent("Lead_Qualifier_abgeschlossen")}>
                           Kostenlos beraten lassen
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
@@ -997,11 +1004,11 @@ export default function Index() {
               Ihrem Unternehmen echten Mehrwert stiftet – und wo nicht.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="cta" size="xl" onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}>
+              <Button variant="cta" size="xl" onClick={() => { trackEvent("Calendly_Klick", { position: "footer-cta" }); window.open('https://calendly.com/kitech-software-info/30min', '_blank'); }}>
                 Unverbindliches Erstgespräch
               </Button>
               <Button variant="ctaOutline" size="xl" asChild>
-                <Link to="/kontakt">Kontakt aufnehmen</Link>
+                <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "footer-cta", label: "Kontakt" })}>Kontakt aufnehmen</Link>
               </Button>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-muted-foreground">
