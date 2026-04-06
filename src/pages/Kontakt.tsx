@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/plausible";
 
 const contactInfo = [
   {
@@ -55,6 +56,7 @@ export default function Kontakt() {
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
     
+    trackEvent("Kontaktformular_gesendet");
     toast.success("Nachricht gesendet!", {
       description: "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
     });
@@ -211,6 +213,10 @@ export default function Kontakt() {
                           <a
                             href={info.href}
                             className="font-medium hover:text-primary transition-colors"
+                            onClick={() => {
+                              if (info.href.startsWith("tel:")) trackEvent("Telefon_Klick");
+                              if (info.href.startsWith("mailto:")) trackEvent("Email_Klick");
+                            }}
                           >
                             {info.value}
                           </a>
@@ -238,7 +244,7 @@ export default function Kontakt() {
                 <Button 
                   variant="outline" 
                   className="w-full"
-                  onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}
+                  onClick={() => { trackEvent("Calendly_Klick", { position: "kontakt-seite" }); window.open('https://calendly.com/kitech-software-info/30min', '_blank'); }}
                 >
                   Erstgespräch vereinbaren
                 </Button>
