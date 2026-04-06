@@ -20,66 +20,66 @@ import {
 const services = [
   {
     icon: Search,
-    title: "KI-Audit & Potenzialanalyse",
-    description: "Objektive Bewertung Ihrer KI-Reife und Identifikation konkreter Anwendungsfälle mit messbarem ROI.",
+    title: "Prozess-Audit & Agenten-Potenzialanalyse",
+    description: "Wir analysieren Ihre Geschäftsprozesse und identifizieren, welche Aufgaben durch spezialisierte KI-Agenten automatisiert werden können.",
     features: [
-      "Datenqualitätsbewertung",
-      "Prozesseignungsprüfung",
-      "Technische Machbarkeitsanalyse",
+      "Prozess-Mapping für Agenten",
+      "Automatisierungspotenzial-Check",
+      "Agenten-Architektur-Design",
       "ROI-Kalkulation",
     ],
   },
   {
     icon: Cpu,
-    title: "Custom LLM-Integrationen",
-    description: "Maßgeschneiderte Sprachmodell-Lösungen, die sicher in Ihre bestehende Infrastruktur eingebettet werden.",
+    title: "Custom Agenten & LLM-Orchestrierung",
+    description: "Maßgeschneiderte KI-Agenten, die auf Sprachmodellen basieren und orchestriert zusammenarbeiten – sicher in Ihrer Infrastruktur.",
     features: [
+      "Multi-Agent-Systeme",
+      "RAG-Agenten",
       "Lokale/EU Deployments",
-      "RAG-Systeme",
-      "Fine-Tuning",
-      "API-Integrationen",
+      "API-Orchestrierung",
     ],
   },
   {
     icon: Eye,
-    title: "Computer Vision",
-    description: "Bilderkennungs- und Analysesysteme für Qualitätskontrolle, Dokumentenverarbeitung und mehr.",
+    title: "Vision-Agenten",
+    description: "Spezialisierte Agenten für Bilderkennung und visuelle Analyse – von Qualitätskontrolle bis Dokumentenverarbeitung.",
     features: [
-      "Qualitätskontrolle",
+      "Qualitätskontroll-Agenten",
+      "Dokumenten-Agenten (OCR)",
       "Objekterkennung",
-      "OCR & Dokumentenanalyse",
       "Edge-Deployment",
     ],
   },
   {
     icon: MessageSquare,
-    title: "Intelligente Assistenten",
-    description: "KI-gestützte Chatbots und Assistenten, die Ihre Geschäftsprozesse wirklich verstehen.",
+    title: "Kommunikations-Agenten",
+    description: "Autonome Agenten für Kundenkommunikation und internes Wissensmanagement – orchestriert über alle Kanäle.",
     features: [
-      "Kundenservice-Automatisierung",
-      "Interne Wissensassistenten",
+      "Kundenservice-Agenten",
+      "Wissens-Agenten",
       "Prozessautomatisierung",
-      "Multi-Channel-Support",
+      "Multi-Channel-Orchestrierung",
     ],
   },
   {
     icon: Database,
-    title: "Datenplattform-Aufbau",
-    description: "Solide Dateninfrastruktur als Fundament für nachhaltige KI-Initiativen.",
+    title: "Daten-Agenten & Plattform-Aufbau",
+    description: "Agenten, die Ihre Daten autonom aufbereiten, transformieren und analysieren – das Fundament für jedes Agenten-System.",
     features: [
-      "Data Warehousing",
-      "ETL-Pipelines",
-      "Datenqualitätsmanagement",
+      "ETL-Agenten",
+      "Datenqualitäts-Agenten",
       "Analytics-Dashboards",
+      "Data Warehousing",
     ],
   },
   {
     icon: Cog,
-    title: "MLOps & Wartung",
-    description: "Professioneller Betrieb und kontinuierliche Verbesserung Ihrer KI-Systeme.",
+    title: "Agenten-Ops & Wartung",
+    description: "Professioneller Betrieb, Monitoring und kontinuierliche Optimierung Ihrer Agenten-Systeme.",
     features: [
-      "Modell-Monitoring",
-      "Automatisierte Retraining",
+      "Agenten-Monitoring",
+      "Automatisiertes Retraining",
       "Performance-Optimierung",
       "24/7 Support",
     ],
@@ -101,13 +101,13 @@ export default function Leistungen() {
   return (
     <Layout>
       <SEOHead
-        title="Leistungen – KI-Beratung & Entwicklung | KITech Software"
-        description="Von KI-Audit über LLM-Integration bis Computer Vision – maßgeschneiderte KI-Lösungen für den deutschen Mittelstand. DSGVO-konform."
+        title="Leistungen – KI-Agenten & Prozess-Orchestrierung | KITech Software"
+        description="Spezialisierte KI-Agenten für jeden Prozess – von der Analyse über LLM-Orchestrierung bis zu Vision-Agenten. DSGVO-konform, Made in Germany."
         canonical="/leistungen"
       />
-      <StructuredData data={getWebPageSchema("Leistungen", "KI-Beratung und Entwicklung", "https://kitech-software.de/leistungen")} />
+      <StructuredData data={getWebPageSchema("Leistungen", "KI-Agenten & Prozess-Orchestrierung", "https://kitech-software.de/leistungen")} />
       <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Leistungen", url: "https://kitech-software.de/leistungen" }])} />
-      <StructuredData data={getServiceSchema("KI-Beratung & Softwareentwicklung", "Von der strategischen Analyse bis zur produktionsreifen Implementierung – nachhaltige KI-Lösungen für den Mittelstand.")} />
+      <StructuredData data={getServiceSchema("KI-Agenten-Entwicklung & Orchestrierung", "Spezialisierte KI-Agenten, die orchestriert zusammenarbeiten – von der Prozessanalyse bis zum produktiven Agenten-System.")} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
@@ -118,15 +118,15 @@ export default function Leistungen() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Unsere <span className="gradient-text">Leistungen</span>
+              Unsere <span className="gradient-text">Agenten-Leistungen</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Von der strategischen Analyse bis zur produktionsreifen Implementierung – 
-              wir begleiten Sie auf dem gesamten Weg zu nachhaltigen KI-Lösungen.
+              Wir denken nicht in Rollen, sondern in Agenten. Für jeden Prozess der passende 
+              Agent – orchestriert zu einem autonomen System, das mit Ihrem Unternehmen wächst.
             </p>
             <Button variant="hero" size="lg" asChild>
               <Link to="/kontakt">
-                Beratungsgespräch vereinbaren
+                Agenten-Beratung anfragen
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -176,10 +176,10 @@ export default function Leistungen() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Technologie-Stack
+              Agenten-Technologie-Stack
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Wir setzen auf bewährte, enterprise-ready Technologien statt auf den neuesten Hype.
+              Unsere Agenten basieren auf bewährten, enterprise-ready Technologien – keine Experimente in Produktion.
             </p>
           </motion.div>
 
@@ -211,14 +211,14 @@ export default function Leistungen() {
             className="bg-card rounded-3xl border border-border p-8 md:p-16 text-center"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Passendes Paket nicht dabei?
+              Ihr Prozess braucht einen eigenen Agenten?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
               Jedes Unternehmen ist einzigartig. Lassen Sie uns gemeinsam herausfinden, 
-              welche KI-Lösung für Sie am sinnvollsten ist.
+              welche Agenten-Orchestrierung für Sie am sinnvollsten ist.
             </p>
             <Button variant="hero" size="xl" asChild>
-              <Link to="/kontakt">Individuelles Angebot anfragen</Link>
+              <Link to="/kontakt">Individuelle Agenten-Lösung anfragen</Link>
             </Button>
           </motion.div>
         </div>

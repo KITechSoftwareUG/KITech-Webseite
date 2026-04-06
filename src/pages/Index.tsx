@@ -60,37 +60,37 @@ const products = [{
 const comparisonData = [{
   feature: 'Standard "Prompts"',
   typical: true,
-  kitech: "Technische Integration"
+  kitech: "Orchestrierte Agenten-Systeme"
 }, {
-  feature: "Unklare/feltige Datenfüsse",
+  feature: "Unklare Datenflüsse",
   typical: true,
-  kitech: "DSGVO-konforme Architektur"
+  kitech: "DSGVO-konforme Agenten-Architektur"
 }, {
   feature: "Demo-Effekte",
   typical: true,
-  kitech: "Produktivsysteme"
+  kitech: "Produktive Agenten im Einsatz"
 }, {
-  feature: "Kurzfristiger Hype",
+  feature: "Denken in Jobrollen",
   typical: true,
-  kitech: "Langfristige Wartbarkeit"
+  kitech: "Denken in Prozess-Orchestrierungen"
 }];
 const processSteps = [{
   number: "01",
-  title: "KI-Audit & Standortbestimmung",
-  description: "Kein Blindflug. Wir analysieren Ihre Datenqualität, Prozesseignung und organisatorische Reife. Das Ergebnis ist eine objektive Entscheidungsgrundlage, kein Verkaufs-Pitch.",
-  features: ["Risikoanalyse", "Machbarkeitsprüfung"],
+  title: "Prozessanalyse & Agenten-Design",
+  description: "Wir analysieren Ihre Geschäftsprozesse und identifizieren, welche Aufgaben durch spezialisierte KI-Agenten übernommen werden können. Das Ergebnis: ein klarer Orchestrierungsplan.",
+  features: ["Prozess-Mapping", "Agenten-Architektur"],
   icon: Clipboard
 }, {
   number: "02",
-  title: "Individuelle KI-Systeme",
-  description: "Wir entwickeln maßgeschneiderte KI-Automatisierungen, die genau auf Ihre Schnittstellen passen. Auditierbar, sicher und dokumentiert.",
-  features: ["Lokale/EU Deployments", "Clean Code & Docs"],
+  title: "Agenten-Entwicklung & Orchestrierung",
+  description: "Wir entwickeln spezialisierte KI-Agenten, die nahtlos zusammenarbeiten – wie ein eingespieltes Team, nur vollständig automatisiert und skalierbar.",
+  features: ["Multi-Agent-Systeme", "Lokale/EU Deployments"],
   icon: Database
 }, {
   number: "03",
-  title: "Begleitete Umsetzung",
-  description: "Von der ersten Codezeile bis zum Betrieb. Wir sorgen für iterative Entwicklung, transparente Architektur und klare Verantwortlichkeiten.",
-  features: ["Wissenstransfer", "Laufende Wartung"],
+  title: "Deployment & kontinuierliche Optimierung",
+  description: "Ihre Agenten gehen in Produktion. Wir überwachen, optimieren und erweitern das System iterativ – damit es mit Ihrem Unternehmen wächst.",
+  features: ["Agenten-Monitoring", "Laufende Wartung"],
   icon: Rocket
 }];
 const caseStudies = [{
@@ -282,18 +282,18 @@ export default function Index() {
   };
   return <Layout>
       <SEOHead
-        title="KITech Software – Hannovers KI-Experte"
-        description="Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany."
+        title="KITech Software – KI-Agenten für den Mittelstand"
+        description="Wir denken nicht in Jobrollen, sondern in KI-Agenten. Orchestrierte, DSGVO-konforme Agenten-Systeme für Ihre realen Geschäftsprozesse. Made in Germany."
         canonical="/"
       />
       <StructuredData data={getOrganizationSchema()} />
       <StructuredData data={getLocalBusinessSchema()} />
-      <StructuredData data={getWebPageSchema("KITech Software – Hannovers KI-Experte", "Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
+      <StructuredData data={getWebPageSchema("KITech Software – KI-Agenten für den Mittelstand", "Orchestrierte KI-Agenten für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
       <StructuredData data={getReviewSchema(testimonials.map(t => ({ author: t.author, text: t.quote, rating: t.rating })))} />
       <StructuredData data={getSoftwareAppSchema("ethixAI", "SaaS-Plattform für KI-Ethik und Compliance", "SaaS Platform", "https://ethixAI.io")} />
       <StructuredData data={getFAQSchema([
-        { question: "Was macht KITech Software?", answer: "KITech Software entwickelt individuelle, sichere und auditierbare KI-Systeme für reale Geschäftsprozesse. DSGVO-konform, Made in Germany." },
-        { question: "Für wen eignen sich die KI-Lösungen?", answer: "Unsere Lösungen richten sich an den deutschen Mittelstand – von Dienstleistung über Handel bis Produktion und Industrie." },
+        { question: "Was macht KITech Software?", answer: "KITech Software entwickelt orchestrierte KI-Agenten-Systeme, die reale Geschäftsprozesse automatisieren. Wir denken nicht in Jobrollen, sondern in intelligenten Agenten-Orchestrierungen. DSGVO-konform, Made in Germany." },
+        { question: "Was sind KI-Agenten?", answer: "KI-Agenten sind spezialisierte, autonome Softwareeinheiten, die bestimmte Aufgaben übernehmen. Mehrere Agenten werden orchestriert, um komplette Prozesse abzubilden – effizienter als klassische Rollenverteilung." },
         { question: "Ist KITech DSGVO-konform?", answer: "Ja, DSGVO-Konformität ist Grundprinzip. Lokales/EU Hosting möglich, keine proprietären Lock-Ins." },
       ])} />
       {/* Hero Section with Lamp Effect */}
@@ -313,10 +313,10 @@ export default function Index() {
             
             
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
-              KI-Lösungen, die Bestand haben.
+              Nicht Rollen besetzen. Agenten orchestrieren.
               <br />
               <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
-                <TextRotate texts={["25+ erfolgreiche Projekte", "30 KI-Audits", "über 8 Jahre Konzernerfahrung"]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
+                <TextRotate texts={["25+ orchestrierte Agenten-Systeme", "30 Prozess-Audits", "über 8 Jahre Konzernerfahrung"]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
                 y: "-120%",
                 opacity: 0
               }} animate={{
@@ -334,17 +334,17 @@ export default function Index() {
             </h1>
             
             <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
-              Individuelle, sichere und auditierbare KI-Systeme für Ihre realen 
-              Geschäftsprozesse. Wir ersetzen Buzzwords durch Ingenieurskunst und 
-              Marketing-Versprechen durch technische Validierung.
+              Wir denken nicht in Jobrollen, sondern in KI-Agenten. Spezialisierte Agenten 
+              übernehmen Aufgaben, orchestriert zu automatisierten Prozessen – DSGVO-konform 
+              und auditierbar. Made in Germany.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
-                <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "KI-Reifegrad" })}>KI-Reifegrad prüfen lassen</Link>
+                <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "Agenten-Potenzial" })}>Agenten-Potenzial prüfen lassen</Link>
               </Button>
               <Button variant="heroOutline" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
-                <Link to="/leistungen">Technische Standortbestimmung</Link>
+                <Link to="/leistungen">Unsere Agenten-Leistungen</Link>
               </Button>
             </div>
           </motion.div>
@@ -678,28 +678,28 @@ export default function Index() {
             }}>
                 <h2 className="text-3xl sm:text-4xl font-light mb-2">Warum KITech?</h2>
                 <p className="text-2xl sm:text-3xl font-light gradient-text mb-6">
-                  Haltung statt Hype.
+                  Agenten statt Abteilungen.
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  Während andere "KI-Agenturen" Wrapper um ChatGPT bauen, entwickeln wir 
-                  robuste Systeme, die tief in Ihre bestehende IT-Landschaft integriert sind.
+                  Während andere in Jobrollen denken, orchestrieren wir spezialisierte KI-Agenten 
+                  zu automatisierten Prozessen – tief integriert in Ihre bestehende IT-Landschaft.
                 </p>
                 <p className="text-muted-foreground mb-8">
-                  Wir verstehen KI nicht als Spielerei, sondern als kritisches Infrastruktur-Element. 
-                  Datensicherheit, Nachvollziehbarkeit und wirtschaftliche Wartbarkeit stehen bei uns 
-                  vor dem nächsten viralen Trend.
+                  Jeder Agent übernimmt eine klar definierte Aufgabe. Zusammen bilden sie ein 
+                  System, das schneller, günstiger und skalierbarer arbeitet als klassische Teams – 
+                  bei voller Auditierbarkeit und DSGVO-Konformität.
                 </p>
                 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {[{
+                {[{
                   icon: Check,
-                  text: "Auditierbare Ergebnisse"
+                  text: "Multi-Agent-Orchestrierung"
                 }, {
                   icon: MapPin,
                   text: "Hosting in Deutschland/EU"
                 }, {
                   icon: Check,
-                  text: "Reale Prozessintegration"
+                  text: "Autonome Prozessautomatisierung"
                 }, {
                   icon: Check,
                   text: "Kein Vendor-Lock-In"
@@ -759,11 +759,11 @@ export default function Index() {
           once: true
         }} className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-light mb-4">
-              Unser Vorgehen: Strukturiert & Transparent
+              Von der Analyse zum Agenten-System
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Wir verkaufen keine Wunder, sondern ingenieurtechnische Lösungen. 
-              Unser Prozess minimiert Risiken und maximiert Nutzen.
+              Wir analysieren Ihre Prozesse, designen spezialisierte Agenten und 
+              orchestrieren sie zu einem autonomen System. Strukturiert und transparent.
             </p>
           </motion.div>
 
@@ -813,10 +813,10 @@ export default function Index() {
         }} className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light mb-3 sm:mb-4">
-                Echte Probleme. Echte Lösungen.
+                Agenten im Einsatz. Echte Ergebnisse.
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground max-w-2xl">
-                Wir sprechen nicht über Möglichkeiten, sondern über Ergebnisse. 
+                Keine Theorie, sondern produktive Agenten-Systeme. 
                 Hier sind Auszüge aus unserer Arbeit.
               </p>
             </div>
@@ -997,11 +997,11 @@ export default function Index() {
           once: true
         }} className="relative overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-16 text-center shadow-elevated">
             <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">
-              Bereit für KI mit Substanz?
+              Bereit für Ihre eigenen KI-Agenten?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Lassen Sie uns in einem unverbindlichen Gespräch prüfen, wo KI in 
-              Ihrem Unternehmen echten Mehrwert stiftet – und wo nicht.
+              Lassen Sie uns gemeinsam herausfinden, welche Prozesse in Ihrem 
+              Unternehmen durch orchestrierte KI-Agenten automatisiert werden können.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="cta" size="xl" onClick={() => { trackEvent("Calendly_Klick", { position: "footer-cta" }); window.open('https://calendly.com/kitech-software-info/30min', '_blank'); }}>
