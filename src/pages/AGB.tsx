@@ -1,8 +1,15 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 
 export default function AGB() {
   return (
     <Layout>
+      <SEOHead
+        title="Allgemeine Geschäftsbedingungen | KITech Software"
+        description="Allgemeine Geschäftsbedingungen der KITech Software UG für KI-Beratung und Softwareentwicklung."
+        canonical="/agb"
+        noindex={true}
+      />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Allgemeine Geschäftsbedingungen</h1>

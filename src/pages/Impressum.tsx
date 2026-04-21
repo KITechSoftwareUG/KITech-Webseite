@@ -64,7 +64,7 @@ export default function Impressum() {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-3">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+              <h2 className="text-xl font-semibold mb-3">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
               <p className="text-muted-foreground">
                 A. Alkhalil
                 <br />
@@ -77,8 +77,10 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">EU-Streitschlichtung</h2>
               <p className="text-muted-foreground">
-                Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-                https://ec.europa.eu/consumers/odr/
+                Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
+                <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  https://ec.europa.eu/consumers/odr/
+                </a>
               </p>
             </div>
           </div>

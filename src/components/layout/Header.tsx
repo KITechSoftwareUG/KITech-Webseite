@@ -65,13 +65,14 @@ export function Header() {
               variant="hero" 
               size="lg" 
               className="hidden sm:flex"
-              onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank')}
+              onClick={() => window.open('https://calendly.com/kitech-software-info/30min', '_blank', 'noopener,noreferrer')}
             >
               Erstgespräch vereinbaren
             </Button>
 
             <button
               className="lg:hidden p-2"
+              aria-label="Menü öffnen"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -113,7 +114,7 @@ export function Header() {
                 className="mt-2"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  window.open('https://calendly.com/kitech-software-info/30min', '_blank');
+                  window.open('https://calendly.com/kitech-software-info/30min', '_blank', 'noopener,noreferrer');
                 }}
               >
                 Erstgespräch vereinbaren

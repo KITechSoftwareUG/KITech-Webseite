@@ -1,8 +1,15 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 
 export default function Datenschutz() {
   return (
     <Layout>
+      <SEOHead
+        title="Datenschutzerklärung | KITech Software"
+        description="Datenschutzerklärung der KITech Software UG – Informationen zur Datenverarbeitung gemäß DSGVO."
+        canonical="/datenschutz"
+        noindex={true}
+      />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Datenschutzerklärung</h1>

@@ -61,10 +61,10 @@ Intelligente iOS-App für smarte Alltagsunterstützung mit KI-gestützten Featur
 - Plattform: iOS
 - Status: In Entwicklung
 
-### Klargehalt (Coming Soon)
+### Klargehalt (Live)
 SaaS-Plattform für Gehaltstransparenz und faire Vergütung.
 - URL: https://klargehalt.de
-- Status: Erscheint 01.03.2026
+- Status: Live seit März 2026
 
 ---
 

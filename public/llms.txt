@@ -36,7 +36,7 @@ Modell-Monitoring, automatisiertes Retraining, Performance-Optimierung, 24/7 Sup
 
 - **CleverFuchs**: iOS-App für smarte Alltagsunterstützung (Coming Soon)
 - **ethixAI**: SaaS-Plattform für KI-Ethik und Compliance (Live, https://ethixAI.io)
-- **Klargehalt**: SaaS-Plattform für Gehaltstransparenz (erscheint 01.03.2026, https://klargehalt.de)
+- **Klargehalt**: SaaS-Plattform für Gehaltstransparenz (Live seit März 2026, https://klargehalt.de)
 
 ## Technologie-Stack
 

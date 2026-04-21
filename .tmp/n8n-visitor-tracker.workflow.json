@@ -1,0 +1,135 @@
+{
+  "name": "KITech – Visitor Tracker + Weekly Report",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "1c93e1da-6dfc-4af5-a55a-8f9220af52de",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, -180],
+      "id": "a1000000-0000-0000-0000-000000000001",
+      "name": "Webhook – Besucher",
+      "webhookId": "1c93e1da-6dfc-4af5-a55a-8f9220af52de"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [1],
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 180],
+      "id": "a1000000-0000-0000-0000-000000000002",
+      "name": "Zeitplan – Montag 08:00 CET"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Besuch in Workflow-Static-Data speichern\nconst data = $getWorkflowStaticData('global');\nif (!data.visitors) data.visitors = [];\n\ndata.visitors.push({\n  ts: new Date().toISOString(),\n  page: $json.page || '/',\n  referrer: $json.referrer || null,\n  utm_source: $json.utm_source || null,\n  utm_medium: $json.utm_medium || null,\n  utm_campaign: $json.utm_campaign || null,\n  org: $json.org || null,\n  city: $json.city || null,\n  region: $json.region || null,\n  country: $json.country || null,\n  hostname: $json.hostname || null,\n  ip: $json.ip || null,\n});\n\n// Max. 2000 Eintraege behalten\nif (data.visitors.length > 2000) {\n  data.visitors = data.visitors.slice(-2000);\n}\n\nreturn [{ json: { ok: true } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, -180],
+      "id": "a1000000-0000-0000-0000-000000000003",
+      "name": "Besucher speichern"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $getWorkflowStaticData('global');\nconst all = data.visitors || [];\n\n// Letzte 7 Tage\nconst weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;\nconst recent = all.filter(v => new Date(v.ts).getTime() > weekAgo);\n\n// Alte Eintraege aufraaeumen\ndata.visitors = recent;\n\nif (recent.length === 0) {\n  return [{ json: { count: 0, subject: 'KITech – Keine Besucher diese Woche', html: '<p>Keine Besucher mit Consent diese Woche.</p>' } }];\n}\n\n// Orgs gruppieren\nconst orgMap = {};\nfor (const v of recent) {\n  const key = v.org || v.hostname || 'Unbekannt';\n  if (!orgMap[key]) orgMap[key] = { count: 0, loc: '', pages: [] };\n  orgMap[key].count++;\n  if (v.city && v.country) orgMap[key].loc = v.city + ', ' + v.country;\n  if (v.page && !orgMap[key].pages.includes(v.page)) orgMap[key].pages.push(v.page);\n}\n\n// Referrer gruppieren\nconst refMap = {};\nfor (const v of recent) {\n  let ref = 'Direktaufruf';\n  if (v.referrer) { try { ref = new URL(v.referrer).hostname.replace('www.', ''); } catch {} }\n  refMap[ref] = (refMap[ref] || 0) + 1;\n}\n\n// Top-Seiten\nconst pageMap = {};\nfor (const v of recent) {\n  const p = v.page || '/';\n  pageMap[p] = (pageMap[p] || 0) + 1;\n}\n\n// UTM-Kampagnen\nconst utmMap = {};\nfor (const v of recent) {\n  if (v.utm_campaign) utmMap[v.utm_campaign] = (utmMap[v.utm_campaign] || 0) + 1;\n}\n\n// Sortieren\nconst sortedOrgs = Object.entries(orgMap).sort((a, b) => b[1].count - a[1].count).slice(0, 30);\nconst sortedRefs = Object.entries(refMap).sort((a, b) => b[1] - a[1]).slice(0, 8);\nconst sortedPages = Object.entries(pageMap).sort((a, b) => b[1] - a[1]).slice(0, 8);\nconst sortedUtm = Object.entries(utmMap).sort((a, b) => b[1] - a[1]);\n\n// KW berechnen\nconst now = new Date();\nconst jan1 = new Date(now.getFullYear(), 0, 1);\nconst kw = Math.ceil(((now - jan1) / 86400000 + jan1.getDay() + 1) / 7);\n\n// Datum formatieren\nconst fmt = d => new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });\n\n// Tabellenzeilen\nconst orgRows = sortedOrgs.map(([org, d]) =>\n  '<tr><td style=\"padding:8px 12px;border-bottom:1px solid #f0f0f0;font-size:13px;\">' + org + '</td><td style=\"padding:8px 12px;border-bottom:1px solid #f0f0f0;text-align:center;font-weight:600;color:#2563eb;font-size:13px;\">' + d.count + '</td><td style=\"padding:8px 12px;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;\">' + (d.loc || '–') + '</td><td style=\"padding:8px 12px;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;\">' + d.pages.join(', ') + '</td></tr>'\n).join('');\n\nconst refRows = sortedRefs.map(([ref, c]) =>\n  '<tr><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;font-size:13px;\">' + ref + '</td><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;text-align:center;font-weight:500;font-size:13px;\">' + c + '</td></tr>'\n).join('');\n\nconst pageRows = sortedPages.map(([page, c]) =>\n  '<tr><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;font-family:monospace;font-size:12px;\">' + page + '</td><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;text-align:center;font-weight:500;font-size:13px;\">' + c + '</td></tr>'\n).join('');\n\nconst utmRows = sortedUtm.length > 0 ? sortedUtm.map(([utm, c]) =>\n  '<tr><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;font-size:13px;\">' + utm + '</td><td style=\"padding:7px 12px;border-bottom:1px solid #f0f0f0;text-align:center;font-weight:500;font-size:13px;\">' + c + '</td></tr>'\n).join('') : '<tr><td colspan=\"2\" style=\"padding:12px;color:#aaa;font-size:12px;text-align:center;\">Keine UTM-Kampagnen diese Woche</td></tr>';\n\nconst html = '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body style=\"font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;max-width:680px;margin:0 auto;padding:24px;color:#1a1a2e;background:#fff;\">'\n  + '<div style=\"background:linear-gradient(135deg,#1e40af,#0ea5e9);padding:24px 28px;border-radius:12px;margin-bottom:24px;\">'\n  + '<div style=\"font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;\">KITech Software · kitech-software.de</div>'\n  + '<h1 style=\"color:white;margin:0 0 6px;font-size:22px;font-weight:400;\">Besucherreport KW ' + kw + '</h1>'\n  + '<div style=\"color:rgba(255,255,255,0.8);font-size:13px;\">' + fmt(weekAgo) + ' – ' + fmt(now) + '</div>'\n  + '</div>'\n  + '<table style=\"width:100%;border-collapse:collapse;margin-bottom:28px;\"><tr>'\n  + '<td style=\"text-align:center;padding:16px;background:#f0f7ff;border-radius:8px;\"><div style=\"font-size:32px;font-weight:600;color:#2563eb;\">' + recent.length + '</div><div style=\"font-size:12px;color:#666;margin-top:2px;\">Besuche</div></td>'\n  + '<td style=\"width:12px;\"></td>'\n  + '<td style=\"text-align:center;padding:16px;background:#f0f7ff;border-radius:8px;\"><div style=\"font-size:32px;font-weight:600;color:#2563eb;\">' + sortedOrgs.length + '</div><div style=\"font-size:12px;color:#666;margin-top:2px;\">Organisationen</div></td>'\n  + '<td style=\"width:12px;\"></td>'\n  + '<td style=\"text-align:center;padding:16px;background:#f0f7ff;border-radius:8px;\"><div style=\"font-size:32px;font-weight:600;color:#2563eb;\">' + sortedRefs.length + '</div><div style=\"font-size:12px;color:#666;margin-top:2px;\">Traffic-Quellen</div></td>'\n  + '</tr></table>'\n  + '<h2 style=\"font-size:14px;font-weight:600;color:#1e40af;border-left:3px solid #2563eb;padding-left:10px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;\">Unternehmen &amp; Organisationen</h2>'\n  + '<table style=\"width:100%;border-collapse:collapse;margin-bottom:28px;\"><thead><tr style=\"background:#f8faff;\"><th style=\"padding:8px 12px;text-align:left;font-size:11px;color:#888;font-weight:500;\">Organisation / ISP</th><th style=\"padding:8px 12px;text-align:center;font-size:11px;color:#888;font-weight:500;\">Besuche</th><th style=\"padding:8px 12px;text-align:left;font-size:11px;color:#888;font-weight:500;\">Standort</th><th style=\"padding:8px 12px;text-align:left;font-size:11px;color:#888;font-weight:500;\">Seiten</th></tr></thead><tbody>' + orgRows + '</tbody></table>'\n  + '<table style=\"width:100%;border-collapse:collapse;margin-bottom:28px;\"><tr><td style=\"width:48%;vertical-align:top;\">'\n  + '<h2 style=\"font-size:14px;font-weight:600;color:#1e40af;border-left:3px solid #2563eb;padding-left:10px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;\">Traffic-Quellen</h2>'\n  + '<table style=\"width:100%;border-collapse:collapse;\"><tbody>' + refRows + '</tbody></table>'\n  + '</td><td style=\"width:4%;\"></td><td style=\"width:48%;vertical-align:top;\">'\n  + '<h2 style=\"font-size:14px;font-weight:600;color:#1e40af;border-left:3px solid #2563eb;padding-left:10px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;\">Top Seiten</h2>'\n  + '<table style=\"width:100%;border-collapse:collapse;\"><tbody>' + pageRows + '</tbody></table>'\n  + '</td></tr></table>'\n  + '<h2 style=\"font-size:14px;font-weight:600;color:#1e40af;border-left:3px solid #2563eb;padding-left:10px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;\">UTM-Kampagnen</h2>'\n  + '<table style=\"width:100%;border-collapse:collapse;margin-bottom:28px;\"><tbody>' + utmRows + '</tbody></table>'\n  + '<div style=\"background:#f8f9fa;border-radius:8px;padding:12px 16px;font-size:11px;color:#999;text-align:center;\">Automatisch erstellt von KITech n8n · Nur Besucher mit Analytics-Consent · ipinfo.io</div>'\n  + '</body></html>';\n\nreturn [{ json: { count: recent.length, subject: 'KITech Website – Besucherreport KW ' + kw + ' (' + recent.length + ' Besuche)', html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 180],
+      "id": "a1000000-0000-0000-0000-000000000004",
+      "name": "Report erstellen"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [640, 180],
+      "id": "a1000000-0000-0000-0000-000000000005",
+      "name": "Besucher vorhanden?"
+    },
+    {
+      "parameters": {
+        "toRecipients": "aalkh@kitech-software.de",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.html }}",
+        "bodyContentType": "html",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [960, 100],
+      "id": "a1000000-0000-0000-0000-000000000006",
+      "name": "E-Mail senden",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "BA74WPpwHAZWoXbj",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook – Besucher": {
+      "main": [
+        [{ "node": "Besucher speichern", "type": "main", "index": 0 }]
+      ]
+    },
+    "Zeitplan – Montag 08:00 CET": {
+      "main": [
+        [{ "node": "Report erstellen", "type": "main", "index": 0 }]
+      ]
+    },
+    "Report erstellen": {
+      "main": [
+        [{ "node": "Besucher vorhanden?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Besucher vorhanden?": {
+      "main": [
+        [{ "node": "E-Mail senden", "type": "main", "index": 0 }],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

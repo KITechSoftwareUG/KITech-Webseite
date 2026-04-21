@@ -55,7 +55,9 @@ export function getOrganizationSchema(): SchemaBase {
       contactType: "customer service",
       availableLanguage: ["German", "English"],
     },
-    sameAs: [],
+    sameAs: [
+      "https://www.linkedin.com/company/104155510",
+    ],
     foundingDate: "2023",
     areaServed: {
       "@type": "GeoCircle",
@@ -83,7 +85,12 @@ export function getLocalBusinessSchema(): SchemaBase {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "KITech Software",
-    image: "https://kitech-software.de/favicon.ico",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://kitech-software.de/og-image.png",
+      width: 512,
+      height: 512,
+    },
     url: "https://kitech-software.de",
     telephone: "+49-151-64682544",
     email: "info@kitech-software.de",

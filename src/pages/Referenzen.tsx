@@ -4,15 +4,14 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { 
-  Shield, 
-  Factory, 
-  ShoppingCart, 
+import {
+  Shield,
+  Factory,
+  ShoppingCart,
   ArrowRight,
   Building2,
   Smartphone,
-  Dna,
-  ImageIcon
+  Dna
 } from "lucide-react";
 import {
   Carousel,
@@ -21,6 +20,11 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
+import niimmoLogo from "@/assets/niimmo-logo.png";
+import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
+import certconsultingLogo from "@/assets/certconsulting-logo.png";
+import kremaLogo from "@/assets/krema-logo.png";
+import expatvantageLogo from "@/assets/expatvantage-logo.png";
 
 const caseStudies = [
   {
@@ -78,11 +82,11 @@ const metrics = [
 ];
 
 const clients = [
-  { name: "NiImmo Holding GmbH" },
-  { name: "Alltagshilfe Fischer GmbH" },
-  { name: "Certconsulting Pane, Spark und Partner" },
-  { name: "KREMA Group" },
-  { name: "Vantage Partner" },
+  { name: "NiImmo Holding GmbH", logo: niimmoLogo },
+  { name: "Alltagshilfe Fischer GmbH", logo: alltagshilfeLogo },
+  { name: "cert consulting Pane", logo: certconsultingLogo },
+  { name: "KREMA Group", logo: kremaLogo },
+  { name: "ExpatVantage", logo: expatvantageLogo },
 ];
 
 const products = [
@@ -210,8 +214,8 @@ export default function Referenzen() {
                     transition={{ duration: 0.4, delay: i * 0.05 }}
                     className="flex flex-col items-center gap-3 p-6 bg-card rounded-xl border border-border h-full"
                   >
-                    <div className="w-16 h-16 rounded-xl bg-muted flex items-center justify-center">
-                      <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
+                    <div className="w-16 h-16 rounded-xl bg-muted flex items-center justify-center p-2">
+                      <img src={client.logo} alt={client.name} className="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity" />
                     </div>
                     <p className="text-sm font-medium text-center text-foreground leading-tight">
                       {client.name}

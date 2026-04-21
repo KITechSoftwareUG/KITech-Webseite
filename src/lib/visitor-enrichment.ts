@@ -1,12 +1,6 @@
-/**
- * Visitor Enrichment – ruft ipinfo.io direkt im Browser auf,
- * schickt angereicherte Daten einmal pro Session an n8n.
- * Wird NUR nach Analytics-Consent aufgerufen.
- */
-
 const IPINFO_TOKEN = "7df240b3cb05e7";
-const WEBHOOK_URL =
-  "https://k01-2025-u36730.vm.elestio.app/webhook/1c93e1da-6dfc-4af5-a55a-8f9220af52de";
+const WEBHOOK_URL = "https://os.kitech-software.de/api/webhook/tracking";
+const WEBHOOK_SECRET = "e65eab0e64f35a1e07859730c4ddd95119f22941dc983c5b40d08aeb78d911c4";
 const SESSION_KEY = "visitor-tracked";
 
 export async function trackVisitor(): Promise<void> {
@@ -16,15 +10,12 @@ export async function trackVisitor(): Promise<void> {
 
   const params = new URLSearchParams(window.location.search);
 
-  // IP-Enrichment via ipinfo.io Lite (kein IP-Parameter = eigene IP)
   let ipData: Record<string, string> = {};
   try {
-    const res = await fetch(
-      `https://ipinfo.io/json?token=${IPINFO_TOKEN}`
-    );
+    const res = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
     ipData = await res.json();
   } catch {
-    // kein Enrichment, trotzdem Besuch tracken
+    // kein Enrichment, trotzdem tracken
   }
 
   const payload = {
@@ -44,7 +35,10 @@ export async function trackVisitor(): Promise<void> {
   try {
     await fetch(WEBHOOK_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(WEBHOOK_SECRET ? { "x-tracking-secret": WEBHOOK_SECRET } : {}),
+      },
       body: JSON.stringify(payload),
       keepalive: true,
     });

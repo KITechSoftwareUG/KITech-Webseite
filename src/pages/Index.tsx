@@ -13,13 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
 import { TextRotate } from "@/components/ui/text-rotate";
-import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, Smartphone, Sparkles, FileCheck, Wrench } from "lucide-react";
+import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
 import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
-import appStoreBadge from "@/assets/appstore-badge.svg";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
@@ -47,15 +46,6 @@ const clientReferences = [{
   name: "ExpatVantage",
   icon: Database,
   logo: expatvantageLogo
-}];
-const products = [{
-  name: "CleverFuchs",
-  description: "iOS App",
-  icon: Smartphone
-}, {
-  name: "KI-DNA Generator",
-  description: "SaaS Platform",
-  icon: Sparkles
 }];
 const comparisonData = [{
   feature: 'Standard "Prompts"',
@@ -129,7 +119,7 @@ const testimonials = [{
   role: "Geschäftsführer NiImmo Holding GmbH",
   rating: 5
 }, {
-  quote: "Dank KI-TEXT konnten wir unsere internen Abläufe neu denken – die Zusammenarbeit war professionell, lösungsorientiert und hat uns echten Mehrwert gebracht.",
+  quote: "Dank KITech Software konnten wir unsere internen Abläufe neu denken – die Zusammenarbeit war professionell, lösungsorientiert und hat uns echten Mehrwert gebracht.",
   author: "Frank Locke",
   role: "Geschäftsführer Kanzlei Locke und Partner",
   rating: 5
@@ -139,7 +129,9 @@ export default function Index() {
   const [currentCaseStudy, setCurrentCaseStudy] = useState(0);
   const [qualifierStep, setQualifierStep] = useState(0);
   const [showQualifierPopup, setShowQualifierPopup] = useState(false);
-  const [popupDismissed, setPopupDismissed] = useState(false);
+  const [popupDismissed, setPopupDismissed] = useState(() => {
+    return localStorage.getItem("qualifier-popup-dismissed") === "true";
+  });
   const [qualifierAnswers, setQualifierAnswers] = useState({
     role: "",
     industry: "",
@@ -167,6 +159,7 @@ export default function Index() {
   const closePopup = () => {
     setShowQualifierPopup(false);
     setPopupDismissed(true);
+    localStorage.setItem("qualifier-popup-dismissed", "true");
   };
   const roleOptions = [{
     id: "unternehmen",
@@ -265,6 +258,16 @@ export default function Index() {
     setTimeout(() => {
       setQualifierStep(prev => prev + 1);
     }, 300);
+  };
+  const buildCalendlyUrl = () => {
+    const baseUrl = "https://calendly.com/kitech-software-info/30min";
+    const params = new URLSearchParams();
+    if (qualifierAnswers.role) params.set("a1", qualifierAnswers.role);
+    if (qualifierAnswers.industry) params.set("a2", qualifierAnswers.industry);
+    if (qualifierAnswers.challenge) params.set("a3", qualifierAnswers.challenge);
+    if (qualifierAnswers.budget) params.set("a4", qualifierAnswers.budget);
+    const queryString = params.toString();
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
   const totalSteps = 6;
   const progressPercent = qualifierStep / (totalSteps - 1) * 100;
@@ -611,11 +614,9 @@ export default function Index() {
                       Basierend auf Ihren Antworten können wir Ihnen maßgeschneiderte KI-Lösungen vorschlagen. Lassen Sie uns in einem kurzen Gespräch die Details besprechen.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <Button variant="default" size="lg" asChild onClick={closePopup}>
-                        <Link to="/kontakt" onClick={() => trackEvent("Lead_Qualifier_abgeschlossen")}>
-                          Kostenlos beraten lassen
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
+                      <Button variant="default" size="lg" onClick={() => { trackEvent("Lead_Qualifier_abgeschlossen"); window.open(buildCalendlyUrl(), "_blank"); closePopup(); }}>
+                        Kostenlos beraten lassen
+                        <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                       <Button variant="outline" size="lg" onClick={closePopup}>
                         Später

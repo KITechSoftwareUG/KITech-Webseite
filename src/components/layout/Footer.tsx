@@ -89,7 +89,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 KITech Software UG (haftungsbeschränkt). Alle Rechte vorbehalten.
+            © 2025 KITech Software UG (haftungsbeschränkt). Alle Rechte vorbehalten.
           </p>
         </div>
       </div>
