@@ -49,22 +49,6 @@ Professioneller Betrieb und kontinuierliche Verbesserung von KI-Systemen. Modell
 
 ---
 
-## 3. Eigene Produkte
-
-### ethixAI (Live)
-SaaS-Plattform für KI-Ethik und Compliance-Prüfung. Erstellt eine individuelle "KI-DNA" für Unternehmen.
-- URL: https://ethixAI.io
-- Status: Live
-
-### CleverFuchs (Coming Soon)
-Intelligente iOS-App für smarte Alltagsunterstützung mit KI-gestützten Features.
-- Plattform: iOS
-- Status: In Entwicklung
-
-### Klargehalt (Live)
-SaaS-Plattform für Gehaltstransparenz und faire Vergütung.
-- URL: https://klargehalt.de
-- Status: Live seit März 2026
 
 ---
 

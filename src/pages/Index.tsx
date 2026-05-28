@@ -7,7 +7,6 @@ import {
   getLocalBusinessSchema,
   getFAQSchema,
   getReviewSchema,
-  getSoftwareAppSchema,
   getWebPageSchema,
 } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
@@ -18,14 +17,12 @@ import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
-import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
+
 import niimmoLogo from "@/assets/niimmo-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
-import ethixaiLogo from "@/assets/ethixai-logo.png";
-import klargehaltLogo from "@/assets/klargehalt-logo.png";
 const clientReferences = [{
   name: "NiImmo Holding GmbH",
   icon: Building2,
@@ -293,7 +290,6 @@ export default function Index() {
       <StructuredData data={getLocalBusinessSchema()} />
       <StructuredData data={getWebPageSchema("KITech Software – KI-Agenten für den Mittelstand", "Orchestrierte KI-Agenten für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
       <StructuredData data={getReviewSchema(testimonials.map(t => ({ author: t.author, text: t.quote, rating: t.rating })))} />
-      <StructuredData data={getSoftwareAppSchema("ethixAI", "SaaS-Plattform für KI-Ethik und Compliance", "SaaS Platform", "https://ethixAI.io")} />
       <StructuredData data={getFAQSchema([
         { question: "Was macht KITech Software?", answer: "KITech Software entwickelt orchestrierte KI-Agenten-Systeme, die reale Geschäftsprozesse automatisieren. Wir denken nicht in Jobrollen, sondern in intelligenten Agenten-Orchestrierungen. DSGVO-konform, Made in Germany." },
         { question: "Was sind KI-Agenten?", answer: "KI-Agenten sind spezialisierte, autonome Softwareeinheiten, die bestimmte Aufgaben übernehmen. Mehrere Agenten werden orchestriert, um komplette Prozesse abzubilden – effizienter als klassische Rollenverteilung." },
@@ -372,28 +368,6 @@ export default function Index() {
                 )}
                 <span className="text-sm text-muted-foreground font-light">{client.name}</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Eigene Produkte – kompakt */}
-      <section className="py-10">
-        <div className="container">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground text-center mb-6">Eigene Produkte</p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { logo: cleverfuchsLogo, name: "CleverFuchs", desc: "iOS App", status: "Coming Soon", href: "#" },
-              { logo: ethixaiLogo, name: "ethixAI", desc: "SaaS Platform", status: "Live", href: "https://ethixAI.io" },
-              { logo: klargehaltLogo, name: "Klargehalt", desc: "SaaS Platform", status: "Coming Soon", href: "https://klargehalt.de" },
-            ].map((p) => (
-              <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2.5 rounded-lg border border-border/40 hover:border-border transition-colors group">
-                <img src={p.logo} alt={p.name} className="h-8 w-8 rounded-lg object-contain grayscale group-hover:grayscale-0 transition-all" />
-                <div>
-                  <p className="text-sm font-medium text-foreground leading-tight">{p.name}</p>
-                  <p className="text-xs text-muted-foreground">{p.desc} · {p.status}</p>
-                </div>
-              </a>
             ))}
           </div>
         </div>
