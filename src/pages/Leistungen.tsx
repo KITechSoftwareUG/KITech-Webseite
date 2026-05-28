@@ -101,7 +101,7 @@ export default function Leistungen() {
   return (
     <Layout>
       <SEOHead
-        title="Leistungen – KI-Agenten & Prozess-Orchestrierung | KITech Software"
+        title="KI-Agenten & Prozess-Orchestrierung | KITech Software"
         description="Spezialisierte KI-Agenten für jeden Prozess – von der Analyse über LLM-Orchestrierung bis zu Vision-Agenten. DSGVO-konform, Made in Germany."
         canonical="/leistungen"
       />
@@ -135,8 +135,9 @@ export default function Leistungen() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28" aria-labelledby="services-grid-heading">
         <div className="container">
+          <h2 id="services-grid-heading" className="sr-only">Unser Agenten-Leistungsportfolio</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, i) => (
               <motion.div
