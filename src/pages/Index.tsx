@@ -17,14 +17,12 @@ import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
 import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
-import cleverfuchsLogo from "@/assets/cleverfuchs-logo.png";
+
 import niimmoLogo from "@/assets/niimmo-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
-import ethixaiLogo from "@/assets/ethixai-logo.png";
-import klargehaltLogo from "@/assets/klargehalt-logo.png";
 const clientReferences = [{
   name: "NiImmo Holding GmbH",
   icon: Building2,
