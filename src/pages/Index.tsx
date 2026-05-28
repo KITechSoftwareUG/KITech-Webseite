@@ -362,7 +362,7 @@ export default function Index() {
             {[...clientReferences, ...clientReferences, ...clientReferences].map((client, i) => (
               <div key={`${client.name}-${i}`} className="flex items-center gap-3 mx-10 shrink-0">
                 {client.logo ? (
-                  <img src={client.logo} alt={client.name} className="h-6 w-auto object-contain grayscale opacity-60" />
+                  <img src={client.logo} alt={`${client.name} Firmenlogo`} className="h-6 w-auto object-contain grayscale opacity-60" />
                 ) : (
                   <client.icon className="h-5 w-5 text-muted-foreground" />
                 )}
@@ -399,8 +399,8 @@ export default function Index() {
           damping: 25,
           stiffness: 300
         }} className="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-12 shadow-elevated" onClick={e => e.stopPropagation()}>
-              <button onClick={closePopup} className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors">
-                <X className="h-5 w-5 text-muted-foreground" />
+              <button onClick={closePopup} aria-label="Pop-up schließen" className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors">
+                <X className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
               </button>
 
               {/* Progress Bar */}
@@ -768,11 +768,11 @@ export default function Index() {
               </p>
             </div>
             <div className="flex gap-2 self-end sm:self-auto">
-              <button onClick={prevCaseStudy} className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
-                <ChevronLeft className="h-5 w-5" />
+              <button onClick={prevCaseStudy} aria-label="Vorherige Case Study anzeigen" className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
-              <button onClick={nextCaseStudy} className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
-                <ChevronRight className="h-5 w-5" />
+              <button onClick={nextCaseStudy} aria-label="Nächste Case Study anzeigen" className="p-2 rounded-lg border border-border hover:bg-accent transition-colors">
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </motion.div>

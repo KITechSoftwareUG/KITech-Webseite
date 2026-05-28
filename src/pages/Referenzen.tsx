@@ -215,7 +215,7 @@ export default function Referenzen() {
                     className="flex flex-col items-center gap-3 p-6 bg-card rounded-xl border border-border h-full"
                   >
                     <div className="w-16 h-16 rounded-xl bg-muted flex items-center justify-center p-2">
-                      <img src={client.logo} alt={client.name} className="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                      <img src={client.logo} alt={`${client.name} Firmenlogo`} className="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity" />
                     </div>
                     <p className="text-sm font-medium text-center text-foreground leading-tight">
                       {client.name}
@@ -229,8 +229,9 @@ export default function Referenzen() {
       </section>
 
       {/* Case Studies */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28" aria-labelledby="case-studies-heading">
         <div className="container">
+          <h2 id="case-studies-heading" className="sr-only">Case Studies aus echten Kundenprojekten</h2>
           <div className="space-y-16">
             {caseStudies.map((study, i) => (
               <motion.div

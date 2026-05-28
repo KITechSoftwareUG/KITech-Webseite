@@ -71,12 +71,16 @@ Python, PyTorch, Hugging Face, LangChain, PostgreSQL, Docker, Kubernetes, Azure/
 - Nachhaltige Architekturen: Wartbar, erweiterbar, wirtschaftlich
 - Partnerschaft auf Augenhöhe
 
-## Links
+## Pages
 
-- Website: https://kitech-software.de
-- Leistungen: https://kitech-software.de/leistungen
-- Haltung: https://kitech-software.de/haltung
-- Referenzen: https://kitech-software.de/referenzen
-- Kontakt: https://kitech-software.de/kontakt
-- Impressum: https://kitech-software.de/impressum
-- Datenschutz: https://kitech-software.de/datenschutz
+- [Startseite](/): Überblick über KITech Software, Agenten-Ansatz und Referenzen.
+- [Leistungen](/leistungen): KI-Agenten, LLM-Orchestrierung, Vision- und Kommunikations-Agenten.
+- [Haltung](/haltung): Werte und Philosophie hinter unserer Agenten-Orchestrierung.
+- [Referenzen](/referenzen): Case Studies und Kundenprojekte mit dokumentierten Ergebnissen.
+- [Kontakt](/kontakt): Erstgespräch buchen und Kontaktdaten.
+
+## Optional
+
+- [Impressum](/impressum): Anbieterkennzeichnung nach § 5 TMG.
+- [Datenschutz](/datenschutz): Datenschutzerklärung nach DSGVO.
+- [AGB](/agb): Allgemeine Geschäftsbedingungen.
