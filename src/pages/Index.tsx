@@ -7,7 +7,6 @@ import {
   getLocalBusinessSchema,
   getFAQSchema,
   getReviewSchema,
-  getSoftwareAppSchema,
   getWebPageSchema,
 } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
