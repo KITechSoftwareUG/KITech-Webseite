@@ -89,9 +89,8 @@ export default function Referenzen() {
       {/* Client Carousel */}
       <section className="py-16 bg-card/50 border-y border-border" aria-labelledby="clients-heading">
         <div className="container">
-          <h2 id="clients-heading" className="sr-only">Ausgewählte Kunden</h2>
           <p className="text-center text-sm text-muted-foreground mb-8">
-            Ein Auszug ausgewählter Kunden – und viele weitere, die wir hier nicht öffentlich nennen
+            Ein Auszug unserer Kunden – und weitere Projekte
           </p>
           <Carousel
             opts={{ align: "start", loop: true }}
@@ -129,9 +128,6 @@ export default function Referenzen() {
               ))}
             </CarouselContent>
           </Carousel>
-          <p className="text-center text-xs text-muted-foreground mt-8">
-            … und viele weitere Mandate, die wir auf Wunsch unserer Kunden nicht öffentlich auflisten.
-          </p>
         </div>
       </section>
 
