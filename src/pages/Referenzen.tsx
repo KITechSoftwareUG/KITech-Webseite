@@ -32,7 +32,7 @@ const clients = [
   { name: "cert consulting Pane", logo: certconsultingLogo },
   { name: "KREMA Group", logo: kremaLogo },
   { name: "ExpatVantage", logo: expatvantageLogo },
-  { name: "File Automation (Maschinenbau)", logo: null },
+  { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationAsset.url },
 ];
 
 export default function Referenzen() {
