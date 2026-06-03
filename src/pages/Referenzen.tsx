@@ -17,6 +17,7 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
+import feilAutomationAsset from "@/assets/feil-automation-logo.png.asset.json";
 
 const metrics = [
   { value: "50+", label: "Projekte abgeschlossen" },
