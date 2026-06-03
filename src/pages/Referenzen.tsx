@@ -128,9 +128,6 @@ export default function Referenzen() {
               ))}
             </CarouselContent>
           </Carousel>
-          <p className="text-center text-xs text-muted-foreground mt-8">
-            … und viele weitere Mandate, die wir auf Wunsch unserer Kunden nicht öffentlich auflisten.
-          </p>
         </div>
       </section>
 
