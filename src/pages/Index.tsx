@@ -282,8 +282,8 @@ export default function Index() {
   };
   return <Layout>
       <SEOHead
-        title="KITech Software – KI-Agenten für den Mittelstand"
-        description="Wir denken nicht in Jobrollen, sondern in KI-Agenten. Orchestrierte, DSGVO-konforme Agenten-Systeme für Ihre realen Geschäftsprozesse. Made in Germany."
+       title="KITech Software – KI mit ROI-Garantie"
+       description="KI mit ROI-Garantie für den Mittelstand. Wir bauen KI-Systeme, die messbar Geld einsparen oder Umsatz bringen – sonst zahlen Sie nicht. DSGVO-konform, Made in Germany."
         canonical="/"
       />
       <StructuredData data={getOrganizationSchema()} />
