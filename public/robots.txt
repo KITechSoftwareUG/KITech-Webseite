@@ -1,28 +1,94 @@
+# Klassische Suchmaschinen
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+User-agent: DuckDuckBot
+Allow: /
+
+# Social-Crawler
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+# KI-Trainings- und Antwort-Crawler – OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: OAI-SearchBot
 Allow: /
 
+# Google KI
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic Claude
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Copilot
+User-agent: msnbot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon (Alexa/Rufus)
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo AI Assist
+User-agent: DuckAssistBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Fallback
 User-agent: *
 Allow: /
+
+# Maschinenlesbare Quellen für KI-Agenten (RFC: llms.txt)
+# https://kitech-software.de/llms.txt
+# https://kitech-software.de/llms-full.txt
 
 Sitemap: https://kitech-software.de/sitemap.xml
