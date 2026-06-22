@@ -23,13 +23,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <Terminal className="h-6 w-6" />
-              </div>
-              <span className="text-xl font-light text-foreground">
-                KITech<span className="font-thin text-muted-foreground">Software</span>
-              </span>
+            <Link to="/" className="flex items-center mb-4" aria-label="KITech Software – Startseite">
+              <img src={kitechLogo.url} alt="KITech Software Logo" className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm mb-6">
               Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. Made in Germany.
