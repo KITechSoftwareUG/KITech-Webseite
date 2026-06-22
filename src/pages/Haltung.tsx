@@ -62,8 +62,8 @@ export default function Haltung() {
   return (
     <Layout>
       <SEOHead
-        title="Unsere Haltung – Agenten statt Abteilungen | KITech Software"
-        description="Wir denken in Agenten-Orchestrierungen statt in Jobrollen. Substanz statt Hype, autonome Systeme statt manuelle Prozesse."
+        title="Unsere Haltung – KI mit ROI-Garantie | KITech Software"
+        description="Wir liefern KI mit ROI-Garantie: messbarer wirtschaftlicher Wertbeitrag statt Demo-Effekte. Substanz statt Hype, Risiko bei uns – nicht beim Kunden."
         canonical="/haltung"
       />
       <StructuredData data={getWebPageSchema("Haltung", "Unsere Werte und Prinzipien", "https://kitech-software.de/haltung")} />

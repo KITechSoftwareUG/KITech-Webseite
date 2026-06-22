@@ -45,39 +45,39 @@ const clientReferences = [{
   logo: expatvantageLogo
 }];
 const comparisonData = [{
-  feature: 'Standard "Prompts"',
+  feature: "Stundenabrechnung ohne Ergebnis-Zusage",
   typical: true,
-  kitech: "Orchestrierte Agenten-Systeme"
+  kitech: "Festpreis mit messbarem ROI-Ziel"
+}, {
+  feature: "Demo-Effekte ohne Produktivnutzen",
+  typical: true,
+  kitech: "ROI in Euro nachweisbar"
+}, {
+  feature: "Risiko liegt beim Kunden",
+  typical: true,
+  kitech: "ROI-Garantie: Ziel verfehlt = Sie zahlen nicht"
 }, {
   feature: "Unklare Datenflüsse",
   typical: true,
-  kitech: "DSGVO-konforme Agenten-Architektur"
-}, {
-  feature: "Demo-Effekte",
-  typical: true,
-  kitech: "Produktive Agenten im Einsatz"
-}, {
-  feature: "Denken in Jobrollen",
-  typical: true,
-  kitech: "Denken in Prozess-Orchestrierungen"
+  kitech: "DSGVO-konform und auditierbar"
 }];
 const processSteps = [{
   number: "01",
-  title: "Prozessanalyse & Agenten-Design",
-  description: "Wir analysieren Ihre Geschäftsprozesse und identifizieren, welche Aufgaben durch spezialisierte KI-Agenten übernommen werden können. Das Ergebnis: ein klarer Orchestrierungsplan.",
-  features: ["Prozess-Mapping", "Agenten-Architektur"],
+  title: "ROI-Audit & Business Case",
+  description: "Wir analysieren Ihre Prozesse, identifizieren die wirtschaftlich stärksten KI-Hebel und quantifizieren den ROI in Euro – bevor eine Zeile Code geschrieben wird.",
+  features: ["Prozess-Mapping", "ROI-Kalkulation in €"],
   icon: Clipboard
 }, {
   number: "02",
-  title: "Agenten-Entwicklung & Orchestrierung",
-  description: "Wir entwickeln spezialisierte KI-Agenten, die nahtlos zusammenarbeiten – wie ein eingespieltes Team, nur vollständig automatisiert und skalierbar.",
-  features: ["Multi-Agent-Systeme", "Lokale/EU Deployments"],
+  title: "Entwicklung mit ROI-Garantie",
+  description: "Wir bauen die KI-Lösung gegen vorab vereinbarte ROI-Ziele. Erreichen wir sie nicht, zahlen Sie nicht – dieses Risiko tragen wir, nicht Sie.",
+  features: ["Festpreis-Modell", "Klare Erfolgskriterien"],
   icon: Database
 }, {
   number: "03",
-  title: "Deployment & kontinuierliche Optimierung",
-  description: "Ihre Agenten gehen in Produktion. Wir überwachen, optimieren und erweitern das System iterativ – damit es mit Ihrem Unternehmen wächst.",
-  features: ["Agenten-Monitoring", "Laufende Wartung"],
+  title: "Betrieb & ROI-Tracking",
+  description: "Ihre KI geht in Produktion. Wir messen den realisierten ROI laufend, optimieren kontinuierlich und weisen den Wertbeitrag transparent nach.",
+  features: ["ROI-Dashboard", "Laufende Optimierung"],
   icon: Rocket
 }];
 const caseStudies = [{
@@ -291,8 +291,8 @@ export default function Index() {
       <StructuredData data={getWebPageSchema("KITech Software – KI-Agenten für den Mittelstand", "Orchestrierte KI-Agenten für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
       <StructuredData data={getReviewSchema(testimonials.map(t => ({ author: t.author, text: t.quote, rating: t.rating })))} />
       <StructuredData data={getFAQSchema([
-        { question: "Was macht KITech Software?", answer: "KITech Software entwickelt orchestrierte KI-Agenten-Systeme, die reale Geschäftsprozesse automatisieren. Wir denken nicht in Jobrollen, sondern in intelligenten Agenten-Orchestrierungen. DSGVO-konform, Made in Germany." },
-        { question: "Was sind KI-Agenten?", answer: "KI-Agenten sind spezialisierte, autonome Softwareeinheiten, die bestimmte Aufgaben übernehmen. Mehrere Agenten werden orchestriert, um komplette Prozesse abzubilden – effizienter als klassische Rollenverteilung." },
+        { question: "Was macht KITech Software?", answer: "KITech Software baut KI-Lösungen für den deutschen Mittelstand – mit ROI-Garantie. Wir definieren vorab den wirtschaftlichen Wertbeitrag in Euro; wird er nicht erreicht, zahlt der Kunde nicht. DSGVO-konform, Made in Germany." },
+        { question: "Was bedeutet ROI-Garantie?", answer: "Vor Projektstart definieren wir gemeinsam einen messbaren ROI in Euro – z.B. eingesparte Stunden, automatisierte Vorgänge, zusätzlicher Umsatz. Erreichen wir das vereinbarte Ziel nicht, zahlen Sie nicht. Das Umsetzungsrisiko liegt bei uns." },
         { question: "Ist KITech DSGVO-konform?", answer: "Ja, DSGVO-Konformität ist Grundprinzip. Lokales/EU Hosting möglich, keine proprietären Lock-Ins." },
       ])} />
       {/* Hero Section with Lamp Effect */}
@@ -626,28 +626,28 @@ export default function Index() {
             }}>
                 <h2 className="text-3xl sm:text-4xl font-light mb-2">Warum KITech?</h2>
                 <p className="text-2xl sm:text-3xl font-light gradient-text mb-6">
-                  Agenten statt Abteilungen.
+                  KI, die sich rechnet – garantiert.
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  Während andere in Jobrollen denken, orchestrieren wir spezialisierte KI-Agenten 
-                  zu automatisierten Prozessen – tief integriert in Ihre bestehende IT-Landschaft.
+                  Wir definieren vor Projektstart den wirtschaftlichen Wertbeitrag in Euro –
+                  eingesparte Stunden, automatisierte Vorgänge, zusätzlicher Umsatz. Erreichen
+                  wir das vereinbarte ROI-Ziel nicht, zahlen Sie nicht.
                 </p>
                 <p className="text-muted-foreground mb-8">
-                  Jeder Agent übernimmt eine klar definierte Aufgabe. Zusammen bilden sie ein 
-                  System, das schneller, günstiger und skalierbarer arbeitet als klassische Teams – 
-                  bei voller Auditierbarkeit und DSGVO-Konformität.
+                  So tragen wir das Umsetzungsrisiko, nicht Sie. Tief integriert in Ihre
+                  IT-Landschaft, DSGVO-konform und auditierbar – Made in Germany.
                 </p>
                 
                 <div className="grid sm:grid-cols-2 gap-4">
                 {[{
                   icon: Check,
-                  text: "Multi-Agent-Orchestrierung"
+                  text: "ROI-Garantie in Euro"
                 }, {
                   icon: MapPin,
                   text: "Hosting in Deutschland/EU"
                 }, {
                   icon: Check,
-                  text: "Autonome Prozessautomatisierung"
+                  text: "Festpreis statt Stundenrisiko"
                 }, {
                   icon: Check,
                   text: "Kein Vendor-Lock-In"
@@ -707,11 +707,11 @@ export default function Index() {
           once: true
         }} className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-light mb-4">
-              Von der Analyse zum Agenten-System
+              Vom ROI-Audit zur garantierten Wirkung
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Wir analysieren Ihre Prozesse, designen spezialisierte Agenten und 
-              orchestrieren sie zu einem autonomen System. Strukturiert und transparent.
+              Wir quantifizieren den Wertbeitrag, bauen die Lösung gegen messbare Ziele und
+              weisen den ROI im Betrieb transparent nach. Strukturiert, festpreisbasiert, garantiert.
             </p>
           </motion.div>
 
@@ -945,11 +945,11 @@ export default function Index() {
           once: true
         }} className="relative overflow-hidden rounded-3xl bg-background border-2 border-primary p-8 md:p-16 text-center shadow-elevated">
             <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">
-              Bereit für Ihre eigenen KI-Agenten?
+              Bereit für KI mit garantiertem ROI?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Lassen Sie uns gemeinsam herausfinden, welche Prozesse in Ihrem 
-              Unternehmen durch orchestrierte KI-Agenten automatisiert werden können.
+              Lassen Sie uns gemeinsam den wirtschaftlichen Hebel in Ihrem Unternehmen
+              quantifizieren – und mit klaren ROI-Zielen umsetzen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="cta" size="xl" onClick={() => { trackEvent("Calendly_Klick", { position: "footer-cta" }); window.open('https://calendly.com/kitech-software-info/30min', '_blank'); }}>
