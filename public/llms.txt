@@ -1,6 +1,6 @@
 # KITech Software
 
-> Individuelle, sichere und auditierbare KI-Systeme für reale Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany.
+> KI mit ROI-Garantie für den deutschen Mittelstand. KITech baut KI-Lösungen mit messbarem wirtschaftlichem Wertbeitrag – wird das vereinbarte ROI-Ziel nicht erreicht, zahlt der Kunde nicht. DSGVO-konform, Made in Germany.
 
 ## Unternehmen
 
@@ -75,7 +75,7 @@ Python, PyTorch, Hugging Face, LangChain, PostgreSQL, Docker, Kubernetes, Azure/
 
 - [Startseite](/): Überblick über KITech Software, Agenten-Ansatz und Referenzen.
 - [Leistungen](/leistungen): KI-Agenten, LLM-Orchestrierung, Vision- und Kommunikations-Agenten.
-- [Haltung](/haltung): Werte und Philosophie hinter unserer Agenten-Orchestrierung.
+- [Haltung](/haltung): Werte und Philosophie hinter unserer ROI-Garantie.
 - [Referenzen](/referenzen): Case Studies und Kundenprojekte mit dokumentierten Ergebnissen.
 - [Kontakt](/kontakt): Erstgespräch buchen und Kontaktdaten.
 
