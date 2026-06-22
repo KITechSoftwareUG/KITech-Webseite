@@ -81,8 +81,8 @@ export default function Haltung() {
               Unsere <span className="gradient-text">Haltung</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Wir denken nicht in Jobrollen, sondern in Agenten-Orchestrierungen. 
-              Prozesse automatisieren statt Stellen besetzen – mit Substanz und Engineering-Exzellenz.
+              KI muss sich rechnen – sonst ist sie wertlos. Wir bauen Lösungen mit
+              ROI-Garantie: messbar, festpreisbasiert, mit dem Umsetzungsrisiko bei uns.
             </p>
           </motion.div>
         </div>
@@ -99,13 +99,13 @@ export default function Haltung() {
           >
             <Heart className="h-12 w-12 text-primary mx-auto mb-6" />
             <blockquote className="text-2xl sm:text-3xl font-medium mb-6">
-              "Wir ersetzen keine Menschen – wir orchestrieren Agenten, die 
-              <span className="gradient-text"> Prozesse übernehmen, nicht Rollen.</span>"
+              "Wir versprechen keine KI-Magie – wir garantieren
+              <span className="gradient-text"> einen Wertbeitrag in Euro.</span>"
             </blockquote>
             <p className="text-muted-foreground">
-              Statt Jobrollen zu automatisieren, zerlegen wir Prozesse in Aufgaben und weisen 
-              jedem Schritt einen spezialisierten KI-Agenten zu. So entsteht ein orchestriertes 
-              System, das skaliert, auditierbar ist und langfristig Mehrwert schafft.
+              Vor Projektstart definieren wir gemeinsam mit Ihnen den wirtschaftlichen
+              Erfolg in harten Zahlen. Erreichen wir das vereinbarte ROI-Ziel nicht,
+              zahlen Sie nicht. So entsteht KI, die sich rechnet – garantiert.
             </p>
           </motion.div>
         </div>
