@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 
 const navigation = [
   { name: "Leistungen", href: "/leistungen" },
@@ -22,13 +23,8 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md">
       <div className="container">
         <div className="flex h-20 items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Terminal className="h-6 w-6" />
-            </div>
-            <span className="text-xl font-light text-foreground">
-              KITech<span className="font-thin text-muted-foreground">Software</span>
-            </span>
+          <Link to="/" className="flex items-center" aria-label="KITech Software – Startseite">
+            <img src={kitechLogo.url} alt="KITech Software Logo" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
