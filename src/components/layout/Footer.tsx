@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Terminal, MapPin, Shield } from "lucide-react";
+import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 
 const footerLinks = {
   navigation: [
