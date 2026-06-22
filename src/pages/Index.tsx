@@ -312,10 +312,10 @@ export default function Index() {
             
             
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
-              Nicht Rollen besetzen. Agenten orchestrieren.
+              KI mit <span className="text-primary">ROI-Garantie</span>.
               <br />
               <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
-                <TextRotate texts={["25+ orchestrierte Agenten-Systeme", "30 Prozess-Audits", "über 8 Jahre Konzernerfahrung"]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
+                <TextRotate texts={["Messbar. Auditierbar. Made in Germany.", "Erst Wirkung, dann Rechnung.", "KI, die sich rechnet – garantiert."]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
                 y: "-120%",
                 opacity: 0
               }} animate={{
@@ -333,10 +333,11 @@ export default function Index() {
             </h1>
             
             <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
-              Wir denken nicht in Jobrollen, sondern in KI-Agenten. Spezialisierte Agenten 
-              übernehmen Aufgaben, orchestriert zu automatisierten Prozessen – DSGVO-konform 
-              und auditierbar. Made in Germany.
+              Wir bauen KI-Systeme für den Mittelstand, die messbar Kosten senken oder
+              Umsatz bringen – mit klar definierten ROI-Zielen. Erreichen wir sie nicht,
+              zahlen Sie nicht. DSGVO-konform und auditierbar.
             </p>
+
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
