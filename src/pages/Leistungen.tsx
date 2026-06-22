@@ -101,13 +101,13 @@ export default function Leistungen() {
   return (
     <Layout>
       <SEOHead
-        title="KI-Agenten & Prozess-Orchestrierung | KITech Software"
-        description="Spezialisierte KI-Agenten für jeden Prozess – von der Analyse über LLM-Orchestrierung bis zu Vision-Agenten. DSGVO-konform, Made in Germany."
+        title="KI-Leistungen mit ROI-Garantie | KITech Software"
+        description="KI-Leistungen für den Mittelstand mit ROI-Garantie – von ROI-Audit über Custom KI bis zu Betrieb & Monitoring. DSGVO-konform, Made in Germany."
         canonical="/leistungen"
       />
-      <StructuredData data={getWebPageSchema("Leistungen", "KI-Agenten & Prozess-Orchestrierung", "https://kitech-software.de/leistungen")} />
+      <StructuredData data={getWebPageSchema("Leistungen", "KI-Leistungen mit ROI-Garantie", "https://kitech-software.de/leistungen")} />
       <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Leistungen", url: "https://kitech-software.de/leistungen" }])} />
-      <StructuredData data={getServiceSchema("KI-Agenten-Entwicklung & Orchestrierung", "Spezialisierte KI-Agenten, die orchestriert zusammenarbeiten – von der Prozessanalyse bis zum produktiven Agenten-System.")} />
+      <StructuredData data={getServiceSchema("KI-Entwicklung mit ROI-Garantie", "KI-Lösungen für den Mittelstand mit garantiertem wirtschaftlichem Wertbeitrag – Festpreis, messbar, auditierbar.")} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
@@ -118,16 +118,17 @@ export default function Leistungen() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Unsere <span className="gradient-text">Agenten-Leistungen</span>
+              Unsere <span className="gradient-text">KI-Leistungen</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Wir denken nicht in Rollen, sondern in Agenten. Für jeden Prozess der passende 
-              Agent – orchestriert zu einem autonomen System, das mit Ihrem Unternehmen wächst.
+              Jede Leistung mit klar definiertem ROI-Ziel und Festpreis. Erreichen wir
+              den vereinbarten wirtschaftlichen Wertbeitrag nicht, zahlen Sie nicht.
             </p>
             <Button variant="hero" size="lg" asChild>
               <Link to="/kontakt">
-                Agenten-Beratung anfragen
+                ROI-Audit anfragen
                 <ArrowRight className="h-4 w-4" />
+
               </Link>
             </Button>
           </motion.div>
@@ -212,14 +213,14 @@ export default function Leistungen() {
             className="bg-card rounded-3xl border border-border p-8 md:p-16 text-center"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Ihr Prozess braucht einen eigenen Agenten?
+              Welcher KI-Hebel bringt Ihnen den höchsten ROI?
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Jedes Unternehmen ist einzigartig. Lassen Sie uns gemeinsam herausfinden, 
-              welche Agenten-Orchestrierung für Sie am sinnvollsten ist.
+              Im ROI-Audit identifizieren wir die wirtschaftlich stärksten KI-Anwendungen
+              in Ihrem Unternehmen – mit konkretem Euro-Wert vor jedem Projektstart.
             </p>
             <Button variant="hero" size="xl" asChild>
-              <Link to="/kontakt">Individuelle Agenten-Lösung anfragen</Link>
+              <Link to="/kontakt">ROI-Audit anfragen</Link>
             </Button>
           </motion.div>
         </div>

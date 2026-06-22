@@ -144,8 +144,8 @@ export default function Referenzen() {
               Ihr Projekt könnte das nächste sein
             </h2>
             <p className="text-muted-foreground mb-8">
-              Lassen Sie uns gemeinsam herausfinden, wie Agenten-Orchestrierung in Ihrem
-              Unternehmen echten Mehrwert schaffen kann.
+              Lassen Sie uns gemeinsam den wirtschaftlichen Hebel in Ihrem Unternehmen
+              quantifizieren – mit klarer ROI-Garantie statt vagen Versprechen.
             </p>
             <Button variant="hero" size="xl" asChild>
               <Link to="/kontakt">
