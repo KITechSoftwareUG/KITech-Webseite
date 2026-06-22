@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 
 const navigation = [
   { name: "Leistungen", href: "/leistungen" },
