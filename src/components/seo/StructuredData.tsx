@@ -38,9 +38,10 @@ export function getOrganizationSchema(): SchemaBase {
     name: "KITech Software UG (haftungsbeschränkt)",
     alternateName: "KITech Software",
     url: "https://kitech-software.de",
-    logo: "https://kitech-software.de/favicon.ico",
+    logo: "https://kitech-software.de/logo.png",
+    image: "https://kitech-software.de/logo.png",
     description:
-      "Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. DSGVO-konforme KI-Lösungen ohne Hype, mit Substanz. Made in Germany.",
+      "KI mit ROI-Garantie für den deutschen Mittelstand. KITech Software baut maßgeschneiderte KI-Lösungen mit messbarem wirtschaftlichem Wertbeitrag – wird das vereinbarte ROI-Ziel nicht erreicht, zahlt der Kunde nicht. DSGVO-konform, Made in Germany.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Wedekindstraße 14",
@@ -87,13 +88,14 @@ export function getLocalBusinessSchema(): SchemaBase {
     name: "KITech Software",
     logo: {
       "@type": "ImageObject",
-      url: "https://kitech-software.de/og-image.png",
-      width: 512,
-      height: 512,
+      url: "https://kitech-software.de/logo.png",
     },
+    image: "https://kitech-software.de/logo.png",
     url: "https://kitech-software.de",
     telephone: "+49-151-64682544",
     email: "info@kitech-software.de",
+    description:
+      "KI mit ROI-Garantie für den deutschen Mittelstand. Festpreis, messbarer Wertbeitrag in Euro, DSGVO-konform.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Wedekindstraße 14",
@@ -114,12 +116,6 @@ export function getLocalBusinessSchema(): SchemaBase {
       closes: "18:00",
     },
     priceRange: "€€€",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "3",
-      bestRating: "5",
-    },
   };
 }
 
