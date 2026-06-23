@@ -23,13 +23,16 @@ export default function Glossar() {
     {
       "@context": "https://schema.org" as const,
       "@type": "DefinedTermSet",
+      "@id": "https://kitech-software.de/glossar",
       name: "KITech KI-Glossar",
       url: "https://kitech-software.de/glossar",
+      inLanguage: "de-DE",
       hasDefinedTerm: glossaryTerms.map((t) => ({
         "@type": "DefinedTerm",
         name: t.term,
         description: t.shortDefinition,
         url: `https://kitech-software.de/glossar/${t.slug}`,
+        inDefinedTermSet: { "@id": "https://kitech-software.de/glossar" },
       })),
     },
   ];
