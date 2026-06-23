@@ -59,7 +59,7 @@ describe.each(pages.filter((p) => p.path !== "/"))(
       ]);
       const parsed = BreadcrumbListSchema.parse(schema);
       assertBreadcrumbPositions(parsed.itemListElement);
-      const last = parsed.itemListElement.at(-1)!;
+      const last = parsed.itemListElement[parsed.itemListElement.length - 1]!;
       expect(last.name).toBe(name);
       expect(last.item).toBe(`${BASE}${path}`);
     });
