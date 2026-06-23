@@ -244,3 +244,72 @@ export function getSoftwareAppSchema(
     },
   };
 }
+
+export interface CloudPlatformInput {
+  name: string;
+  description: string;
+  provider: string;
+  url?: string;
+  areaServed?: string[];
+}
+
+/**
+ * ItemList of Service entries – maps the Enterprise-Cloud-Platforms block.
+ * Each list item is a full Service entity (Azure, AWS, GCP, Sovereign).
+ */
+export function getEnterpriseCloudItemListSchema(
+  platforms: CloudPlatformInput[]
+): SchemaBase {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Enterprise-Cloud-Plattformen für KI-Agenten",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: platforms.length,
+    itemListElement: platforms.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: p.name,
+        description: p.description,
+        serviceType: "KI-Agenten-Entwicklung auf Enterprise-Cloud-Plattformen",
+        provider: {
+          "@type": "Organization",
+          name: "KITech Software UG (haftungsbeschränkt)",
+          url: "https://kitech-software.de",
+        },
+        brand: {
+          "@type": "Brand",
+          name: p.provider,
+        },
+        ...(p.url ? { url: p.url } : {}),
+        areaServed: (p.areaServed ?? ["Germany", "Austria", "Switzerland"]).map((a) => ({
+          "@type": "Country",
+          name: a,
+        })),
+      },
+    })),
+  };
+}
+
+export function getEnterpriseCloudFAQSchema(): SchemaBase {
+  return getFAQSchema([
+    {
+      question: "Welche Enterprise-Cloud-Plattformen unterstützt KITech für KI-Agenten?",
+      answer:
+        "KITech baut KI-Agenten auf Microsoft Azure AI Foundry, AWS Bedrock und Google Vertex AI – sowie auf souveränen Alternativen wie STACKIT, IONOS AI und On-Premise-Deployments mit vLLM oder Ollama.",
+    },
+    {
+      question: "Sind die KI-Lösungen DSGVO-konform und in der EU gehostet?",
+      answer:
+        "Ja. Alle Deployments laufen in EU-Regionen (Frankfurt, Zürich, Amsterdam oder europe-west3) mit Auftragsverarbeitungsverträgen, Standardvertragsklauseln, Private Endpoints und Verschlüsselung mit CMEK/KMS.",
+    },
+    {
+      question: "Was ist mit digitaler Souveränität, wenn Public Cloud ausgeschlossen ist?",
+      answer:
+        "Für regulierte Branchen oder Air-Gapped-Anforderungen setzen wir Open-Source-LLMs (Llama, Mistral, Qwen) auf STACKIT, IONOS, Open Telekom Cloud oder Ihrer eigenen Infrastruktur auf – BSI C5- und ISO 27001-konform.",
+    },
+  ]);
+}
+
