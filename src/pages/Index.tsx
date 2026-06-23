@@ -15,6 +15,7 @@ import { TextRotate } from "@/components/ui/text-rotate";
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { TrustRiskReversal } from "@/components/conversion/TrustRiskReversal";
+import { EnterpriseCloud } from "@/components/sections/EnterpriseCloud";
 import { useState, useEffect } from "react";
 import { trackEvent, initScrollTracking } from "@/lib/plausible";
 import { Users, Briefcase, HelpCircle } from "lucide-react";
@@ -943,7 +944,10 @@ export default function Index() {
         </div>
       </section>
 
+      <EnterpriseCloud />
+
       <TrustRiskReversal />
+
 
       {/* CTA Section */}
       <section className="py-20 lg:py-28">
