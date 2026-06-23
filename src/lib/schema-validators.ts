@@ -104,7 +104,9 @@ export const WebPageSchema = z.object({
 });
 
 /** Validate a positions-sequential breadcrumb. */
-export function assertBreadcrumbPositions(items: { position: number }[]) {
+export function assertBreadcrumbPositions(
+  items: ReadonlyArray<{ position?: number }>
+) {
   items.forEach((it, i) => {
     if (it.position !== i + 1) {
       throw new Error(
