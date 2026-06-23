@@ -2,18 +2,9 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import {
-  StructuredData,
-  getBreadcrumbSchema,
-  getFAQSchema,
-} from "@/components/seo/StructuredData";
-import {
-  getTermBySlug,
-  glossaryTerms,
-  GLOSSARY_DEFAULT_PUBLISHED,
-  GLOSSARY_DEFAULT_MODIFIED,
-  GLOSSARY_DEFAULT_IMAGE,
-} from "@/data/glossary";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { getTermBySlug, glossaryTerms } from "@/data/glossary";
+import { buildGlossaryTermSchema } from "@/lib/glossary-schema";
 
 export default function GlossarTerm() {
   const { slug } = useParams<{ slug: string }>();
@@ -21,56 +12,12 @@ export default function GlossarTerm() {
 
   if (!term) return <Navigate to="/glossar" replace />;
 
-  const url = `https://kitech-software.de/glossar/${term.slug}`;
   const related = term.related
     .map((s) => glossaryTerms.find((t) => t.slug === s))
     .filter((t): t is (typeof glossaryTerms)[number] => Boolean(t));
 
-  const schema = [
-    {
-      "@context": "https://schema.org" as const,
-      "@type": "Article",
-      headline: term.term,
-      name: term.term,
-      description: term.metaDescription,
-      mainEntityOfPage: { "@type": "WebPage", "@id": url },
-      url,
-      image: [GLOSSARY_DEFAULT_IMAGE],
-      datePublished: term.datePublished ?? GLOSSARY_DEFAULT_PUBLISHED,
-      dateModified: term.dateModified ?? GLOSSARY_DEFAULT_MODIFIED,
-      inLanguage: "de-DE",
-      author: {
-        "@type": "Organization",
-        name: "KITech Software UG (haftungsbeschränkt)",
-        url: "https://kitech-software.de",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "KITech Software UG (haftungsbeschränkt)",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://kitech-software.de/logo.png",
-        },
-      },
-      about: {
-        "@type": "DefinedTerm",
-        name: term.term,
-        description: term.shortDefinition,
-        inDefinedTermSet: {
-          "@type": "DefinedTermSet",
-          "@id": "https://kitech-software.de/glossar",
-          name: "KITech KI-Glossar",
-          url: "https://kitech-software.de/glossar",
-        },
-      },
-    },
-    getBreadcrumbSchema([
-      { name: "Start", url: "https://kitech-software.de/" },
-      { name: "Glossar", url: "https://kitech-software.de/glossar" },
-      { name: term.term, url },
-    ]),
-    ...(term.faqs && term.faqs.length > 0 ? [getFAQSchema(term.faqs)] : []),
-  ];
+  const schema = buildGlossaryTermSchema(term);
+
 
   return (
     <Layout>
