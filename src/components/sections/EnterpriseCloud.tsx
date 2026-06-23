@@ -106,7 +106,7 @@ export function EnterpriseCloud() {
       className="py-20 lg:py-28 bg-card/30 border-y border-border"
       aria-labelledby="enterprise-cloud-heading"
     >
-      <StructuredData data={getEnterpriseCloudItemListSchema([...enterpriseCloudPlatforms])} />
+      <StructuredData data={getEnterpriseCloudItemListSchema(enterpriseCloudPlatforms.map((p) => ({ ...p, areaServed: [...p.areaServed] })))} />
       <StructuredData data={getEnterpriseCloudFAQSchema()} />
 
       <div className="container">
