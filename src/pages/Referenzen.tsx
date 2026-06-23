@@ -18,6 +18,8 @@ import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
 import feilAutomationAsset from "@/assets/feil-automation-logo.png.asset.json";
+import pflegeXpertsAsset from "@/assets/pflegexperts-logo.png.asset.json";
+import lernwerkstattAsset from "@/assets/lernwerkstatt-pflege-logo.png.asset.json";
 
 const metrics = [
   { value: "50+", label: "Projekte abgeschlossen" },
@@ -33,6 +35,8 @@ const clients = [
   { name: "KREMA Group", logo: kremaLogo },
   { name: "ExpatVantage", logo: expatvantageLogo },
   { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationAsset.url },
+  { name: "PflegeXperts", logo: pflegeXpertsAsset.url },
+  { name: "Lernwerkstatt Pflege", logo: lernwerkstattAsset.url },
 ];
 
 export default function Referenzen() {

@@ -23,6 +23,8 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
+import pflegeXpertsAsset from "@/assets/pflegexperts-logo.png.asset.json";
+import lernwerkstattAsset from "@/assets/lernwerkstatt-pflege-logo.png.asset.json";
 const clientReferences = [{
   name: "NiImmo Holding GmbH",
   icon: Building2,
@@ -43,6 +45,14 @@ const clientReferences = [{
   name: "ExpatVantage",
   icon: Database,
   logo: expatvantageLogo
+}, {
+  name: "PflegeXperts",
+  icon: Shield,
+  logo: pflegeXpertsAsset.url
+}, {
+  name: "Lernwerkstatt Pflege",
+  icon: Shield,
+  logo: lernwerkstattAsset.url
 }];
 const comparisonData = [{
   feature: "Stundenabrechnung ohne Ergebnis-Zusage",
