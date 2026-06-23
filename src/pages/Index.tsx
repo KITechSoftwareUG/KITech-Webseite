@@ -944,7 +944,10 @@ export default function Index() {
         </div>
       </section>
 
+      <EnterpriseCloud />
+
       <TrustRiskReversal />
+
 
       {/* CTA Section */}
       <section className="py-20 lg:py-28">
