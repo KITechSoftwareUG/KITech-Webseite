@@ -15,6 +15,8 @@ const Kontakt = lazy(() => import("./pages/Kontakt"));
 const Impressum = lazy(() => import("./pages/Impressum"));
 const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const AGB = lazy(() => import("./pages/AGB"));
+const Glossar = lazy(() => import("./pages/Glossar"));
+const GlossarTerm = lazy(() => import("./pages/GlossarTerm"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
               <Route path="/impressum" element={<Impressum />} />
               <Route path="/datenschutz" element={<Datenschutz />} />
               <Route path="/agb" element={<AGB />} />
+              <Route path="/glossar" element={<Glossar />} />
+              <Route path="/glossar/:slug" element={<GlossarTerm />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
