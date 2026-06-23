@@ -257,7 +257,7 @@ export default function Index() {
     }, 300);
   };
   const buildCalendlyUrl = () => {
-    const baseUrl = "https://calendly.com/kitech-software-info/30min";
+    const baseUrl = "https://calendly.com/automatisieren-mit-kitech/30min";
     const params = new URLSearchParams();
     if (qualifierAnswers.role) params.set("a1", qualifierAnswers.role);
     if (qualifierAnswers.industry) params.set("a2", qualifierAnswers.industry);
@@ -952,7 +952,7 @@ export default function Index() {
               quantifizieren – und mit klaren ROI-Zielen umsetzen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="cta" size="xl" onClick={() => { trackEvent("Calendly_Klick", { position: "footer-cta" }); window.open('https://calendly.com/kitech-software-info/30min', '_blank'); }}>
+              <Button variant="cta" size="xl" onClick={() => { trackEvent("Calendly_Klick", { position: "footer-cta" }); window.open('https://calendly.com/automatisieren-mit-kitech/30min', '_blank'); }}>
                 Unverbindliches Erstgespräch
               </Button>
               <Button variant="ctaOutline" size="xl" asChild>
