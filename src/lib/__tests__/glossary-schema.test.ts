@@ -57,7 +57,7 @@ describe.each(glossaryTerms.map((t) => [t.slug, t] as const))(
     it("has valid BreadcrumbList ending with the term", () => {
       const parsed = BreadcrumbListSchema.parse(breadcrumb);
       assertBreadcrumbPositions(parsed.itemListElement);
-      const last = parsed.itemListElement.at(-1)!;
+      const last = parsed.itemListElement[parsed.itemListElement.length - 1]!;
       expect(last.name).toBe(term.term);
       expect(last.item).toBe(`${GLOSSARY_INDEX_URL}/${term.slug}`);
     });
