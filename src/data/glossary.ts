@@ -11,7 +11,14 @@ export interface GlossaryTerm {
   sections: GlossarySection[];
   related: string[]; // slugs
   faqs?: { question: string; answer: string }[];
+  datePublished?: string;
+  dateModified?: string;
 }
+
+export const GLOSSARY_DEFAULT_PUBLISHED = "2026-06-20";
+export const GLOSSARY_DEFAULT_MODIFIED = "2026-06-23";
+export const GLOSSARY_DEFAULT_IMAGE =
+  "https://kitech-software.de/og-image.jpg";
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
