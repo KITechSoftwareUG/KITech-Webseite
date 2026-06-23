@@ -7,6 +7,7 @@ const footerLinks = {
     { name: "Leistungen", href: "/leistungen" },
     { name: "Haltung", href: "/haltung" },
     { name: "Referenzen", href: "/referenzen" },
+    { name: "Glossar", href: "/glossar" },
     { name: "Kontakt", href: "/kontakt" },
   ],
   legal: [
