@@ -2,40 +2,13 @@ import { Link } from "react-router-dom";
 import { BookOpen, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import {
-  StructuredData,
-  getBreadcrumbSchema,
-  getWebPageSchema,
-} from "@/components/seo/StructuredData";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { glossaryTerms } from "@/data/glossary";
+import { buildGlossaryIndexSchema } from "@/lib/glossary-schema";
 
 export default function Glossar() {
-  const schema = [
-    getWebPageSchema(
-      "Glossar – KI-Begriffe verständlich erklärt",
-      "Glossar mit klar definierten Fachbegriffen rund um KI, ROI-Garantie, KI-Audit und DSGVO-konforme KI-Systeme.",
-      "https://kitech-software.de/glossar"
-    ),
-    getBreadcrumbSchema([
-      { name: "Start", url: "https://kitech-software.de/" },
-      { name: "Glossar", url: "https://kitech-software.de/glossar" },
-    ]),
-    {
-      "@context": "https://schema.org" as const,
-      "@type": "DefinedTermSet",
-      "@id": "https://kitech-software.de/glossar",
-      name: "KITech KI-Glossar",
-      url: "https://kitech-software.de/glossar",
-      inLanguage: "de-DE",
-      hasDefinedTerm: glossaryTerms.map((t) => ({
-        "@type": "DefinedTerm",
-        name: t.term,
-        description: t.shortDefinition,
-        url: `https://kitech-software.de/glossar/${t.slug}`,
-        inDefinedTermSet: { "@id": "https://kitech-software.de/glossar" },
-      })),
-    },
-  ];
+  const schema = buildGlossaryIndexSchema();
+
 
   return (
     <Layout>
