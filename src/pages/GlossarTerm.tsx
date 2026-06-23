@@ -31,9 +31,13 @@ export default function GlossarTerm() {
       "@context": "https://schema.org" as const,
       "@type": "Article",
       headline: term.term,
+      name: term.term,
       description: term.metaDescription,
-      mainEntityOfPage: url,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
       url,
+      image: [GLOSSARY_DEFAULT_IMAGE],
+      datePublished: term.datePublished ?? GLOSSARY_DEFAULT_PUBLISHED,
+      dateModified: term.dateModified ?? GLOSSARY_DEFAULT_MODIFIED,
       inLanguage: "de-DE",
       author: {
         "@type": "Organization",
@@ -52,7 +56,12 @@ export default function GlossarTerm() {
         "@type": "DefinedTerm",
         name: term.term,
         description: term.shortDefinition,
-        inDefinedTermSet: "https://kitech-software.de/glossar",
+        inDefinedTermSet: {
+          "@type": "DefinedTermSet",
+          "@id": "https://kitech-software.de/glossar",
+          name: "KITech KI-Glossar",
+          url: "https://kitech-software.de/glossar",
+        },
       },
     },
     getBreadcrumbSchema([
