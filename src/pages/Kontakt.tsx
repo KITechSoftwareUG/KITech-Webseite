@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 
-const CALENDLY_URL = "https://calendly.com/kitdienstleistungen/erstgesprach-automatisierung";
+const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
 
 const contactInfo = [
   {
