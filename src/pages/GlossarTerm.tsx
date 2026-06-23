@@ -7,7 +7,13 @@ import {
   getBreadcrumbSchema,
   getFAQSchema,
 } from "@/components/seo/StructuredData";
-import { getTermBySlug, glossaryTerms } from "@/data/glossary";
+import {
+  getTermBySlug,
+  glossaryTerms,
+  GLOSSARY_DEFAULT_PUBLISHED,
+  GLOSSARY_DEFAULT_MODIFIED,
+  GLOSSARY_DEFAULT_IMAGE,
+} from "@/data/glossary";
 
 export default function GlossarTerm() {
   const { slug } = useParams<{ slug: string }>();
