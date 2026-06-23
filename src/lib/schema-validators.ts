@@ -218,3 +218,47 @@ export const SoftwareApplicationSchema = z.object({
     .passthrough(),
 });
 
+const Country = z.object({
+  "@type": z.literal("Country"),
+  name: z.string().min(1),
+});
+
+const CloudServiceItem = z.object({
+  "@type": z.literal("Service"),
+  name: z.string().min(1),
+  description: z.string().min(1),
+  serviceType: z.string().min(1),
+  provider: z
+    .object({
+      "@type": z.literal("Organization"),
+      name: z.string().min(1),
+    })
+    .passthrough(),
+  brand: z.object({
+    "@type": z.literal("Brand"),
+    name: z.string().min(1),
+  }),
+  url: url.optional(),
+  areaServed: z.array(Country).min(1),
+});
+
+export const EnterpriseCloudItemListSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("ItemList"),
+  name: z.string().min(1),
+  itemListOrder: url.optional(),
+  numberOfItems: z.number().int().positive(),
+  itemListElement: z
+    .array(
+      z.object({
+        "@type": z.literal("ListItem"),
+        position: z.number().int().positive(),
+        item: CloudServiceItem,
+      })
+    )
+    .min(1),
+}).refine(
+  (v) => v.itemListElement.length === v.numberOfItems,
+  { message: "numberOfItems must equal itemListElement length" }
+);
+
