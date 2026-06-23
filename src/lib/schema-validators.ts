@@ -115,3 +115,106 @@ export function assertBreadcrumbPositions(
     }
   });
 }
+
+// === Additional schemas used across landing & content pages ===
+
+const PostalAddress = z.object({
+  "@type": z.literal("PostalAddress"),
+  streetAddress: z.string().min(1),
+  addressLocality: z.string().min(1),
+  postalCode: z.string().min(1),
+  addressCountry: z.string().min(2),
+  addressRegion: z.string().optional(),
+});
+
+export const OrganizationSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("Organization"),
+  name: z.string().min(1),
+  url,
+  logo: url,
+  description: z.string().min(1),
+  address: PostalAddress,
+  contactPoint: z.object({
+    "@type": z.literal("ContactPoint"),
+    telephone: z.string().min(1),
+    email: z.string().email(),
+    contactType: z.string().min(1),
+  }).passthrough(),
+  sameAs: z.array(url).optional(),
+});
+
+export const LocalBusinessSchema = z.object({
+  "@context": Context,
+  "@type": z.enum([
+    "LocalBusiness",
+    "ProfessionalService",
+    "Organization",
+  ]),
+  name: z.string().min(1),
+  url,
+  telephone: z.string().min(1),
+  email: z.string().email(),
+  description: z.string().min(1),
+  address: PostalAddress,
+  geo: z.object({
+    "@type": z.literal("GeoCoordinates"),
+    latitude: z.number(),
+    longitude: z.number(),
+  }),
+  priceRange: z.string().min(1),
+});
+
+export const ServiceSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("Service"),
+  name: z.string().min(1),
+  description: z.string().min(1),
+  provider: z
+    .object({
+      "@type": z.literal("Organization"),
+      name: z.string().min(1),
+    })
+    .passthrough(),
+  serviceType: z.string().min(1),
+});
+
+export const ReviewCollectionSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("Organization"),
+  name: z.string().min(1),
+  review: z
+    .array(
+      z.object({
+        "@type": z.literal("Review"),
+        author: z.object({
+          "@type": z.literal("Person"),
+          name: z.string().min(1),
+        }),
+        reviewBody: z.string().min(1),
+        reviewRating: z.object({
+          "@type": z.literal("Rating"),
+          ratingValue: z.number().min(1).max(5),
+          bestRating: z.number().min(1).max(5),
+        }),
+      })
+    )
+    .min(1),
+});
+
+export const SoftwareApplicationSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("SoftwareApplication"),
+  name: z.string().min(1),
+  description: z.string().min(1),
+  applicationCategory: z.string().min(1),
+  operatingSystem: z.string().min(1),
+  url,
+  offers: z
+    .object({
+      "@type": z.literal("Offer"),
+      availability: url,
+    })
+    .passthrough(),
+});
+
