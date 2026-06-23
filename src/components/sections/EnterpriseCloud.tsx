@@ -2,6 +2,46 @@ import { motion } from "framer-motion";
 import { Cloud, Shield, Server, Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  StructuredData,
+  getEnterpriseCloudItemListSchema,
+  getEnterpriseCloudFAQSchema,
+} from "@/components/seo/StructuredData";
+
+export const enterpriseCloudPlatforms = [
+  {
+    name: "KI-Agenten auf Microsoft Azure AI Foundry",
+    provider: "Microsoft Azure",
+    description:
+      "Enterprise-Grade Agenten auf Azure AI Foundry – inkl. Azure OpenAI, AI Search, Content Safety und Private Link in EU-Regionen.",
+    url: "https://ai.azure.com/",
+    areaServed: ["Germany", "Austria", "Switzerland"],
+  },
+  {
+    name: "KI-Agenten auf AWS Bedrock",
+    provider: "Amazon Web Services",
+    description:
+      "Multi-Model-Architekturen auf Amazon Bedrock mit Claude, Llama, Mistral und Titan – mit Guardrails und Knowledge Bases in eu-central-1.",
+    url: "https://aws.amazon.com/bedrock/",
+    areaServed: ["Germany", "Austria", "Switzerland"],
+  },
+  {
+    name: "KI-Agenten auf Google Vertex AI",
+    provider: "Google Cloud",
+    description:
+      "Gemini-Modelle und Vertex AI Agent Builder für daten-intensive Workflows – mit VPC Service Controls und CMEK in europe-west3.",
+    url: "https://cloud.google.com/vertex-ai",
+    areaServed: ["Germany", "Austria", "Switzerland"],
+  },
+  {
+    name: "Souveräne & On-Premise KI-Agenten",
+    provider: "STACKIT / IONOS / On-Prem",
+    description:
+      "Open-Source-LLMs (Llama, Mistral, Qwen) auf STACKIT, IONOS, Open Telekom Cloud oder eigener Infrastruktur – BSI C5- / ISO 27001-konform.",
+    areaServed: ["Germany"],
+  },
+] as const;
+
 
 const platforms = [
   {
@@ -66,6 +106,9 @@ export function EnterpriseCloud() {
       className="py-20 lg:py-28 bg-card/30 border-y border-border"
       aria-labelledby="enterprise-cloud-heading"
     >
+      <StructuredData data={getEnterpriseCloudItemListSchema(enterpriseCloudPlatforms.map((p) => ({ ...p, areaServed: [...p.areaServed] })))} />
+      <StructuredData data={getEnterpriseCloudFAQSchema()} />
+
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
