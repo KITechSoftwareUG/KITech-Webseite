@@ -11,7 +11,14 @@ export interface GlossaryTerm {
   sections: GlossarySection[];
   related: string[]; // slugs
   faqs?: { question: string; answer: string }[];
+  datePublished?: string;
+  dateModified?: string;
 }
+
+export const GLOSSARY_DEFAULT_PUBLISHED = "2026-06-20";
+export const GLOSSARY_DEFAULT_MODIFIED = "2026-06-23";
+export const GLOSSARY_DEFAULT_IMAGE =
+  "https://storage.googleapis.com/gpt-engineer-file-uploads/PtMzwsuP81OMFsgAS1uxnhIbKCG2/social-images/social-1766141818702-losgo.png";
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
