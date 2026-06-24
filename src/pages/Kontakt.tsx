@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getLocalBusinessSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getLocalBusinessSchema, getContactPageSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import {
   Mail,
@@ -59,6 +59,7 @@ export default function Kontakt() {
       <StructuredData data={getWebPageSchema("Kontakt", "Erstgespräch und Kontaktdaten", "https://kitech-software.de/kontakt")} />
       <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Kontakt", url: "https://kitech-software.de/kontakt" }])} />
       <StructuredData data={getLocalBusinessSchema()} />
+      <StructuredData data={getContactPageSchema()} />
 
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
