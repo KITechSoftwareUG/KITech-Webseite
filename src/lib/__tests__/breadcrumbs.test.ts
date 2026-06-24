@@ -33,14 +33,14 @@ describe.each(pages)("BreadcrumbList JSON-LD for %s", ({ name, path }) => {
     const parsed = BreadcrumbListSchema.parse(schema);
     assertBreadcrumbPositions(parsed.itemListElement);
     expect(parsed.itemListElement[0]!.position).toBe(1);
-    expect(parsed.itemListElement.at(-1)!.position).toBe(
+    expect(parsed.itemListElement[parsed.itemListElement.length - 1]!.position).toBe(
       parsed.itemListElement.length
     );
   });
 
   it("ends with the current page URL and name", () => {
     const parsed = BreadcrumbListSchema.parse(schema);
-    const last = parsed.itemListElement.at(-1)!;
+    const last = parsed.itemListElement[parsed.itemListElement.length - 1]!;
     expect(last.name).toBe(name);
     expect(last.item).toBe(`${BASE}${path}`);
   });
