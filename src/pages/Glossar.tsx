@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { BookOpen, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData } from "@/components/seo/StructuredData";
+import { StructuredData, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { glossaryTerms } from "@/data/glossary";
 import { buildGlossaryIndexSchema } from "@/lib/glossary-schema";
 
@@ -18,6 +18,12 @@ export default function Glossar() {
         canonical="/glossar"
       />
       <StructuredData data={schema} />
+      <StructuredData
+        data={getBreadcrumbSchema([
+          { name: "Startseite", url: "https://kitech-software.de" },
+          { name: "Glossar", url: "https://kitech-software.de/glossar" },
+        ])}
+      />
 
       <section className="container py-20 md:py-28">
         <nav aria-label="Brotkrume" className="mb-6 text-sm text-muted-foreground">
