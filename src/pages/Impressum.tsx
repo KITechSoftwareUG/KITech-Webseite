@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 
 export default function Impressum() {
   return (
@@ -12,6 +12,12 @@ export default function Impressum() {
       />
       <StructuredData
         data={getWebPageSchema("Impressum", "Impressum der KITech Software UG", "https://kitech-software.de/impressum")}
+      />
+      <StructuredData
+        data={getBreadcrumbSchema([
+          { name: "Startseite", url: "https://kitech-software.de" },
+          { name: "Impressum", url: "https://kitech-software.de/impressum" },
+        ])}
       />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
