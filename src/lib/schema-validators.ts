@@ -262,3 +262,49 @@ export const EnterpriseCloudItemListSchema = z.object({
   { message: "numberOfItems must equal itemListElement length" }
 );
 
+const ClientOrganizationItem = z.object({
+  "@type": z.literal("Organization"),
+  name: z.string().min(1),
+  url: url.optional(),
+});
+
+export const ClientsItemListSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("ItemList"),
+  name: z.string().min(1),
+  itemListOrder: url.optional(),
+  numberOfItems: z.number().int().positive(),
+  itemListElement: z
+    .array(
+      z.object({
+        "@type": z.literal("ListItem"),
+        position: z.number().int().positive(),
+        item: ClientOrganizationItem,
+      })
+    )
+    .min(1),
+}).refine(
+  (v) => v.itemListElement.length === v.numberOfItems,
+  { message: "numberOfItems must equal itemListElement length" }
+);
+
+export const ContactPageSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("ContactPage"),
+  name: z.string().min(1),
+  url,
+  description: z.string().min(1),
+  mainEntity: z.object({
+    "@type": z.literal("Organization"),
+    name: z.string().min(1),
+    url,
+    contactPoint: z.object({
+      "@type": z.literal("ContactPoint"),
+      telephone: z.string().min(1),
+      email: z.string().email(),
+      contactType: z.string().min(1),
+      availableLanguage: z.array(z.string().min(1)).min(1).optional(),
+    }).passthrough(),
+  }).passthrough(),
+});
+
