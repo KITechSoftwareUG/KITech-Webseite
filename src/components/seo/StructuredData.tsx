@@ -245,6 +245,55 @@ export function getSoftwareAppSchema(
   };
 }
 
+/**
+ * ItemList of Organization entries – maps the client logos on /referenzen.
+ */
+export function getClientsItemListSchema(
+  clients: { name: string; url?: string }[]
+): SchemaBase {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Ausgewählte Kunden der KITech Software UG",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: clients.length,
+    itemListElement: clients.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Organization",
+        name: c.name,
+        ...(c.url ? { url: c.url } : {}),
+      },
+    })),
+  };
+}
+
+/**
+ * ContactPage schema for /kontakt – includes telephone, email, address.
+ */
+export function getContactPageSchema(): SchemaBase {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Kontakt – KITech Software",
+    url: "https://kitech-software.de/kontakt",
+    description: "Erstgespräch und Kontaktdaten der KITech Software UG (haftungsbeschränkt).",
+    mainEntity: {
+      "@type": "Organization",
+      name: "KITech Software UG (haftungsbeschränkt)",
+      url: "https://kitech-software.de",
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+49-151-64682544",
+        email: "info@kitech-software.de",
+        contactType: "customer service",
+        availableLanguage: ["German", "English"],
+      },
+    },
+  };
+}
+
 export interface CloudPlatformInput {
   name: string;
   description: string;
