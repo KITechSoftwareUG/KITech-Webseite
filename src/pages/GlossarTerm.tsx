@@ -2,7 +2,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData } from "@/components/seo/StructuredData";
+import { StructuredData, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 import { getTermBySlug, glossaryTerms } from "@/data/glossary";
 import { buildGlossaryTermSchema } from "@/lib/glossary-schema";
 
