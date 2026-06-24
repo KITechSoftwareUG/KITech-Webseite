@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getClientsItemListSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -53,6 +53,7 @@ export default function Referenzen() {
       />
       <StructuredData data={getWebPageSchema("Referenzen", "Ausgewählte Kunden und Branchen", "https://kitech-software.de/referenzen")} />
       <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Referenzen", url: "https://kitech-software.de/referenzen" }])} />
+      <StructuredData data={getClientsItemListSchema(clients.map((c) => ({ name: c.name })))} />
 
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
