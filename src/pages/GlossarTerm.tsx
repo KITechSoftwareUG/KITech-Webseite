@@ -28,6 +28,13 @@ export default function GlossarTerm() {
         ogType="article"
       />
       <StructuredData data={schema} />
+      <StructuredData
+        data={getBreadcrumbSchema([
+          { name: "Startseite", url: "https://kitech-software.de" },
+          { name: "Glossar", url: "https://kitech-software.de/glossar" },
+          { name: term.term, url: `https://kitech-software.de/glossar/${term.slug}` },
+        ])}
+      />
 
       <article className="container py-20 md:py-28">
         <nav aria-label="Brotkrume" className="mb-6 text-sm text-muted-foreground">
