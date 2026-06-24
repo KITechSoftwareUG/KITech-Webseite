@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 
 export default function Datenschutz() {
   return (
@@ -9,6 +10,15 @@ export default function Datenschutz() {
         description="Datenschutzerklärung der KITech Software UG – Informationen zur Datenverarbeitung gemäß DSGVO."
         canonical="/datenschutz"
         noindex={true}
+      />
+      <StructuredData
+        data={getWebPageSchema("Datenschutz", "Datenschutzerklärung der KITech Software UG", "https://kitech-software.de/datenschutz")}
+      />
+      <StructuredData
+        data={getBreadcrumbSchema([
+          { name: "Startseite", url: "https://kitech-software.de" },
+          { name: "Datenschutz", url: "https://kitech-software.de/datenschutz" },
+        ])}
       />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
