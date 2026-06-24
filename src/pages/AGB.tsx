@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 
 export default function AGB() {
   return (
@@ -9,6 +10,15 @@ export default function AGB() {
         description="Allgemeine Geschäftsbedingungen der KITech Software UG für KI-Beratung und Softwareentwicklung."
         canonical="/agb"
         noindex={true}
+      />
+      <StructuredData
+        data={getWebPageSchema("AGB", "Allgemeine Geschäftsbedingungen der KITech Software UG", "https://kitech-software.de/agb")}
+      />
+      <StructuredData
+        data={getBreadcrumbSchema([
+          { name: "Startseite", url: "https://kitech-software.de" },
+          { name: "AGB", url: "https://kitech-software.de/agb" },
+        ])}
       />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
