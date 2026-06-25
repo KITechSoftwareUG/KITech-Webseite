@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getFounderPersonSchema } from "@/components/seo/StructuredData";
+import { FounderPortrait, founderInfo } from "@/components/sections/FounderPortrait";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
@@ -68,6 +69,7 @@ export default function Haltung() {
       />
       <StructuredData data={getWebPageSchema("Haltung", "Unsere Werte und Prinzipien", "https://kitech-software.de/haltung")} />
       <StructuredData data={getBreadcrumbSchema([{ name: "Startseite", url: "https://kitech-software.de" }, { name: "Haltung", url: "https://kitech-software.de/haltung" }])} />
+      <StructuredData data={getFounderPersonSchema()} />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-card">
         <div className="container">
