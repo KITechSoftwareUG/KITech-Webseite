@@ -982,7 +982,15 @@ export default function Index() {
                 <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "footer-cta", label: "Kontakt" })}>Kontakt aufnehmen</Link>
               </Button>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-muted-foreground">
+            <div className="mt-8 flex justify-center">
+              <div className="inline-flex items-center gap-3 rounded-full border border-border bg-card/50 px-4 py-2">
+                <FounderPortrait variant="avatar" className="h-8 w-8 ring-1" />
+                <span className="text-xs sm:text-sm text-muted-foreground">
+                  Persönlicher Rückruf von <span className="text-foreground">A. Alkhalil</span> – meist innerhalb von 24h.
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
                 DSGVO-konform
