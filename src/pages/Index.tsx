@@ -8,7 +8,9 @@ import {
   getFAQSchema,
   getReviewSchema,
   getWebPageSchema,
+  getFounderPersonSchema,
 } from "@/components/seo/StructuredData";
+import { FounderPortrait } from "@/components/sections/FounderPortrait";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
 import { TextRotate } from "@/components/ui/text-rotate";
@@ -302,6 +304,7 @@ export default function Index() {
       <StructuredData data={getLocalBusinessSchema()} />
       <StructuredData data={getWebPageSchema("KITech Software – KI-Agenten für den Mittelstand", "Orchestrierte KI-Agenten für Ihre realen Geschäftsprozesse.", "https://kitech-software.de")} />
       <StructuredData data={getReviewSchema(testimonials.map(t => ({ author: t.author, text: t.quote, rating: t.rating })))} />
+      <StructuredData data={getFounderPersonSchema()} />
       <StructuredData data={getFAQSchema([
         { question: "Was macht KITech Software?", answer: "KITech Software baut KI-Lösungen für den deutschen Mittelstand – mit ROI-Garantie. Wir definieren vorab den wirtschaftlichen Wertbeitrag in Euro; wird er nicht erreicht, zahlt der Kunde nicht. DSGVO-konform, Made in Germany." },
         { question: "Was bedeutet ROI-Garantie?", answer: "Vor Projektstart definieren wir gemeinsam einen messbaren ROI in Euro – z.B. eingesparte Stunden, automatisierte Vorgänge, zusätzlicher Umsatz. Erreichen wir das vereinbarte Ziel nicht, zahlen Sie nicht. Das Umsetzungsrisiko liegt bei uns." },
@@ -310,56 +313,59 @@ export default function Index() {
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
         <LampContainer className="min-h-[550px] sm:min-h-[650px] lg:min-h-[800px]">
-          <motion.div initial={{
-          opacity: 0,
-          y: 60
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut"
-        }} className="text-center px-4 sm:px-6">
-            
-            
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
-              KI mit <span className="text-primary">ROI-Garantie</span>.
-              <br />
-              <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
-                <TextRotate texts={["Messbar. Auditierbar. Made in Germany.", "Erst Wirkung, dann Rechnung.", "KI, die sich rechnet – garantiert."]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
-                y: "-120%",
-                opacity: 0
-              }} animate={{
-                y: 0,
-                opacity: 1
-              }} exit={{
-                y: "120%",
-                opacity: 0
-              }} transition={{
-                type: "spring",
-                damping: 20,
-                stiffness: 200
-              }} mainClassName="justify-center" splitLevelClassName="w-full justify-center" elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl" />
-              </span>
-            </h1>
-            
-            <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
-              Wir bauen KI-Systeme für den Mittelstand, die messbar Kosten senken oder
-              Umsatz bringen – mit klar definierten ROI-Zielen. Erreichen wir sie nicht,
-              zahlen Sie nicht. DSGVO-konform und auditierbar.
-            </p>
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-center w-full max-w-6xl px-4 sm:px-6">
+            <motion.div initial={{
+              opacity: 0,
+              y: 60
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} transition={{
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut"
+            }} className="text-center lg:text-left order-2 lg:order-1">
+              <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
+                KI mit <span className="text-primary">ROI-Garantie</span>.
+                <br />
+                <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
+                  <TextRotate texts={["Messbar. Auditierbar. Made in Germany.", "Erst Wirkung, dann Rechnung.", "KI, die sich rechnet – garantiert."]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
+                    y: "-120%",
+                    opacity: 0
+                  }} animate={{
+                    y: 0,
+                    opacity: 1
+                  }} exit={{
+                    y: "120%",
+                    opacity: 0
+                  }} transition={{
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 200
+                  }} mainClassName="lg:justify-start justify-center" splitLevelClassName="w-full lg:justify-start justify-center" elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl" />
+                </span>
+              </h1>
 
-            
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
-                <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "Agenten-Potenzial" })}>Agenten-Potenzial prüfen lassen</Link>
-              </Button>
-              <Button variant="heroOutline" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
-                <Link to="/leistungen">Unsere Agenten-Leistungen</Link>
-              </Button>
+              <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+                Wir bauen KI-Systeme für den Mittelstand, die messbar Kosten senken oder
+                Umsatz bringen – mit klar definierten ROI-Zielen. Erreichen wir sie nicht,
+                zahlen Sie nicht. DSGVO-konform und auditierbar.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
+                  <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "Agenten-Potenzial" })}>Agenten-Potenzial prüfen lassen</Link>
+                </Button>
+                <Button variant="heroOutline" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
+                  <Link to="/leistungen">Unsere Agenten-Leistungen</Link>
+                </Button>
+              </div>
+            </motion.div>
+
+            <div className="order-1 lg:order-2 pb-10 lg:pb-0">
+              <FounderPortrait variant="hero" />
             </div>
-          </motion.div>
+          </div>
         </LampContainer>
       </section>
 
@@ -976,7 +982,15 @@ export default function Index() {
                 <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "footer-cta", label: "Kontakt" })}>Kontakt aufnehmen</Link>
               </Button>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-muted-foreground">
+            <div className="mt-8 flex justify-center">
+              <div className="inline-flex items-center gap-3 rounded-full border border-border bg-card/50 px-4 py-2">
+                <FounderPortrait variant="avatar" className="h-8 w-8 ring-1" />
+                <span className="text-xs sm:text-sm text-muted-foreground">
+                  Persönlicher Rückruf von <span className="text-foreground">A. Alkhalil</span> – meist innerhalb von 24h.
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
                 DSGVO-konform

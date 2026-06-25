@@ -294,6 +294,34 @@ export function getContactPageSchema(): SchemaBase {
   };
 }
 
+/**
+ * Person-Schema für den Gründer A. Alkhalil.
+ * Stärkt E-E-A-T und macht den Geschäftsführer in KI-Suchergebnissen sichtbar.
+ */
+export function getFounderPersonSchema(): SchemaBase {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "A. Alkhalil",
+    jobTitle: "Gründer & Geschäftsführer",
+    image: "https://kitech-software.de/__l5e/assets-v1/b8d41e44-2f66-4470-a47a-43b8db6daa15/alkhalil-portrait.png",
+    worksFor: {
+      "@type": "Organization",
+      name: "KITech Software UG (haftungsbeschränkt)",
+      url: "https://kitech-software.de",
+    },
+    sameAs: [
+      "https://www.linkedin.com/company/104155510",
+    ],
+    knowsAbout: [
+      "Künstliche Intelligenz",
+      "KI-Beratung",
+      "ROI-getriebene KI-Projekte",
+      "Mittelstandsberatung",
+    ],
+  };
+}
+
 export interface CloudPlatformInput {
   name: string;
   description: string;
