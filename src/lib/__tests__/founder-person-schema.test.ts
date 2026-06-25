@@ -45,9 +45,3 @@ describe("Founder Person schema renders on key pages", () => {
     });
   }
 });
-      const src = readFileSync(page, "utf8");
-      expect(src).toMatch(/getFounderPersonSchema/);
-      expect(src).toMatch(/StructuredData\s+data=\{getFounderPersonSchema\(\)\}/);
-    });
-  }
-});
