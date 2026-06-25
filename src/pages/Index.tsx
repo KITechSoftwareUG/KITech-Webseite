@@ -313,7 +313,7 @@ export default function Index() {
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
         <LampContainer className="min-h-[550px] sm:min-h-[650px] lg:min-h-[800px]">
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center w-full max-w-7xl px-4 sm:px-6">
+          <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial={{
               opacity: 0,
               y: 60
@@ -324,7 +324,7 @@ export default function Index() {
               delay: 0.3,
               duration: 0.8,
               ease: "easeInOut"
-            }} className="text-center lg:text-left order-2 lg:order-1">
+            }} className="text-center">
               <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
                 KI mit <span className="text-primary">ROI-Garantie</span>.
                 <br />
@@ -342,17 +342,17 @@ export default function Index() {
                     type: "spring",
                     damping: 20,
                     stiffness: 200
-                  }} mainClassName="lg:justify-start justify-center" splitLevelClassName="w-full lg:justify-start justify-center" elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl" />
+                  }} mainClassName="justify-center" splitLevelClassName="w-full justify-center" elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl" />
                 </span>
               </h1>
 
-              <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+              <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
                 Wir bauen KI-Systeme für den Mittelstand, die messbar Kosten senken oder
                 Umsatz bringen – mit klar definierten ROI-Zielen. Erreichen wir sie nicht,
                 zahlen Sie nicht. DSGVO-konform und auditierbar.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button variant="hero" size="lg" className="sm:size-xl text-sm sm:text-base" asChild>
                   <Link to="/kontakt" onClick={() => trackEvent("CTA_Klick", { position: "hero", label: "Agenten-Potenzial" })}>Agenten-Potenzial prüfen lassen</Link>
                 </Button>
@@ -361,10 +361,6 @@ export default function Index() {
                 </Button>
               </div>
             </motion.div>
-
-            <div className="order-1 lg:order-2 pb-10 lg:pb-0">
-              <FounderPortrait variant="hero" />
-            </div>
           </div>
         </LampContainer>
       </section>
