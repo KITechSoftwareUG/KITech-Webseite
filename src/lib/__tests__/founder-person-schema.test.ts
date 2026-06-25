@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "fs";
 import { PersonSchema } from "@/lib/schema-validators";
+import IndexSrc from "../../pages/Index.tsx?raw";
+import HaltungSrc from "../../pages/Haltung.tsx?raw";
+import KontaktSrc from "../../pages/Kontakt.tsx?raw";
 import { getFounderPersonSchema } from "@/components/seo/StructuredData";
 
 describe("Founder Person schema", () => {
@@ -30,15 +32,19 @@ describe("Founder Person schema", () => {
 });
 
 describe("Founder Person schema renders on key pages", () => {
-  // The factory is imported and rendered as JSON-LD by:
-  //  - src/pages/Index.tsx
-  //  - src/pages/Haltung.tsx
-  //  - src/pages/Kontakt.tsx
-  // We assert at the source level that each page imports + emits it.
-  const pages = ["src/pages/Index.tsx", "src/pages/Haltung.tsx", "src/pages/Kontakt.tsx"];
+  const pages: Array<[string, string]> = [
+    ["Index.tsx", IndexSrc],
+    ["Haltung.tsx", HaltungSrc],
+    ["Kontakt.tsx", KontaktSrc],
+  ];
 
-  for (const page of pages) {
-    it(`${page} imports and renders getFounderPersonSchema`, () => {
+  for (const [name, src] of pages) {
+    it(`${name} imports and renders getFounderPersonSchema`, () => {
+      expect(src).toMatch(/getFounderPersonSchema/);
+      expect(src).toMatch(/StructuredData\s+data=\{getFounderPersonSchema\(\)\}/);
+    });
+  }
+});
       const src = readFileSync(page, "utf8");
       expect(src).toMatch(/getFounderPersonSchema/);
       expect(src).toMatch(/StructuredData\s+data=\{getFounderPersonSchema\(\)\}/);
