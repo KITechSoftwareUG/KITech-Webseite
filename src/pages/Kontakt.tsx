@@ -116,6 +116,9 @@ export default function Kontakt() {
                       </li>
                     ))}
                   </ul>
+                  <div className="mb-6 pt-6 border-t border-border">
+                    <FounderPortrait variant="compact" />
+                  </div>
                 </div>
                 <Button
                   variant="hero"
