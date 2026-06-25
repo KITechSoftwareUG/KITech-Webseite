@@ -124,7 +124,7 @@ export default function Haltung() {
               transition={{ duration: 0.6 }}
               className="order-2 lg:order-1"
             >
-              <FounderPortrait variant="editorial" className="max-w-sm mx-auto lg:mx-0" />
+              <FounderPortrait variant="editorial" className="max-w-md lg:max-w-lg mx-auto lg:mx-0" />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
