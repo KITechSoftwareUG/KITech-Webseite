@@ -113,6 +113,66 @@ export default function Haltung() {
         </div>
       </section>
 
+      {/* Founder Editorial */}
+      <section className="py-20 lg:py-28 border-y border-border bg-gradient-to-b from-background via-card/40 to-background">
+        <div className="container">
+          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-center max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="order-2 lg:order-1"
+            >
+              <FounderPortrait variant="editorial" className="max-w-sm mx-auto lg:mx-0" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="order-1 lg:order-2"
+            >
+              <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Vom Gründer</span>
+              <h2 className="text-3xl sm:text-4xl font-light mt-3 mb-6">
+                Warum ich KITech gegründet habe.
+              </h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  „{founderInfo.quoteShort}" – das ist nicht nur ein Satz auf einer Website,
+                  sondern der Grund, warum es KITech überhaupt gibt.
+                </p>
+                <p>
+                  Ich habe zu oft erlebt, wie Unternehmen sechsstellige Beträge in KI-Projekte
+                  investieren, die in einer schicken Demo enden – aber nie in der Bilanz ankommen.
+                  Mittelstand kann sich das schlicht nicht leisten.
+                </p>
+                <p>
+                  Deshalb arbeite ich anders: Wir definieren den wirtschaftlichen Hebel <em>vor</em>
+                  Projektstart in Euro. Festpreis. Erreichen wir das ROI-Ziel nicht, zahlen Sie nicht.
+                  Das Risiko der Umsetzung liegt bei uns – nicht bei Ihnen.
+                </p>
+                <p className="text-foreground">
+                  Wenn Ihnen das genauso wichtig ist wie mir, sollten wir reden.
+                </p>
+              </div>
+              <div className="mt-8 flex items-center gap-4">
+                <div>
+                  <p className="font-light text-foreground">{founderInfo.name}</p>
+                  <p className="text-xs text-muted-foreground">{founderInfo.role}, KITech Software UG</p>
+                </div>
+                <div className="h-px flex-1 bg-border" />
+                <Button variant="hero" size="sm" asChild>
+                  <Link to="/kontakt">
+                    Persönlich sprechen <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Values Grid */}
       <section className="py-20 lg:py-28 bg-card/50">
         <div className="container">
