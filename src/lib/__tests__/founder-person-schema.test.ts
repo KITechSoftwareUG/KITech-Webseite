@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "fs";
 import { PersonSchema } from "@/lib/schema-validators";
 import { getFounderPersonSchema } from "@/components/seo/StructuredData";
 
@@ -37,9 +38,8 @@ describe("Founder Person schema renders on key pages", () => {
   const pages = ["src/pages/Index.tsx", "src/pages/Haltung.tsx", "src/pages/Kontakt.tsx"];
 
   for (const page of pages) {
-    it(`${page} imports and renders getFounderPersonSchema`, async () => {
-      const fs = await import("node:fs/promises");
-      const src = await fs.readFile(page, "utf8");
+    it(`${page} imports and renders getFounderPersonSchema`, () => {
+      const src = readFileSync(page, "utf8");
       expect(src).toMatch(/getFounderPersonSchema/);
       expect(src).toMatch(/StructuredData\s+data=\{getFounderPersonSchema\(\)\}/);
     });
