@@ -308,3 +308,19 @@ export const ContactPageSchema = z.object({
   }).passthrough(),
 });
 
+export const PersonSchema = z.object({
+  "@context": Context,
+  "@type": z.literal("Person"),
+  name: z.string().min(1),
+  jobTitle: z.string().min(1),
+  image: url,
+  worksFor: z.object({
+    "@type": z.literal("Organization"),
+    name: z.string().min(1),
+    url: url.optional(),
+  }).passthrough(),
+  sameAs: z.array(url).optional(),
+  knowsAbout: z.array(z.string().min(1)).min(1).optional(),
+});
+
+

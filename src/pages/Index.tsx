@@ -313,7 +313,7 @@ export default function Index() {
       {/* Hero Section with Lamp Effect */}
       <section className="relative overflow-hidden">
         <LampContainer className="min-h-[550px] sm:min-h-[650px] lg:min-h-[800px]">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-center w-full max-w-6xl px-4 sm:px-6">
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center w-full max-w-7xl px-4 sm:px-6">
             <motion.div initial={{
               opacity: 0,
               y: 60
