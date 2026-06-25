@@ -57,7 +57,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}
-        className={`relative mx-auto w-full max-w-[280px] lg:max-w-[420px] ${className}`}
+        className={`relative mx-auto w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[560px] xl:max-w-[620px] ${className}`}
       >
         {/* Soft glow behind */}
         <div className="absolute inset-x-8 bottom-0 h-2/3 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
