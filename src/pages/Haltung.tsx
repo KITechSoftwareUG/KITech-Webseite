@@ -158,8 +158,8 @@ export default function Haltung() {
               </div>
               <div className="mt-8 flex items-center gap-4">
                 <div>
-                  <p className="font-light text-foreground">{founderInfo.name}</p>
-                  <p className="text-xs text-muted-foreground">{founderInfo.role}, KITech Software UG</p>
+                  <p className="text-lg font-medium text-foreground">Ayham Alkhalil</p>
+                  <p className="text-xs text-muted-foreground">Gründer & Geschäftsführer, KITech Software UG</p>
                 </div>
                 <div className="h-px flex-1 bg-border" />
                 <Button variant="hero" size="sm" asChild>
