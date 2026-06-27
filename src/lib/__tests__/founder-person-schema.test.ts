@@ -16,8 +16,8 @@ describe("Founder Person schema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("identifies A. Alkhalil as founder of KITech", () => {
-    expect(data.name).toBe("A. Alkhalil");
+  it("identifies Ayham Alkhalil as founder of KITech", () => {
+    expect(data.name).toBe("Ayham Alkhalil");
     expect(data.jobTitle).toMatch(/Gründer|Geschäftsführer/);
     expect((data as any).worksFor.name).toMatch(/KITech/);
   });

@@ -10,7 +10,7 @@
 **Typ:** Corporate Website / Marketing-Seite  
 **Unternehmen:** KITech Software UG (haftungsbeschränkt) – KI-Beratung & Softwareentwicklung für den deutschen Mittelstand  
 **Standort:** Hannover, Deutschland  
-**Geschäftsführer:** A. Alkhalil  
+**Geschäftsführer:** Ayham Alkhalil  
 **Sprache:** Deutsch (de_DE)
 
 ---

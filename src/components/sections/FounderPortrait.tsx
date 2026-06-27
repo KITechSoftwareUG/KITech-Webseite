@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import portraitAsset from "@/assets/alkhalil-portrait.png.asset.json";
 
 const PORTRAIT_URL = portraitAsset.url;
-const NAME = "A. Alkhalil";
+const NAME = "Ayham Alkhalil";
 const ROLE = "Gründer & Geschäftsführer";
 const QUOTE_SHORT = "KI wird überall reingequetscht – ohne klaren ROI. Ich mache es anders.";
 

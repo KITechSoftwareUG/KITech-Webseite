@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getFounderPersonSchema } from "@/components/seo/StructuredData";
 
 export default function Impressum() {
   return (
@@ -19,6 +19,7 @@ export default function Impressum() {
           { name: "Impressum", url: "https://kitech-software.de/impressum" },
         ])}
       />
+      <StructuredData data={getFounderPersonSchema()} />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Impressum</h1>
@@ -46,7 +47,7 @@ export default function Impressum() {
 
             <div>
               <h2 className="text-xl font-semibold mb-3">Vertreten durch</h2>
-              <p className="text-muted-foreground">Geschäftsführer: L.Battel, A. Alkhalil</p>
+              <p className="text-muted-foreground">Geschäftsführer: Ayham Alkhalil, L. Battel</p>
             </div>
 
             <div>
@@ -72,7 +73,7 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
               <p className="text-muted-foreground">
-                A. Alkhalil
+                Ayham Alkhalil
                 <br />
                 Wedekindstraße 14
                 <br />

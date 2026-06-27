@@ -982,7 +982,7 @@ export default function Index() {
               <div className="inline-flex items-center gap-3 rounded-full border border-border bg-card/50 px-4 py-2">
                 <FounderPortrait variant="avatar" className="h-8 w-8 ring-1" />
                 <span className="text-xs sm:text-sm text-muted-foreground">
-                  Persönlicher Rückruf von <span className="text-foreground">A. Alkhalil</span> – meist innerhalb von 24h.
+                  Persönlicher Rückruf von <span className="text-foreground font-medium">Ayham Alkhalil</span> (Geschäftsführer) – meist innerhalb von 24h.
                 </span>
               </div>
             </div>
