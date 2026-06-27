@@ -133,9 +133,9 @@ export default function Haltung() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="order-1 lg:order-2"
             >
-              <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Vom Gründer</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Vom Gründer · Ayham Alkhalil</span>
               <h2 className="text-3xl sm:text-4xl font-light mt-3 mb-6">
-                Warum ich KITech gegründet habe.
+                Warum ich, <span className="font-medium text-foreground">Ayham Alkhalil</span>, KITech gegründet habe.
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
