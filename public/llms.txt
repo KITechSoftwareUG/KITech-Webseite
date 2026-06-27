@@ -7,7 +7,7 @@
 KITech Software UG (haftungsbeschränkt) ist ein spezialisiertes KI-Beratungs- und Softwareunternehmen mit Sitz in Hannover, Deutschland. Das Unternehmen entwickelt maßgeschneiderte KI-Lösungen für den deutschen Mittelstand, mit Fokus auf Datensicherheit, Auditierbarkeit und DSGVO-Konformität.
 
 - Gründung: 2023
-- Geschäftsführer: A. Alkhalil
+- Geschäftsführer: Ayham Alkhalil
 - Standort: Wedekindstraße 14, 30161 Hannover
 - Kontakt: info@kitech-software.de | +49 151 64682544
 - Registernummer: HRB 230077 (Amtsgericht Hannover)
