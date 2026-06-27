@@ -72,7 +72,7 @@ export default function Impressum() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
               <p className="text-muted-foreground">
-                A. Alkhalil
+                Ayham Alkhalil
                 <br />
                 Wedekindstraße 14
                 <br />
