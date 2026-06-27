@@ -46,7 +46,7 @@ export default function Impressum() {
 
             <div>
               <h2 className="text-xl font-semibold mb-3">Vertreten durch</h2>
-              <p className="text-muted-foreground">Geschäftsführer: L.Battel, A. Alkhalil</p>
+              <p className="text-muted-foreground">Geschäftsführer: Ayham Alkhalil, L. Battel</p>
             </div>
 
             <div>
