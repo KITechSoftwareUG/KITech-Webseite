@@ -302,13 +302,36 @@ export function getFounderPersonSchema(): SchemaBase {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "A. Alkhalil",
+    "@id": "https://kitech-software.de/#ayham-alkhalil",
+    name: "Ayham Alkhalil",
+    alternateName: ["A. Alkhalil", "Ayham Al Khalil"],
+    givenName: "Ayham",
+    familyName: "Alkhalil",
     jobTitle: "Gründer & Geschäftsführer",
+    description:
+      "Ayham Alkhalil ist Gründer und Geschäftsführer der KITech Software UG in Hannover. Er entwickelt KI-Lösungen mit ROI-Garantie für den deutschen Mittelstand.",
     image: "https://kitech-software.de/__l5e/assets-v1/b8d41e44-2f66-4470-a47a-43b8db6daa15/alkhalil-portrait.png",
+    url: "https://kitech-software.de/haltung",
     worksFor: {
       "@type": "Organization",
       name: "KITech Software UG (haftungsbeschränkt)",
       url: "https://kitech-software.de",
+    },
+    founderOf: {
+      "@type": "Organization",
+      name: "KITech Software UG (haftungsbeschränkt)",
+      url: "https://kitech-software.de",
+    },
+    nationality: { "@type": "Country", name: "Deutschland" },
+    workLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Wedekindstraße 14",
+        postalCode: "30161",
+        addressLocality: "Hannover",
+        addressCountry: "DE",
+      },
     },
     sameAs: [
       "https://www.linkedin.com/company/104155510",
@@ -317,7 +340,12 @@ export function getFounderPersonSchema(): SchemaBase {
       "Künstliche Intelligenz",
       "KI-Beratung",
       "ROI-getriebene KI-Projekte",
+      "KI mit ROI-Garantie",
       "Mittelstandsberatung",
+      "Large Language Models",
+      "AI Agents",
+      "MLOps",
+      "DSGVO-konforme KI",
     ],
   };
 }
