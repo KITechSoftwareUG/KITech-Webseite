@@ -19,6 +19,7 @@ export default function Impressum() {
           { name: "Impressum", url: "https://kitech-software.de/impressum" },
         ])}
       />
+      <StructuredData data={getFounderPersonSchema()} />
       <section className="py-20 lg:py-28">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Impressum</h1>
