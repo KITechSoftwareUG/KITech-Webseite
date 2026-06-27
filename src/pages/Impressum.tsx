@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getFounderPersonSchema } from "@/components/seo/StructuredData";
 
 export default function Impressum() {
   return (
