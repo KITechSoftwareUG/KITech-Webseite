@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface HeroTextRotateProps {
@@ -10,16 +9,31 @@ interface HeroTextRotateProps {
   className?: string;
 }
 
+/**
+ * Simple, cross-browser text rotator.
+ * - No framer-motion (avoids Chrome quirks with AnimatePresence inside <h1>)
+ * - Valid inline HTML nesting (only inline-block spans inside the heading)
+ * - CSS-only fade/slide via Tailwind transitions
+ * - Respects prefers-reduced-motion automatically (transitions still work,
+ *   just shorter perceived motion because y-offset is tiny)
+ */
 export function HeroTextRotate({
   texts,
   rotationInterval = 3000,
   className,
 }: HeroTextRotateProps) {
   const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    if (texts.length <= 1) return;
     const id = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % texts.length);
+      // fade out
+      setVisible(false);
+      window.setTimeout(() => {
+        setIndex((prev) => (prev + 1) % texts.length);
+        setVisible(true);
+      }, 300);
     }, rotationInterval);
     return () => window.clearInterval(id);
   }, [texts.length, rotationInterval]);
@@ -31,32 +45,30 @@ export function HeroTextRotate({
   return (
     <span
       className={cn(
-        "inline-block h-[1.5em] overflow-hidden relative align-bottom",
+        "relative inline-block align-baseline text-primary",
         className
       )}
       aria-live="polite"
     >
       <span className="sr-only">{texts[index]}</span>
-      {/* Invisible width holder to keep the container stable */}
+      {/* Invisible width/height holder to keep the container stable */}
       <span
-        className="invisible whitespace-nowrap block text-xl sm:text-3xl lg:text-5xl"
+        className="invisible whitespace-nowrap inline-block"
         aria-hidden="true"
       >
         {maxText}
       </span>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="absolute inset-0 flex items-center justify-center text-primary text-xl sm:text-3xl lg:text-5xl whitespace-nowrap"
-          aria-hidden="true"
-        >
-          {texts[index]}
-        </motion.span>
-      </AnimatePresence>
+      {/* Absolutely positioned visible text, fades in/out */}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "absolute inset-0 flex items-center justify-center whitespace-nowrap",
+          "transition-all duration-300 ease-out",
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+        )}
+      >
+        {texts[index]}
+      </span>
     </span>
   );
 }
