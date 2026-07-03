@@ -45,24 +45,27 @@ export function HeroTextRotate({
   return (
     <span
       className={cn(
-        "relative inline-block align-baseline text-primary",
+        "inline-grid align-baseline text-primary place-items-center",
         className
       )}
+      style={{ gridTemplateAreas: '"stack"' }}
       aria-live="polite"
     >
       <span className="sr-only">{texts[index]}</span>
-      {/* Invisible width/height holder to keep the container stable */}
+      {/* Invisible sizer keeps the box stable at the widest phrase */}
       <span
-        className="invisible whitespace-nowrap inline-block"
         aria-hidden="true"
+        className="invisible whitespace-nowrap"
+        style={{ gridArea: "stack" }}
       >
         {maxText}
       </span>
-      {/* Absolutely positioned visible text, fades in/out */}
+      {/* Visible text sits in the same grid cell, perfectly centered */}
       <span
         aria-hidden="true"
+        style={{ gridArea: "stack" }}
         className={cn(
-          "absolute inset-0 flex items-center justify-center whitespace-nowrap",
+          "text-center whitespace-nowrap",
           "transition-all duration-300 ease-out",
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
