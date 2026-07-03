@@ -45,32 +45,36 @@ export function HeroTextRotate({
   return (
     <span
       className={cn(
-        "inline-grid align-baseline text-primary place-items-center",
+        "relative left-1/2 block w-screen max-w-[calc(100vw-2rem)] -translate-x-1/2 text-center text-primary",
         className
       )}
-      style={{ gridTemplateAreas: '"stack"' }}
       aria-live="polite"
     >
-      <span className="sr-only">{texts[index]}</span>
-      {/* Invisible sizer keeps the box stable at the widest phrase */}
       <span
-        aria-hidden="true"
-        className="invisible whitespace-nowrap"
-        style={{ gridArea: "stack" }}
+        className="inline-grid max-w-full place-items-center align-baseline"
+        style={{ gridTemplateAreas: '"stack"' }}
       >
-        {maxText}
-      </span>
-      {/* Visible text sits in the same grid cell, perfectly centered */}
-      <span
-        aria-hidden="true"
-        style={{ gridArea: "stack" }}
-        className={cn(
-          "text-center whitespace-nowrap",
-          "transition-all duration-300 ease-out",
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-        )}
-      >
-        {texts[index]}
+        <span className="sr-only">{texts[index]}</span>
+        {/* Invisible sizer keeps the box stable at the widest phrase */}
+        <span
+          aria-hidden="true"
+          className="invisible max-w-full whitespace-normal text-center sm:whitespace-nowrap"
+          style={{ gridArea: "stack" }}
+        >
+          {maxText}
+        </span>
+        {/* Visible text sits in the same grid cell, centered on the viewport */}
+        <span
+          aria-hidden="true"
+          style={{ gridArea: "stack" }}
+          className={cn(
+            "max-w-full whitespace-normal text-center sm:whitespace-nowrap",
+            "transition-all duration-300 ease-out",
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+          )}
+        >
+          {texts[index]}
+        </span>
       </span>
     </span>
   );
