@@ -13,7 +13,8 @@ import {
 import { FounderPortrait } from "@/components/sections/FounderPortrait";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
-import { TextRotate } from "@/components/ui/text-rotate";
+import { HeroTextRotate } from "@/components/ui/hero-text-rotate";
+
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { TrustRiskReversal } from "@/components/conversion/TrustRiskReversal";
