@@ -13,7 +13,8 @@ import {
 import { FounderPortrait } from "@/components/sections/FounderPortrait";
 import { Button } from "@/components/ui/button";
 import { LampContainer } from "@/components/ui/lamp";
-import { TextRotate } from "@/components/ui/text-rotate";
+import { HeroTextRotate } from "@/components/ui/hero-text-rotate";
+
 import { Check, X, Star, ArrowRight, ChevronLeft, ChevronRight, Clipboard, Database, Rocket, Building2, Factory, ShoppingCart, Shield, MapPin, Terminal, FileCheck, Wrench } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { TrustRiskReversal } from "@/components/conversion/TrustRiskReversal";
@@ -328,22 +329,12 @@ export default function Index() {
               <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-tight mb-4 sm:mb-6 lg:mb-10 bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text leading-tight">
                 KI mit <span className="text-primary">ROI-Garantie</span>.
                 <br />
-                <span className="inline-block h-[1.35em] overflow-hidden mt-1 sm:mt-0">
-                  <TextRotate texts={["Messbar. Auditierbar. Made in Germany.", "Erst Wirkung, dann Rechnung.", "KI, die sich rechnet – garantiert."]} rotationInterval={3000} auto splitBy="none" staggerDuration={0} initial={{
-                    y: "-120%",
-                    opacity: 0
-                  }} animate={{
-                    y: 0,
-                    opacity: 1
-                  }} exit={{
-                    y: "120%",
-                    opacity: 0
-                  }} transition={{
-                    type: "spring",
-                    damping: 20,
-                    stiffness: 200
-                  }} mainClassName="justify-center" splitLevelClassName="w-full justify-center" elementLevelClassName="text-primary inline-block whitespace-nowrap text-xl sm:text-3xl lg:text-5xl" />
-                </span>
+                <HeroTextRotate
+                  texts={["Messbar. Auditierbar. Made in Germany.", "Erst Wirkung, dann Rechnung.", "KI, die sich rechnet – garantiert."]}
+                  rotationInterval={3000}
+                  className="mt-1 sm:mt-0"
+                />
+
               </h1>
 
               <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
