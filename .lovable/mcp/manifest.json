@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "kitech-software-mcp",
+      "version": "0.1.0",
+      "title": "KITech Software MCP"
+    },
+    "tools": [
+      {
+        "name": "get_company_info",
+        "title": "KITech Unternehmensinformationen",
+        "description": "Liefert einen Überblick über die KITech Software UG: Kernkompetenzen, Standort, Geschäftsführung und Positionierung im Markt.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_services",
+        "title": "KITech Leistungen",
+        "description": "Liste aller Leistungen und Beratungsangebote von KITech Software. Optional nach Slug filterbar.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "description": "Optionaler Slug einer einzelnen Leistung (z. B. 'ki-audit', 'custom-llm', 'computer-vision')."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_case_studies",
+        "title": "KITech Case Studies",
+        "description": "Referenzprojekte von KITech Software mit Problem, Lösung und messbarem Ergebnis.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_contact",
+        "title": "KITech Kontakt",
+        "description": "Kontaktinformationen von KITech Software inkl. E-Mail, Telefon, Adresse und Terminbuchungslink.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
