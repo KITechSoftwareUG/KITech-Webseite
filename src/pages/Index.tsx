@@ -46,10 +46,12 @@ export default function Index() {
         </h1>
         <SplitHero />
 
-        {/* Schmale, gemeinsame Vertrauens-Leiste unterhalb der Entscheidungs-Hero */}
+        {/* Schmale, gemeinsame Vertrauens-Leiste unterhalb der Entscheidungs-Hero. Bewusst
+            keine zweite Uppercase-Tracked-Eyebrow hier (die Hero hat bereits ihren einen
+            Kicker) - schlichte Caption in normaler Groß-/Kleinschreibung. */}
         <section className="border-y border-border/50 py-8 overflow-hidden bg-background">
           <div className="container mb-5">
-            <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground">
+            <p className="text-center text-xs text-muted-foreground">
               Vertraut von Unternehmen wie
             </p>
           </div>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Cloud, Shield, Server, Check, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SignalField } from "@/components/canvas/SignalField";
 import { trackEvent } from "@/lib/plausible";
 import {
   StructuredData,
@@ -106,34 +107,43 @@ const trustBadges = [
   { icon: Cloud, label: "Hybrid & Multi-Cloud", sub: "Kein Vendor Lock-in" },
 ];
 
+/**
+ * Visuelle Ausfuehrung (KI-Redesign v2): kinetic-display statt Serif-Kursiv, Lime statt
+ * Gradient-Text im Heading (Gradient-Text ist laut Design-Skill verboten). Ein dezentes,
+ * dichtes SignalField als Kopf-Backdrop statt eines CSS-Blueprint-Grids – bewusst gedimmt
+ * (geringe Intensity), damit Ueberschrift/Text lesbar bleiben, das Canvas traegt hier
+ * Atmosphaere, nicht Kontrast. Karten durchgehend Border-only (kein shadow-card/-elevated
+ * zusaetzlich zum Border), Tech-Feature-Badges nutzen kinetic-data statt font-mono.
+ */
 export function EnterpriseCloud() {
   return (
     <section
-      className="py-20 lg:py-28 bg-card/30 border-y border-border"
+      className="relative overflow-hidden py-20 lg:py-28 bg-card/30 border-y border-border"
       aria-labelledby="enterprise-cloud-heading"
     >
       <StructuredData data={getEnterpriseCloudItemListSchema(enterpriseCloudPlatforms.map((p) => ({ ...p, areaServed: [...p.areaServed] })))} />
       <StructuredData data={getEnterpriseCloudFAQSchema()} />
 
-      <div className="container">
+      <div className="absolute inset-x-0 top-0 h-72 opacity-[0.35]" aria-hidden="true">
+        <SignalField density={0.9} intensity={0.7} accentColor="--enterprise-accent" />
+      </div>
+
+      <div className="container relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="max-w-3xl mx-auto text-center mb-14"
         >
-          <span className="inline-block text-xs uppercase tracking-widest text-enterprise-accent font-medium mb-4">
-            Enterprise-Cloud-Expertise
-          </span>
           <h2
             id="enterprise-cloud-heading"
-            className="font-display text-3xl italic text-foreground mb-6 sm:text-4xl lg:text-5xl"
+            className="kinetic-display text-3xl text-foreground mb-6 sm:text-4xl lg:text-5xl text-balance"
           >
-            Azure AI Foundry, AWS Bedrock & souveräne KI –{" "}
-            <span className="gradient-text font-normal">in einer Hand</span>
+            Azure AI Foundry, AWS Bedrock &amp; souveräne KI —{" "}
+            <span className="text-enterprise-accent">in einer Hand</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground text-pretty">
             Für Konzerne und gehobenen Mittelstand bauen wir Agenten-Systeme dort, wo Ihre Daten,
             Ihre Compliance und Ihre IT-Strategie es verlangen – nicht dort, wo es uns am leichtesten fällt.
           </p>
@@ -146,16 +156,16 @@ export function EnterpriseCloud() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group bg-background rounded-2xl border border-border p-6 lg:p-8 hover:border-enterprise-accent/40 hover:shadow-elevated transition-all"
+              transition={{ duration: 0.4, delay: i * 0.08, ease: "easeOut" }}
+              className="group bg-background rounded-2xl border border-border p-6 lg:p-8 hover:border-enterprise-accent/50 transition-colors"
             >
               <div className="flex items-start justify-between mb-4 gap-4">
                 <h3 className="text-xl font-medium text-foreground">{p.name}</h3>
-                <span className="shrink-0 text-[10px] uppercase tracking-wider px-2 py-1 rounded-full border border-enterprise-accent/30 text-enterprise-accent bg-enterprise-accent/5">
+                <span className="kinetic-data shrink-0 text-[10px] uppercase px-2 py-1 rounded-full border border-enterprise-accent/30 text-enterprise-accent bg-enterprise-accent/5">
                   {p.badge}
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed text-pretty">
                 {p.description}
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -174,6 +184,7 @@ export function EnterpriseCloud() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ ease: "easeOut" }}
           className="grid sm:grid-cols-3 gap-4 mb-10"
         >
           {trustBadges.map((b) => (
@@ -196,7 +207,7 @@ export function EnterpriseCloud() {
           <Button
             variant="hero"
             size="lg"
-            className="bg-enterprise-accent text-enterprise-accent-foreground hover:bg-enterprise-accent/90"
+            className="bg-enterprise-accent text-enterprise-accent-foreground shadow-soft-enterprise hover:bg-enterprise-accent/90"
             asChild
           >
             <a
@@ -207,7 +218,7 @@ export function EnterpriseCloud() {
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />
               Enterprise-Architektur besprechen
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>
           <p className="text-xs text-muted-foreground mt-3">

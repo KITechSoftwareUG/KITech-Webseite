@@ -34,6 +34,21 @@ const guarantees = [
   },
 ];
 
+/**
+ * Visuelle Ausfuehrung (KI-Redesign v2): kinetic-display statt Serif-Kursiv, Lime-Akzent
+ * statt Gradient-Text (Gradient-Text ist laut Design-Skill ein verbotenes Muster). Keine
+ * eigene Eyebrow-Zeile mehr – der Hero auf Enterprise.tsx traegt den einzigen bewussten
+ * Kicker der Seite, jede weitere Section (inkl. dieser) haelt sich daran.
+ *
+ * Layout-Korrektur (finale Review-Runde): die urspruengliche Version rendert alle sechs
+ * Versprechen als identisch grosse "rounded-2xl border + Icon-Chip"-Karten - genau das vom
+ * Design-Skill verbotene "identische Card-Grid"-Muster, und auf /enterprise bereits das
+ * 3./4./5. Grid dieser Art in Folge (businessProblems, useCases, platforms nutzen aehnliche
+ * Rezepturen). Ersetzt durch ein kartenloses Raster: kein Rahmen, kein Hintergrund, kein
+ * Radius pro Eintrag - nur eine duenne neutrale Trennlinie (border-t, keine Akzentfarbe,
+ * daher kein "Side-Stripe"-Verstoss) plus Icon+Text im Fliess-Rhythmus. Zwei Spalten statt
+ * drei, damit die Zeilen nicht zufaellig wie das Zertifikate-Raster wirken.
+ */
 export function TrustRiskReversal() {
   return (
     <section className="py-20 lg:py-28 bg-card/30 border-y border-border/50">
@@ -42,35 +57,33 @@ export function TrustRiskReversal() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mb-12"
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="max-w-2xl mb-14"
         >
-          <span className="inline-block text-xs font-light tracking-widest uppercase text-enterprise-accent mb-3">
-            Risiko? Übernehmen wir.
-          </span>
-          <h2 className="font-display text-3xl italic text-foreground mb-4 sm:text-4xl">
-            Sechs Versprechen, die Sie <span className="gradient-text">absichern</span>.
+          <h2 className="kinetic-display text-3xl text-foreground mb-4 sm:text-4xl text-balance">
+            Sechs Versprechen, die Sie <span className="text-enterprise-accent">absichern</span>.
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-pretty">
             KI-Projekte scheitern selten an Technik – sondern an unklaren Zielen und Risiken.
             Wir drehen das um: Das Projektrisiko liegt bei uns, nicht bei Ihnen.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:gap-x-20">
           {guarantees.map((g, i) => (
             <motion.div
               key={g.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group rounded-2xl border border-border bg-background p-6 hover:border-enterprise-accent/50 hover:shadow-card transition-all"
+              transition={{ duration: 0.4, delay: i * 0.05, ease: "easeOut" }}
+              className="flex gap-4 border-t border-border pt-6"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-enterprise-accent/10 text-enterprise-accent mb-4 group-hover:bg-enterprise-accent group-hover:text-enterprise-accent-foreground transition-colors">
-                <g.icon className="h-5 w-5" />
+              <g.icon className="mt-0.5 h-5 w-5 shrink-0 text-enterprise-accent" aria-hidden="true" />
+              <div>
+                <h3 className="text-base font-medium text-foreground">{g.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground text-pretty">{g.text}</p>
               </div>
-              <h3 className="text-base font-medium mb-2 text-foreground">{g.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{g.text}</p>
             </motion.div>
           ))}
         </div>

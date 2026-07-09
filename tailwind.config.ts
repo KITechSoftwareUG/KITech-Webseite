@@ -15,7 +15,12 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Onest", "system-ui", "sans-serif"],
-        display: ["'Instrument Serif'", "Georgia", "serif"],
+        // "Recursive" ist ein Variable Font mit MONO-Achse (0=serifenlos, 1=mono) und
+        // CASL-Achse - wird in den neu gebauten KI-Redesign-Seiten (Startseite/Solo/
+        // Enterprise) fuer Headlines genutzt, oft animiert zwischen den Achsen-Werten
+        // ("Text wird waehrend des Renderns praeziser/computationaler"). Siehe .kinetic-*
+        // Utilities in index.css. Restliche Seiten bleiben bei Onest (Bestandsmarke).
+        display: ["'Recursive Variable'", "'Recursive'", "system-ui", "sans-serif"],
         body: ["Onest", "system-ui", "sans-serif"],
         mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
       },

@@ -13,8 +13,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/recursive": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
-    "@fontsource/instrument-serif": "^5.2.8",
     "@fontsource/onest": "^5.2.11",
     "@hookform/resolvers": "^3.10.0",
     "@lovable.dev/mcp-js": "^0.20.0",

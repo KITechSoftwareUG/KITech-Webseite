@@ -5,8 +5,7 @@
 @import "@fontsource/onest/500.css";
 @import "@fontsource/onest/600.css";
 @import "@fontsource/onest/700.css";
-@import "@fontsource/instrument-serif/400.css";
-@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/recursive";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
 
@@ -15,109 +14,114 @@
 @tailwind utilities;
 
 /*
-  Premium-Redesign (dunkles Sapphire/Champagne-System): Dunkelmodus-Optik ist jetzt
-  die primäre Markenoptik (nicht nur ein Toggle-Zustand). --solo/--enterprise sind
-  Pfad-spezifische Akzente für die Split-Hero und die /solo- bzw. /enterprise-Funnels.
+  KI-Redesign v2 ("kinetisch, leuchtend, praezise"): reiner neutraler Hintergrund
+  (kein Farbton im BG/Card/Border) - die Stimmung traegt sich ausschliesslich ueber
+  Primary/Accent, nicht ueber einen getoenten Hintergrund. Das war der Kernfehler
+  der vorherigen "elegant/editorial" Version: derselbe Blauton in BG UND Primary
+  ergab einen gedaempften, monochromen Eindruck. Primary bleibt Markenblau, aber
+  deutlich hoeher gesaettigt ("elektrisch" statt "gedaempftes Saphir"). Accent ist
+  ein Signal-Lime (kuehl/systemisch, komplementaer in Hue UND Lightness zu Primary).
+  --solo-accent/--enterprise-accent differenzieren die Pfade jetzt ueber Waerme
+  (Amber vs. Lime) statt ueber zwei gedaempfte Pastelltoene.
 */
 @layer base {
   :root {
-    --background: 224 47% 5%;
-    --foreground: 210 30% 96%;
+    --background: 0 0% 6%;
+    --foreground: 0 0% 97%;
 
-    --card: 223 40% 8%;
-    --card-foreground: 210 30% 96%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 97%;
 
-    --popover: 223 42% 7%;
-    --popover-foreground: 210 30% 96%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 97%;
 
-    --primary: 221 75% 58%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 245 85% 62%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 30% 14%;
-    --secondary-foreground: 210 30% 96%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 97%;
 
-    --muted: 222 30% 12%;
-    --muted-foreground: 215 15% 65%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 68%;
 
-    --accent: 38 45% 58%;
-    --accent-foreground: 224 47% 8%;
+    --accent: 85 70% 55%;
+    --accent-foreground: 0 0% 8%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 152 55% 45%;
-    --success-foreground: 210 40% 98%;
+    --success: 152 55% 48%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 222 25% 18%;
-    --input: 222 25% 18%;
-    --ring: 221 75% 58%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 245 85% 62%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
-    /* Pfad-Akzente: warm/persönlich (Solo) vs. kühl/institutionell (Enterprise) */
-    --solo-accent: 32 45% 68%;
-    --solo-accent-foreground: 224 47% 8%;
-    --enterprise-accent: 205 40% 62%;
-    --enterprise-accent-foreground: 224 47% 8%;
+    /* Pfad-Akzente: warm/menschlich (Solo, Amber) vs. kuehl/systemisch (Enterprise, Lime) */
+    --solo-accent: 38 80% 58%;
+    --solo-accent-foreground: 0 0% 8%;
+    --enterprise-accent: 85 70% 55%;
+    --enterprise-accent-foreground: 0 0% 8%;
 
-    --gradient-hero: linear-gradient(160deg, hsl(224 55% 9%) 0%, hsl(221 65% 18%) 55%, hsl(224 47% 4%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(221 75% 58%) 0%, hsl(224 55% 30%) 100%);
-    /* Eigenstaendiger, heller Text-Gradient (Sapphire -> Champagne) fuer .gradient-text.
-       WICHTIG: --gradient-hero ist ein dunkler Section-Hintergrund-Gradient (Lightness 4-18%)
-       und ergibt bei Verwendung als text-transparent/bg-clip-text auf dunklem Grund einen
-       Kontrast von nur ~1.0-1.3:1 (praktisch unsichtbar). --gradient-text bleibt bewusst hell
-       (Lightness ~62-64%), damit hervorgehobene Woerter tatsaechlich lesbar sind (>4.5:1). */
-    --gradient-text: linear-gradient(135deg, hsl(221 75% 64%) 0%, hsl(38 55% 64%) 100%);
+    /* Nur fuer Alt-Seiten (Leistungen/Referenzen/Haltung/Kontakt), die .gradient-text
+       noch verwenden - in neu gebauten Komponenten NICHT verwenden (Gradient-Text ist
+       laut Design-Skill ein verbotenes Muster: rein dekorativ, nie bedeutungstragend).
+       Bleibt hell genug fuer Lesbarkeit (>4.5:1), damit dort nichts unsichtbar wird. */
+    --gradient-hero: linear-gradient(160deg, hsl(0 0% 9%) 0%, hsl(245 40% 16%) 55%, hsl(0 0% 4%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(245 85% 62%) 0%, hsl(245 60% 32%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(245 85% 68%) 0%, hsl(85 70% 60%) 100%);
 
-    --shadow-soft: 0 4px 24px -4px hsl(221 75% 40% / 0.25);
-    --shadow-card: 0 1px 3px 0 hsl(224 60% 2% / 0.4), 0 1px 2px -1px hsl(224 60% 2% / 0.5);
-    --shadow-elevated: 0 20px 60px -12px hsl(224 60% 2% / 0.6);
+    --shadow-soft: 0 4px 24px -4px hsl(245 85% 50% / 0.3);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.7);
   }
 
   .dark {
-    --background: 224 55% 3%;
-    --foreground: 210 30% 97%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
 
-    --card: 223 42% 6%;
-    --card-foreground: 210 30% 97%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 223 45% 5%;
-    --popover-foreground: 210 30% 97%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 221 75% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 245 88% 64%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 32% 11%;
-    --secondary-foreground: 210 30% 97%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 222 32% 10%;
-    --muted-foreground: 215 15% 62%;
+    --muted: 0 0% 11%;
+    --muted-foreground: 0 0% 66%;
 
-    --accent: 38 48% 60%;
-    --accent-foreground: 224 47% 6%;
+    --accent: 85 72% 57%;
+    --accent-foreground: 0 0% 7%;
 
-    --destructive: 0 63% 42%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 68% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 152 55% 45%;
-    --success-foreground: 210 40% 98%;
+    --success: 152 55% 46%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 222 28% 15%;
-    --input: 222 28% 15%;
-    --ring: 221 75% 60%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 245 88% 64%;
 
-    --solo-accent: 32 48% 70%;
-    --solo-accent-foreground: 224 47% 6%;
-    --enterprise-accent: 205 42% 64%;
-    --enterprise-accent-foreground: 224 47% 6%;
+    --solo-accent: 38 82% 60%;
+    --solo-accent-foreground: 0 0% 7%;
+    --enterprise-accent: 85 72% 57%;
+    --enterprise-accent-foreground: 0 0% 7%;
 
-    --gradient-hero: linear-gradient(160deg, hsl(224 58% 6%) 0%, hsl(221 68% 15%) 55%, hsl(224 55% 2%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(221 75% 55%) 0%, hsl(224 55% 22%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(221 75% 62%) 0%, hsl(38 55% 62%) 100%);
+    --gradient-hero: linear-gradient(160deg, hsl(0 0% 7%) 0%, hsl(245 42% 14%) 55%, hsl(0 0% 3%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(245 88% 64%) 0%, hsl(245 62% 28%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(245 88% 70%) 0%, hsl(85 72% 62%) 100%);
 
-    --shadow-soft: 0 4px 24px -4px hsl(221 75% 40% / 0.3);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.7);
+    --shadow-soft: 0 4px 24px -4px hsl(245 88% 50% / 0.35);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.6), 0 1px 2px -1px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.75);
   }
 }
 
@@ -149,6 +153,26 @@
     box-shadow: var(--shadow-soft);
   }
 
+  /*
+    Accent-matched Glow-Varianten fuer Solo/Enterprise-CTAs: der Button-Basisvariante
+    ("default"/"hero"/"cta" in button.tsx) haengt immer .shadow-soft an, dessen Farbe fest
+    auf Primary/Blau kodiert ist (--shadow-soft). Sobald ein Button per className auf
+    bg-solo-accent/bg-enterprise-accent umgefaerbt wird, blieb der Glow trotzdem blau - ein
+    sichtbarer Farbbruch (blauer Schein unter einem Amber/Lime-Button), der der komplett
+    entgegengesetzt zur bewussten Warm/Kuehl-Differenzierung der beiden Pfade steht.
+    !important ist hier bewusst und eng gefasst: garantiert den Sieg gegen das von der
+    Button-Variante ererbte .shadow-soft, unabhaengig von Klassen-Reihenfolge im DOM
+    (tailwind-merge dedupliziert eigene, nicht-generierte Utility-Klassen wie .shadow-soft
+    nicht automatisch).
+  */
+  .shadow-soft-solo {
+    box-shadow: 0 4px 24px -4px hsl(var(--solo-accent) / 0.4) !important;
+  }
+
+  .shadow-soft-enterprise {
+    box-shadow: 0 4px 24px -4px hsl(var(--enterprise-accent) / 0.4) !important;
+  }
+
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
@@ -164,5 +188,44 @@
 
   .animate-marquee {
     animation: marquee 25s linear infinite;
+  }
+
+  /*
+    Recursive-Variable-Font-Achsen ("kinetische Typografie"): MONO faehrt zwischen
+    0 (humanistisch/serifenlos) und 1 (monospaced/technisch), CASL zwischen 0 (formal)
+    und 1 (casual). Statt zwei Schriftfamilien zu pairen, nutzt das Redesign EINE
+    Familie und "berechnet" den Charakter ueber die Achsen - Headlines starten sanser,
+    driften beim Laden Richtung MONO 1 (kinetic-morph-in), Daten-/Label-Text sitzt
+    dauerhaft bei MONO 1. Font-Feature statt Deko - direkt aus der Font-Technologie,
+    nicht aus einem generischen Muster.
+  */
+  .kinetic-display {
+    font-family: "Recursive Variable", "Recursive", system-ui, sans-serif;
+    font-variation-settings: "MONO" 0.35, "CASL" 0, "slnt" 0;
+    font-weight: 680;
+    letter-spacing: -0.02em;
+  }
+
+  .kinetic-data {
+    font-family: "Recursive Variable", "Recursive", system-ui, sans-serif;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" 1, "zero" 1;
+  }
+
+  @keyframes kinetic-morph-in {
+    from { font-variation-settings: "MONO" 0, "CASL" 0.3, "slnt" 0; opacity: 0; filter: blur(6px); }
+    to { font-variation-settings: "MONO" 0.35, "CASL" 0, "slnt" 0; opacity: 1; filter: blur(0); }
+  }
+
+  .kinetic-morph-in {
+    animation: kinetic-morph-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kinetic-morph-in {
+      animation-duration: 0.001s;
+    }
   }
 }
