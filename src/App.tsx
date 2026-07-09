@@ -5,9 +5,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { MotionConfig } from "framer-motion";
 import { CookieConsent } from "./components/CookieConsent";
 
 const Index = lazy(() => import("./pages/Index"));
+const Solo = lazy(() => import("./pages/Solo"));
+const Enterprise = lazy(() => import("./pages/Enterprise"));
 const Leistungen = lazy(() => import("./pages/Leistungen"));
 const Haltung = lazy(() => import("./pages/Haltung"));
 const Referenzen = lazy(() => import("./pages/Referenzen"));
@@ -28,23 +31,29 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Suspense fallback={<div className="min-h-screen bg-background" />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/leistungen" element={<Leistungen />} />
-              <Route path="/haltung" element={<Haltung />} />
-              <Route path="/referenzen" element={<Referenzen />} />
-              <Route path="/kontakt" element={<Kontakt />} />
-              <Route path="/impressum" element={<Impressum />} />
-              <Route path="/datenschutz" element={<Datenschutz />} />
-              <Route path="/agb" element={<AGB />} />
-              <Route path="/glossar" element={<Glossar />} />
-              <Route path="/glossar/:slug" element={<GlossarTerm />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-          <CookieConsent />
+          {/* reducedMotion="user" lässt Framer Motion automatisch die Betriebssystem-Einstellung
+              "Bewegung reduzieren" respektieren – zentral hier statt pro Komponente. */}
+          <MotionConfig reducedMotion="user">
+            <Suspense fallback={<div className="min-h-screen bg-background" />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/solo" element={<Solo />} />
+                <Route path="/enterprise" element={<Enterprise />} />
+                <Route path="/leistungen" element={<Leistungen />} />
+                <Route path="/haltung" element={<Haltung />} />
+                <Route path="/referenzen" element={<Referenzen />} />
+                <Route path="/kontakt" element={<Kontakt />} />
+                <Route path="/impressum" element={<Impressum />} />
+                <Route path="/datenschutz" element={<Datenschutz />} />
+                <Route path="/agb" element={<AGB />} />
+                <Route path="/glossar" element={<Glossar />} />
+                <Route path="/glossar/:slug" element={<GlossarTerm />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+            <CookieConsent />
+          </MotionConfig>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

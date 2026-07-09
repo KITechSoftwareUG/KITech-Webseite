@@ -1,12 +1,18 @@
 import { motion } from "framer-motion";
-import { Cloud, Shield, Server, Check, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Cloud, Shield, Server, Check, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/plausible";
 import {
   StructuredData,
   getEnterpriseCloudItemListSchema,
   getEnterpriseCloudFAQSchema,
 } from "@/components/seo/StructuredData";
+
+// Gleicher Calendly-Link wie auf der übergeordneten /enterprise-Seite (Enterprise.tsx) -
+// dieser CTA soll direkt zur Buchung führen statt zu /kontakt umzuleiten: Der Untertext
+// verspricht bereits "Unverbindliches 30-Min-Sparring", also muss der Klick auch wirklich
+// dorthin (Calendly) führen statt zu einem zusätzlichen Kontaktformular-Umweg.
+const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
 
 export const enterpriseCloudPlatforms = [
   {
@@ -117,12 +123,12 @@ export function EnterpriseCloud() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto text-center mb-14"
         >
-          <span className="inline-block text-xs uppercase tracking-widest text-primary font-medium mb-4">
+          <span className="inline-block text-xs uppercase tracking-widest text-enterprise-accent font-medium mb-4">
             Enterprise-Cloud-Expertise
           </span>
           <h2
             id="enterprise-cloud-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-light mb-6 text-foreground"
+            className="font-display text-3xl italic text-foreground mb-6 sm:text-4xl lg:text-5xl"
           >
             Azure AI Foundry, AWS Bedrock & souveräne KI –{" "}
             <span className="gradient-text font-normal">in einer Hand</span>
@@ -141,11 +147,11 @@ export function EnterpriseCloud() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group bg-background rounded-2xl border border-border p-6 lg:p-8 hover:border-primary/40 hover:shadow-elevated transition-all"
+              className="group bg-background rounded-2xl border border-border p-6 lg:p-8 hover:border-enterprise-accent/40 hover:shadow-elevated transition-all"
             >
               <div className="flex items-start justify-between mb-4 gap-4">
                 <h3 className="text-xl font-medium text-foreground">{p.name}</h3>
-                <span className="shrink-0 text-[10px] uppercase tracking-wider px-2 py-1 rounded-full border border-primary/30 text-primary bg-primary/5">
+                <span className="shrink-0 text-[10px] uppercase tracking-wider px-2 py-1 rounded-full border border-enterprise-accent/30 text-enterprise-accent bg-enterprise-accent/5">
                   {p.badge}
                 </span>
               </div>
@@ -155,7 +161,7 @@ export function EnterpriseCloud() {
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-foreground/80">
-                    <Check className="h-4 w-4 text-primary shrink-0" />
+                    <Check className="h-4 w-4 text-enterprise-accent shrink-0" />
                     <span>{f}</span>
                   </li>
                 ))}
@@ -175,7 +181,7 @@ export function EnterpriseCloud() {
               key={b.label}
               className="flex items-center gap-3 bg-background rounded-xl border border-border p-4"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-enterprise-accent/10 text-enterprise-accent shrink-0">
                 <b.icon className="h-5 w-5" />
               </div>
               <div>
@@ -187,11 +193,22 @@ export function EnterpriseCloud() {
         </motion.div>
 
         <div className="text-center">
-          <Button variant="hero" size="lg" asChild>
-            <Link to="/kontakt">
+          <Button
+            variant="hero"
+            size="lg"
+            className="bg-enterprise-accent text-enterprise-accent-foreground hover:bg-enterprise-accent/90"
+            asChild
+          >
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("Calendly_Klick", { position: "enterprise-cloud-cta" })}
+            >
+              <Calendar className="h-4 w-4" aria-hidden="true" />
               Enterprise-Architektur besprechen
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
           <p className="text-xs text-muted-foreground mt-3">
             Unverbindliches 30-Min-Sparring zu Ihrer Cloud- &amp; KI-Strategie.

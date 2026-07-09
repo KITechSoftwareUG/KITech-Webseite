@@ -5,92 +5,119 @@
 @import "@fontsource/onest/500.css";
 @import "@fontsource/onest/600.css";
 @import "@fontsource/onest/700.css";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Premium-Redesign (dunkles Sapphire/Champagne-System): Dunkelmodus-Optik ist jetzt
+  die primäre Markenoptik (nicht nur ein Toggle-Zustand). --solo/--enterprise sind
+  Pfad-spezifische Akzente für die Split-Hero und die /solo- bzw. /enterprise-Funnels.
+*/
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 224 47% 5%;
+    --foreground: 210 30% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 223 40% 8%;
+    --card-foreground: 210 30% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 223 42% 7%;
+    --popover-foreground: 210 30% 96%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 221 75% 58%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 210 30% 96%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 222 30% 12%;
+    --muted-foreground: 215 15% 65%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 38 45% 58%;
+    --accent-foreground: 224 47% 8%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 40% 98%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 100%;
+    --success: 152 55% 45%;
+    --success-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
+    --border: 222 25% 18%;
+    --input: 222 25% 18%;
+    --ring: 221 75% 58%;
 
     --radius: 0.75rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(199 89% 48%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(199 89% 48%) 100%);
-    
-    --shadow-soft: 0 4px 20px -2px hsl(217 91% 60% / 0.1);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.05), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-elevated: 0 10px 40px -10px hsl(0 0% 0% / 0.15);
+    /* Pfad-Akzente: warm/persönlich (Solo) vs. kühl/institutionell (Enterprise) */
+    --solo-accent: 32 45% 68%;
+    --solo-accent-foreground: 224 47% 8%;
+    --enterprise-accent: 205 40% 62%;
+    --enterprise-accent-foreground: 224 47% 8%;
+
+    --gradient-hero: linear-gradient(160deg, hsl(224 55% 9%) 0%, hsl(221 65% 18%) 55%, hsl(224 47% 4%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(221 75% 58%) 0%, hsl(224 55% 30%) 100%);
+    /* Eigenstaendiger, heller Text-Gradient (Sapphire -> Champagne) fuer .gradient-text.
+       WICHTIG: --gradient-hero ist ein dunkler Section-Hintergrund-Gradient (Lightness 4-18%)
+       und ergibt bei Verwendung als text-transparent/bg-clip-text auf dunklem Grund einen
+       Kontrast von nur ~1.0-1.3:1 (praktisch unsichtbar). --gradient-text bleibt bewusst hell
+       (Lightness ~62-64%), damit hervorgehobene Woerter tatsaechlich lesbar sind (>4.5:1). */
+    --gradient-text: linear-gradient(135deg, hsl(221 75% 64%) 0%, hsl(38 55% 64%) 100%);
+
+    --shadow-soft: 0 4px 24px -4px hsl(221 75% 40% / 0.25);
+    --shadow-card: 0 1px 3px 0 hsl(224 60% 2% / 0.4), 0 1px 2px -1px hsl(224 60% 2% / 0.5);
+    --shadow-elevated: 0 20px 60px -12px hsl(224 60% 2% / 0.6);
   }
 
   .dark {
-    --background: 222 47% 2%;
-    --foreground: 210 40% 98%;
+    --background: 224 55% 3%;
+    --foreground: 210 30% 97%;
 
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
+    --card: 223 42% 6%;
+    --card-foreground: 210 30% 97%;
 
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 223 45% 5%;
+    --popover-foreground: 210 30% 97%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 221 75% 60%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 222 32% 11%;
+    --secondary-foreground: 210 30% 97%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 222 32% 10%;
+    --muted-foreground: 215 15% 62%;
 
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 48% 60%;
+    --accent-foreground: 224 47% 6%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 63% 42%;
     --destructive-foreground: 210 40% 98%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 100%;
+    --success: 152 55% 45%;
+    --success-foreground: 210 40% 98%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --border: 222 28% 15%;
+    --input: 222 28% 15%;
+    --ring: 221 75% 60%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(199 89% 48%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(217 33% 17%) 100%);
-    
-    --shadow-soft: 0 4px 20px -2px hsl(217 91% 60% / 0.2);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.2);
-    --shadow-elevated: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
+    --solo-accent: 32 48% 70%;
+    --solo-accent-foreground: 224 47% 6%;
+    --enterprise-accent: 205 42% 64%;
+    --enterprise-accent-foreground: 224 47% 6%;
+
+    --gradient-hero: linear-gradient(160deg, hsl(224 58% 6%) 0%, hsl(221 68% 15%) 55%, hsl(224 55% 2%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(221 75% 55%) 0%, hsl(224 55% 22%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(221 75% 62%) 0%, hsl(38 55% 62%) 100%);
+
+    --shadow-soft: 0 4px 24px -4px hsl(221 75% 40% / 0.3);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.7);
   }
 }
 
@@ -111,7 +138,7 @@
 @layer utilities {
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-hero);
+    background-image: var(--gradient-text);
   }
 
   .gradient-cta {

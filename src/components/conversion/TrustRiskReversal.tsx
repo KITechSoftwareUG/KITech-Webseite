@@ -44,10 +44,10 @@ export function TrustRiskReversal() {
           viewport={{ once: true }}
           className="max-w-2xl mb-12"
         >
-          <span className="inline-block text-xs font-light tracking-widest uppercase text-primary mb-3">
+          <span className="inline-block text-xs font-light tracking-widest uppercase text-enterprise-accent mb-3">
             Risiko? Übernehmen wir.
           </span>
-          <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">
+          <h2 className="font-display text-3xl italic text-foreground mb-4 sm:text-4xl">
             Sechs Versprechen, die Sie <span className="gradient-text">absichern</span>.
           </h2>
           <p className="text-muted-foreground">
@@ -64,9 +64,9 @@ export function TrustRiskReversal() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group rounded-2xl border border-border bg-background p-6 hover:border-primary/50 hover:shadow-card transition-all"
+              className="group rounded-2xl border border-border bg-background p-6 hover:border-enterprise-accent/50 hover:shadow-card transition-all"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-enterprise-accent/10 text-enterprise-accent mb-4 group-hover:bg-enterprise-accent group-hover:text-enterprise-accent-foreground transition-colors">
                 <g.icon className="h-5 w-5" />
               </div>
               <h3 className="text-base font-medium mb-2 text-foreground">{g.title}</h3>

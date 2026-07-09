@@ -15,8 +15,9 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Onest", "system-ui", "sans-serif"],
-        display: ["Onest", "system-ui", "sans-serif"],
+        display: ["'Instrument Serif'", "Georgia", "serif"],
         body: ["Onest", "system-ui", "sans-serif"],
+        mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,6 +56,14 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        "solo-accent": {
+          DEFAULT: "hsl(var(--solo-accent))",
+          foreground: "hsl(var(--solo-accent-foreground))",
+        },
+        "enterprise-accent": {
+          DEFAULT: "hsl(var(--enterprise-accent))",
+          foreground: "hsl(var(--enterprise-accent-foreground))",
         },
       },
       backgroundImage: {
