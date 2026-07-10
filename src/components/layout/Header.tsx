@@ -12,6 +12,8 @@ const navigation = [
   { name: "Kontakt", href: "/kontakt" },
 ];
 
+const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL ?? "https://app.kitech-software.de").replace(/\/$/, "");
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -56,9 +58,16 @@ export function Header() {
               )}
             </button>
 
-            <Button 
-              variant="hero" 
-              size="lg" 
+            <a
+              href={`${PORTAL_URL}/login`}
+              className="hidden sm:inline-flex items-center rounded-none border border-border px-4 py-2 text-sm font-light text-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              Anmelden
+            </a>
+
+            <Button
+              variant="hero"
+              size="lg"
               className="hidden sm:flex"
               onClick={() => window.open('https://calendly.com/automatisieren-mit-kitech/30min', '_blank', 'noopener,noreferrer')}
             >
@@ -104,8 +113,15 @@ export function Header() {
                   {item.name}
                 </Link>
               ))}
-              <Button 
-                variant="hero" 
+              <a
+                href={`${PORTAL_URL}/login`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-none border border-border px-4 py-3 text-center text-sm font-light text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                Anmelden
+              </a>
+              <Button
+                variant="hero"
                 className="mt-2"
                 onClick={() => {
                   setMobileMenuOpen(false);
