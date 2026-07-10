@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Terminal, MapPin, Shield } from "lucide-react";
-import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 
 const footerLinks = {
   navigation: [
@@ -25,7 +24,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center mb-4" aria-label="KITech Software – Startseite">
-              <img src={kitechLogo.url} alt="KITech Software Logo" className="h-8 w-auto" />
+              <img src="/logo.png" alt="KITech Software Logo" className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm mb-6">
               Individuelle, sichere und auditierbare KI-Systeme für Ihre realen Geschäftsprozesse. Made in Germany.

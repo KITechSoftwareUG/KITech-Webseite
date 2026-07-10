@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { SignalField } from "@/components/canvas/SignalField";
@@ -76,7 +75,7 @@ export function SplitHero() {
           className="flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label="KITech Software – Startseite"
         >
-          <img src={kitechLogo.url} alt="KITech Software" className="h-6 sm:h-7 w-auto" />
+          <img src="/logo.png" alt="KITech Software" className="h-6 sm:h-7 w-auto" />
         </Link>
         <button
           onClick={() => setTheme(isDark ? "light" : "dark")}

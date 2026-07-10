@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import kitechLogo from "@/assets/kitech-logo.png.asset.json";
 
 interface FunnelLayoutProps {
   children: React.ReactNode;
@@ -21,7 +20,7 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur-md">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-3" aria-label="KITech Software – Startseite">
-            <img src={kitechLogo.url} alt="KITech Software" className="h-6 w-auto" />
+            <img src="/logo.png" alt="KITech Software" className="h-6 w-auto" />
             <span className={`hidden sm:inline text-xs uppercase tracking-widest font-medium ${accentClassName}`}>
               {pathLabel}
             </span>

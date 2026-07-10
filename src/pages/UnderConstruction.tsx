@@ -99,7 +99,7 @@ export default function UnderConstruction() {
             </Link>
 
             <h1 className="kinetic-display kinetic-morph-in max-w-2xl text-balance text-4xl leading-[1.1] text-foreground sm:text-6xl lg:text-6xl xl:text-7xl">
-              Ist aktuell in Bearbeitung.
+              Gerade im Umbau. Aus gutem Grund.
             </h1>
 
             <p className="mt-6 max-w-xl text-balance text-base font-light leading-relaxed text-foreground/85 sm:mt-8 sm:text-lg">

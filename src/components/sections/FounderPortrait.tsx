@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import portraitAsset from "@/assets/alkhalil-portrait.png.asset.json";
+import portraitAsset from "@/assets/ayham-portrait.webp";
 
-const PORTRAIT_URL = portraitAsset.url;
+const PORTRAIT_URL = portraitAsset;
 const NAME = "Ayham Alkhalil";
 const ROLE = "Gründer & Geschäftsführer";
 const QUOTE_SHORT = "KI wird überall reingequetscht – ohne klaren ROI. Ich mache es anders.";

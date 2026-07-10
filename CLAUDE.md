@@ -18,13 +18,14 @@
 ## Commands
 
 ```bash
-bun run dev        # Dev-Server auf Port 8080
-bun run build      # Production Build
-bun run lint       # ESLint
-bun run preview    # Vorschau des Production Builds
+npm run dev        # Dev-Server auf Port 8080
+npm run build      # Production Build
+npm run lint       # ESLint
+npm test           # Vitest
+npm run preview    # Vorschau des Production Builds
 ```
 
-Kein Test-Framework konfiguriert. **Kein Next.js** — dies ist ein **Vite + React SPA** mit React Router v6 (Client-Side Rendering). Keine Server-Komponenten, keine API-Routes.
+Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React SPA** mit React Router v6 (Client-Side Rendering). Keine Server-Komponenten, keine API-Routes.
 
 ---
 
@@ -46,7 +47,7 @@ Kein Test-Framework konfiguriert. **Kein Next.js** — dies ist ein **Vite + Rea
 | Forms | React Hook Form + Zod | – |
 | Toasts | Sonner + Radix Toast | – |
 | Analytics | Plausible (self-hosted, Privacy-First, via `.env`) | – |
-| Paketmanager | Bun | – |
+| Paketmanager | npm | – |
 
 ---
 
@@ -60,10 +61,12 @@ Kein Test-Framework konfiguriert. **Kein Next.js** — dies ist ein **Vite + Rea
 │   ├── sitemap.xml           # XML-Sitemap
 │   ├── llms.txt              # Kurzübersicht für KI-Agenten
 │   ├── llms-full.txt         # Ausführliche Dokumentation für KI-Agenten
-│   ├── _headers              # Security Headers
-│   ├── _redirects            # SPA-Fallback: alle Pfade → index.html
 │   ├── 404.html              # Fallback 404
 │   └── placeholder.svg
+├── deploy/
+│   ├── nginx.conf             # SPA-Fallback + Gzip (Coolify/Docker-Deployment)
+│   ├── security-headers.conf # Security Headers (von nginx.conf includiert)
+│   └── COOLIFY.md             # Deployment-Anleitung
 ├── src/
 │   ├── main.tsx              # Entry Point
 │   ├── App.tsx               # Router + Provider-Setup
@@ -181,7 +184,7 @@ Bei Content-Änderungen diese Datei ggf. mitpflegen.
 
 ## Sicherheit & Compliance
 
-### Security Headers (`public/_headers`)
+### Security Headers (`deploy/security-headers.conf`, via `deploy/nginx.conf` includiert)
 - Content-Security-Policy
 - X-Frame-Options
 - X-Content-Type-Options
@@ -244,9 +247,9 @@ Alle Vite-Env-Variablen müssen mit `VITE_` prefixed sein, um im Browser verfüg
 
 ## Hosting
 
-- **Platform:** Lovable (Hosting + Build)
+- **Platform:** Selbstgehostet über Coolify (Dockerfile-Build, siehe `Dockerfile` + `deploy/nginx.conf`)
 - **Custom Domain:** `https://kitech-software.de`
-- **SPA-Routing:** `_redirects` leitet alle Pfade auf `index.html`
+- **SPA-Routing:** `deploy/nginx.conf` (`try_files`) leitet alle Pfade auf `index.html`
 
 ---
 
