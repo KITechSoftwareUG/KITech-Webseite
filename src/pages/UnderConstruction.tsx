@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone, ArrowRight, Linkedin } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
@@ -60,6 +60,7 @@ const clientReferences = [
  */
 export default function UnderConstruction() {
   const reduceMotion = useReducedMotion();
+  const location = useLocation();
   const [founderIndex, setFounderIndex] = useState(0);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function UnderConstruction() {
       <SEOHead
         title="Ist aktuell in Bearbeitung | KITech Software"
         description="Diese Seite wird gerade grundlegend ueberarbeitet. Eine neue Version mit echten Referenzen und Case Studies entsteht - bis dahin erreichen Sie uns direkt per E-Mail, Telefon oder Termin."
-        canonical="/"
+        canonical={location.pathname}
         noindex={true}
       />
 
