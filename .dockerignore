@@ -1,0 +1,34 @@
+# Abhaengigkeiten & Build-Output (werden im Container neu erzeugt)
+node_modules
+dist
+dist-ssr
+
+# Versionskontrolle & CI/Tooling, das im Image nichts verloren hat
+.git
+.github
+.agents
+.codex
+.impeccable
+.lovable
+.tmp
+
+# Secrets - niemals in den Build-Context/Image
+.env
+.env.*
+!.env.example
+
+# Editor-/OS-Artefakte
+.vscode
+.idea
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Doku (nicht build-relevant)
+README.md
+CLAUDE.md
+skills-lock.json

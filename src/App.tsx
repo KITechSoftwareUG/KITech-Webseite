@@ -8,19 +8,10 @@ import { ThemeProvider } from "next-themes";
 import { MotionConfig } from "framer-motion";
 import { CookieConsent } from "./components/CookieConsent";
 
-const Index = lazy(() => import("./pages/Index"));
-const Solo = lazy(() => import("./pages/Solo"));
-const Enterprise = lazy(() => import("./pages/Enterprise"));
-const Leistungen = lazy(() => import("./pages/Leistungen"));
-const Haltung = lazy(() => import("./pages/Haltung"));
-const Referenzen = lazy(() => import("./pages/Referenzen"));
-const Kontakt = lazy(() => import("./pages/Kontakt"));
 const Impressum = lazy(() => import("./pages/Impressum"));
 const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const AGB = lazy(() => import("./pages/AGB"));
-const Glossar = lazy(() => import("./pages/Glossar"));
-const GlossarTerm = lazy(() => import("./pages/GlossarTerm"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const UnderConstruction = lazy(() => import("./pages/UnderConstruction"));
 
 const queryClient = new QueryClient();
 
@@ -36,20 +27,20 @@ const App = () => (
           <MotionConfig reducedMotion="user">
             <Suspense fallback={<div className="min-h-screen bg-background" />}>
               <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/solo" element={<Solo />} />
-                <Route path="/enterprise" element={<Enterprise />} />
-                <Route path="/leistungen" element={<Leistungen />} />
-                <Route path="/haltung" element={<Haltung />} />
-                <Route path="/referenzen" element={<Referenzen />} />
-                <Route path="/kontakt" element={<Kontakt />} />
+                <Route path="/" element={<UnderConstruction />} />
+                <Route path="/solo" element={<UnderConstruction />} />
+                <Route path="/enterprise" element={<UnderConstruction />} />
+                <Route path="/leistungen" element={<UnderConstruction />} />
+                <Route path="/haltung" element={<UnderConstruction />} />
+                <Route path="/referenzen" element={<UnderConstruction />} />
+                <Route path="/kontakt" element={<UnderConstruction />} />
                 <Route path="/impressum" element={<Impressum />} />
                 <Route path="/datenschutz" element={<Datenschutz />} />
                 <Route path="/agb" element={<AGB />} />
-                <Route path="/glossar" element={<Glossar />} />
-                <Route path="/glossar/:slug" element={<GlossarTerm />} />
+                <Route path="/glossar" element={<UnderConstruction />} />
+                <Route path="/glossar/:slug" element={<UnderConstruction />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<UnderConstruction />} />
               </Routes>
             </Suspense>
             <CookieConsent />
