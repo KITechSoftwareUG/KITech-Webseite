@@ -65,16 +65,9 @@ export default function UnderConstruction() {
         <div className="container grid gap-14 py-20 sm:py-24 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-28">
           {/* Textspalte */}
           <div className="lg:col-span-7">
-            <Link to="/" aria-label="KITech Software – Startseite" className="mb-8 inline-flex sm:mb-10">
+            <Link to="/" aria-label="KITech Software – Startseite" className="mb-10 inline-flex sm:mb-12">
               <img src="/logo.png" alt="KITech Software Logo" className="h-9 w-auto sm:h-10" />
             </Link>
-
-            <span className="mb-6 inline-flex items-center gap-2.5 border border-border px-3 py-1.5 text-xs">
-              <span className="h-2 w-2 shrink-0 bg-foreground/70" aria-hidden="true" />
-              <span className="kinetic-data uppercase tracking-[0.2em] text-muted-foreground">
-                Relaunch in Arbeit
-              </span>
-            </span>
 
             <h1 className="kinetic-display kinetic-morph-in max-w-2xl text-balance text-4xl leading-[1.1] text-foreground sm:text-6xl lg:text-6xl xl:text-7xl">
               Ist aktuell in Bearbeitung.
