@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone, ArrowRight } from "lucide-react";
+import { Mail, Phone, ArrowRight, Linkedin } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { SignalField } from "@/components/canvas/SignalField";
 import { trackEvent } from "@/lib/plausible";
@@ -15,9 +15,13 @@ import leonPortrait from "@/assets/leon-portrait.webp";
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 
-const founders = [
-  { name: "Ayham Alkhalil", photo: ayhamPortrait },
-  { name: "Leon Battel", photo: leonPortrait },
+/**
+ * linkedin: bewusst noch leer (kein erfundener Link zu einem echten Profil) -
+ * wird ergaenzt, sobald die tatsaechlichen LinkedIn-URLs vorliegen.
+ */
+const founders: { name: string; email: string; linkedin: string | null; photo: string }[] = [
+  { name: "Ayham Alkhalil", email: "aalkh@kitech-software.de", linkedin: null, photo: ayhamPortrait },
+  { name: "Leon Battel", email: "leon.battel@kitech-software.de", linkedin: null, photo: leonPortrait },
 ];
 
 const ROTATION_INTERVAL_MS = 5000;
@@ -130,14 +134,30 @@ export default function UnderConstruction() {
               />
             </a>
 
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+            {/* Kontakt wechselt mit dem aktuell gezeigten Foto: die passende Person zur
+                passenden E-Mail-Adresse (statt einer generischen info@-Adresse). */}
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <a
-                href="mailto:info@kitech-software.de"
+                href={`mailto:${currentFounder.email}`}
                 className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary sm:text-base"
               >
                 <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                info@kitech-software.de
+                {currentFounder.email}
               </a>
+              {currentFounder.linkedin && (
+                <>
+                  <span className="hidden h-4 w-px bg-border sm:inline-block" aria-hidden="true" />
+                  <a
+                    href={currentFounder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary sm:text-base"
+                  >
+                    <Linkedin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    LinkedIn
+                  </a>
+                </>
+              )}
               <span className="hidden h-4 w-px bg-border sm:inline-block" aria-hidden="true" />
               <a
                 href="tel:+4951189738590"
