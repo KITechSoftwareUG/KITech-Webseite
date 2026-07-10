@@ -9,7 +9,7 @@ import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
 
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
+const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 
 const legalLinks = [
   { name: "Impressum", href: "/impressum" },
@@ -97,7 +97,7 @@ export default function UnderConstruction() {
                   Trotzdem reden? Sprich mit mir.
                 </span>
                 <span className="mt-1 block text-xs font-light text-background/70 sm:text-sm">
-                  Kostenloses 30-Minuten-Gespräch, direkt im Kalender buchen
+                  Kostenlose ROI-Analyse, direkt im Kalender buchen
                 </span>
               </span>
               <ArrowRight
