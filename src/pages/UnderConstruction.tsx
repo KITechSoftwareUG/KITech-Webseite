@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, ArrowRight, UserRound } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { SignalField } from "@/components/canvas/SignalField";
 import { trackEvent } from "@/lib/plausible";
@@ -8,8 +10,17 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
+import ayhamPortrait from "@/assets/ayham-portrait.webp";
+import leonPortrait from "@/assets/leon-portrait.webp";
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
+
+const founders = [
+  { name: "Ayham Alkhalil", photo: ayhamPortrait },
+  { name: "Leon Battel", photo: leonPortrait },
+];
+
+const ROTATION_INTERVAL_MS = 5000;
 
 const legalLinks = [
   { name: "Impressum", href: "/impressum" },
@@ -44,6 +55,19 @@ const clientReferences = [
  * umrandete Flaechen.
  */
 export default function UnderConstruction() {
+  const reduceMotion = useReducedMotion();
+  const [founderIndex, setFounderIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = setInterval(() => {
+      setFounderIndex((i) => (i + 1) % founders.length);
+    }, ROTATION_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [reduceMotion]);
+
+  const currentFounder = founders[founderIndex];
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SEOHead
@@ -125,18 +149,26 @@ export default function UnderConstruction() {
             </div>
           </div>
 
-          {/* Bildspalte: scharfkantig umrandeter Rahmen, Platzhalter bis das echte Foto
-              geliefert wird - kein rundes Avatar-Crop, passend zum eckigen Seitenstil. */}
+          {/* Bildspalte: scharfkantig umrandeter Rahmen, Fotos von Ayham und Leon wechseln
+              sich per Crossfade ab (kein rundes Avatar-Crop, passend zum eckigen Seitenstil).
+              Bei prefers-reduced-motion keine automatische Rotation - bleibt auf Ayham stehen,
+              damit kein sich selbst aendernder Inhalt gegen die Bewegungs-Einstellung laeuft. */}
           <div className="lg:col-span-5">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm border border-border bg-card/60 sm:max-w-md lg:ml-auto lg:mr-0">
-              <div className="flex h-full w-full flex-col items-center justify-center gap-3 text-center">
-                <UserRound className="h-10 w-10 text-muted-foreground/50" aria-hidden="true" />
-                <span className="kinetic-data px-6 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
-                  Foto folgt
-                </span>
-              </div>
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-border bg-card/60 sm:max-w-md lg:ml-auto lg:mr-0">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentFounder.name}
+                  src={currentFounder.photo}
+                  alt={`${currentFounder.name}, KITech Software`}
+                  initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.6, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full object-contain object-bottom"
+                />
+              </AnimatePresence>
               <span className="absolute left-0 top-0 border-b border-r border-border bg-background px-2.5 py-1 text-[10px] uppercase text-muted-foreground">
-                Ayham Alkhalil
+                {currentFounder.name}
               </span>
             </div>
           </div>
