@@ -110,8 +110,14 @@ export default function UnderConstruction() {
               kennen.
             </p>
             <p className="mt-4 max-w-xl text-balance text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Der Grund dafür: In den letzten Wochen und Monaten hat sich bei KITech Software viel
+              bewegt — neue Projekte, neue Kunden, gewachsene Kapazitäten. Diese Seite zieht gerade
+              nach, damit sie diesem Stand gerecht wird.
+            </p>
+            <p className="mt-4 max-w-xl text-balance text-sm leading-relaxed text-muted-foreground sm:text-base">
               Qualität braucht ihre Zeit. Bis es so weit ist, zeigen wir bewusst nur das Nötigste —
-              und bitten kurz um Geduld.
+              der laufende Betrieb ist davon unberührt: mit wem wir aktuell zusammenarbeiten, sehen
+              Sie weiter unten.
             </p>
 
             {/* Calendly-CTA: bewusst der visuell dominanteste Block auf der Seite - trotz
@@ -213,11 +219,11 @@ export default function UnderConstruction() {
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex animate-marquee whitespace-nowrap">
             {[...clientReferences, ...clientReferences, ...clientReferences].map((client, i) => (
-              <div key={`${client.name}-${i}`} className="flex items-center gap-3 mx-8 sm:mx-10 shrink-0">
+              <div key={`${client.name}-${i}`} className="flex items-center gap-3 mx-10 sm:mx-14 lg:mx-20 2xl:mx-36 shrink-0">
                 <img
                   src={client.logo}
                   alt={`${client.name} Firmenlogo`}
-                  className="h-5 sm:h-6 w-auto object-contain grayscale opacity-50"
+                  className="h-10 sm:h-12 lg:h-14 2xl:h-20 w-auto object-contain opacity-90"
                 />
               </div>
             ))}
