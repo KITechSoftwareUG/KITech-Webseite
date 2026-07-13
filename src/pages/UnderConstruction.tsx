@@ -10,6 +10,7 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
+import metrikLogo from "@/assets/metrik.webp";
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
 import leonPortrait from "@/assets/leon-portrait.webp";
 
@@ -43,6 +44,7 @@ const clientReferences = [
   { name: "cert consulting Pane", logo: certconsultingLogo },
   { name: "KREMA Group", logo: kremaLogo },
   { name: "ExpatVantage", logo: expatvantageLogo },
+  { name: "METRIK", logo: metrikLogo },
 ];
 
 /**

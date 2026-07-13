@@ -17,9 +17,10 @@ import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
 import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
-import feilAutomationAsset from "@/assets/feil-automation-logo.png.asset.json";
-import pflegeXpertsAsset from "@/assets/pflegexperts-logo.png.asset.json";
-import lernwerkstattAsset from "@/assets/lernwerkstatt-pflege-logo.png.asset.json";
+import feilAutomationLogo from "@/assets/logo-feil-automation.png";
+import pflegeXpertsLogo from "@/assets/logo-pflegexperts.png";
+import lernwerkstattLogo from "@/assets/logo_lernwerkstatt.png";
+import metrikLogo from "@/assets/metrik.webp";
 
 const metrics = [
   { value: "50+", label: "Projekte abgeschlossen" },
@@ -34,9 +35,10 @@ const clients = [
   { name: "cert consulting Pane", logo: certconsultingLogo },
   { name: "KREMA Group", logo: kremaLogo },
   { name: "ExpatVantage", logo: expatvantageLogo },
-  { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationAsset.url },
-  { name: "PflegeXperts", logo: pflegeXpertsAsset.url },
-  { name: "Lernwerkstatt Pflege", logo: lernwerkstattAsset.url },
+  { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationLogo },
+  { name: "PflegeXperts", logo: pflegeXpertsLogo },
+  { name: "Lernwerkstatt Pflege", logo: lernwerkstattLogo },
+  { name: "METRIK", logo: metrikLogo },
 ];
 
 export default function Referenzen() {
