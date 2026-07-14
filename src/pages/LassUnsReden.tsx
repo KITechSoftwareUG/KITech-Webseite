@@ -4,10 +4,11 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Star, X, ArrowRight, CalendarClock, Loader2, Quote } from "lucide-react";
+import { Star, X, ArrowRight, CalendarClock, Loader2, Quote, Linkedin } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 import { hasAnalyticsConsent } from "@/lib/consent";
-import ayhamPortrait from "@/assets/ayham-portrait.webp";
+import { founderInfo } from "@/components/sections/FounderPortrait";
+import ayhamPortrait from "@/assets/ayham-portrait-casual.webp";
 import kremaLogo from "@/assets/krema-logo.png";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 
@@ -165,6 +166,15 @@ export default function LassUnsReden() {
                 <p className="mt-3 text-sm text-muted-foreground">
                   Ayham Alkhalil, Gründer KITech Software
                 </p>
+                <a
+                  href={founderInfo.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                >
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  Auf LinkedIn vernetzen
+                </a>
               </div>
             </motion.div>
 

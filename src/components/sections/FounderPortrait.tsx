@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
+import { Linkedin } from "lucide-react";
 import portraitAsset from "@/assets/ayham-portrait.webp";
 
 const PORTRAIT_URL = portraitAsset;
 const NAME = "Ayham Alkhalil";
 const ROLE = "Gründer & Geschäftsführer";
 const QUOTE_SHORT = "KI wird überall reingequetscht – ohne klaren ROI. Ich mache es anders.";
+const LINKEDIN_URL = "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5";
 
 /**
  * Wiederverwendbares Portrait des Gründers A. Alkhalil.
@@ -46,6 +48,15 @@ export function FounderPortrait({ variant, className = "" }: Props) {
           <p className="text-sm text-muted-foreground">Sie sprechen direkt mit mir.</p>
           <p className="font-light text-foreground">{NAME}</p>
           <p className="text-xs text-muted-foreground">{ROLE}</p>
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+          >
+            <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
+            LinkedIn-Profil
+          </a>
         </div>
       </div>
     );
@@ -83,6 +94,15 @@ export function FounderPortrait({ variant, className = "" }: Props) {
               <p className="text-[10px] text-muted-foreground">{ROLE}</p>
             </div>
             <div className="h-px flex-1 mx-3 bg-border" />
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn-Profil von Ayham Alkhalil"
+              className="mr-2.5 text-primary transition-opacity hover:opacity-80"
+            >
+              <Linkedin className="h-4 w-4" />
+            </a>
             <span className="text-[10px] text-primary tracking-widest">KITECH</span>
           </div>
         </motion.div>
@@ -100,6 +120,15 @@ export function FounderPortrait({ variant, className = "" }: Props) {
         loading="lazy"
         className="relative w-full h-auto object-contain grayscale transition-all duration-500 hover:grayscale-0"
       />
+      <a
+        href={LINKEDIN_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative mt-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+      >
+        <Linkedin className="h-4 w-4" aria-hidden="true" />
+        {NAME} auf LinkedIn
+      </a>
     </div>
   );
 }
@@ -109,4 +138,5 @@ export const founderInfo = {
   role: ROLE,
   quoteShort: QUOTE_SHORT,
   imageUrl: PORTRAIT_URL,
+  linkedinUrl: LINKEDIN_URL,
 };

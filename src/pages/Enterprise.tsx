@@ -48,6 +48,7 @@ import {
   Phone,
   Calendar,
   UserRound,
+  Linkedin,
   Search,
   MessageCircle,
   Hash,
@@ -587,7 +588,15 @@ export default function Enterprise() {
                     <p className="text-sm font-medium text-foreground">{founderInfo.name}</p>
                     <p className="text-xs text-muted-foreground">{founderInfo.role}</p>
                   </div>
-                  <span className="kinetic-data text-[10px] text-enterprise-accent">KITECH</span>
+                  <a
+                    href={founderInfo.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${founderInfo.name} auf LinkedIn`}
+                    className="text-enterprise-accent transition-opacity hover:opacity-80"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                  </a>
                 </div>
               </div>
             </motion.div>

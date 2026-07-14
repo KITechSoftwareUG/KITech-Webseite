@@ -25,6 +25,7 @@ import {
   Check,
   ShieldCheck,
   Compass,
+  Linkedin,
 } from "lucide-react";
 
 function openCalendly(navigate: NavigateFunction, position: string) {
@@ -576,6 +577,15 @@ export default function Solo() {
             <footer className="mt-4 not-italic text-sm text-muted-foreground">
               — {founderInfo.name}, {founderInfo.role}
             </footer>
+            <a
+              href={founderInfo.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+            >
+              <Linkedin className="h-4 w-4" aria-hidden="true" />
+              Auf LinkedIn vernetzen
+            </a>
           </FadeIn>
         </div>
       </section>

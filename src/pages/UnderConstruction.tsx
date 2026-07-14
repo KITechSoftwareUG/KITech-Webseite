@@ -15,11 +15,16 @@ import ayhamPortrait from "@/assets/ayham-portrait.webp";
 import leonPortrait from "@/assets/leon-portrait.webp";
 
 /**
- * linkedin: bewusst noch leer (kein erfundener Link zu einem echten Profil) -
- * wird ergaenzt, sobald die tatsaechlichen LinkedIn-URLs vorliegen.
+ * linkedin: Leon bewusst noch leer (kein erfundener Link zu einem echten
+ * Profil) - wird ergaenzt, sobald die tatsaechliche URL vorliegt.
  */
 const founders: { name: string; email: string; linkedin: string | null; photo: string }[] = [
-  { name: "Ayham Alkhalil", email: "aalkh@kitech-software.de", linkedin: null, photo: ayhamPortrait },
+  {
+    name: "Ayham Alkhalil",
+    email: "aalkh@kitech-software.de",
+    linkedin: "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
+    photo: ayhamPortrait,
+  },
   { name: "Leon Battel", email: "leon.battel@kitech-software.de", linkedin: null, photo: leonPortrait },
 ];
 
