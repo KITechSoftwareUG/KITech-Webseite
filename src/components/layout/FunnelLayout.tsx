@@ -3,8 +3,8 @@ import { ArrowLeft } from "lucide-react";
 
 interface FunnelLayoutProps {
   children: React.ReactNode;
-  /** Kurzes Label rechts neben dem Logo, z.B. "Einzel-Coaching" oder "Enterprise AI" */
-  pathLabel: string;
+  /** Kurzes Label rechts neben dem Logo, z.B. "Einzel-Coaching" oder "Enterprise AI". Optional - ohne Label bleibt nur das Logo stehen. */
+  pathLabel?: string;
   /** Tailwind-Klasse für die Akzentfarbe des Path-Labels, z.B. "text-solo-accent" */
   accentClassName?: string;
 }
@@ -21,9 +21,11 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-3" aria-label="KITech Software – Startseite">
             <img src="/logo.png" alt="KITech Software" className="h-6 w-auto" />
-            <span className={`hidden sm:inline text-xs uppercase tracking-widest font-medium ${accentClassName}`}>
-              {pathLabel}
-            </span>
+            {pathLabel && (
+              <span className={`hidden sm:inline text-xs uppercase tracking-widest font-medium ${accentClassName}`}>
+                {pathLabel}
+              </span>
+            )}
           </Link>
           <Link
             to="/"

@@ -4,10 +4,12 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Star, X, ArrowRight, CalendarClock, Loader2 } from "lucide-react";
+import { Star, X, ArrowRight, CalendarClock, Loader2, Quote } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 import { hasAnalyticsConsent } from "@/lib/consent";
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
+import kremaLogo from "@/assets/krema-logo.png";
+import niimmoLogo from "@/assets/niimmo-logo.png";
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
@@ -56,30 +58,34 @@ const testimonials = [
     quote: "Sehr tolle Zusammenarbeit",
     author: "Eugen Kretschmann",
     role: "Geschäftsführer KREMA Group",
+    logo: kremaLogo,
   },
   {
     quote: "Hier versteht jemand die Nutzung von KI",
     author: "Dennis Mikyas",
     role: "Geschäftsführer NiImmo Holding GmbH",
+    logo: niimmoLogo,
   },
   {
     quote:
       "Dank KITech Software konnten wir unsere internen Abläufe neu denken – die Zusammenarbeit war professionell, lösungsorientiert und hat uns echten Mehrwert gebracht.",
     author: "Frank Locke",
     role: "Geschäftsführer Kanzlei Locke und Partner",
+    logo: null,
   },
 ];
 
 /**
  * Basiert auf der bestehenden Positionierung (frühere Vergleichstabelle
  * "KITech vs. typische KI-Agentur" sowie den Enterprise-Problem-Statements),
- * nicht neu erfunden.
+ * nicht neu erfunden. Bewusst durchgehend "Sie" - konsistent mit dem Rest
+ * der Seite (vorher fälschlich "ihr/du" gemischt).
  */
 const mistakes = [
-  "Ihr zahlt nach Stunden, nicht nach Ergebnis.",
-  "Ihr bekommt Demos, die nie produktiv gehen.",
-  "Das Risiko liegt bei euch, nicht bei der Agentur.",
-  "Eure Daten landen unkontrolliert in Public-Cloud-Tools ohne AVV.",
+  "Sie zahlen nach Stunden, nicht nach Ergebnis.",
+  "Sie bekommen Demos, die nie produktiv gehen.",
+  "Das Risiko liegt bei Ihnen, nicht bei der Agentur.",
+  "Ihre Daten landen unkontrolliert in Public-Cloud-Tools ohne AVV.",
 ];
 
 /**
@@ -119,7 +125,7 @@ export default function LassUnsReden() {
   }, [widgetEnabled]);
 
   return (
-    <FunnelLayout pathLabel="Erstgespräch" accentClassName="text-primary">
+    <FunnelLayout accentClassName="text-primary">
       <SEOHead
         title="Lass uns reden – Kostenlose ROI-Analyse | KITech Software"
         description="30 Minuten, kostenlos: Wir prüfen, ob KI in Ihrem Unternehmen einen messbaren Hebel hat. Termin direkt online buchen."
@@ -166,18 +172,35 @@ export default function LassUnsReden() {
               <h2 className="mb-4 text-xs uppercase tracking-widest text-muted-foreground">
                 Was Kunden sagen
               </h2>
-              <div className="space-y-3">
+              <div className="grid items-start gap-3 sm:grid-cols-3">
                 {testimonials.map((t) => (
-                  <div key={t.author} className="rounded-xl border border-border bg-card p-4">
-                    <div className="mb-2 flex gap-0.5" aria-hidden="true">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
-                      ))}
+                  <div
+                    key={t.author}
+                    className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex gap-0.5" aria-hidden="true">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                        ))}
+                      </div>
+                      <Quote className="h-4 w-4 shrink-0 text-muted-foreground/40" aria-hidden="true" />
                     </div>
-                    <p className="text-sm italic text-foreground/90">„{t.quote}"</p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {t.author} · {t.role}
-                    </p>
+                    <p className="text-sm italic leading-snug text-foreground/90">„{t.quote}"</p>
+                    <div className="flex items-center gap-2.5 border-t border-border pt-3">
+                      {t.logo && (
+                        <img
+                          src={t.logo}
+                          alt=""
+                          aria-hidden="true"
+                          className="h-5 w-5 shrink-0 rounded object-contain"
+                        />
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium leading-snug text-foreground">{t.author}</p>
+                        <p className="text-[11px] leading-snug text-muted-foreground">{t.role}</p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -185,7 +208,7 @@ export default function LassUnsReden() {
 
             <div>
               <h2 className="mb-4 text-xs uppercase tracking-widest text-muted-foreground">
-                Das machst du falsch
+                Das läuft bei vielen falsch
               </h2>
               <ul className="space-y-2.5">
                 {mistakes.map((m) => (
