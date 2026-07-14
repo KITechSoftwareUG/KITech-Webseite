@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import { trackEvent } from "@/lib/plausible";
 
 const navigation = [
   { name: "Leistungen", href: "/leistungen" },
@@ -17,6 +18,7 @@ const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL ?? "https://app.kitech-softw
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
@@ -69,7 +71,10 @@ export function Header() {
               variant="hero"
               size="lg"
               className="hidden sm:flex"
-              onClick={() => window.open('https://calendly.com/automatisieren-mit-kitech/30min', '_blank', 'noopener,noreferrer')}
+              onClick={() => {
+                trackEvent("Calendly_Klick", { position: "header-desktop" });
+                navigate("/lass-uns-reden");
+              }}
             >
               Erstgespräch vereinbaren
             </Button>
@@ -125,7 +130,8 @@ export function Header() {
                 className="mt-2"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  window.open('https://calendly.com/automatisieren-mit-kitech/30min', '_blank', 'noopener,noreferrer');
+                  trackEvent("Calendly_Klick", { position: "header-mobile" });
+                  navigate("/lass-uns-reden");
                 }}
               >
                 Erstgespräch vereinbaren

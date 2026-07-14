@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { X, Calendar, ShieldCheck, Clock, Euro } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/plausible";
 
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
 const STORAGE_KEY = "exit-intent-shown-v1";
 
 export function ExitIntentPopup() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -105,8 +106,8 @@ export function ExitIntentPopup() {
             className="flex-1"
             onClick={() => {
               trackEvent("Calendly_Klick", { position: "exit-intent" });
-              window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
               close();
+              navigate("/lass-uns-reden");
             }}
           >
             Termin sichern

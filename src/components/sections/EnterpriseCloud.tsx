@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Cloud, Shield, Server, Check, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SignalField } from "@/components/canvas/SignalField";
@@ -8,12 +9,6 @@ import {
   getEnterpriseCloudItemListSchema,
   getEnterpriseCloudFAQSchema,
 } from "@/components/seo/StructuredData";
-
-// Gleicher Calendly-Link wie auf der übergeordneten /enterprise-Seite (Enterprise.tsx) -
-// dieser CTA soll direkt zur Buchung führen statt zu /kontakt umzuleiten: Der Untertext
-// verspricht bereits "Unverbindliches 30-Min-Sparring", also muss der Klick auch wirklich
-// dorthin (Calendly) führen statt zu einem zusätzlichen Kontaktformular-Umweg.
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
 
 export const enterpriseCloudPlatforms = [
   {
@@ -210,16 +205,14 @@ export function EnterpriseCloud() {
             className="bg-enterprise-accent text-enterprise-accent-foreground shadow-soft-enterprise hover:bg-enterprise-accent/90"
             asChild
           >
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/lass-uns-reden"
               onClick={() => trackEvent("Calendly_Klick", { position: "enterprise-cloud-cta" })}
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />
               Enterprise-Architektur besprechen
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+            </Link>
           </Button>
           <p className="text-xs text-muted-foreground mt-3">
             Unverbindliches 30-Min-Sparring zu Ihrer Cloud- &amp; KI-Strategie.

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { StructuredData, getWebPageSchema, getBreadcrumbSchema, getLocalBusinessSchema, getContactPageSchema, getFounderPersonSchema } from "@/components/seo/StructuredData";
@@ -14,8 +15,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
-
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
 
 const contactInfo = [
   {
@@ -45,9 +44,10 @@ const contactInfo = [
 ];
 
 export default function Kontakt() {
+  const navigate = useNavigate();
   const openCalendly = () => {
     trackEvent("Calendly_Klick", { position: "kontakt-seite" });
-    window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
+    navigate("/lass-uns-reden");
   };
 
   return (

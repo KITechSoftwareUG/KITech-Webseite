@@ -14,8 +14,6 @@ import metrikLogo from "@/assets/metrik.webp";
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
 import leonPortrait from "@/assets/leon-portrait.webp";
 
-const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
-
 /**
  * linkedin: bewusst noch leer (kein erfundener Link zu einem echten Profil) -
  * wird ergaenzt, sobald die tatsaechlichen LinkedIn-URLs vorliegen.
@@ -122,10 +120,8 @@ export default function UnderConstruction() {
 
             {/* Calendly-CTA: bewusst der visuell dominanteste Block auf der Seite - trotz
                 Baustelle soll niemand den direkten Draht verpassen. */}
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/lass-uns-reden"
               onClick={() => trackEvent("Calendly_Klick", { position: "baustelle-hero" })}
               className="group mt-10 inline-flex w-full items-center justify-between gap-6 border border-foreground bg-foreground px-6 py-5 text-background transition-colors hover:bg-foreground/90 sm:mt-12 sm:w-auto"
             >
@@ -141,7 +137,7 @@ export default function UnderConstruction() {
                 className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
               />
-            </a>
+            </Link>
 
             {/* Kontakt wechselt mit dem aktuell gezeigten Foto: die passende Person zur
                 passenden E-Mail-Adresse (statt einer generischen info@-Adresse). */}

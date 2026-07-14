@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Cookie } from "lucide-react";
 import { trackVisitor } from "@/lib/visitor-enrichment";
+import { CONSENT_STORAGE_KEY, loadStoredConsent } from "@/lib/consent";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
 
@@ -17,8 +18,6 @@ type StoredConsent = {
   updatedAt: string;
 };
 
-const STORAGE_KEY = "cookie-consent-v1";
-
 /**
  * Plausible Self-Hosted Config
  * Hardcoded – KEIN plausible.io, alles über stats.kitech-software.de
@@ -31,27 +30,13 @@ const getDefaultPreferences = (): ConsentPreferences => ({
   analytics: false,
 });
 
-const loadStoredConsent = (): StoredConsent | null => {
-  if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw) as StoredConsent;
-    if (parsed?.version !== 1) return null;
-    if (typeof parsed?.preferences?.analytics !== "boolean") return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-};
-
 const persistConsent = (preferences: ConsentPreferences) => {
   const payload: StoredConsent = {
     version: 1,
     preferences,
     updatedAt: new Date().toISOString(),
   };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(payload));
 };
 
 /**

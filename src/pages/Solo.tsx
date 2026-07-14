@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { FunnelLayout } from "@/components/layout/FunnelLayout";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { StructuredData, getWebPageSchema, getFAQSchema } from "@/components/seo/StructuredData";
@@ -26,11 +27,9 @@ import {
   Compass,
 } from "lucide-react";
 
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
-
-function openCalendly(position: string) {
+function openCalendly(navigate: NavigateFunction, position: string) {
   trackEvent("Calendly_Klick", { position });
-  window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
+  navigate("/lass-uns-reden");
 }
 
 /** Section 2 (PAIN): konkrete, erkennbare "schon-verbrannt"-Situationen statt abstrakter Klagen. */
@@ -221,6 +220,7 @@ function FadeIn({ children, className, delay = 0 }: FadeInProps) {
 
 export default function Solo() {
   const reduceMotion = useReducedMotion();
+  const navigate = useNavigate();
 
   return (
     <FunnelLayout pathLabel="Einzel-Coaching" accentClassName="text-solo-accent">
@@ -279,7 +279,7 @@ export default function Solo() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 size="xl"
-                onClick={() => openCalendly("solo-hero")}
+                onClick={() => openCalendly(navigate, "solo-hero")}
                 className="bg-solo-accent text-solo-accent-foreground hover:bg-solo-accent/90 shadow-soft-solo"
               >
                 Kostenloses Erstgespräch buchen
@@ -627,7 +627,7 @@ export default function Solo() {
             <div className="mt-8 flex justify-center">
               <Button
                 size="xl"
-                onClick={() => openCalendly("solo-final-cta")}
+                onClick={() => openCalendly(navigate, "solo-final-cta")}
                 className="bg-solo-accent text-solo-accent-foreground hover:bg-solo-accent/90 shadow-soft-solo"
               >
                 <Calendar className="h-4 w-4" aria-hidden="true" />

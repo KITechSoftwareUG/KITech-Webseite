@@ -60,12 +60,6 @@ import kremaLogo from "@/assets/krema-logo.png";
 import alltagshilfeLogo from "@/assets/alltagshilfe-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
 
-// Hinweis: Der Slug "/30min" spiegelt die tatsächliche Event-Dauer wider – die Copy auf
-// dieser Seite ist bewusst auf "30 Minuten" vereinheitlicht (siehe Solo.tsx). Falls ein
-// kürzeres 20-Minuten-Format gewünscht ist: eigenes Calendly-Event anlegen und sowohl
-// diese URL als auch die "30-Minuten"-Textstellen in dieser Datei entsprechend anpassen.
-const CALENDLY_URL = "https://calendly.com/automatisieren-mit-kitech/30min";
-
 const trustLogos = [
   { name: "NiImmo Holding GmbH", logo: niimmoLogo },
   { name: "KREMA Group", logo: kremaLogo },
@@ -349,15 +343,13 @@ export default function Enterprise() {
                 className="h-auto min-h-14 whitespace-normal bg-enterprise-accent py-3.5 text-center text-enterprise-accent-foreground shadow-soft-enterprise hover:bg-enterprise-accent/90"
                 asChild
               >
-                <a
-                  href={CALENDLY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/lass-uns-reden"
                   onClick={() => trackEvent("Calendly_Klick", { position: "enterprise-hero" })}
                 >
                   Kostenloses 30-Minuten-Erstgespräch buchen
                   <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-                </a>
+                </Link>
               </Button>
               <Button variant="heroOutline" size="xl" className="h-auto min-h-14 whitespace-normal py-3.5 text-center" asChild>
                 <a href="#security">Security &amp; Private-AI-Optionen ansehen</a>
@@ -889,15 +881,13 @@ export default function Enterprise() {
                   className="h-auto min-h-14 whitespace-normal bg-enterprise-accent py-3.5 text-center text-enterprise-accent-foreground shadow-soft-enterprise hover:bg-enterprise-accent/90"
                   asChild
                 >
-                  <a
-                    href={CALENDLY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/lass-uns-reden"
                     onClick={() => trackEvent("Calendly_Klick", { position: "enterprise-final-cta" })}
                   >
                     <Calendar className="h-4 w-4 shrink-0" aria-hidden="true" />
                     Kostenloses 30-Minuten-Erstgespräch buchen
-                  </a>
+                  </Link>
                 </Button>
                 <Button variant="ctaOutline" size="xl" asChild>
                   <Link to="/kontakt">Kontakt aufnehmen</Link>
