@@ -42,12 +42,12 @@ const legalLinks = [
  * Hosting zuverlaessig laden.
  */
 const clientReferences = [
-  { name: "NiImmo Holding GmbH", logo: niimmoLogo },
-  { name: "Alltagshilfe Fischer GmbH", logo: alltagshilfeLogo },
-  { name: "cert consulting Pane", logo: certconsultingLogo },
-  { name: "KREMA Group", logo: kremaLogo },
-  { name: "ExpatVantage", logo: expatvantageLogo },
-  { name: "METRIK", logo: metrikLogo },
+  { name: "NiImmo Holding GmbH", logo: niimmoLogo, url: "https://www.niimmo.de" },
+  { name: "Alltagshilfe Fischer GmbH", logo: alltagshilfeLogo, url: "https://www.alltagshilfe-fischer.de" },
+  { name: "cert consulting Pane", logo: certconsultingLogo, url: "https://www.ccpane-spark.com/" },
+  { name: "KREMA Group", logo: kremaLogo, url: "https://krema-group.com/" },
+  { name: "ExpatVantage", logo: expatvantageLogo, url: "https://expatvantage.de/" },
+  { name: "METRIK", logo: metrikLogo, url: "https://www.metrik.net" },
 ];
 
 /**
@@ -221,11 +221,18 @@ export default function UnderConstruction() {
           <div className="flex animate-marquee whitespace-nowrap">
             {[...clientReferences, ...clientReferences, ...clientReferences].map((client, i) => (
               <div key={`${client.name}-${i}`} className="flex items-center gap-3 mx-10 sm:mx-14 lg:mx-20 2xl:mx-36 shrink-0">
-                <img
-                  src={client.logo}
-                  alt={`${client.name} Firmenlogo`}
-                  className="h-10 sm:h-12 lg:h-14 2xl:h-20 w-auto object-contain opacity-90"
-                />
+                <a
+                  href={client.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${client.name} Website (öffnet in neuem Tab)`}
+                >
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} Firmenlogo`}
+                    className="h-10 sm:h-12 lg:h-14 2xl:h-20 w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+                  />
+                </a>
               </div>
             ))}
           </div>

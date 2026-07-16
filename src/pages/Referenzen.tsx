@@ -30,15 +30,15 @@ const metrics = [
 ];
 
 const clients = [
-  { name: "NiImmo Holding GmbH", logo: niimmoLogo },
-  { name: "Alltagshilfe Fischer GmbH", logo: alltagshilfeLogo },
-  { name: "cert consulting Pane", logo: certconsultingLogo },
-  { name: "KREMA Group", logo: kremaLogo },
-  { name: "ExpatVantage", logo: expatvantageLogo },
-  { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationLogo },
-  { name: "PflegeXperts", logo: pflegeXpertsLogo },
-  { name: "Lernwerkstatt Pflege", logo: lernwerkstattLogo },
-  { name: "METRIK", logo: metrikLogo },
+  { name: "NiImmo Holding GmbH", logo: niimmoLogo, url: "https://www.niimmo.de" },
+  { name: "Alltagshilfe Fischer GmbH", logo: alltagshilfeLogo, url: "https://www.alltagshilfe-fischer.de" },
+  { name: "cert consulting Pane", logo: certconsultingLogo, url: "https://www.ccpane-spark.com/" },
+  { name: "KREMA Group", logo: kremaLogo, url: "https://krema-group.com/" },
+  { name: "ExpatVantage", logo: expatvantageLogo, url: "https://expatvantage.de/" },
+  { name: "FEIL Automation (Maschinenbau)", logo: feilAutomationLogo, url: null },
+  { name: "PflegeXperts", logo: pflegeXpertsLogo, url: null },
+  { name: "Lernwerkstatt Pflege", logo: lernwerkstattLogo, url: null },
+  { name: "METRIK", logo: metrikLogo, url: "https://www.metrik.net" },
 ];
 
 export default function Referenzen() {
@@ -105,14 +105,16 @@ export default function Referenzen() {
             className="w-full"
           >
             <CarouselContent className="-ml-4">
-              {clients.map((client, i) => (
-                <CarouselItem key={i} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
+              {clients.map((client, i) => {
+                const card = (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: i * 0.05 }}
-                    className="flex flex-col items-center gap-3 p-6 bg-card rounded-xl border border-border h-full"
+                    className={`flex h-full flex-col items-center gap-3 rounded-xl border border-border bg-card p-6 ${
+                      client.url ? "transition-colors hover:border-primary/40" : ""
+                    }`}
                   >
                     <div className="w-16 h-16 rounded-xl bg-muted flex items-center justify-center p-2">
                       {client.logo ? (
@@ -131,8 +133,26 @@ export default function Referenzen() {
                       {client.name}
                     </p>
                   </motion.div>
-                </CarouselItem>
-              ))}
+                );
+
+                return (
+                  <CarouselItem key={i} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
+                    {client.url ? (
+                      <a
+                        href={client.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block h-full"
+                        aria-label={`${client.name} Website (öffnet in neuem Tab)`}
+                      >
+                        {card}
+                      </a>
+                    ) : (
+                      card
+                    )}
+                  </CarouselItem>
+                );
+              })}
             </CarouselContent>
           </Carousel>
         </div>
