@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone, ArrowRight, Linkedin } from "lucide-react";
+import { Mail, Phone, ArrowRight, Linkedin, Shield, MapPin } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { SignalField } from "@/components/canvas/SignalField";
 import { trackEvent } from "@/lib/plausible";
@@ -99,12 +99,18 @@ export default function UnderConstruction() {
         <div className="container grid gap-14 py-20 sm:py-24 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-28">
           {/* Textspalte */}
           <div className="lg:col-span-7">
-            <Link to="/" aria-label="KITech Software – Startseite" className="mb-10 inline-flex sm:mb-12">
+            <Link to="/" aria-label="KITech Software – Startseite" className="mb-10 flex sm:mb-12">
               <img src="/logo.png" alt="KITech Software Logo" className="h-9 w-auto sm:h-10" />
             </Link>
 
-            <h1 className="kinetic-display kinetic-morph-in max-w-2xl text-balance text-4xl leading-[1.1] text-foreground sm:text-6xl lg:text-6xl xl:text-7xl">
-              Gerade im Umbau. Aus gutem Grund.
+            <span className="mb-6 block w-fit border border-foreground/20 bg-foreground px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-background">
+              Für den deutschen Mittelstand
+            </span>
+
+            <h1 className="kinetic-display kinetic-morph-in max-w-2xl text-balance text-4xl leading-[1.4] text-foreground sm:text-6xl sm:leading-[1.3] lg:text-6xl xl:text-7xl">
+              <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
+                Gerade im Umbau. Aus gutem Grund.
+              </span>
             </h1>
 
             <p className="mt-6 max-w-xl text-balance text-base font-light leading-relaxed text-foreground/85 sm:mt-8 sm:text-lg">
@@ -177,6 +183,19 @@ export default function UnderConstruction() {
                 +49 (0) 511 89738590
               </a>
             </div>
+
+            {/* Trust-Badges: dieselben echten Aussagen wie im Footer (Shield/MapPin-Icons),
+                hier zusaetzlich vorne in der Hero platziert. */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
+                <Shield className="h-4 w-4 text-primary" aria-hidden="true" />
+                DSGVO-konform
+              </span>
+              <span className="inline-flex items-center gap-2 border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
+                <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
+                Made in Germany
+              </span>
+            </div>
           </div>
 
           {/* Bildspalte: scharfkantig umrandeter Rahmen, Fotos von Ayham und Leon wechseln
@@ -184,22 +203,44 @@ export default function UnderConstruction() {
               Bei prefers-reduced-motion keine automatische Rotation - bleibt auf Ayham stehen,
               damit kein sich selbst aendernder Inhalt gegen die Bewegungs-Einstellung laeuft. */}
           <div className="lg:col-span-5">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden border border-border bg-card/60 sm:max-w-md lg:ml-auto lg:mr-0">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentFounder.name}
-                  src={currentFounder.photo}
-                  alt={`${currentFounder.name}, KITech Software`}
-                  initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{ duration: reduceMotion ? 0 : 0.6, ease: "easeInOut" }}
-                  className="absolute inset-0 h-full w-full object-contain object-bottom"
-                />
-              </AnimatePresence>
-              <span className="absolute left-0 top-0 border-b border-r border-border bg-background px-2.5 py-1 text-[10px] uppercase text-muted-foreground">
-                {currentFounder.name}
-              </span>
+            <div className="relative mx-auto w-full max-w-sm sm:max-w-md lg:ml-auto lg:mr-0">
+              <div className="relative aspect-[4/5] overflow-hidden border border-border bg-card/60">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentFounder.name}
+                    src={currentFounder.photo}
+                    alt={`${currentFounder.name}, KITech Software`}
+                    initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.6, ease: "easeInOut" }}
+                    className="absolute inset-0 h-full w-full object-contain object-bottom"
+                  />
+                </AnimatePresence>
+                <span className="absolute left-0 top-0 border-b border-r border-border bg-background px-2.5 py-1 text-[10px] uppercase text-muted-foreground">
+                  {currentFounder.name}
+                </span>
+              </div>
+
+              {/* Floating Card: bewusst keine erfundene Bewertung/Kennzahl - stattdessen
+                  ein echter, bereits an anderer Stelle verwendeter Fakt. */}
+              <div className="relative z-10 -mt-6 ml-6 mr-6 border border-border bg-background px-4 py-3 shadow-elevated sm:-mt-8 sm:ml-8 sm:mr-8">
+                <p className="text-sm font-medium text-foreground">KITech Software UG</p>
+                <p className="text-xs text-muted-foreground">Hannover, Deutschland</p>
+              </div>
+
+              {/* Stat-Boxen: Platzhalter, bis echte Zahlen vorliegen (auf Wunsch bewusst
+                  nicht erfunden). */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="border border-border bg-card px-4 py-5 text-center">
+                  <p className="text-2xl font-light text-foreground">—</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Zahl folgt</p>
+                </div>
+                <div className="border border-border bg-card px-4 py-5 text-center">
+                  <p className="text-2xl font-light text-foreground">—</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Zahl folgt</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
