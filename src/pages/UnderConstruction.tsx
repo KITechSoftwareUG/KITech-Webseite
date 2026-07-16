@@ -223,8 +223,9 @@ export default function UnderConstruction() {
               </div>
 
               {/* Floating Card: bewusst keine erfundene Bewertung/Kennzahl - stattdessen
-                  ein echter, bereits an anderer Stelle verwendeter Fakt. */}
-              <div className="relative z-10 -mt-6 ml-6 mr-6 border border-border bg-background px-4 py-3 shadow-elevated sm:-mt-8 sm:ml-8 sm:mr-8">
+                  ein echter, bereits an anderer Stelle verwendeter Fakt. Links-buendig und
+                  schmal (wie im Referenz-Layout), nicht ueber die volle Foto-Breite. */}
+              <div className="relative z-10 -mt-6 ml-6 w-fit border border-border bg-background px-4 py-3 shadow-elevated sm:-mt-8 sm:ml-8">
                 <p className="text-sm font-medium text-foreground">KITech Software UG</p>
                 <p className="text-xs text-muted-foreground">Hannover, Deutschland</p>
               </div>
