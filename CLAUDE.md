@@ -6,12 +6,14 @@
 
 ## Projekt-Überblick
 
-**Website:** [kitech-software.de](https://kitech-software.de)  
-**Typ:** Corporate Website / Marketing-Seite  
-**Unternehmen:** KITech Software UG (haftungsbeschränkt) – KI-Beratung & Softwareentwicklung für den deutschen Mittelstand  
-**Standort:** Hannover, Deutschland  
-**Geschäftsführer:** Ayham Alkhalil  
+**Website:** [kitech-software.de](https://kitech-software.de)
+**Typ:** Corporate Website / Marketing-Seite
+**Unternehmen:** KITech Software UG (haftungsbeschränkt) – KI-Beratung & Softwareentwicklung für den deutschen Mittelstand
+**Standort:** Hannover, Deutschland
+**Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
+
+**Aktueller Status:** Die Website befindet sich im Relaunch. Fast alle Routen zeigen aktuell eine bewusste "Baustellen-Seite" (`UnderConstruction.tsx`) statt der vollen Seiten — siehe [Seiten & Routing](#seiten--routing) für die genaue Live-vs-Code-Unterscheidung.
 
 ---
 
@@ -33,21 +35,21 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 
 | Kategorie | Technologie | Version |
 |---|---|---|
-| Framework | React | 18.x |
-| Build Tool | Vite 5 + SWC | 5.x |
-| Sprache | TypeScript | 5.x |
-| Styling | Tailwind CSS | 3.x |
+| Framework | React | 18.3.x |
+| Build Tool | Vite + SWC | 5.4.x |
+| Sprache | TypeScript | 5.8.x |
+| Styling | Tailwind CSS | 3.4.x |
 | Animationen | Framer Motion | 12.x |
-| Routing | React Router DOM | 6.x |
+| Routing | React Router DOM | 6.30.x |
 | UI-Komponenten | shadcn/ui (Radix UI) | – |
 | Icons | Lucide React | – |
 | Font | Onest (via @fontsource) | – |
-| Theme | next-themes (light/dark) | – |
-| State/Data | TanStack React Query | 5.x |
+| Theme | next-themes | 0.3.x (siehe Hinweis unter [Design System](#design-system)) |
+| State/Data | TanStack React Query | 5.83.x |
 | Forms | React Hook Form + Zod | – |
 | Toasts | Sonner + Radix Toast | – |
-| Analytics | Plausible (self-hosted, Privacy-First, via `.env`) | – |
-| Paketmanager | npm | – |
+| Analytics | Plausible (self-hosted, hardcoded — siehe [Analytics](#analytics-plausible)) | – |
+| Paketmanager | npm (kein Bun — `bun.lockb` existiert nicht mehr) | – |
 
 ---
 
@@ -56,54 +58,75 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 ```
 /
 ├── public/
-│   ├── favicon.ico           # Favicon
-│   ├── robots.txt            # SEO + KI-Crawler-Freigaben
-│   ├── sitemap.xml           # XML-Sitemap
-│   ├── llms.txt              # Kurzübersicht für KI-Agenten
-│   ├── llms-full.txt         # Ausführliche Dokumentation für KI-Agenten
-│   ├── 404.html              # Fallback 404
-│   └── placeholder.svg
+│   ├── favicon.ico            # Favicon
+│   ├── robots.txt             # SEO + KI-Crawler-Freigaben
+│   ├── sitemap.xml            # XML-Sitemap (aktuell: nur indexierbare Routen, siehe unten)
+│   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (kann hinter aktuellem Stand liegen)
+│   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (kann hinter aktuellem Stand liegen)
+│   ├── 404.html                # Fallback 404
+│   └── logo.png                 # Echtes, lokal gebuendeltes Logo (siehe Hinweis in UnderConstruction.tsx)
 ├── deploy/
-│   ├── nginx.conf             # SPA-Fallback + Gzip (Coolify/Docker-Deployment)
-│   ├── security-headers.conf # Security Headers (von nginx.conf includiert)
-│   └── COOLIFY.md             # Deployment-Anleitung
+│   ├── nginx.conf              # SPA-Fallback + Gzip (Coolify/Docker-Deployment)
+│   ├── security-headers.conf  # Security Headers - VORBEREITET, aber NICHT aktiv (siehe Sicherheit)
+│   └── COOLIFY.md               # Deployment-Anleitung
+├── Dockerfile                  # Multi-Stage Build (node:20-alpine -> nginx:alpine) - aktuell NICHT der aktive Build Pack
 ├── src/
-│   ├── main.tsx              # Entry Point
-│   ├── App.tsx               # Router + Provider-Setup
-│   ├── App.css
-│   ├── index.css             # Design Tokens (CSS Custom Properties)
-│   ├── assets/               # Logos, Bilder (importiert als ES6-Module)
+│   ├── main.tsx                # Entry Point
+│   ├── App.tsx                 # Router + Provider-Setup (alle Routen siehe unten)
+│   ├── index.css               # Design Tokens (CSS Custom Properties) - dark-first, siehe Design System
+│   ├── assets/                 # Logos, Fotos (importiert als ES6-Module)
 │   ├── components/
-│   │   ├── layout/           # Header, Footer, Layout-Wrapper
-│   │   ├── seo/              # SEOHead, StructuredData (JSON-LD)
-│   │   ├── ui/               # shadcn/ui Komponenten (nicht manuell bearbeiten)
-│   │   ├── CookieConsent.tsx  # DSGVO Cookie-Banner + Plausible-Injection
+│   │   ├── layout/             # Header, Footer, Layout, FunnelLayout (schlanker Wrapper fuer /solo, /enterprise, /lass-uns-reden)
+│   │   ├── seo/                # SEOHead, StructuredData (JSON-LD)
+│   │   ├── sections/           # FounderPortrait, SplitHero, EnterpriseCloud (Startseiten-/Funnel-Bausteine)
+│   │   ├── conversion/         # StickyMobileCTA, ExitIntentPopup, TrustRiskReversal
+│   │   ├── canvas/              # SignalField (Canvas-basierte Hintergrund-Animation)
+│   │   ├── ui/                  # shadcn/ui Komponenten (nicht manuell bearbeiten)
+│   │   ├── CookieConsent.tsx   # DSGVO Cookie-Banner + Plausible-Injection
 │   │   └── NavLink.tsx
-│   ├── hooks/                # Custom Hooks (use-mobile, use-toast)
-│   ├── lib/                  # Utility-Funktionen (cn/clsx)
-│   └── pages/                # Seitenkomponenten
-├── .env.example              # Env-Var-Vorlage (nie .env committen)
+│   ├── hooks/                   # use-mobile, use-toast
+│   ├── lib/
+│   │   ├── utils.ts             # cn/clsx
+│   │   ├── plausible.ts        # trackEvent(), Scroll-Tracking - Consent-gated
+│   │   ├── consent.ts          # Zentrale Consent-Logik (localStorage-Key cookie-consent-v1), von CookieConsent.tsx UND LassUnsReden.tsx genutzt
+│   │   ├── visitor-enrichment.ts
+│   │   ├── schema-validators.ts # Zod-Schemas fuer die JSON-LD-Tests
+│   │   ├── glossary-schema.ts
+│   │   └── __tests__/           # Vitest-Tests fuer Schemas/Breadcrumbs
+│   └── pages/                   # Seitenkomponenten (siehe Routing-Tabelle)
+├── .env.example                 # Env-Var-Vorlage (nie .env committen)
 ├── tailwind.config.ts
 ├── vite.config.ts
 ├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
-└── components.json           # shadcn/ui Konfiguration
+└── components.json              # shadcn/ui Konfiguration
 ```
 
 ---
 
 ## Seiten & Routing
 
-| Route | Datei | Beschreibung |
+**Wichtig:** `src/App.tsx` routet aktuell fast alle Pfade auf dieselbe Komponente (`UnderConstruction.tsx`), unabhaengig vom Pfad. Die "vollen" Seiten existieren als Code, sind aber nicht erreichbar, bis sie in `App.tsx` explizit wieder verdrahtet werden.
+
+### Aktuell live (was Besucher tatsaechlich sehen)
+
+| Route | Datei | Status |
 |---|---|---|
-| `/` | `Index.tsx` | Startseite mit Hero (Lamp-Effekt), Referenzen, Produkte, Vergleichstabelle, Prozess, Case Studies, Testimonials, Lead-Qualifier-Popup |
-| `/leistungen` | `Leistungen.tsx` | Leistungsportfolio (KI-Audit, LLM, Computer Vision, Assistenten, Datenplattform, MLOps) |
-| `/haltung` | `Haltung.tsx` | Unternehmenswerte und Philosophie |
-| `/referenzen` | `Referenzen.tsx` | Kundenstimmen, Case Studies |
-| `/kontakt` | `Kontakt.tsx` | Kontaktformular, Calendly-Integration, Kontaktdaten |
-| `/impressum` | `Impressum.tsx` | Impressum (USt-IdNr.: DE459778632, HRB 230077) |
-| `/datenschutz` | `Datenschutz.tsx` | Datenschutzerklärung |
-| `/agb` | `AGB.tsx` | Allgemeine Geschäftsbedingungen |
-| `*` | `NotFound.tsx` | 404-Seite |
+| `/`, `/solo`, `/enterprise`, `/leistungen`, `/haltung`, `/referenzen`, `/kontakt`, `/glossar`, `/glossar/:slug`, `*` | `UnderConstruction.tsx` | Baustellen-Seite: Hero, rotierendes Foto (Ayham/Leon), Kontaktzeile, Referenzlogo-Marquee. `noindex` gesetzt. |
+| `/lass-uns-reden` | `LassUnsReden.tsx` | Einzige "echte", indexierbare neue Seite: links Mini-Funnel (Foto+Headline, Testimonials, Positionierung), rechts Calendly-Inline-Embed (Consent-gated, siehe unten). Ziel aller "Erstgespraech"-CTAs im ganzen Repo. |
+| `/impressum`, `/datenschutz`, `/agb` | `Impressum.tsx`, `Datenschutz.tsx`, `AGB.tsx` | Rechtlich verpflichtend, immer live, immer indexierbar. |
+
+### Vorhanden im Code, aktuell nicht geroutet (Basis fuer den Relaunch)
+
+| Datei | Beschreibung |
+|---|---|
+| `Index.tsx` | Alte/urspruengliche Startseite. Vorsicht: enthaelt teils veraltete Referenzen (z.B. die frueher hier beschriebene Vergleichstabelle "KITech vs. typische KI-Agentur" existiert in dieser Datei nicht mehr). |
+| `Leistungen.tsx` | Leistungsportfolio. |
+| `Haltung.tsx` | Werte/Philosophie, Gruender-Editorial (nutzt `FounderPortrait` variant="editorial"). |
+| `Referenzen.tsx` | Kundenlogos + Case Studies (Carousel), Logos verlinken auf die jeweilige Kunden-Website wo bekannt. |
+| `Kontakt.tsx` | Kontaktformular, Calendly-CTA (-> `/lass-uns-reden`), `FounderPortrait` variant="compact". |
+| `Solo.tsx` / `Enterprise.tsx` | Zwei-Wege-Funnel (Einzel-Coaching vs. Enterprise AI), erreichbar ueber `SplitHero.tsx` auf der (aktuell nicht gerouteten) Startseite. Nutzen `FunnelLayout` (kein Haupt-Header, kein StickyMobileCTA/ExitIntentPopup - bewusst schlank). |
+| `Glossar.tsx` / `GlossarTerm.tsx` | Glossar-Uebersicht + Detailseiten. |
+| `NotFound.tsx` | 404, aktuell nicht erreichbar (catch-all zeigt `UnderConstruction`). |
 
 ---
 
@@ -113,8 +136,10 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 - **TypeScript Strict Mode ist deaktiviert** (`noImplicitAny: false`, `strictNullChecks: false`)
 - **shadcn/ui Komponenten** liegen in `src/components/ui/` — bei neuen Komponenten `npx shadcn@latest add <component>` verwenden, nicht manuell hinzufügen
 - **Design-System:** CSS Variables (HSL-basiert) in `src/index.css`, konfiguriert in `tailwind.config.ts`
-- **Custom Tailwind Utilities:** `.gradient-text`, `.gradient-cta`, `.shadow-soft`, `.shadow-card`
+- **Custom Tailwind Utilities:** `.gradient-text` (nur in Alt-Seiten wie Referenzen/Leistungen/Haltung/Kontakt, in neuen Komponenten bewusst vermieden), `.gradient-cta`, `.shadow-soft`, `.shadow-card`, `.shadow-elevated`, `.animate-marquee`, `box-decoration-clone` (Tailwind-Core-Utility, fuer Highlight-Boxen hinter mehrzeiligem Text)
 - **Schriftart:** Onest (`@fontsource/onest`)
+- **Eckige statt runde Flaechen:** Neuere Komponenten (Baustellen-Seite, `/lass-uns-reden`) verwenden bewusst **keine** `rounded-*`-Klassen — scharfkantige, klar umrandete Boxen statt runder Pill-Badges, siehe Kommentar in `UnderConstruction.tsx`. Aeltere Seiten (Referenzen, Kontakt, CookieConsent) nutzen weiterhin `rounded-*`. Bei neuen Komponenten im Zweifel scharfkantig bauen.
+- **CTA-Konvention:** Jeder "Erstgespraech buchen"/Calendly-Button im gesamten Repo navigiert intern zu `/lass-uns-reden` (per `<Link>`/`useNavigate`), **niemals** mehr `window.open()` zu einer externen Calendly-URL. Die einzige verbleibende externe Calendly-URL ist die `data-url` im Embed selbst (`LassUnsReden.tsx`).
 
 ---
 
@@ -122,116 +147,77 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 
 ### Farbschema (HSL-basiert, CSS Custom Properties)
 
-**Light Mode:**
-- `--background`: 210 40% 98% (helles Blaugrau)
-- `--foreground`: 222 47% 11% (dunkles Blau)
-- `--primary`: 217 91% 60% (kräftiges Blau)
-- `--muted-foreground`: 215 16% 47%
-- `--border`: 214 32% 91%
+**Aktuell dark-first ("KI-Redesign v2"):** `:root` und `.dark` sind beide near-black und liegen nur wenige Prozentpunkte auseinander — es gibt kein klassisches helles Light-Mode mehr, obwohl `next-themes` in `App.tsx` noch mit `defaultTheme="light"` konfiguriert ist und der Theme-Toggle im Header weiterhin funktioniert.
 
-**Dark Mode:**
-- `--background`: 222 47% 2% (fast Schwarz)
-- `--foreground`: 210 40% 98% (helles Grau)
-- `--primary`: 217 91% 60% (gleiches Blau)
-- `--muted-foreground`: 215 20% 65%
-- `--border`: 217 33% 17%
+**`:root` (Default):**
+- `--background`: 0 0% 6% (fast Schwarz)
+- `--foreground`: 0 0% 97%
+- `--primary`: 245 85% 62% (gesaettigtes Blau/Violett)
+- `--accent`: 85 70% 55% (Signal-Lime)
+- `--border`: 0 0% 18%
+
+**`.dark` (Theme-Toggle):**
+- `--background`: 0 0% 5%
+- `--foreground`: 0 0% 98%
+- `--primary`: 245 88% 64%
+- `--accent`: 85 72% 57%
+
+- `--solo-accent` (Amber, warm) / `--enterprise-accent` (Lime, kuehl) fuer den Solo-vs-Enterprise-Funnel.
+- `.gradient-text` ist laut Kommentar in `index.css` **nur fuer Alt-Seiten** gedacht (Referenzen/Leistungen/Haltung/Kontakt) - in neu gebauten Komponenten bewusst vermieden (rein dekorativ, nicht bedeutungstragend).
 
 ### Typografie
-- **Font:** Onest (Gewichte 100–700)
-- **Body:** `font-thin` (100) als Default
-- **Überschriften:** `font-light` (300) bis `font-medium` (500)
+- **Body-Font:** Onest (Gewichte 100–700), `font-thin` als Default
+- **Display-Font:** "Recursive Variable" (`kinetic-display`-Klassen) fuer Headlines auf den neu gebauten Seiten (Baustellen-Seite, Solo, Enterprise) - animiert zwischen serifenlos/mono-Achsen. Aeltere Seiten bleiben bei Onest fuer Headlines.
 
-### Gradients & Shadows
-- `--gradient-hero`: 135°, Primary → Cyan
-- `--gradient-cta`: 135°, Primary-basiert
-- `--shadow-soft`, `--shadow-card`, `--shadow-elevated`
-
-### Custom Button-Varianten
-- `hero`: Gradient-Button mit Glow-Effekt
-- `heroOutline`: Outline-Variante des Hero-Buttons
+### Custom Button-Varianten (`src/components/ui/button.tsx`)
+- `hero` / `cta`: gefuellter Primary-Button mit Shadow
+- `heroOutline` / `ctaOutline`: Outline-Varianten
+- Alle Varianten nutzen `rounded-lg` als Basis — neuere Komponenten ueberschreiben das haeufig mit eigenen, eckigen Containern statt den Button direkt zu stylen.
 
 ### Container
-- Max-Width: 1280px, zentriert, 1rem Padding
+- Max-Width: 1280px (`2xl` Breakpoint), zentriert, 1rem Padding
 
 ---
 
 ## SEO-Architektur
 
 ### Meta-Tags (SPA-dynamisch)
-- `SEOHead`-Komponente setzt pro Seite: `<title>`, `<meta description>`, OpenGraph, Twitter Cards, Canonical URL
+- `SEOHead`-Komponente setzt pro Seite: `<title>`, `<meta description>`, OpenGraph, Twitter Cards, Canonical, optional `noindex`
 - Base URL: `https://kitech-software.de`
-- OG-Image: Gehostetes Social-Image
 - Locale: `de_DE`
 
 ### Structured Data (JSON-LD)
-`src/components/seo/StructuredData.tsx` enthält:
-- `Organization` Schema
-- `LocalBusiness` Schema
-- `WebPage` Schema (pro Seite)
-- `Review` Schema (Kundenstimmen)
-- `SoftwareApplication` Schema (ethixAI)
-- `FAQ` Schema (Startseite)
-
-Bei Content-Änderungen diese Datei ggf. mitpflegen.
+`src/components/seo/StructuredData.tsx` — Schema-Funktionen fuer Organization, LocalBusiness, WebPage, Breadcrumb, Review, FAQ, Person (Gruender), ItemList (Kunden), Enterprise-Cloud-spezifische Schemas. Bei Content-Aenderungen diese Datei ggf. mitpflegen. Zod-Validierung der erzeugten Schemas in `src/lib/schema-validators.ts` + `src/lib/__tests__/`.
 
 ### KI-Crawler-Optimierung
-- `robots.txt`: Explizite Allow-Regeln für GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
-- `llms.txt`: Kompakte Projektübersicht im Markdown-Format
-- `llms-full.txt`: Ausführliche Dokumentation für KI-Agenten
-- `sitemap.xml`: Alle Seiten gelistet
+- `robots.txt`: Explizite Allow-Regeln fuer GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
+- `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **koennen hinter dem aktuellen Code-Stand zuruecklieben** (z.B. erwaehnen sie nicht `/solo`, `/enterprise`, `/lass-uns-reden`), vor Verlass darauf gegenpruefen.
+- `sitemap.xml`: Aktuell nur indexierbare Routen (Impressum, Datenschutz, AGB, `/lass-uns-reden`) - die Baustellen-Routen sind bewusst nicht gelistet (noindex).
 
 ---
 
 ## Sicherheit & Compliance
 
-### Security Headers (`deploy/security-headers.conf`, via `deploy/nginx.conf` includiert)
-- Content-Security-Policy
-- X-Frame-Options
-- X-Content-Type-Options
-- Referrer-Policy
-- Permissions-Policy
-- Strict-Transport-Security (HSTS)
+### Security Headers (`deploy/security-headers.conf`)
+**Vorbereitet, aber aktuell NICHT aktiv in Produktion.** Die Coolify-Application nutzt Build Pack `nixpacks` (Caddy als Server), der `deploy/nginx.conf`/`deploy/security-headers.conf` nur einliest, wenn Build Pack auf `dockerfile` umgestellt wird (das eigene `Dockerfile` ist fertig und lokal getestet, aber die Umstellung in Coolify steht noch aus). Aktuell live sind **keine** CSP/HSTS/X-Frame-Options-Header (`curl -I` zeigt nur `server: Caddy`).
 
-### DSGVO
-- Cookie-Consent-Banner (`CookieConsent.tsx`)
-  - Erscheint nach 500ms Delay
-  - Speichert Präferenz in `localStorage` (Key: `cookie-consent-v1`)
-  - Plausible-Script wird **nur nach Zustimmung** dynamisch injiziert
-  - Cookie-Einstellungen jederzeit über Footer-Link änderbar
-- Datenschutzerklärung unter `/datenschutz`
+Wenn/sobald aktiv, enthaelt die CSP explizite Ausnahmen fuer Calendly (`assets.calendly.com`, `calendly.com`) fuer den Embed auf `/lass-uns-reden`.
+
+### DSGVO / Cookie-Consent
+- `CookieConsent.tsx` + `src/lib/consent.ts` (zentrale Helper, `hasAnalyticsConsent()`, localStorage-Key `cookie-consent-v1`)
+- Banner erscheint nach 500ms, eine einzige Kategorie "Analytics" (kein separates Marketing/Funktional)
+- Plausible-Script wird **nur nach Zustimmung** dynamisch injiziert
+- **Calendly-Embed auf `/lass-uns-reden` ist ebenfalls Consent-gated:** laedt automatisch nur bei vorhandenem Analytics-Consent, sonst Klick-Gate ("Kalender laden") - Calendly setzt echte Third-Party-Cookies, wird daher wie Plausible behandelt, nicht als "technisch notwendig" eingestuft.
+- Cookie-Einstellungen jederzeit ueber Footer-Link (`window.dispatchEvent(new Event("cookie-consent:open"))`) aenderbar
+- Datenschutzerklaerung unter `/datenschutz` — **erwaehnt Calendly als Auftragsverarbeiter aktuell noch nicht explizit**, sollte vor naechster grosser Privacy-Review ergaenzt werden.
 
 ---
 
 ## Analytics (Plausible)
 
-Self-hosted auf VPS (`stats.kitech-software.de`). Script wird **nie hardcoded** in `index.html` — nur `CookieConsent.tsx` injiziert es nach Consent.
+Self-hosted auf `stats.kitech-software.de`. **Konfiguration ist seit dem Umzug auf Coolify hardcoded** in `src/lib/plausible.ts` und `CookieConsent.tsx` (Domain/Script-URL/API-Endpoint direkt im Code) — **nicht** mehr ueber `VITE_PLAUSIBLE_*`-Env-Vars (diese stehen als toter Verweis/Referenz noch in `.env.example`, werden aber nicht gelesen).
 
-Konfiguration via Umgebungsvariablen:
-
-```
-VITE_PLAUSIBLE_DOMAIN=kitech-software.de
-VITE_PLAUSIBLE_SRC=https://stats.kitech-software.de/js/script.js
-VITE_PLAUSIBLE_API_HOST=https://stats.kitech-software.de/api/event
-```
-
-Alle Vite-Env-Variablen müssen mit `VITE_` prefixed sein, um im Browser verfügbar zu sein.
-
----
-
-## Kernfeatures der Startseite
-
-1. **Hero-Section:** Lamp-Effekt (animierter Glow), TextRotate-Animation mit wechselnden Stats
-2. **Referenzen-Leiste:** Kundenlogos (NiImmo, Alltagshilfe Fischer, cert consulting, KREMA, ExpatVantage)
-3. **Eigene Produkte:**
-   - CleverFuchs (iOS App, Coming Soon)
-   - ethixAI (SaaS, Live, [ethixAI.io](https://ethixAI.io))
-   - Klargehalt (SaaS, erscheint 01.03.2026, [klargehalt.de](https://klargehalt.de))
-4. **Lead-Qualifier-Popup:** Mehrstufiges Quiz (Rolle → Branche → Herausforderung → Umsatz → Budget → Calendly CTA), erscheint nach 300px Scroll
-5. **Vergleichstabelle:** KITech vs. "typische KI-Agentur"
-6. **Prozess:** 3 Schritte (Audit → Entwicklung → Umsetzung)
-7. **Case Studies:** Karussell mit 3 Projekten (Immobilien, Consulting, Handwerk)
-8. **Testimonials:** Karussell mit Kundenstimmen
-9. **CTA-Section:** Erstgespräch über Calendly
+Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kontaktformular_gesendet`, `Calendly_Klick`, `Scroll_90`, `Angebot_Seite`, `Lead_Qualifier_abgeschlossen`, `Telefon_Klick`, `Email_Klick`.
 
 ---
 
@@ -239,24 +225,29 @@ Alle Vite-Env-Variablen müssen mit `VITE_` prefixed sein, um im Browser verfüg
 
 | Service | Verwendung |
 |---|---|
-| Calendly | Terminbuchung (`calendly.com/kitech-software-info/30min`) |
-| Plausible | Self-hosted Analytics (nur nach Cookie-Consent) |
-| App Store | CleverFuchs Link (Coming Soon) |
+| Calendly | Terminbuchung. Einzige aktuelle URL: `calendly.com/kitech-software/roi-analyse`, eingebettet auf `/lass-uns-reden` (Inline-Widget, Consent-gated). Alle anderen Stellen im Code verlinken intern auf `/lass-uns-reden`, nicht mehr direkt auf Calendly. |
+| Plausible | Self-hosted Analytics (nur nach Cookie-Consent), siehe oben. |
+| **Kundenportal** | Separates Projekt `kitech-app-portal` (Next.js, LogTo-Auth) unter `/home/deploy/KITech/projects/kitech-app-portal` — technisch notwendig getrennt, da diese Website eine reine Client-Side-SPA ist und LogTo serverseitige Session-Verwaltung braucht (nur mit einem echten Backend wie Next.js moeglich). Deployment liegt im selben Coolify-Projekt ("KITech Website"). Der Header-Button "Anmelden" verlinkt auf `${VITE_PORTAL_URL}/login`. |
+| App Store | CleverFuchs Link (Coming Soon) — nur in der aktuell nicht gerouteten `Index.tsx`. |
 
 ---
 
 ## Hosting
 
-- **Platform:** Selbstgehostet über Coolify (Dockerfile-Build, siehe `Dockerfile` + `deploy/nginx.conf`)
+- **Platform:** Selbstgehostet ueber Coolify (VPS), Application "KITech Website"
+- **Aktueller Build Pack:** `nixpacks` (Caddy) — **nicht** das vorbereitete `Dockerfile` (siehe [Sicherheit](#sicherheit--compliance) fuer die Konsequenz bei den Security-Headern)
 - **Custom Domain:** `https://kitech-software.de`
-- **SPA-Routing:** `deploy/nginx.conf` (`try_files`) leitet alle Pfade auf `index.html`
+- **SPA-Routing:** `deploy/nginx.conf` (`try_files`) ist fuer den Dockerfile-Pfad vorbereitet; im aktuell aktiven Nixpacks/Caddy-Pfad uebernimmt Caddy automatisch SPA-Fallback.
+- **Deploy-Workflow:** Kein automatischer GitHub-Webhook (mehrfach als kaputt verifiziert). Deploys laufen manuell ueber die Coolify-API (`GET /deploy?uuid=...`) nach explizitem Go durch den Auftraggeber — **nicht automatisch nach jedem Push.**
 
 ---
 
 ## Kontaktdaten
 
-- **E-Mail:** info@kitech-software.de
-- **Telefon:** +49 (0) 511 89738590
+- **E-Mail:** info@kitech-software.de (allgemein), aalkh@kitech-software.de (Ayham, personalisierte CTAs)
+- **Telefon (Festnetz):** +49 (0) 511 89738590
+- **Telefon (Mobil, Ayham):** +49 151 64682544 — wird in neueren Komponenten (StickyMobileCTA, ExitIntentPopup) verwendet
+- **LinkedIn (Ayham):** [linkedin.com/in/ayham-alkhalil-66bb451b5](https://www.linkedin.com/in/ayham-alkhalil-66bb451b5) — zentral in `founderInfo.linkedinUrl` (`FounderPortrait.tsx`), Leons LinkedIn-URL liegt noch nicht vor
 - **Adresse:** Wedekindstraße 14, 30161 Hannover
 - **HRB:** 230077 (Amtsgericht Hannover)
 - **USt-IdNr.:** DE459778632
