@@ -13,6 +13,7 @@ const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const AGB = lazy(() => import("./pages/AGB"));
 const UnderConstruction = lazy(() => import("./pages/UnderConstruction"));
 const LassUnsReden = lazy(() => import("./pages/LassUnsReden"));
+const EuAiActSelbstcheck = lazy(() => import("./pages/EuAiActSelbstcheck"));
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,8 @@ const App = () => (
                 <Route path="/referenzen" element={<UnderConstruction />} />
                 <Route path="/kontakt" element={<UnderConstruction />} />
                 <Route path="/lass-uns-reden" element={<LassUnsReden />} />
+                <Route path="/eu-ai-act-selbstcheck" element={<EuAiActSelbstcheck />} />
+                <Route path="/selbstcheck" element={<EuAiActSelbstcheck />} />
                 <Route path="/impressum" element={<Impressum />} />
                 <Route path="/datenschutz" element={<Datenschutz />} />
                 <Route path="/agb" element={<AGB />} />
