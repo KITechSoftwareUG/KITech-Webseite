@@ -206,20 +206,6 @@
     letter-spacing: -0.02em;
   }
 
-  /*
-    EU-AI-Act-Selbstcheck (/eu-ai-act-selbstcheck) laeuft bewusst in einem eigenen,
-    hellen Farb- und Typo-System (Inter / Inter Tight) statt im dark-first
-    KITech-Theme - die Seite ist ein in sich geschlossener Funnel. Die Fonts werden
-    in der Seitenkomponente importiert und damit nur fuer diese Route geladen.
-  */
-  .selbstcheck-page {
-    font-family: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
-  }
-
-  .selbstcheck-display {
-    font-family: "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
-  }
-
   .kinetic-data {
     font-family: "Recursive Variable", "Recursive", system-ui, sans-serif;
     font-variation-settings: "MONO" 1, "CASL" 0;
