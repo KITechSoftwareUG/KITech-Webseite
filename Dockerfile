@@ -1,37 +1,46 @@
 # syntax=docker/dockerfile:1
 
-# ---- Stage 1: Build ----------------------------------------------------
-# Statische Vite/React-SPA - wir bauen nur, es gibt keinen Node-Server zur
-# Laufzeit.
+# Next.js App Router mit Server-Rendering. Anders als frueher (statische Vite-SPA
+# hinter nginx) laeuft hier zur Laufzeit ein Node-Server - genau deshalb liefert
+# die Seite fertiges HTML aus.
 #
-# Hinweis Paketmanager: Das Projekt nutzt primaer Bun (bun.lockb vorhanden),
-# das mitgelieferte bun.lockb ist jedoch nicht mehr synchron mit package.json
-# ("bun install --frozen-lockfile" schlaegt mit "lockfile had changes" fehl).
-# Bis das Lockfile aktualisiert/committed wird, verwenden wir daher npm ci
-# mit dem vorhandenen, aktuellen package-lock.json (Fallback lt. Vorgabe).
-FROM node:20-alpine AS build
+# `output: "standalone"` in next.config.ts erzeugt einen minimalen Server-Ordner,
+# der nur die tatsaechlich benoetigten node_modules enthaelt.
 
+# ---- Stage 1: Dependencies ------------------------------------------------
+FROM node:20-alpine AS deps
 WORKDIR /app
-
-# Lockfile + Manifest zuerst kopieren, damit der Dependency-Layer gecacht wird
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Restlichen Quellcode kopieren und Production-Build erzeugen
+# ---- Stage 2: Build -------------------------------------------------------
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# ---- Stage 2: Serve ------------------------------------------------------
-# Statische Auslieferung des dist/-Outputs ueber nginx.
-FROM nginx:alpine AS serve
+# ---- Stage 3: Runtime -----------------------------------------------------
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Eigene Server-Konfiguration (SPA-Fallback, Security-Header, Gzip)
-COPY deploy/security-headers.conf /etc/nginx/conf.d/security-headers.conf
-COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
-# Gebauten Output aus Stage 1 uebernehmen
-COPY --from=build /app/dist /usr/share/nginx/html
+# Nicht als root laufen
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser --system --uid 1001 nextjs
 
-EXPOSE 80
+# public/ und die statischen Assets muessen neben den standalone-Server gelegt
+# werden - Next kopiert sie nicht selbst dorthin.
+COPY --from=build /app/public ./public
+COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-CMD ["nginx", "-g", "daemon off;"]
+USER nextjs
+EXPOSE 3000
+
+CMD ["node", "server.js"]

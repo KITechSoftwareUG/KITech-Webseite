@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { X, Calendar, ShieldCheck, Clock, Euro } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/plausible";
@@ -8,7 +10,7 @@ const STORAGE_KEY = "exit-intent-shown-v1";
 
 export function ExitIntentPopup() {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -107,7 +109,7 @@ export function ExitIntentPopup() {
             onClick={() => {
               trackEvent("Calendly_Klick", { position: "exit-intent" });
               close();
-              navigate("/lass-uns-reden");
+              router.push("/lass-uns-reden");
             }}
           >
             Termin sichern

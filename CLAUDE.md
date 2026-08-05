@@ -13,7 +13,7 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
-**Aktueller Status:** Die Website befindet sich im Relaunch. Fast alle Routen zeigen aktuell eine bewusste "Baustellen-Seite" (`UnderConstruction.tsx`) statt der vollen Seiten — siehe [Seiten & Routing](#seiten--routing) für die genaue Live-vs-Code-Unterscheidung.
+**Aktueller Status:** Die Website befindet sich im Relaunch und wurde am 30.07.2026 von **Vite + React Router auf Next.js (App Router) migriert** — Grund: die Funnel-Seiten sollen organisch ranken, was mit einer Client-Side-SPA nicht geht. Startseite, Terminbuchung, Rechtstexte und der EU-AI-Act-Selbstcheck sind echte Seiten; die übrigen Routen zeigen weiterhin Baustelle oder Platzhalter. Siehe [Seiten & Routing](#seiten--routing).
 
 ---
 
@@ -27,7 +27,9 @@ npm test           # Vitest
 npm run preview    # Vorschau des Production Builds
 ```
 
-Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React SPA** mit React Router v6 (Client-Side Rendering). Keine Server-Komponenten, keine API-Routes.
+Tests mit Vitest (`npm test`) — Vitest laeuft weiterhin ueber Vite (`vitest.config.ts`), unabhaengig vom Next.js-Build. Das ist Absicht: die Tests pruefen reine TS-Module und lesen einzelne Alt-Seiten per `?raw`-Import (ein Vite-Feature).
+
+Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werden serverseitig gerendert bzw. beim Build statisch vorgeneriert. Die Seiten-Komponenten liegen in `src/views/` (bewusst **nicht** `src/pages/`, das Next.js als Pages Router interpretieren wuerde) und sind Client Components; die Dateien unter `src/app/*/page.tsx` sind duenne Server-Wrapper, die nur `metadata` exportieren.
 
 ---
 
@@ -35,12 +37,12 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 
 | Kategorie | Technologie | Version |
 |---|---|---|
-| Framework | React | 18.3.x |
-| Build Tool | Vite + SWC | 5.4.x |
+| UI-Bibliothek | React | 19.2.x |
+| Framework/Build | Next.js (App Router, Turbopack) | 16.2.x |
 | Sprache | TypeScript | 5.8.x |
 | Styling | Tailwind CSS | 3.4.x |
 | Animationen | Framer Motion | 12.x |
-| Routing | React Router DOM | 6.30.x |
+| Routing | Next.js App Router (dateibasiert) | – |
 | UI-Komponenten | shadcn/ui (Radix UI) | – |
 | Icons | Lucide React | – |
 | Font | Onest (via @fontsource) | – |
@@ -66,9 +68,7 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 │   ├── 404.html                # Fallback 404
 │   └── logo.png                 # Echtes, lokal gebuendeltes Logo (siehe Hinweis in UnderConstruction.tsx)
 ├── deploy/
-│   ├── nginx.conf              # SPA-Fallback + Gzip (Coolify/Docker-Deployment)
-│   ├── security-headers.conf  # Security Headers - VORBEREITET, aber NICHT aktiv (siehe Sicherheit)
-│   └── COOLIFY.md               # Deployment-Anleitung
+│   └── COOLIFY.md               # Deployment-Anleitung (nginx.conf/security-headers.conf entfallen)
 ├── Dockerfile                  # Multi-Stage Build (node:20-alpine -> nginx:alpine) - aktuell NICHT der aktive Build Pack
 ├── src/
 │   ├── main.tsx                # Entry Point
@@ -92,8 +92,11 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 │   │   ├── visitor-enrichment.ts
 │   │   ├── schema-validators.ts # Zod-Schemas fuer die JSON-LD-Tests
 │   │   ├── glossary-schema.ts
+│   │   ├── metadata.ts          # buildMetadata() - ersetzt die alte SEOHead-Komponente
 │   │   └── __tests__/           # Vitest-Tests fuer Schemas/Breadcrumbs
-│   └── pages/                   # Seitenkomponenten (siehe Routing-Tabelle)
+│   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, page.tsx je Route
+│   └── views/                   # Seiten-Komponenten (Client Components), von app/*/page.tsx eingebunden
+│       └── legacy/              # Alt-Seiten, nicht geroutet, aus tsconfig/eslint ausgenommen
 ├── .env.example                 # Env-Var-Vorlage (nie .env committen)
 ├── tailwind.config.ts
 ├── vite.config.ts
@@ -181,8 +184,9 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 
 ## SEO-Architektur
 
-### Meta-Tags (SPA-dynamisch)
-- `SEOHead`-Komponente setzt pro Seite: `<title>`, `<meta description>`, OpenGraph, Twitter Cards, Canonical, optional `noindex`
+### Meta-Tags (serverseitig gerendert)
+- `buildMetadata()` in `src/lib/metadata.ts` erzeugt pro Seite Title, Description, OpenGraph, Twitter Cards, Canonical und optional `noindex`. Wird in `src/app/*/page.tsx` als `export const metadata` genutzt. Die frühere `SEOHead`-Komponente (useEffect-basiert) ist damit abgelöst.
+- **Sitemap wird generiert** (`src/app/sitemap.ts`), nicht mehr als `public/sitemap.xml` gepflegt. Dort gehören nur indexierbare Routen hinein.
 - Base URL: `https://kitech-software.de`
 - Locale: `de_DE`
 
@@ -198,10 +202,19 @@ Tests mit Vitest (`npm test`). **Kein Next.js** — dies ist ein **Vite + React 
 
 ## Sicherheit & Compliance
 
-### Security Headers (`deploy/security-headers.conf`)
-**Vorbereitet, aber aktuell NICHT aktiv in Produktion.** Die Coolify-Application nutzt Build Pack `nixpacks` (Caddy als Server), der `deploy/nginx.conf`/`deploy/security-headers.conf` nur einliest, wenn Build Pack auf `dockerfile` umgestellt wird (das eigene `Dockerfile` ist fertig und lokal getestet, aber die Umstellung in Coolify steht noch aus). Aktuell live sind **keine** CSP/HSTS/X-Frame-Options-Header (`curl -I` zeigt nur `server: Caddy`).
+### Security Headers (`next.config.ts`)
+**Jetzt aktiv** — gesetzt per `headers()` in `next.config.ts` statt wie früher in
+`deploy/security-headers.conf`. Die alte nginx-Konfiguration wurde nie ausgeliefert,
+weil Coolify mit nixpacks/Caddy baut und sie gar nicht liest. In der Next-Config
+gelten sie unabhängig vom Build Pack.
 
-Wenn/sobald aktiv, enthaelt die CSP explizite Ausnahmen fuer Calendly (`assets.calendly.com`, `calendly.com`) fuer den Embed auf `/lass-uns-reden`.
+Gesetzt werden: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy,
+Permissions-Policy, Cross-Origin-Opener-Policy. `X-Powered-By` ist abgeschaltet.
+
+Die CSP enthält Ausnahmen für Plausible (`stats.kitech-software.de`), Calendly
+(`assets.calendly.com`, `calendly.com`), den Tracking-Webhook
+(`os.kitech-software.de`) und `ipinfo.io`. Wer eine neue externe Verbindung
+einbaut, muss sie dort eintragen — sonst blockiert der Browser sie stillschweigend.
 
 ### DSGVO / Cookie-Consent
 - `CookieConsent.tsx` + `src/lib/consent.ts` (zentrale Helper, `hasAnalyticsConsent()`, localStorage-Key `cookie-consent-v1`)
@@ -235,9 +248,9 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 ## Hosting
 
 - **Platform:** Selbstgehostet ueber Coolify (VPS), Application "KITech Website"
-- **Aktueller Build Pack:** `nixpacks` (Caddy) — **nicht** das vorbereitete `Dockerfile` (siehe [Sicherheit](#sicherheit--compliance) fuer die Konsequenz bei den Security-Headern)
+- **Build Pack:** muss auf **`dockerfile`** umgestellt werden (Port **3000**) — Next.js braucht zur Laufzeit einen Node-Server, nixpacks/Caddy reicht nicht mehr. Details in `deploy/COOLIFY.md`.
 - **Custom Domain:** `https://kitech-software.de`
-- **SPA-Routing:** `deploy/nginx.conf` (`try_files`) ist fuer den Dockerfile-Pfad vorbereitet; im aktuell aktiven Nixpacks/Caddy-Pfad uebernimmt Caddy automatisch SPA-Fallback.
+- **Routing:** dateibasiert ueber `src/app/`. Kein SPA-Fallback mehr noetig — der Node-Server beantwortet jede Route direkt.
 - **Deploy-Workflow:** Kein automatischer GitHub-Webhook (mehrfach als kaputt verifiziert). Deploys laufen manuell ueber die Coolify-API (`GET /deploy?uuid=...`) nach explizitem Go durch den Auftraggeber — **nicht automatisch nach jedem Push.**
 
 ---

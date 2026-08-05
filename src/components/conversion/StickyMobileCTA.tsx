@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Calendar, Phone } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 
@@ -7,7 +9,7 @@ const PHONE = "+4915164682544";
 
 export function StickyMobileCTA() {
   const [visible, setVisible] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 600);
@@ -36,7 +38,7 @@ export function StickyMobileCTA() {
         <button
           onClick={() => {
             trackEvent("Calendly_Klick", { position: "sticky-mobile" });
-            navigate("/lass-uns-reden");
+            router.push("/lass-uns-reden");
           }}
           className="flex items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-light text-primary-foreground hover:opacity-90 transition-opacity"
         >

@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 // Typisierte Schema.org Interfaces
 interface SchemaBase {
   "@context": "https://schema.org";
@@ -12,21 +10,23 @@ interface StructuredDataProps {
 }
 
 /**
- * Injiziert JSON-LD Schema.org Daten sicher in den <head>.
- * Wird beim Unmount automatisch entfernt (SPA-safe).
+ * Rendert JSON-LD direkt ins Markup, statt es wie früher per useEffect in den
+ * <head> zu injizieren. Damit steht das Schema schon im vom Server gelieferten
+ * HTML — genau der Punkt, wegen dem wir von der SPA weg sind: Crawler sehen es
+ * sofort, ohne auf JavaScript zu warten.
+ *
+ * `</` wird escaped, damit ein String in den Daten das Script-Tag nicht vorzeitig
+ * schließen kann.
  */
 export function StructuredData({ data }: StructuredDataProps) {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.textContent = JSON.stringify(data);
-    document.head.appendChild(script);
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [data]);
-
-  return null;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
 }
 
 // === Vorgefertigte Schema-Factories ===

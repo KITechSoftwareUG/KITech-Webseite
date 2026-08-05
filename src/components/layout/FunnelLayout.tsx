@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 interface FunnelLayoutProps {
@@ -19,7 +19,7 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur-md">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-3" aria-label="KITech Software – Startseite">
+          <Link href="/" className="flex items-center gap-3" aria-label="KITech Software – Startseite">
             <img src="/logo.png" alt="KITech Software" className="h-6 w-auto" />
             {pathLabel && (
               <span className={`hidden sm:inline text-xs uppercase tracking-widest font-medium ${accentClassName}`}>
@@ -28,7 +28,7 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
             )}
           </Link>
           <Link
-            to="/"
+            href="/"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -44,9 +44,9 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
         <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt)</p>
           <div className="flex gap-6">
-            <Link to="/impressum" className="hover:text-foreground transition-colors">Impressum</Link>
-            <Link to="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</Link>
-            <Link to="/agb" className="hover:text-foreground transition-colors">AGB</Link>
+            <Link href="/impressum" className="hover:text-foreground transition-colors">Impressum</Link>
+            <Link href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</Link>
+            <Link href="/agb" className="hover:text-foreground transition-colors">AGB</Link>
           </div>
         </div>
       </footer>

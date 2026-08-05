@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { PersonSchema } from "@/lib/schema-validators";
-import IndexSrc from "../../pages/Index.tsx?raw";
-import HaltungSrc from "../../pages/Haltung.tsx?raw";
-import KontaktSrc from "../../pages/Kontakt.tsx?raw";
+import IndexSrc from "../../views/legacy/Index.tsx?raw";
+import HaltungSrc from "../../views/legacy/Haltung.tsx?raw";
+import KontaktSrc from "../../views/legacy/Kontakt.tsx?raw";
 import { getFounderPersonSchema } from "@/components/seo/StructuredData";
 
 describe("Founder Person schema", () => {

@@ -1,7 +1,9 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Cookie } from "lucide-react";
 import { trackVisitor } from "@/lib/visitor-enrichment";
 import { CONSENT_STORAGE_KEY, loadStoredConsent } from "@/lib/consent";
@@ -118,7 +120,7 @@ export function CookieConsent() {
         erstellt, kein Dritt‑Tracking und keine Werbung ausgeliefert. Sie können
         Ihre Auswahl jederzeit in der{" "}
         <Link
-          to="/datenschutz"
+          href="/datenschutz"
           className="text-primary hover:underline font-medium"
         >
           Datenschutzerklärung

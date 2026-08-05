@@ -145,6 +145,17 @@
     background-image: var(--gradient-text);
   }
 
+  /*
+    Weicher Auslauf am unteren Rand freigestellter Portraits (Kundenkarten).
+    Die Fotos enden am Brustkorb — ohne Maske sieht das aus, als waere die Person
+    abgeschnitten worden. Mit dem Verlauf laeuft sie in die Karte hinein.
+    -webkit-Praefix fuer Safari, das mask-image bis heute nur praefixiert kennt.
+  */
+  .portrait-fade {
+    -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 74%, transparent 100%);
+  }
+
   .gradient-cta {
     background: var(--gradient-cta);
   }

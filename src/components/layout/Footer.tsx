@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { Terminal, MapPin, Shield } from "lucide-react";
 
 const footerLinks = {
@@ -23,7 +25,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center mb-4" aria-label="KITech Software – Startseite">
+            <Link href="/" className="flex items-center mb-4" aria-label="KITech Software – Startseite">
               <img src="/logo.png" alt="KITech Software Logo" className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm mb-6">
@@ -47,7 +49,7 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.navigation.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -61,7 +63,7 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
                   </Link>
                 </li>
