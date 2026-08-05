@@ -1,9 +1,12 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
+import { CommunityCountdown, START_LABEL } from "@/components/sections/CommunityCountdown";
+import { CommunityWarteliste } from "@/components/sections/CommunityWarteliste";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -11,29 +14,42 @@ import { trackEvent } from "@/lib/plausible";
  *
  * Bewusste Entscheidungen (Ansage vom 05.08.2026):
  *   - Es gibt keine zweite Community-Seite und keinen Funnel davor. Die frühere
- *     Warteliste unter `/skool` ist ersatzlos entfallen; wer beitreten will, klickt
- *     hier und ist drin. `/skool` leitet permanent hierher (next.config.ts).
+ *     Seite `/skool` ist entfallen und leitet permanent hierher (next.config.ts).
  *   - Keine Canvas-Animation (SignalField), kein `kinetic-morph-in`, keine
- *     Scroll-Effekte. Ruhige Fläche, das Portrait trägt die Seite.
+ *     Scroll-Effekte. Ruhige Fläche, das Foto trägt die Seite.
  *   - Kein Label-über-Headline-Muster, keine Feature-Kacheln mit Icons — beides
  *     liest sich als Baukasten. Die Vorteile stehen als redaktionelle Liste.
  *   - Kopfzeile und Fußzeile bleiben drin: die Seite soll sich wie ein Teil der
  *     Unternehmenswebsite anfühlen, nicht wie eine abgeschottete Funnel-Seite.
+ *
+ * Zwei Zustände (Nachtrag 05.08.2026 — die Gruppe ist noch nicht offen):
+ *   VOR dem Start  : Countdown plus Warteliste. Kein Link in die Gruppe, denn
+ *                    dort ist noch nichts zu holen.
+ *   AB dem Start   : Beitritts-Button in die Gruppe.
+ * Umgeschaltet wird im Browser, sobald der Countdown durch ist — die Seite wird
+ * statisch vorgerendert, ein serverseitiger Vergleich stünde sonst für immer auf
+ * dem Build-Zeitpunkt. Ohne Deploy wechselt die Seite also von selbst.
  */
 
-/** Ziel des einzigen CTA dieser Seite: die Skool-Gruppe. */
+/** Ziel nach dem Start. Vorher bewusst nirgends verlinkt. */
 const SKOOL_URL = "https://www.skool.com/ki-fur-business-4646";
 
 /**
- * Großes Portrait von Ayham.
+ * Freigestelltes Foto von Ayham am Schreibtisch — von Ayham geliefert als
+ * `skool_bild.svg` (4,7 MB, zwei eingebettete PNGs hinter einer Maske).
  *
- * ÜBERGANG (05.08.2026): Hier liegt vorerst das bestehende Portrait aus
- * `src/assets/ayham-portrait.webp` (1156×1400). Ayham liefert ein eigenes,
- * höher aufgelöstes Bild für diese Seite nach — zum Austauschen reicht es,
- * `public/media/ayham-community.jpg` zu überschreiben, im Code ändert sich nichts.
- * Ideal: Hochformat 4:5, mindestens 1200 px breit.
+ * Als WebP mit Alphakanal abgelegt statt als SVG ausgeliefert: das SVG wäre mit
+ * 4,7 MB das mit Abstand schwerste Element der Seite gewesen und hätte den
+ * Bildaufbau ausgebremst. Das WebP hält dieselbe Freistellung bei 122 KB.
+ * Transparenz bleibt erhalten, JPEG kann das nicht — deshalb hier kein .jpg.
+ *
+ * Maße 1200×1140 (fast quadratisch): das sind die Maße des Motivs selbst, der
+ * leere Rand des SVG ist weggeschnitten. Deshalb steht das Bild frei auf dem
+ * Seitenhintergrund, ohne Rahmen und ohne festes Seitenverhältnis.
  */
-const PORTRAIT_SRC = "/media/ayham-community.jpg";
+const PORTRAIT_SRC = "/media/ayham-community.webp";
+const PORTRAIT_WIDTH = 1200;
+const PORTRAIT_HEIGHT = 1140;
 
 /** Wörtlich wie vorgegeben. */
 const VORTEILE = [
@@ -83,6 +99,24 @@ function BeitretenButton({ position }: { position: string }) {
 }
 
 export default function Community() {
+  /**
+   * Startet als `false` — vor dem 1. September ist das für praktisch jeden
+   * Besucher richtig, und der Countdown korrigiert es beim ersten Tick, falls
+   * der Termin durch ist. Andersherum (Start bei `true`) würde bis dahin für
+   * einen Wimpernschlag der Beitritts-Button aufblitzen.
+   */
+  const [gestartet, setGestartet] = useState(false);
+  const beiAblauf = useCallback(() => setGestartet(true), []);
+
+  /** Vor dem Start Warteliste, danach der Weg in die Gruppe. */
+  function Handlung({ id, position }: { id: string; position: string }) {
+    return gestartet ? (
+      <BeitretenButton position={position} />
+    ) : (
+      <CommunityWarteliste id={id} position={position} />
+    );
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <StructuredData
@@ -104,7 +138,7 @@ export default function Community() {
             der Headline, während es auf großen Schirmen rechts neben Text und CTA
             sitzt. Auf dem Handy zuerst der Button und dann das Gesicht wäre genau
             die Funnel-Reihenfolge, die diese Seite nicht haben soll. */}
-        <section className="grid gap-y-10 pb-24 pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-x-16 lg:pb-32 lg:pt-20">
+        <section className="grid gap-y-10 pb-24 pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-x-14 lg:pb-32 lg:pt-20">
           <div className="min-w-0 lg:col-start-1 lg:row-start-1">
             <h1 className="kinetic-display max-w-[600px] text-balance text-[40px] leading-[1.05] text-foreground sm:text-[56px] lg:text-[60px]">
               Werde Teil der{" "}
@@ -121,23 +155,32 @@ export default function Community() {
             </p>
           </div>
 
-          {/* Hochformat statt der sonst üblichen Bildkacheln: ein Gesicht wirkt
-              stehend, nicht liegend beschnitten. */}
+          {/* Kein Rahmen, kein Hintergrund, kein Beschnitt: das Foto ist freigestellt
+              und steht direkt auf der Seitenfläche. Ein Kasten drumherum würde die
+              Freistellung genau wieder zunichtemachen.
+
+              `width`/`height` stehen als Attribute drin, damit der Browser den Platz
+              schon vor dem Laden reserviert — sonst springt der Hero beim Bildaufbau. */}
           <div className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
-            <div className="relative mx-auto w-full max-w-[460px] overflow-hidden bg-foreground/[0.04] lg:ml-auto lg:mr-0">
-              <img
-                src={PORTRAIT_SRC}
-                alt="Ayham Alkhalil, Gründer von KITech Software"
-                className="aspect-[4/5] w-full object-cover object-center"
-                loading="eager"
-              />
-            </div>
+            <img
+              src={PORTRAIT_SRC}
+              width={PORTRAIT_WIDTH}
+              height={PORTRAIT_HEIGHT}
+              alt="Ayham Alkhalil, Gründer von KITech Software, an seinem Schreibtisch"
+              className="mx-auto h-auto w-full max-w-[520px] lg:ml-auto lg:mr-0"
+              loading="eager"
+            />
           </div>
 
           <div className="min-w-0 lg:col-start-1 lg:row-start-2 lg:self-start">
+            {!gestartet && (
+              <div className="mb-9">
+                <CommunityCountdown onAblauf={beiAblauf} />
+              </div>
+            )}
             <Konditionen />
             <div className="mt-5">
-              <BeitretenButton position="community-hero" />
+              <Handlung id="warteliste-hero" position="community-hero" />
             </div>
           </div>
         </section>
@@ -167,11 +210,19 @@ export default function Community() {
         </section>
 
         {/* Abschluss: derselbe Weg noch einmal, ohne neues Argument. Wer bis hier
-            gelesen hat, soll nicht nach oben scrollen müssen. */}
+            gelesen hat, soll nicht nach oben scrollen müssen. Der Countdown steht
+            hier bewusst nicht ein zweites Mal — zwei tickende Uhren auf einer Seite
+            sind eine zu viel. Stattdessen die Startzeile als Satz. */}
         <section className="border-t border-border py-20 lg:py-28">
+          {!gestartet && (
+            <p className="mb-6 text-[15px] leading-tight text-foreground/70">
+              Los geht es am{" "}
+              <span className="font-semibold text-foreground">{START_LABEL}</span>.
+            </p>
+          )}
           <Konditionen />
           <div className="mt-5">
-            <BeitretenButton position="community-abschluss" />
+            <Handlung id="warteliste-abschluss" position="community-abschluss" />
           </div>
         </section>
       </main>

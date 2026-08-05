@@ -10,7 +10,7 @@ import Community from "@/views/Community";
 export const metadata = buildMetadata({
   title: "Die einzig wahre KI-Community – KITech Software",
   description:
-    "Kein Hype. Keine Demos. Nur echte Projekte mit echten Ergebnissen. Kostenlos beitreten — die Plätze sind begrenzt.",
+    "Kein Hype. Keine Demos. Nur echte Projekte mit echten Ergebnissen. Start am 1. September 2026 — jetzt kostenlos einen Platz auf der Warteliste sichern.",
   path: "/community",
   // Vorschaubild aus dem früheren Skool-Funnel: 16:9, Aussage plus Skool-Logo.
   ogImage: "/media/skool-og.jpg",
