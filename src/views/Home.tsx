@@ -19,7 +19,7 @@ const legalLinks = [
 /**
  * Startseite. Aufbau:
  *   Hero    : ausschliesslich die eine Aussage plus der Erstgespraech-CTA.
- *   Darunter: Kundenbewertungen, Team, Abschluss-CTA.
+ *   Darunter: Kunden-Ergebniskarten, Team, Abschluss-CTA.
  *
  * Der Hero ist am 05.08.2026 auf Ansage radikal leergeraeumt worden. Entfallen
  * sind dabei: das Label "Für den deutschen Mittelstand", der Positionierungs-
@@ -110,14 +110,14 @@ export default function Home() {
           </Link>
         </div>
 
-        <ScrollHint targetId="ergebnisse" label="Bewertungen ansehen" />
+        <ScrollHint targetId="ergebnisse" label="Ergebnisse ansehen" />
       </main>
 
       {/* Das alte Logo-Karussell ist hier bewusst entfernt: Kundenreferenzen laufen
           ausschliesslich ueber die Ergebniskarten. Eine Leiste mit blossen Logos
           wiederholt nur, was die Karten mit echten Zahlen besser sagen. */}
 
-      {/* Kundenbewertungen (6 Karten). Daten in src/data/client-results.ts. */}
+      {/* Kunden-Ergebniskarten (6 Karten, 2 Spalten). Daten in src/data/client-results.ts. */}
       <ClientResults />
 
       {/* "Wer wir sind": vier gleich breite Kacheln in einem geschlossenen Block.

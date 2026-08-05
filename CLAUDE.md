@@ -13,7 +13,9 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
-**Aktueller Status:** Die Website befindet sich im Relaunch und wurde am 30.07.2026 von **Vite + React Router auf Next.js (App Router) migriert** — Grund: die Funnel-Seiten sollen organisch ranken, was mit einer Client-Side-SPA nicht geht. Startseite, Terminbuchung, Rechtstexte und der EU-AI-Act-Selbstcheck sind echte Seiten; die übrigen Routen zeigen weiterhin Baustelle oder Platzhalter. Siehe [Seiten & Routing](#seiten--routing).
+**Aktueller Status:** Die Website wurde am 30.07.2026 von **Vite + React Router auf Next.js (App Router) migriert** — Grund: die Funnel-Seiten sollen organisch ranken, was mit einer Client-Side-SPA nicht geht.
+
+**Am 05.08.2026 ist der Relaunch live gegangen.** Bis dahin lag der komplette Migrationsstand unversioniert im Arbeitsverzeichnis; er steckt jetzt in `main` und ist deployt. Die alte Baustellen-Weiche (`src/App.tsx` → `UnderConstruction.tsx` für fast jeden Pfad) gibt es nicht mehr. Gleichzeitig wurde Coolify von `nixpacks` auf **`dockerfile`** umgestellt — ohne das läuft Next.js dort nicht. Siehe [Seiten & Routing](#seiten--routing) und [Hosting](#hosting).
 
 ---
 
@@ -62,23 +64,24 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 ├── public/
 │   ├── favicon.ico            # Favicon
 │   ├── robots.txt             # SEO + KI-Crawler-Freigaben
-│   ├── sitemap.xml            # XML-Sitemap (aktuell: nur indexierbare Routen, siehe unten)
-│   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (kann hinter aktuellem Stand liegen)
-│   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (kann hinter aktuellem Stand liegen)
-│   ├── 404.html                # Fallback 404
-│   └── logo.png                 # Echtes, lokal gebuendeltes Logo (siehe Hinweis in UnderConstruction.tsx)
+│   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (liegt hinter dem aktuellen Stand)
+│   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (liegt hinter dem aktuellen Stand)
+│   ├── media/                   # ayham-community.webp (freigestellt, /community), skool-og.jpg
+│   ├── images/kunden/           # Kundenfotos fuer die Ergebniskarten
+│   └── logo.png                 # Echtes, lokal gebuendeltes Logo
 ├── deploy/
 │   └── COOLIFY.md               # Deployment-Anleitung (nginx.conf/security-headers.conf entfallen)
-├── Dockerfile                  # Multi-Stage Build (node:20-alpine -> nginx:alpine) - aktuell NICHT der aktive Build Pack
+├── Dockerfile                  # Multi-Stage (node:20-alpine, Next standalone, Port 3000) - der aktive Build Pack
+├── next.config.ts              # Security-Header, CSP, Redirect /skool -> /community, output: standalone
 ├── src/
-│   ├── main.tsx                # Entry Point
-│   ├── App.tsx                 # Router + Provider-Setup (alle Routen siehe unten)
+│   ├── proxy.ts                # Host-Rewrite: app.kitech-software.de -> /app/*
 │   ├── index.css               # Design Tokens (CSS Custom Properties) - dark-first, siehe Design System
 │   ├── assets/                 # Logos, Fotos (importiert als ES6-Module)
+│   ├── data/                    # client-results.ts, testimonials.ts, team.ts, sales-letters.ts
 │   ├── components/
-│   │   ├── layout/             # Header, Footer, Layout, FunnelLayout (schlanker Wrapper fuer /solo, /enterprise, /lass-uns-reden)
-│   │   ├── seo/                # SEOHead, StructuredData (JSON-LD)
-│   │   ├── sections/           # FounderPortrait, SplitHero, EnterpriseCloud (Startseiten-/Funnel-Bausteine)
+│   │   ├── layout/             # SiteHeader (neue Seiten), Header/Footer/Layout/FunnelLayout (Alt-Seiten)
+│   │   ├── seo/                # StructuredData (JSON-LD)
+│   │   ├── sections/           # ClientResults, TeamSection, FinalCta, CommunityCountdown, CommunityWarteliste, HeroMedia, FounderPortrait
 │   │   ├── conversion/         # StickyMobileCTA, ExitIntentPopup, TrustRiskReversal
 │   │   ├── canvas/              # SignalField (Canvas-basierte Hintergrund-Animation)
 │   │   ├── ui/                  # shadcn/ui Komponenten (nicht manuell bearbeiten)
@@ -94,13 +97,12 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   │   ├── glossary-schema.ts
 │   │   ├── metadata.ts          # buildMetadata() - ersetzt die alte SEOHead-Komponente
 │   │   └── __tests__/           # Vitest-Tests fuer Schemas/Breadcrumbs
-│   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, page.tsx je Route
+│   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, api/warteliste, page.tsx je Route
 │   └── views/                   # Seiten-Komponenten (Client Components), von app/*/page.tsx eingebunden
 │       └── legacy/              # Alt-Seiten, nicht geroutet, aus tsconfig/eslint ausgenommen
 ├── .env.example                 # Env-Var-Vorlage (nie .env committen)
 ├── tailwind.config.ts
-├── vite.config.ts
-├── tsconfig.json / tsconfig.app.json / tsconfig.node.json
+├── tsconfig.json
 └── components.json              # shadcn/ui Konfiguration
 ```
 
@@ -108,34 +110,78 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 
 ## Seiten & Routing
 
-**Wichtig:** `src/App.tsx` routet aktuell fast alle Pfade auf dieselbe Komponente (`UnderConstruction.tsx`), unabhaengig vom Pfad. Die "vollen" Seiten existieren als Code, sind aber nicht erreichbar, bis sie in `App.tsx` explizit wieder verdrahtet werden.
+Routing laeuft dateibasiert ueber `src/app/*/page.tsx`. Es gibt **kein** `src/App.tsx`
+mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner liegt.
 
-### Aktuell live (was Besucher tatsaechlich sehen)
+### Live (Stand 05.08.2026, deployt)
 
-| Route | Datei | Status |
+| Route | View | Status |
 |---|---|---|
-| `/`, `/solo`, `/enterprise`, `/leistungen`, `/haltung`, `/referenzen`, `/kontakt`, `/glossar`, `/glossar/:slug`, `*` | `UnderConstruction.tsx` | Baustellen-Seite: Hero, rotierendes Foto (Ayham/Leon), Kontaktzeile, Referenzlogo-Marquee. `noindex` gesetzt. |
-| `/lass-uns-reden` | `LassUnsReden.tsx` | Einzige "echte", indexierbare neue Seite: links Mini-Funnel (Foto+Headline, Testimonials, Positionierung), rechts Calendly-Inline-Embed (Consent-gated, siehe unten). Ziel aller "Erstgespraech"-CTAs im ganzen Repo. |
-| `/impressum`, `/datenschutz`, `/agb` | `Impressum.tsx`, `Datenschutz.tsx`, `AGB.tsx` | Rechtlich verpflichtend, immer live, immer indexierbar. |
+| `/` | `Home.tsx` | Neue Startseite: Hero, Kunden-Ergebniskarten, Team, Abschluss-CTA. |
+| `/community` | `Community.tsx` | Einstieg in die Skool-Community — siehe eigenen Abschnitt unten. |
+| `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Detailseiten stehen auf `noindex`, solange in `client-results.ts` noch `openPoints` offen sind. |
+| `/lass-uns-reden` (`/termin`) | `LassUnsReden.tsx` | Calendly-Inline-Embed, Consent-gated. Ziel aller "Erstgespraech"-CTAs. |
+| `/eu-ai-act-selbstcheck` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | — |
+| `/warum-du-mit-ki-kein-geld-verdienst`, `/warum-unternehmen-mit-ki-kein-geld-verdienen` | Sales Letter | Noch Platzhaltertext, deshalb `noindex`. |
+| `/impressum`, `/datenschutz`, `/agb` | Rechtstexte | Immer live, immer indexierbar. |
+| `/solo`, `/enterprise`, `/leistungen`, `/haltung`, `/kontakt`, `/glossar` | `ComingSoon.tsx` | Platzhalter, `noindex`. |
+| `/app/*` | `src/app/app/` | Eingeloggter Bereich (LogTo), ueber `src/proxy.ts` an `app.kitech-software.de` gebunden. **Noch nicht freigeschaltet** — im Header steht ein Schloss statt eines Login-Links. |
 
-### Vorhanden im Code, aktuell nicht geroutet (Basis fuer den Relaunch)
+Alte Seiten liegen unter `src/views/legacy/` — nicht geroutet, aus TypeScript- und
+ESLint-Pruefung ausgenommen. Drei davon werden von Tests per `?raw` gelesen,
+deshalb bleibt `react-router-dom` als Dependency installiert.
 
-| Datei | Beschreibung |
+### `/community` — die Skool-Community
+
+Einziger Einstiegspunkt, es gibt bewusst **keine** zweite Community-Seite und keinen
+Funnel davor. Der frühere Warteliste-Funnel `/skool` ist entfallen und leitet per 308
+hierher (Redirect in `next.config.ts`).
+
+Die Seite hat zwei Zustaende:
+
+| Zeitpunkt | Was der Besucher sieht |
 |---|---|
-| `Index.tsx` | Alte/urspruengliche Startseite. Vorsicht: enthaelt teils veraltete Referenzen (z.B. die frueher hier beschriebene Vergleichstabelle "KITech vs. typische KI-Agentur" existiert in dieser Datei nicht mehr). |
-| `Leistungen.tsx` | Leistungsportfolio. |
-| `Haltung.tsx` | Werte/Philosophie, Gruender-Editorial (nutzt `FounderPortrait` variant="editorial"). |
-| `Referenzen.tsx` | Kundenlogos + Case Studies (Carousel), Logos verlinken auf die jeweilige Kunden-Website wo bekannt. |
-| `Kontakt.tsx` | Kontaktformular, Calendly-CTA (-> `/lass-uns-reden`), `FounderPortrait` variant="compact". |
-| `Solo.tsx` / `Enterprise.tsx` | Zwei-Wege-Funnel (Einzel-Coaching vs. Enterprise AI), erreichbar ueber `SplitHero.tsx` auf der (aktuell nicht gerouteten) Startseite. Nutzen `FunnelLayout` (kein Haupt-Header, kein StickyMobileCTA/ExitIntentPopup - bewusst schlank). |
-| `Glossar.tsx` / `GlossarTerm.tsx` | Glossar-Uebersicht + Detailseiten. |
-| `NotFound.tsx` | 404, aktuell nicht erreichbar (catch-all zeigt `UnderConstruction`). |
+| vor dem **1. September 2026** | Countdown (`CommunityCountdown.tsx`) plus Warteliste (`CommunityWarteliste.tsx` → `/api/warteliste` → `WAITLIST_WEBHOOK_URL`) |
+| ab dem Start | Button "Jetzt kostenlos beitreten" → `https://www.skool.com/ki-fur-business-4646` |
+
+Umgeschaltet wird **im Browser**, sobald der Countdown durch ist. Die Seite wird
+statisch vorgerendert — ein serverseitiger Datumsvergleich stuende fuer immer auf dem
+Build-Zeitpunkt. Der Wechsel braucht deshalb keinen Deploy.
+
+**Offen:** `WAITLIST_WEBHOOK_URL` ist in Coolify noch nicht gesetzt. Bis dahin
+antwortet `/api/warteliste` mit 503 und die Warteliste sammelt nichts ein.
+
+Gestaltung: sehr wenig Text, grosses freigestelltes Foto ohne Rahmen
+(`public/media/ayham-community.webp`, aus Ayhams `skool_bild.svg` konvertiert —
+WebP wegen des Alphakanals, JPEG kann keine Transparenz), keine Canvas- oder
+Scroll-Effekte, kein Label-ueber-Headline-Muster.
+
+### Kundenkarten: Fotos, Sterne, Reihenfolge
+
+Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.tsx`
+(Startseite), `ReferenceCard.tsx` (Uebersicht) und `ReferenzDetail.tsx`.
+
+- **Sterne pro Kunde** (`rating`, aktuell ueberall 4). Ersetzt seit 04.08.2026 die
+  Sammelzeile "5 Sterne · 40+ Bewertungen" im Hero — die ist samt `HeroReviews.tsx`
+  und `reviewCountLabel` entfallen. Die Zahl wird jetzt einer namentlich genannten
+  Person zugeschrieben; belegt ist bisher nur Dennis Mikyas mit 5 Sternen.
+- **Portraits** liegen als freigestellte WebPs (transparent, auf die Person
+  zugeschnitten, 520 px hoch) unter `public/images/kunden/`. Quelle waren SVG-
+  Freisteller von Ayham; als SVG waren sie 3,9 MB, als WebP sind es 84 KB.
+  `ReferencePortrait.tsx` haengt allen die Utility `.portrait-fade` (`src/index.css`)
+  an: die Fotos enden am Brustkorb, ohne den Verlauf sieht die Person abgeschnitten
+  aus. Die `imageClassName`-Hoehe muss zur Breite passen, sonst entsteht Leerraum.
+- **Reihenfolge im Raster** = Array-Reihenfolge. Benjamin Ronneburg und Leon Battel
+  stehen oben, weil nur fuer sie Fotos vorliegen.
+- **Offen — Grynia:** `public/images/kunden/grynia.webp` liegt bereit, es fehlen
+  Name, Firma und die Kennzahl. Kommt der Fall dazu, muessen "Sechs von ueber 50"
+  in `ClientResults.tsx` und "Sechs Faelle …" in `Referenzen.tsx` mitgezogen werden.
 
 ---
 
 ## Wichtige Konventionen
 
-- **Path Alias:** `@/` → `src/` (konfiguriert in `vite.config.ts` + `tsconfig.json`)
+- **Path Alias:** `@/` → `src/` (konfiguriert in `tsconfig.json`; fuer die Tests zusaetzlich in `vitest.config.ts`)
 - **TypeScript Strict Mode ist deaktiviert** (`noImplicitAny: false`, `strictNullChecks: false`)
 - **shadcn/ui Komponenten** liegen in `src/components/ui/` — bei neuen Komponenten `npx shadcn@latest add <component>` verwenden, nicht manuell hinzufügen
 - **Design-System:** CSS Variables (HSL-basiert) in `src/index.css`, konfiguriert in `tailwind.config.ts`
@@ -150,7 +196,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 
 ### Farbschema (HSL-basiert, CSS Custom Properties)
 
-**Aktuell dark-first ("KI-Redesign v2"):** `:root` und `.dark` sind beide near-black und liegen nur wenige Prozentpunkte auseinander — es gibt kein klassisches helles Light-Mode mehr, obwohl `next-themes` in `App.tsx` noch mit `defaultTheme="light"` konfiguriert ist und der Theme-Toggle im Header weiterhin funktioniert.
+**Aktuell dark-first ("KI-Redesign v2"):** `:root` und `.dark` sind beide near-black und liegen nur wenige Prozentpunkte auseinander — es gibt kein klassisches helles Light-Mode mehr, obwohl `next-themes` in `src/app/providers.tsx` noch mit `defaultTheme="light"` konfiguriert ist und der Theme-Toggle im Alt-Header weiterhin funktioniert.
 
 **`:root` (Default):**
 - `--background`: 0 0% 6% (fast Schwarz)
@@ -240,18 +286,33 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 |---|---|
 | Calendly | Terminbuchung. Einzige aktuelle URL: `calendly.com/kitech-software/roi-analyse`, eingebettet auf `/lass-uns-reden` (Inline-Widget, Consent-gated). Alle anderen Stellen im Code verlinken intern auf `/lass-uns-reden`, nicht mehr direkt auf Calendly. |
 | Plausible | Self-hosted Analytics (nur nach Cookie-Consent), siehe oben. |
-| **Kundenportal** | Separates Projekt `kitech-app-portal` (Next.js, LogTo-Auth) unter `/home/deploy/KITech/projects/kitech-app-portal` — technisch notwendig getrennt, da diese Website eine reine Client-Side-SPA ist und LogTo serverseitige Session-Verwaltung braucht (nur mit einem echten Backend wie Next.js moeglich). Deployment liegt im selben Coolify-Projekt ("KITech Website"). Der Header-Button "Anmelden" verlinkt auf `${VITE_PORTAL_URL}/login`. |
-| App Store | CleverFuchs Link (Coming Soon) — nur in der aktuell nicht gerouteten `Index.tsx`. |
+| **Kundenportal** | Separates Projekt `kitech-app-portal` (Next.js, LogTo-Auth) unter `/home/deploy/KITech/projects/kitech-app-portal` — **ueberholt:** Seit der Next.js-Migration hat diese Website selbst ein Backend, der eingeloggte Bereich liegt hier unter `src/app/app/`. Das separate Projekt wird nicht mehr gebraucht. Im Header steht statt "Anmelden" ein Schloss, bis LogTo TLS hat. |
+| Skool | Community-Gruppe `skool.com/ki-fur-business-4646`, verlinkt ausschliesslich von `/community` — und dort erst ab dem 1. September 2026. |
 
 ---
 
 ## Hosting
 
 - **Platform:** Selbstgehostet ueber Coolify (VPS), Application "KITech Website"
-- **Build Pack:** muss auf **`dockerfile`** umgestellt werden (Port **3000**) — Next.js braucht zur Laufzeit einen Node-Server, nixpacks/Caddy reicht nicht mehr. Details in `deploy/COOLIFY.md`.
-- **Custom Domain:** `https://kitech-software.de`
+- **Application-UUID:** `j9vencbq8b2nugo86eimxnku` — API-Token in `/home/deploy/KITech/infra/secrets/coolify-api-token.env`, Dashboard auf `http://localhost:8000`
+- **Build Pack:** **`dockerfile`**, Port **3000** — seit 05.08.2026 umgestellt (vorher nixpacks/Caddy, das reicht fuer Next.js nicht, weil zur Laufzeit ein Node-Server noetig ist). Details in `deploy/COOLIFY.md`.
+- **Custom Domain:** `https://kitech-software.de` (+ `www`)
 - **Routing:** dateibasiert ueber `src/app/`. Kein SPA-Fallback mehr noetig — der Node-Server beantwortet jede Route direkt.
-- **Deploy-Workflow:** Kein automatischer GitHub-Webhook (mehrfach als kaputt verifiziert). Deploys laufen manuell ueber die Coolify-API (`GET /deploy?uuid=...`) nach explizitem Go durch den Auftraggeber — **nicht automatisch nach jedem Push.**
+- **Deploy-Workflow:** Kein automatischer GitHub-Webhook (mehrfach als kaputt verifiziert). Deploys laufen manuell ueber die Coolify-API (`GET /deploy?uuid=...`) nach explizitem Go durch den Auftraggeber — **nicht automatisch nach jedem Push.** Coolify baut den Branch **`main`**; ein Push auf einen Feature-Branch aendert live nichts.
+- **Vor jedem Deploy:** `docker build` lokal laufen lassen und den Container gegen die Routen pruefen. Der Coolify-Build nutzt dasselbe `Dockerfile` — was lokal bricht, bricht auch dort.
+
+### Env-Variablen in Coolify
+
+Gesetzt ist aktuell nur `NIXPACKS_NODE_VERSION` (Altlast, ohne Wirkung). **Nicht gesetzt und offen:**
+
+| Variable | Art | Folge, solange sie fehlt |
+|---|---|---|
+| `WAITLIST_WEBHOOK_URL` | Runtime | Die Warteliste auf `/community` antwortet mit 503 und sammelt nichts ein. |
+| `LOGTO_*` | Runtime | Der eingeloggte Bereich funktioniert nicht — ist ohnehin noch nicht freigeschaltet. |
+| `NEXT_PUBLIC_APP_URL` | Build-Time | Wird derzeit nirgends gelesen (Header zeigt ein Schloss statt eines Login-Links). |
+
+Runtime-Variablen brauchen nur einen Neustart, keinen neuen Build. `NEXT_PUBLIC_*` wird in
+das Bundle eingebacken und erfordert deshalb einen Rebuild.
 
 ---
 

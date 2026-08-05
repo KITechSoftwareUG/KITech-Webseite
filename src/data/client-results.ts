@@ -3,15 +3,16 @@ import pflegexpertsLogo from "@/assets/logo-pflegexperts.png";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 
 /**
- * Kundendaten für zwei verschiedene Darstellungen:
- *   - Startseite (`ClientResults.tsx`): seit 05.08.2026 kompakte BEWERTUNGSkarten
- *     — nur Foto, Name, Firma, `review` und `rating`. Die Projektzahlen
- *     (`headline`, `summary`, `duration`, `before`/`after`, `extra`) werden dort
- *     NICHT mehr angezeigt.
- *   - Referenzen-Übersicht und Detailseiten (`ReferenceCard.tsx`,
- *     `ReferenzDetail.tsx`): dort laufen die Projektzahlen und `detail` weiter.
- * Deshalb bleiben alle Felder erhalten, auch wenn die Startseite nur noch einen
- * Teil davon rendert.
+ * Kundendaten für das Ergebnisraster auf der Startseite (`ClientResults.tsx`)
+ * sowie für Referenzen-Übersicht und Detailseiten (`ReferenceCard.tsx`,
+ * `ReferenzDetail.tsx`).
+ *
+ * Die Startseitenkarte zeigt das ERGEBNIS prominent: die Kennzahl gross und
+ * unterstrichen, dazu Beleglinks (`liveUrl` / `companyUrl`), Sterne und Foto.
+ * Am 05.08.2026 war sie kurzzeitig auf eine reine Bewertungskarte ohne Zahlen
+ * reduziert — das ist auf Ansage zurueckgenommen worden ("ganz prominent die
+ * Ergebnisse zeigen"). Wer sie erneut entkernt, nimmt der Startseite ihren
+ * einzigen harten Beweis.
  *
  * Inhalte stammen aus dem Briefing von Ayham (30.07.2026). Was noch fehlt oder
  * bestätigt werden muss, steht pro Eintrag in `openPoints` — daraus rendert die
@@ -49,6 +50,16 @@ export interface ClientResult {
   /** Firmenname oder, solange der nicht freigegeben ist, die Branche. */
   company: string;
   logo: string | null;
+  /**
+   * Das GEBAUTE Produkt, öffentlich erreichbar. Der stärkste Beleg, den eine
+   * Karte tragen kann: nicht "wir haben ein Portal gebaut", sondern "hier ist es".
+   * Nur eintragen, wenn die Adresse tatsächlich das Ergebnis dieses Projekts
+   * zeigt — nicht die Firmenwebsite des Kunden, dafür ist `companyUrl` da.
+   * Alle Einträge am 05.08.2026 per Abruf geprüft (HTTP 200 + passender Titel).
+   */
+  liveUrl: string | null;
+  /** Website des Kunden. Belegt, dass es die Firma wirklich gibt. */
+  companyUrl: string | null;
   person: {
     name: string;
     /** Rolle beim Kunden, optional. */
@@ -150,6 +161,8 @@ export const clientResults: ClientResult[] = [
     slug: "pflegexperts-claude-code",
     company: "Pflegexperts",
     logo: pflegexpertsLogo.src,
+    liveUrl: null,
+    companyUrl: "https://pflegexperts.de",
     person: {
       name: "Benjamin Ronneburg",
       role: null,
@@ -211,6 +224,8 @@ export const clientResults: ClientResult[] = [
     slug: "klargehalt-saas",
     company: "KlarGehalt.de",
     logo: null,
+    liveUrl: "https://klargehalt.de",
+    companyUrl: null,
     person: {
       name: "Leon Battel",
       role: null,
@@ -273,6 +288,8 @@ export const clientResults: ClientResult[] = [
     slug: "niimmo-portal",
     company: "NiImmo Wohnungsbaugesellschaft",
     logo: niimmoLogo.src,
+    liveUrl: "https://dashboard.niimmo.de",
+    companyUrl: "https://niimmo.de",
     person: {
       name: "Dennis Mikyas",
       role: null,
@@ -338,6 +355,8 @@ export const clientResults: ClientResult[] = [
     slug: "zertifizierungsmanagement-portal",
     company: "cert consulting Pane",
     logo: certconsultingLogo.src,
+    liveUrl: "https://ccp-portal.de",
+    companyUrl: null,
     person: {
       name: "Jan Uwe Pane",
       role: null,
@@ -405,6 +424,8 @@ export const clientResults: ClientResult[] = [
     slug: "lead-pipeline",
     company: "4 Unternehmen, 9 Zielgruppen",
     logo: null,
+    liveUrl: null,
+    companyUrl: null,
     person: {
       name: "Felix Bechtoldt",
       role: null,
@@ -473,6 +494,8 @@ export const clientResults: ClientResult[] = [
     slug: "nereo-claude-code",
     company: "Nereo",
     logo: null,
+    liveUrl: null,
+    companyUrl: null,
     person: {
       name: "Mike Letzgus",
       role: null,
