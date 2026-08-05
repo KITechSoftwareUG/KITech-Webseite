@@ -21,21 +21,17 @@ import { trackEvent } from "@/lib/plausible";
  *     Unternehmenswebsite anfühlen, nicht wie eine abgeschottete Funnel-Seite.
  */
 
-/**
- * Ziel des einzigen CTA dieser Seite.
- *
- * ACHTUNG — Platzhalter: die echte Skool-URL liegt noch nicht vor (Stand 05.08.2026).
- * Hier steht deshalb die Skool-Startseite. Vor dem Livegang durch die tatsächliche
- * Gruppen-URL ersetzen (z. B. https://www.skool.com/<gruppenname>).
- */
-const SKOOL_URL = "https://www.skool.com/";
+/** Ziel des einzigen CTA dieser Seite: die Skool-Gruppe. */
+const SKOOL_URL = "https://www.skool.com/ki-fur-business-4646";
 
 /**
- * Großes Portrait von Ayham, eigens für diese Seite.
+ * Großes Portrait von Ayham.
  *
- * Bewusst NICHT `src/assets/ayham-portrait*.webp` — die laufen an anderer Stelle
- * und sind für diese Größe zu klein. Das hochauflösende Bild wird unter genau
- * diesem Pfad erwartet; ideal im Hochformat (4:5), mindestens 1200 px breit.
+ * ÜBERGANG (05.08.2026): Hier liegt vorerst das bestehende Portrait aus
+ * `src/assets/ayham-portrait.webp` (1156×1400). Ayham liefert ein eigenes,
+ * höher aufgelöstes Bild für diese Seite nach — zum Austauschen reicht es,
+ * `public/media/ayham-community.jpg` zu überschreiben, im Code ändert sich nichts.
+ * Ideal: Hochformat 4:5, mindestens 1200 px breit.
  */
 const PORTRAIT_SRC = "/media/ayham-community.jpg";
 
