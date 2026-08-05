@@ -24,10 +24,12 @@
 ```bash
 npm run dev        # Dev-Server auf Port 8080
 npm run build      # Production Build
+npm start          # Production-Server auf Port 8080 (setzt npm run build voraus)
 npm run lint       # ESLint
 npm test           # Vitest
-npm run preview    # Vorschau des Production Builds
 ```
+
+`npm run preview` gibt es nicht mehr — das war ein Vite-Script.
 
 Tests mit Vitest (`npm test`) — Vitest laeuft weiterhin ueber Vite (`vitest.config.ts`), unabhaengig vom Next.js-Build. Das ist Absicht: die Tests pruefen reine TS-Module und lesen einzelne Alt-Seiten per `?raw`-Import (ein Vite-Feature).
 
