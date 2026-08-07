@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Mail, Check, Minus, X } from "lucide-react";
 import { SignalField } from "@/components/canvas/SignalField";
+import { PageShell } from "@/components/layout/PageShell";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
 type AnswerValue = "yes" | "no" | "unsure";
@@ -172,22 +174,21 @@ export default function EuAiActSelbstcheck() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-
-      <header className="border-b border-border/60">
-        <div className="container flex items-center justify-between gap-6 py-5">
-          <Link href="/" aria-label="KITech Software – Startseite" className="flex min-h-[2.75rem] items-center">
-            <img src="/logo.png" alt="KITech Software Logo" className="h-8 w-auto sm:h-9" />
-          </Link>
-          <span className="text-xs text-muted-foreground sm:text-sm">
-            Verordnung (EU) 2024/1689
-          </span>
-        </div>
-      </header>
-
-      {/* grid + place-items-center: der jeweils aktive Schritt sitzt vertikal mittig
-          im verbleibenden Raum, statt oben zu kleben und unten Leere zu lassen. */}
-      <main className="grid flex-1 place-items-center">
+    /*
+     * Der Check hatte bis zum 05.08.2026 eine eigene, reduzierte Kopfzeile (nur
+     * Logo, kein Menue) und eine eigene Fusszeile. Gedacht war das als Fokus-
+     * Screen; in der Praxis war die Seite damit eine Sackgasse — sie steht in der
+     * Fusszeile jeder anderen Seite, aber von hier fuehrte kein Weg zurueck in die
+     * Website. Jetzt traegt sie denselben Rahmen wie alle anderen Seiten.
+     *
+     * `backdrop="none"`, weil der Intro-Screen sein eigenes Signalfeld mitbringt —
+     * zwei uebereinander wuerden sich gegenseitig aufhellen.
+     *
+     * grid + place-items-center: der jeweils aktive Schritt sitzt vertikal mittig
+     * im verbleibenden Raum, statt oben zu kleben und unten Leere zu lassen.
+     */
+    <PageShell backdrop="none" mainClassName="grid place-items-center">
+      <>
         {stage === "intro" && <Intro onStart={start} />}
         {stage === "check" && (
           <Check_
@@ -207,10 +208,8 @@ export default function EuAiActSelbstcheck() {
             onRestart={start}
           />
         )}
-      </main>
-
-      <Footer />
-    </div>
+      </>
+    </PageShell>
   );
 }
 
@@ -228,7 +227,7 @@ function Intro({ onStart }: { onStart: () => void }) {
           aria-hidden="true"
         />
 
-        <div className="container grid gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-12 lg:py-28">
+        <div className={`${SITE_CONTAINER} grid gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-12 lg:py-28`}>
           <div className="lg:col-span-7">
             <span className="mb-6 block w-fit border border-foreground/20 bg-foreground px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-background">
               EU AI Act · Selbstcheck
@@ -337,7 +336,7 @@ function Check_({
   }
 
   return (
-    <section className="container w-full py-14 sm:py-20">
+    <section className={`${SITE_CONTAINER} w-full py-14 sm:py-20`}>
       <div className="mx-auto max-w-3xl">
         <Progress index={index} answers={answers} />
 
@@ -483,7 +482,7 @@ function Result({
 
   return (
     <>
-      <section className="container w-full py-14 sm:py-20">
+      <section className={`${SITE_CONTAINER} w-full py-14 sm:py-20`}>
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
             <div>
@@ -707,23 +706,3 @@ function EmailSummary({ percent, todo }: { percent: number; todo: number[] }) {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border py-6">
-      <div className="container flex flex-col items-center gap-3 text-xs text-muted-foreground sm:flex-row sm:justify-between">
-        <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt).</p>
-        <nav aria-label="Rechtliche Links" className="flex items-center gap-4">
-          <Link href="/impressum" className="transition-colors hover:text-primary">
-            Impressum
-          </Link>
-          <Link href="/datenschutz" className="transition-colors hover:text-primary">
-            Datenschutz
-          </Link>
-          <Link href="/agb" className="transition-colors hover:text-primary">
-            AGB
-          </Link>
-        </nav>
-      </div>
-    </footer>
-  );
-}

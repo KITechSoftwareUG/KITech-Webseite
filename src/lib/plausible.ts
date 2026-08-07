@@ -13,12 +13,26 @@
 const PLAUSIBLE_API = "https://stats.kitech-software.de/api/event";
 const PLAUSIBLE_DOMAIN = "kitech-software.de";
 
+/**
+ * Die Funktion, die das Plausible-Script an `window` haengt.
+ *
+ * `q` ist die Warteschlange des offiziellen Snippets: bis das Script geladen
+ * ist, sammelt ein Platzhalter die Events dort ein, danach arbeitet Plausible
+ * sie ab. `CookieConsent.tsx` legt diesen Platzhalter an — ohne die Eigenschaft
+ * hier im Typ ginge das nur ueber `any`.
+ */
+export interface PlausibleFn {
+  (
+    event: string,
+    options?: { props?: Record<string, string | number | boolean>; callback?: () => void }
+  ): void;
+  /** Puffer fuer Events, die vor dem Laden des Scripts ausgeloest werden. */
+  q?: unknown[][];
+}
+
 declare global {
   interface Window {
-    plausible?: (
-      event: string,
-      options?: { props?: Record<string, string | number | boolean>; callback?: () => void }
-    ) => void;
+    plausible?: PlausibleFn;
   }
 }
 

@@ -1,13 +1,18 @@
 import { buildMetadata } from "@/lib/metadata";
-import UnderConstruction from "@/views/UnderConstruction";
+import Glossar from "@/views/Glossar";
 
+/**
+ * Die Glossarinhalte lagen seit der Next.js-Migration ungenutzt im Repo — die
+ * Route zeigte die Baustellenseite. Seit dem 05.08.2026 wieder angeschlossen und
+ * damit auch wieder indexierbar: die sechs Artikel sind fertig geschrieben.
+ */
 export const metadata = buildMetadata({
-  title: "KITech Software – Relaunch",
-  description: "Diese Seite entsteht gerade neu. Sprechen Sie uns direkt an.",
+  title: "Glossar – KI-Begriffe verständlich erklärt | KITech Software",
+  description:
+    "Sechs Definitionen ohne Buzzwords: KI-Audit, LLM-Integration, DSGVO-konforme KI, MLOps, Computer Vision und ROI-Garantie.",
   path: "/glossar",
-  noindex: true,
 });
 
 export default function Page() {
-  return <UnderConstruction />;
+  return <Glossar />;
 }

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { SignalField } from "@/components/canvas/SignalField";
-import { SiteHeader } from "@/components/layout/SiteHeader";
+import { PageShell } from "@/components/layout/PageShell";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { ClientResults } from "@/components/sections/ClientResults";
 import { trackEvent } from "@/lib/plausible";
 import type { SalesLetterBlock, SalesLetterContent } from "@/data/sales-letters";
@@ -109,24 +109,14 @@ function Block({ block }: { block: SalesLetterBlock }) {
 
 export function SalesLetter({ content }: { content: SalesLetterContent }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-
+    <PageShell
+      backdropClassName="absolute inset-x-0 top-0 -z-10 h-[620px] sm:h-[720px]"
+      backdropDensity={0.5}
+      backdropIntensity={0.5}
+    >
       {/* Hero */}
-      <header className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10" aria-hidden="true">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(112deg, hsl(245 55% 12%) 0%, hsl(243 45% 9%) 46%, hsl(0 0% 5%) 100%)",
-            }}
-          />
-          <SignalField density={0.5} intensity={0.5} baseColor="--primary" accentColor="--accent" />
-        </div>
-
-        <SiteHeader className="mx-auto max-w-[1060px] px-5 pt-12 sm:px-8 sm:pt-16" />
-
-        <div className="mx-auto max-w-[1060px] px-5 pb-20 pt-14 sm:px-8 sm:pb-28 sm:pt-20">
+      <header>
+        <div className={`${SITE_CONTAINER} pb-20 pt-14 sm:pb-28 sm:pt-20`}>
           <span className="mb-5 block w-fit bg-black px-3.5 py-1.5 text-[11px] font-medium uppercase text-white">
             {content.hero.badge}
           </span>
@@ -163,20 +153,20 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
       </header>
 
       {/* Argumentationskette */}
-      <main className="mx-auto w-full max-w-[1060px] px-5 sm:px-8">
+      <div className={SITE_CONTAINER}>
         <div className="divide-y divide-border/50">
           {content.blocks.map((block, index) => (
             <Block key={index} block={block} />
           ))}
         </div>
-      </main>
+      </div>
 
       {/* Beweis: dieselben Ergebniskarten wie auf der Startseite. */}
       <ClientResults />
 
       {/* Abschluss-CTA */}
       <section className="border-t border-border/60 py-20 sm:py-24">
-        <div className="mx-auto max-w-[1060px] px-5 sm:px-8">
+        <div className={SITE_CONTAINER}>
           <div className="flex flex-col items-start gap-8 border border-border/70 p-8 sm:p-12 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-[560px]">
               <h2 className="kinetic-display text-balance text-[26px] leading-[1.12] text-foreground sm:text-[34px]">
@@ -206,6 +196,6 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

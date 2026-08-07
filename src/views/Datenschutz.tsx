@@ -1,9 +1,10 @@
-import { Layout } from "@/components/layout/Layout";
+import { PageShell } from "@/components/layout/PageShell";
+import { TEXT_CONTAINER } from "@/components/layout/site-container";
 import { StructuredData, getWebPageSchema, getBreadcrumbSchema } from "@/components/seo/StructuredData";
 
 export default function Datenschutz() {
   return (
-    <Layout>
+    <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[360px]">
       <StructuredData
         data={getWebPageSchema("Datenschutz", "Datenschutzerklärung der KITech Software UG", "https://kitech-software.de/datenschutz")}
       />
@@ -14,8 +15,8 @@ export default function Datenschutz() {
         ])}
       />
       <section className="py-20 lg:py-28">
-        <div className="container max-w-3xl">
-          <h1 className="text-4xl font-bold mb-8">Datenschutzerklärung</h1>
+        <div className={TEXT_CONTAINER}>
+          <h1 className="kinetic-display mb-10 text-[34px] leading-[1.1] text-foreground sm:text-[44px]">Datenschutzerklärung</h1>
 
           <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
             <div>
@@ -136,6 +137,6 @@ export default function Datenschutz() {
           </div>
         </div>
       </section>
-    </Layout>
+    </PageShell>
   );
 }

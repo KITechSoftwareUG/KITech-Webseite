@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Clock, ExternalLink, UserRound } from "lucide-react";
 import { clientResults, type ClientResult } from "@/data/client-results";
 import { StarRating } from "@/components/sections/StarRating";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -219,9 +220,9 @@ export function ClientResults() {
       className="scroll-mt-8 bg-background py-12 sm:py-16"
       aria-labelledby="ergebnisse-heading"
     >
-      {/* Gleiche Breite wie der Hero: die Karten stehen damit in einer Flucht mit
-          der Headline darüber und wirken nicht wie ein zweites Layout. */}
-      <div className="mx-auto max-w-[1060px] px-5 sm:px-8">
+      {/* Gleiche Breite wie der Rest der Seite: die Karten stehen damit in einer
+          Flucht mit Kopfzeile und Fußzeile und wirken nicht wie ein zweites Layout. */}
+      <div className={SITE_CONTAINER}>
         <header className="mx-auto max-w-[680px] text-center">
           {/* Nur die Headline, kein erklärender Absatz darunter: die Abfolge
               Headline -> Fließtext ist als Sektionsaufbau ausdrücklich raus. Die

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Cookie } from "lucide-react";
 import { trackVisitor } from "@/lib/visitor-enrichment";
 import { CONSENT_STORAGE_KEY, loadStoredConsent } from "@/lib/consent";
+import type { PlausibleFn } from "@/lib/plausible";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
 
@@ -56,10 +57,15 @@ const injectPlausible = () => {
   if (typeof document === "undefined") return;
   if (document.querySelector('script[data-plausible="true"]')) return;
 
-  // Event-Queue bereitstellen, damit Events vor Script-Load gepuffert werden
-  (window as any).plausible = (window as any).plausible || function(...args: any[]) {
-    ((window as any).plausible.q = (window as any).plausible.q || []).push(args);
-  };
+  // Event-Queue bereitstellen, damit Events vor Script-Load gepuffert werden.
+  // Der Typ steht in src/lib/plausible.ts (PlausibleFn) — vorher lief das hier
+  // ueber fuenf `any`-Casts, die ESLint zu Recht angemahnt hat.
+  if (!window.plausible) {
+    const warteschlange: PlausibleFn = (event, options) => {
+      (warteschlange.q ??= []).push([event, options]);
+    };
+    window.plausible = warteschlange;
+  }
 
   const script = document.createElement("script");
   script.defer = true;

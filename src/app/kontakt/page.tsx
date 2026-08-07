@@ -1,13 +1,13 @@
 import { buildMetadata } from "@/lib/metadata";
-import UnderConstruction from "@/views/UnderConstruction";
+import Kontakt from "@/views/Kontakt";
 
 export const metadata = buildMetadata({
-  title: "KITech Software – Relaunch",
-  description: "Diese Seite entsteht gerade neu. Sprechen Sie uns direkt an.",
+  title: "Kontakt – KITech Software",
+  description:
+    "Erstgespräch im Kalender buchen, schreiben oder anrufen. KITech Software UG, Hannover — ohne Formularschleife.",
   path: "/kontakt",
-  noindex: true,
 });
 
 export default function Page() {
-  return <UnderConstruction />;
+  return <Kontakt />;
 }

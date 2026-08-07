@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { SiteHeader } from "@/components/layout/SiteHeader";
+import { PageShell } from "@/components/layout/PageShell";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
+import { company } from "@/config/company";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { CommunityCountdown, START_LABEL } from "@/components/sections/CommunityCountdown";
 import { CommunityWarteliste } from "@/components/sections/CommunityWarteliste";
@@ -32,7 +33,7 @@ import { trackEvent } from "@/lib/plausible";
  */
 
 /** Ziel nach dem Start. Vorher bewusst nirgends verlinkt. */
-const SKOOL_URL = "https://www.skool.com/ki-fur-business-4646";
+const SKOOL_URL = company.skoolUrl;
 
 /**
  * Freigestelltes Foto von Ayham am Schreibtisch — von Ayham geliefert als
@@ -58,12 +59,6 @@ const VORTEILE = [
   "Praktische Lösungen zum Nachbauen.",
   "Direkter Austausch ohne Marketing-Blabla.",
   "Erfahrungen, Fehler und Ergebnisse aus echten Kundenprojekten.",
-];
-
-const legalLinks = [
-  { name: "Impressum", href: "/impressum" },
-  { name: "Datenschutz", href: "/datenschutz" },
-  { name: "AGB", href: "/agb" },
 ];
 
 /**
@@ -118,7 +113,10 @@ export default function Community() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    /* Kein Signal-Hintergrund: die Seite soll ruhig bleiben, das freigestellte
+       Foto trägt sie. Deshalb `backdrop="none"` statt des Verlaufs, den die
+       übrigen Seiten im Kopfbereich tragen. */
+    <PageShell backdrop="none">
       <StructuredData
         data={getWebPageSchema(
           "Die KI-Community von KITech Software",
@@ -127,9 +125,7 @@ export default function Community() {
         )}
       />
 
-      <SiteHeader className="mx-auto w-full max-w-[1120px] px-5 pt-7 sm:px-8" />
-
-      <main className="mx-auto w-full max-w-[1120px] flex-1 px-5 sm:px-8">
+      <div className={SITE_CONTAINER}>
         {/* Hero: Aussage links, Portrait rechts. Das Bild bekommt bewusst fast
             genauso viel Fläche wie der Text — es ist hier das Vertrauenselement,
             nicht Dekoration. */}
@@ -225,20 +221,7 @@ export default function Community() {
             <Handlung id="warteliste-abschluss" position="community-abschluss" />
           </div>
         </section>
-      </main>
-
-      <footer className="border-t border-border py-6">
-        <div className="mx-auto flex w-full max-w-[1120px] flex-col items-start gap-3 px-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt).</p>
-          <nav aria-label="Rechtliche Links" className="flex items-center gap-4">
-            {legalLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="transition-colors hover:text-primary">
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </footer>
-    </div>
+      </div>
+    </PageShell>
   );
 }

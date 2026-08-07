@@ -1,4 +1,7 @@
 import type { Config } from "tailwindcss";
+// Als Import statt `require()`: das Paket bringt eigene Typen mit (index.d.ts),
+// und `require()` verstößt gegen die ESLint-Regel `no-require-imports`.
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -112,5 +115,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

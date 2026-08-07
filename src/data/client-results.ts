@@ -170,9 +170,9 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
-    headline: { value: "4 Wochen", label: "bis zum fertigen Setup" },
+    headline: { value: "4 Wochen", label: "bis Claude Code einsatzbereit war" },
     summary:
-      "Komplettes Claude-Code-Setup aufgesetzt: Arbeitsumgebung, Regeln und Automatisierungen für den täglichen Einsatz.",
+      "Bei Pflegexperts steht Claude Code mit eingerichteter Arbeitsumgebung, klaren Regeln und Automatisierungen für die tägliche Arbeit.",
     duration: null,
     before: null,
     after: null,
@@ -233,9 +233,9 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
-    headline: { value: "2 Monate", label: "von null auf live" },
+    headline: { value: "2 Monate", label: "von der ersten Zeile bis zum Livegang" },
     summary:
-      "Komplettes SaaS zur EU-Entgelttransparenzrichtlinie gebaut — inklusive Bezahlsystem und Abrechnung.",
+      "SaaS zur EU-Entgelttransparenzrichtlinie gebaut — Bezahlsystem und Abrechnung inklusive.",
     duration: null,
     before: null,
     after: null,
@@ -298,8 +298,9 @@ export const clientResults: ClientResult[] = [
     rating: 5,
     // Belegt: identischer Wortlaut wie in src/data/testimonials.ts.
     review: "Hier versteht jemand die Nutzung von KI.",
-    headline: { value: "1,5", label: "Vollzeitstellen eingespart" },
-    summary: "Komplettes Portal für die gesamte Objekt- und Kundenverwaltung gebaut.",
+    headline: { value: "1,5", label: "Vollzeitstellen an eingespartem Aufwand" },
+    summary:
+      "Nach 40 Tagen lief die gesamte Objekt- und Kundenverwaltung in einem Portal.",
     duration: "40 Tage bis live",
     before: null,
     after: null,
@@ -364,9 +365,9 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
-    headline: { value: "1,2", label: "Vollzeitkräfte eingespart" },
+    headline: { value: "1,2", label: "Vollzeitkräfte an eingespartem Aufwand" },
     summary:
-      "Komplettes Zertifizierungsmanagement-Portal gebaut — vom Antrag bis zum ausgestellten Zertifikat.",
+      "Antrag rein, Zertifikat raus — der ganze Weg dazwischen steckt in einem Portal.",
     duration: "60 Tage bis live",
     before: null,
     after: null,
@@ -435,7 +436,7 @@ export const clientResults: ClientResult[] = [
     review: null,
     headline: { value: "100+", label: "qualifizierte Leads, jeden Morgen um 8" },
     summary:
-      "Komplette Vertriebs-Pipeline mit täglicher Lead-Generierung aufgebaut — über vier Unternehmen und neun Zielgruppen hinweg.",
+      "Eine Vertriebs-Pipeline über vier Unternehmen und neun Zielgruppen bringt die Recherche von drei Stunden auf zwei Minuten.",
     duration: null,
     before: "3 Stunden Recherche",
     after: "2 Minuten",
@@ -503,9 +504,9 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
-    headline: { value: "3 Wochen", label: "bis zum fertigen Setup" },
+    headline: { value: "3 Wochen", label: "Setup bei Nereo, fertig zum Arbeiten" },
     summary:
-      "Komplettes Claude-Code-Setup aufgesetzt: Arbeitsumgebung, Regeln und Automatisierungen für den täglichen Einsatz.",
+      "Für Nereo eine Arbeitsumgebung aufgesetzt, feste Regeln hinterlegt und Automatisierungen für den Alltag gebaut.",
     duration: null,
     before: null,
     after: null,

@@ -1,10 +1,15 @@
-import UnderConstruction from "@/views/UnderConstruction";
+import NichtGefunden from "@/views/NichtGefunden";
 
 /**
- * Faengt alle unbekannten Pfade ab. Zeigt bewusst die Baustellen-Seite statt einer
- * klassischen 404 — sie bietet Kontaktweg und Referenzen an, statt in eine Sackgasse
- * zu fuehren. Metadata kommt aus dem Root-Layout; not-found darf keine eigene setzen.
+ * Fängt alle unbekannten Pfade ab.
+ *
+ * Zeigte bis zum 05.08.2026 die Baustellenseite — die stammte aus der
+ * Relaunch-Phase, in der jede Route dorthin führte, und behauptete nach dem
+ * Relaunch fälschlich, die Website sei im Umbau. Jetzt eine echte 404 mit der
+ * vollständigen Navigation.
+ *
+ * Metadata kommt aus dem Root-Layout; `not-found` darf keine eigene setzen.
  */
 export default function NotFound() {
-  return <UnderConstruction />;
+  return <NichtGefunden />;
 }

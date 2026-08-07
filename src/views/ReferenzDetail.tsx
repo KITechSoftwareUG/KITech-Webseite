@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, Quote } from "lucide-react";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SignalField } from "@/components/canvas/SignalField";
+import { PageShell } from "@/components/layout/PageShell";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 import {
   StructuredData,
   getWebPageSchema,
@@ -13,12 +13,6 @@ import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { ReferenceCta } from "@/components/sections/ReferenceCta";
 import type { ClientResult } from "@/data/client-results";
 import { BASE_URL } from "@/lib/metadata";
-
-const legalLinks = [
-  { name: "Impressum", href: "/impressum" },
-  { name: "Datenschutz", href: "/datenschutz" },
-  { name: "AGB", href: "/agb" },
-];
 
 interface ReferenzDetailProps {
   result: ClientResult;
@@ -82,7 +76,10 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
   const caseUrl = `${BASE_URL}/referenzen/${result.slug}`;
 
   return (
-    <div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
+    /* Gleicher Signal-Hintergrund wie auf Startseite, Terminseite und Übersicht —
+       die Detailseite soll sich nicht wie eine fremde Seite anfühlen. Etwas höher
+       als der Standard, weil der Kopfbereich hier Portrait und Kernzahl trägt. */
+    <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[680px]">
       <StructuredData
         data={[
           getWebPageSchema(
@@ -98,25 +95,9 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
         ]}
       />
 
-      {/* Gleicher Signal-Hintergrund wie auf Startseite, Terminseite und Übersicht —
-          die Detailseite soll sich nicht wie eine fremde Seite anfühlen. */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-[680px]" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(112deg, hsl(245 55% 12%) 0%, hsl(243 45% 9%) 46%, hsl(0 0% 5%) 100%)",
-          }}
-        />
-        <SignalField density={0.45} intensity={0.45} baseColor="--primary" accentColor="--accent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
-      </div>
-
-      <SiteHeader className="relative mx-auto w-full max-w-[1180px] px-5 pt-7 sm:px-8" />
-
-      <main className="relative flex-1">
+      <>
         {/* === Kopf: Person, Firma, Kernzahl === */}
-        <section className="mx-auto max-w-[1180px] px-5 pb-14 pt-10 sm:px-8 sm:pt-14">
+        <section className={`${SITE_CONTAINER} pb-14 pt-10 sm:pt-14`}>
           <Link
             href="/referenzen"
             className="inline-flex items-center gap-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -206,7 +187,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
 
         {detail ? (
           <div className="border-t border-border/60 bg-background">
-            <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 sm:py-20">
+            <div className={`${SITE_CONTAINER} py-16 sm:py-20`}>
               {openPoints.length > 0 && (
                 <div className="mb-12">
                   <OpenPointsNotice points={openPoints} />
@@ -361,7 +342,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
         ) : (
           /* Kein `detail` in der Datendatei: ehrliche Leerstelle statt Attrappe. */
           <div className="border-t border-border/60 bg-background">
-            <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-8 sm:py-20">
+            <div className={`${SITE_CONTAINER} py-16 sm:py-20`}>
               <div className="max-w-[720px] border border-border p-8 sm:p-10">
                 <span className="mb-5 block w-fit border border-border px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                   In Arbeit
@@ -396,7 +377,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
         {/* === Weiterleitung: Übersicht und nächster Fall === */}
         <nav
           aria-label="Weitere Referenzen"
-          className="mx-auto grid max-w-[1180px] gap-px bg-border sm:grid-cols-2"
+          className={`${SITE_CONTAINER} grid gap-px bg-border sm:grid-cols-2`}
         >
           <Link
             href="/referenzen"
@@ -438,20 +419,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
         </nav>
 
         <ReferenceCta position={`referenz-detail-${result.slug}`} />
-      </main>
-
-      <footer className="border-t border-border py-6">
-        <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-3 px-5 text-xs text-muted-foreground sm:flex-row sm:justify-between sm:px-8">
-          <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt).</p>
-          <nav aria-label="Rechtliche Links" className="flex items-center gap-4">
-            {legalLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="transition-colors hover:text-primary">
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </footer>
-    </div>
+      </>
+    </PageShell>
   );
 }

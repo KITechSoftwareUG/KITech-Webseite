@@ -1,13 +1,13 @@
 import { buildMetadata } from "@/lib/metadata";
-import UnderConstruction from "@/views/UnderConstruction";
+import Haltung from "@/views/Haltung";
 
 export const metadata = buildMetadata({
-  title: "KITech Software – Relaunch",
-  description: "Diese Seite entsteht gerade neu. Sprechen Sie uns direkt an.",
+  title: "Haltung – KITech Software",
+  description:
+    "Wonach wir entscheiden, wenn es im Projekt eng wird: Sicherheit vor Funktionsumfang, nachvollziehbar statt Blackbox, und ein Nein, wenn KI nicht die Antwort ist.",
   path: "/haltung",
-  noindex: true,
 });
 
 export default function Page() {
-  return <UnderConstruction />;
+  return <Haltung />;
 }

@@ -1,13 +1,17 @@
 import { buildMetadata } from "@/lib/metadata";
-import UnderConstruction from "@/views/UnderConstruction";
+import Enterprise from "@/views/Enterprise";
 
+/**
+ * Stand bis zum 05.08.2026 auf der Baustellenseite. Jetzt wieder eine echte
+ * Seite — verdichtet aus der Alt-Seite, Inhalt in `src/data/segments.ts`.
+ */
 export const metadata = buildMetadata({
-  title: "KITech Software – Relaunch",
-  description: "Diese Seite entsteht gerade neu. Sprechen Sie uns direkt an.",
+  title: "KI für Unternehmen – KITech Software",
+  description:
+    "Für Unternehmen mit gewachsenen Prozessen und echten Compliance-Anforderungen: Audit, Business Case, Umsetzung gegen feste Ziele und laufender Nachweis.",
   path: "/enterprise",
-  noindex: true,
 });
 
 export default function Page() {
-  return <UnderConstruction />;
+  return <Enterprise />;
 }

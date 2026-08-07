@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SignalField } from "@/components/canvas/SignalField";
+import { PageShell } from "@/components/layout/PageShell";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { motion } from "framer-motion";
 import { Star, X, ArrowRight, CalendarClock, Loader2, Quote, Linkedin } from "lucide-react";
@@ -13,11 +12,6 @@ import { testimonials } from "@/data/testimonials";
 import { founderInfo } from "@/components/sections/FounderPortrait";
 import ayhamPortrait from "@/assets/ayham-portrait-casual.webp";
 
-const legalLinks = [
-  { name: "Impressum", href: "/impressum" },
-  { name: "Datenschutz", href: "/datenschutz" },
-  { name: "AGB", href: "/agb" },
-];
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
@@ -120,7 +114,9 @@ export default function LassUnsReden() {
   }, [widgetEnabled]);
 
   return (
-    <div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
+    /* Signal-Hintergrund wie auf Startseite und Funnel-Seiten - die Terminseite
+       soll sich nicht wie ein Fremdkörper anfühlen. */
+    <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[560px]">
       <StructuredData
         data={getWebPageSchema(
           "Lass uns reden",
@@ -129,24 +125,8 @@ export default function LassUnsReden() {
         )}
       />
 
-      {/* Signal-Hintergrund wie auf Startseite und Funnel-Seiten - die Terminseite
-          soll sich nicht wie ein Fremdkörper anfühlen. */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-[560px]" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(112deg, hsl(245 55% 12%) 0%, hsl(243 45% 9%) 46%, hsl(0 0% 5%) 100%)",
-          }}
-        />
-        <SignalField density={0.45} intensity={0.45} baseColor="--primary" accentColor="--accent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
-      </div>
-
-      <SiteHeader className="relative mx-auto w-full max-w-[1180px] px-5 pt-7 sm:px-8" />
-
       <section className="relative py-12 lg:py-16">
-        <div className="mx-auto grid max-w-[1180px] gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <div className={`${SITE_CONTAINER} grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16`}>
           {/* Linke Spalte: Mini-Funnel */}
           <div className="space-y-10">
             <motion.div
@@ -310,19 +290,6 @@ export default function LassUnsReden() {
           </div>
         </div>
       </section>
-
-      <footer className="border-t border-border py-6">
-        <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-3 px-5 text-xs text-muted-foreground sm:flex-row sm:justify-between sm:px-8">
-          <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt).</p>
-          <nav aria-label="Rechtliche Links" className="flex items-center gap-4">
-            {legalLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="transition-colors hover:text-primary">
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </footer>
-    </div>
+    </PageShell>
   );
 }

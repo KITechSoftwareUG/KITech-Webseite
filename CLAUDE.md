@@ -17,6 +17,25 @@
 
 **Am 05.08.2026 ist der Relaunch live gegangen.** Bis dahin lag der komplette Migrationsstand unversioniert im Arbeitsverzeichnis; er steckt jetzt in `main` und ist deployt. Die alte Baustellen-Weiche (`src/App.tsx` → `UnderConstruction.tsx` für fast jeden Pfad) gibt es nicht mehr. Gleichzeitig wurde Coolify von `nixpacks` auf **`dockerfile`** umgestellt — ohne das läuft Next.js dort nicht. Siehe [Seiten & Routing](#seiten--routing) und [Hosting](#hosting).
 
+**Ebenfalls am 05.08.2026: die Seitenarchitektur ist geradegezogen worden.** Vorher
+pflegten Kopfzeile, Fußzeile und Sitemap je eine eigene Pfadliste, sechs Seiten
+trugen dieselbe Fußzeile als Kopie, drei verschiedene Containerbreiten ließen das
+Logo beim Seitenwechsel springen, und die Rechtstexte hingen noch am alten Layout
+mit einem völlig anderen Header. Sechs Routen zeigten die Baustellenseite, obwohl
+ihr Inhalt längst im Repo lag. Jetzt gilt:
+
+- **Eine Quelle für Navigation und Routen:** `src/config/navigation.ts` speist
+  Kopfzeile, Fußzeile, Sitemap und den Routen-Test. Firmendaten (Adresse,
+  Telefon, E-Mail) stehen in `src/config/company.ts`.
+- **Ein Rahmen für alle Seiten:** `PageShell` (Hintergrund + `SiteHeader` +
+  `SiteFooter`), Breite überall `SITE_CONTAINER` (1180 px).
+- **Navigationspunkt „Warum?“** fasst die beiden Funnel-Seiten zusammen, die
+  vorher mit vollem Titel die Leiste allein füllten.
+- **Neu erreichbar:** `/warum`, `/leistungen`, `/haltung`, `/kontakt`, `/glossar`
+  (+ Detailseiten), `/solo`, `/enterprise`, `/karriere` (+ Detailseiten).
+- **`npm test` prüft jeden internen Link** gegen die tatsächlich vorhandenen
+  Routen — siehe [Routen-Test](#routen-test).
+
 ---
 
 ## Commands
@@ -79,11 +98,18 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   ├── proxy.ts                # Host-Rewrite: app.kitech-software.de -> /app/*
 │   ├── index.css               # Design Tokens (CSS Custom Properties) - dark-first, siehe Design System
 │   ├── assets/                 # Logos, Fotos (importiert als ES6-Module)
-│   ├── data/                    # client-results.ts, testimonials.ts, team.ts, sales-letters.ts
+│   ├── config/                  # ★ navigation.ts (Navigation + Routen-Register), company.ts (Firmen-/Kontaktdaten)
+│   ├── data/                    # Inhalte, getrennt von der Darstellung:
+│   │                            #   client-results, testimonials, team, sales-letters,
+│   │                            #   glossary, services, principles, segments, jobs
 │   ├── components/
-│   │   ├── layout/             # SiteHeader (neue Seiten), Header/Footer/Layout/FunnelLayout (Alt-Seiten)
+│   │   ├── layout/             # ★ PageShell (Rahmen aller Seiten), SiteHeader, SiteFooter,
+│   │   │                        #   SignalBackdrop, site-container.ts (SITE_CONTAINER/TEXT_CONTAINER)
+│   │   │                        #   Header/Footer/Layout/FunnelLayout = Alt-Layout, nur noch fuer legacy/
 │   │   ├── seo/                # StructuredData (JSON-LD)
-│   │   ├── sections/           # ClientResults, TeamSection, FinalCta, CommunityCountdown, CommunityWarteliste, HeroMedia, FounderPortrait
+│   │   ├── sections/           # PageHeading, NavCard, CtaBanner (Basis fuer FinalCta/ReferenceCta),
+│   │   │                        #   ClientResults, TeamSection, CommunityCountdown, CommunityWarteliste,
+│   │   │                        #   HeroMedia, FounderPortrait, SalesLetter
 │   │   ├── conversion/         # StickyMobileCTA, ExitIntentPopup, TrustRiskReversal
 │   │   ├── canvas/              # SignalField (Canvas-basierte Hintergrund-Animation)
 │   │   ├── ui/                  # shadcn/ui Komponenten (nicht manuell bearbeiten)
@@ -98,7 +124,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   │   ├── schema-validators.ts # Zod-Schemas fuer die JSON-LD-Tests
 │   │   ├── glossary-schema.ts
 │   │   ├── metadata.ts          # buildMetadata() - ersetzt die alte SEOHead-Komponente
-│   │   └── __tests__/           # Vitest-Tests fuer Schemas/Breadcrumbs
+│   │   └── __tests__/           # Vitest: Schemas, Breadcrumbs + routes.test.ts (Link-/Routen-Pruefung)
 │   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, api/warteliste, page.tsx je Route
 │   └── views/                   # Seiten-Komponenten (Client Components), von app/*/page.tsx eingebunden
 │       └── legacy/              # Alt-Seiten, nicht geroutet, aus tsconfig/eslint ausgenommen
@@ -115,23 +141,87 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 Routing laeuft dateibasiert ueber `src/app/*/page.tsx`. Es gibt **kein** `src/App.tsx`
 mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner liegt.
 
-### Live (Stand 05.08.2026, deployt)
+### Alle Routen (Stand 05.08.2026)
 
-| Route | View | Status |
-|---|---|---|
-| `/` | `Home.tsx` | Neue Startseite: Hero, Kunden-Ergebniskarten, Team, Abschluss-CTA. |
-| `/community` | `Community.tsx` | Einstieg in die Skool-Community — siehe eigenen Abschnitt unten. |
-| `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Detailseiten stehen auf `noindex`, solange in `client-results.ts` noch `openPoints` offen sind. |
-| `/lass-uns-reden` (`/termin`) | `LassUnsReden.tsx` | Calendly-Inline-Embed, Consent-gated. Ziel aller "Erstgespraech"-CTAs. |
-| `/eu-ai-act-selbstcheck` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | — |
-| `/warum-du-mit-ki-kein-geld-verdienst`, `/warum-unternehmen-mit-ki-kein-geld-verdienen` | Sales Letter | Noch Platzhaltertext, deshalb `noindex`. |
-| `/impressum`, `/datenschutz`, `/agb` | Rechtstexte | Immer live, immer indexierbar. |
-| `/solo`, `/enterprise`, `/leistungen`, `/haltung`, `/kontakt`, `/glossar` | `ComingSoon.tsx` | Platzhalter, `noindex`. |
-| `/app/*` | `src/app/app/` | Eingeloggter Bereich (LogTo), ueber `src/proxy.ts` an `app.kitech-software.de` gebunden. **Noch nicht freigeschaltet** — im Header steht ein Schloss statt eines Login-Links. |
+| Route | View | Index | Anmerkung |
+|---|---|---|---|
+| `/` | `Home.tsx` | ja | Hero, Kunden-Ergebniskarten, Team, Abschluss-CTA. |
+| `/warum` | `Warum.tsx` | ja | Weiche zu den beiden Sales Lettern. Ziel des Navigationspunkts „Warum?“. |
+| `/warum-du-mit-ki-kein-geld-verdienst` | `WarumDuKeinGeld.tsx` | **nein** | Sales Letter, noch Platzhaltertext (`isPlaceholder`). |
+| `/warum-unternehmen-mit-ki-kein-geld-verdienen` | `WarumUnternehmenKeinGeld.tsx` | **nein** | dito. |
+| `/leistungen` | `Leistungen.tsx` | ja | Sechs Schritte + Zielgruppen-Weiche. Inhalt: `src/data/services.ts`. |
+| `/solo`, `/enterprise` | `Segment.tsx` über `Solo.tsx`/`Enterprise.tsx` | ja | Eine Vorlage, zwei Zielgruppen. Inhalt: `src/data/segments.ts`. |
+| `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Übersicht ja, Details **nein** | Details auf `noindex`, solange `openPoints` offen sind. |
+| `/haltung` | `Haltung.tsx` | ja | Werte + Gründerzitat. Inhalt: `src/data/principles.ts`. |
+| `/community` | `Community.tsx` | ja | Skool-Community — siehe eigenen Abschnitt unten. |
+| `/karriere`, `/karriere/[slug]` | `Karriere.tsx`, `KarriereJob.tsx` | **nein** | Stellen sind Platzhalter — siehe [Stellenportal](#stellenportal). |
+| `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
+| `/glossar`, `/glossar/[slug]` | `Glossar.tsx`, `GlossarTerm.tsx` | ja | Sechs Begriffe aus `src/data/glossary.ts`, seit der Migration erstmals wieder erreichbar. |
+| `/lass-uns-reden` (`/termin`) | `LassUnsReden.tsx` | ja | Calendly-Inline-Embed, Consent-gated. Ziel aller „Erstgespräch“-CTAs. |
+| `/eu-ai-act-selbstcheck` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | ja | Interaktiver Check, seit 05.08.2026 mit normaler Kopf- und Fußzeile. |
+| `/impressum`, `/datenschutz`, `/agb` | Rechtstexte | ja | Seit 05.08.2026 in der normalen Shell statt im Alt-Layout. |
+| *(alles andere)* | `NichtGefunden.tsx` | – | Echte 404 mit voller Navigation. Vorher zeigte hier die Baustellenseite. |
+| `/app/*` | `src/app/app/` | nein | Eingeloggter Bereich (LogTo), über `src/proxy.ts` an `app.kitech-software.de` gebunden. **Noch nicht freigeschaltet** — im Header steht ein Schloss statt eines Login-Links. |
 
 Alte Seiten liegen unter `src/views/legacy/` — nicht geroutet, aus TypeScript- und
-ESLint-Pruefung ausgenommen. Drei davon werden von Tests per `?raw` gelesen,
-deshalb bleibt `react-router-dom` als Dependency installiert.
+ESLint-Pruefung ausgenommen. Dort liegen seit dem 05.08.2026 auch
+`UnderConstruction.tsx` und `ComingSoon.tsx`: die Baustellenphase ist vorbei, beide
+werden von keiner Route mehr eingebunden.
+
+### Navigation
+
+Struktur in `src/config/navigation.ts` — **die einzige Quelle** für Kopfzeile,
+Fußzeile, Sitemap und Routen-Test. Wer eine Seite anlegt, trägt sie dort ein und
+ist überall verlinkt.
+
+```
+Warum?  ▾  ├─ Warum du mit KI kein Geld verdienst
+           └─ Warum Unternehmen mit KI kein Geld verdienen
+Leistungen ▾  ├─ Für Selbstständige (/solo)
+              └─ Für Unternehmen (/enterprise)
+Referenzen · Haltung · Community · Karriere · Kontakt
+```
+
+Die beiden Untermenüs klappen auf dem Desktop bei Hover und Tastaturfokus auf
+(Escape schließt), auf dem Handy über einen eigenen Chevron-Knopf neben dem Link.
+Der Elternpunkt bleibt in beiden Fällen ein echter Link auf eine eigene Seite —
+ein Menüpunkt, der nur aufklappt, ist auf dem Handy eine Sackgasse.
+
+Die Fußzeile (`SiteFooter.tsx`) trägt zusätzlich, was in die Kopfzeile nicht
+passt: Glossar, Selbstcheck, Terminseite, Rechtstexte, Cookie-Einstellungen.
+
+### Routen-Test
+
+`src/lib/__tests__/routes.test.ts` liest die tatsächlich vorhandenen Routen aus
+`src/app/**/page.tsx` (nicht aus einer gepflegten Liste) und prüft:
+
+- jeder interne Link im aktiven Quellcode zeigt auf eine Route oder einen Redirect,
+- jeder Navigationspunkt führt auf eine echte Seite,
+- **jede öffentliche Route ist von irgendwo aus erreichbar** — genau das war vorher
+  bei `/leistungen`, `/haltung`, `/kontakt` und `/glossar` nicht der Fall,
+- `siteRoutes` und die echten Routen stimmen überein,
+- die Platzhalter-Routen stehen auf `noindex`.
+
+Läuft mit `npm test` mit. `src/views/legacy/` bleibt ausgenommen.
+
+### Stellenportal
+
+`/karriere` und `/karriere/[slug]`, Daten in `src/data/jobs.ts`.
+
+⚠️ **Die vier Stellen sind Platzhalter** (`isPlaceholder: true`), auf Ansage
+angelegt, damit das Portal Struktur bekommt. Solange das gilt:
+
+- beide Routen stehen auf `noindex` und nicht in der Sitemap,
+- es wird **kein** `JobPosting`-JSON-LD ausgegeben (sonst landen erfundene Stellen
+  in Google for Jobs und ziehen echte Bewerbungen).
+
+Beides hängt am Datenzustand, nicht an einem Schalter — echte Stellen eintragen,
+und es schaltet sich beim nächsten Build um. Dann zusätzlich in
+`src/config/navigation.ts` `indexable: true` setzen, damit `/karriere` auch in die
+Sitemap kommt.
+
+Bewerbungen laufen per `mailto:` an `info@kitech-software.de` mit vorbelegtem
+Betreff — bewusst keine erfundene `karriere@`-Adresse, die kein Postfach hat.
 
 ### `/community` — die Skool-Community
 
@@ -189,8 +279,30 @@ Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.t
 - **Design-System:** CSS Variables (HSL-basiert) in `src/index.css`, konfiguriert in `tailwind.config.ts`
 - **Custom Tailwind Utilities:** `.gradient-text` (nur in Alt-Seiten wie Referenzen/Leistungen/Haltung/Kontakt, in neuen Komponenten bewusst vermieden), `.gradient-cta`, `.shadow-soft`, `.shadow-card`, `.shadow-elevated`, `.animate-marquee`, `box-decoration-clone` (Tailwind-Core-Utility, fuer Highlight-Boxen hinter mehrzeiligem Text)
 - **Schriftart:** Onest (`@fontsource/onest`)
-- **Eckige statt runde Flaechen:** Neuere Komponenten (Baustellen-Seite, `/lass-uns-reden`) verwenden bewusst **keine** `rounded-*`-Klassen — scharfkantige, klar umrandete Boxen statt runder Pill-Badges, siehe Kommentar in `UnderConstruction.tsx`. Aeltere Seiten (Referenzen, Kontakt, CookieConsent) nutzen weiterhin `rounded-*`. Bei neuen Komponenten im Zweifel scharfkantig bauen.
+- **Eckige statt runde Flaechen:** Neu gebaute Komponenten verwenden bewusst **keine** `rounded-*`-Klassen — scharfkantige, klar umrandete Boxen statt runder Pill-Badges. Nur noch `CookieConsent` und die shadcn-Bausteine nutzen `rounded-*`. Bei neuen Komponenten im Zweifel scharfkantig bauen.
 - **CTA-Konvention:** Jeder "Erstgespraech buchen"/Calendly-Button im gesamten Repo navigiert intern zu `/lass-uns-reden` (per `<Link>`/`useNavigate`), **niemals** mehr `window.open()` zu einer externen Calendly-URL. Die einzige verbleibende externe Calendly-URL ist die `data-url` im Embed selbst (`LassUnsReden.tsx`).
+
+### Eine neue Seite bauen
+
+Reihenfolge, damit nichts vergessen wird (der Routen-Test meckert sonst):
+
+1. **Inhalt** nach `src/data/<thema>.ts` — nicht in die Komponente. Texte kommen
+   von Ayham und werden dort ersetzt, ohne die Darstellung anzufassen.
+2. **View** nach `src/views/<Name>.tsx`, aufgebaut mit `PageShell` +
+   `SITE_CONTAINER` (bzw. `TEXT_CONTAINER` bei Fließtext) + `PageHeading` +
+   `CtaBanner`.
+3. **Route** als dünner Server-Wrapper `src/app/<pfad>/page.tsx` mit
+   `export const metadata = buildMetadata({...})`.
+4. **Eintragen** in `src/config/navigation.ts` — sowohl in eine Navigation
+   (`mainNavigation` oder `footerNavigation`) als auch in `siteRoutes`.
+5. `npm test` — der Routen-Test prüft, dass die Seite existiert, erreichbar ist
+   und ihr Indexierungs-Status zur Sitemap passt.
+
+**Was nicht gebaut wird** (Vorgabe Ayham): das Muster *kleines Rechteck-Label →
+Überschrift → Erklärabsatz*, und Raster aus gleich großen Karten mit Icon im
+abgerundeten Quadrat. Beides liest sich als Baukasten. Stattdessen: Aussage als
+Überschrift, höchstens ein Satz darunter, Listen mit Trennlinien statt Kacheln
+(`divide-y`) oder Raster über `gap-px` auf `bg-border`.
 
 ---
 
@@ -218,7 +330,8 @@ Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.t
 
 ### Typografie
 - **Body-Font:** Onest (Gewichte 100–700), `font-thin` als Default
-- **Display-Font:** "Recursive Variable" (`kinetic-display`-Klassen) fuer Headlines auf den neu gebauten Seiten (Baustellen-Seite, Solo, Enterprise) - animiert zwischen serifenlos/mono-Achsen. Aeltere Seiten bleiben bei Onest fuer Headlines.
+- **Display-Font:** "Recursive Variable" (`kinetic-display`) fuer alle Headlines, `kinetic-data` fuer Zahlen und Kurzlabels - animiert zwischen serifenlos/mono-Achsen. Seit dem 05.08.2026 durchgaengig, auch auf Rechtstexten und Glossarartikeln.
+- `kinetic-morph-in` nur auf der **H1** einer Seite, nicht auf jeder Ueberschrift - sonst zappelt beim Laden die ganze Seite.
 
 ### Custom Button-Varianten (`src/components/ui/button.tsx`)
 - `hero` / `cta`: gefuellter Primary-Button mit Shadow
@@ -226,7 +339,34 @@ Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.t
 - Alle Varianten nutzen `rounded-lg` als Basis — neuere Komponenten ueberschreiben das haeufig mit eigenen, eckigen Containern statt den Button direkt zu stylen.
 
 ### Container
-- Max-Width: 1280px (`2xl` Breakpoint), zentriert, 1rem Padding
+
+Eine Breite fuer alles: **`SITE_CONTAINER`** aus
+`src/components/layout/site-container.ts` — `max-w-[1180px]`, zentriert,
+`px-5 sm:px-8`.
+
+Vorher trug jede Seite ihren eigenen Wert (Startseite 1060 px, Community 1120 px,
+Referenzen 1180 px, Selbstcheck den 1280er `container`); beim Wechsel zwischen
+zwei Seiten sprang dadurch das Logo sichtbar hin und her. Auch Sektionen
+ausserhalb der Shell (`ClientResults`, `CtaBanner`) nutzen die Konstante, damit
+sie mit Kopf- und Fusszeile fluchten.
+
+**`TEXT_CONTAINER`** (`max-w-[760px]`) fuer zusammenhaengenden Fliesstext —
+Rechtstexte, Glossarartikel. 1180 px waeren fuer einen Datenschutztext unlesbar.
+
+Die Tailwind-`container`-Klasse (1280 px) stammt aus dem Alt-Layout und wird in
+neu gebauten Seiten nicht mehr verwendet.
+
+### Hintergrund
+
+`SignalBackdrop` (Verlauf + Canvas-Signalfeld + Auslauf) statt vier Kopien
+desselben Verlaufswerts. Ueber `PageShell` gesteuert:
+
+| Prop | Wirkung |
+|---|---|
+| `backdrop="header"` (Standard) | eingefaerbter Kopfbereich, 620 px, laeuft nach unten aus |
+| `backdrop="full"` | ganze Flaeche (404) |
+| `backdrop="none"` | schwarzer Grund (`/community` — dort traegt das Foto die Seite, `/eu-ai-act-selbstcheck` — bringt sein eigenes Feld mit) |
+| `backdropClassName` | eigene Hoehe, z. B. bildschirmhoch auf der Startseite |
 
 ---
 
@@ -234,7 +374,8 @@ Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.t
 
 ### Meta-Tags (serverseitig gerendert)
 - `buildMetadata()` in `src/lib/metadata.ts` erzeugt pro Seite Title, Description, OpenGraph, Twitter Cards, Canonical und optional `noindex`. Wird in `src/app/*/page.tsx` als `export const metadata` genutzt. Die frühere `SEOHead`-Komponente (useEffect-basiert) ist damit abgelöst.
-- **Sitemap wird generiert** (`src/app/sitemap.ts`), nicht mehr als `public/sitemap.xml` gepflegt. Dort gehören nur indexierbare Routen hinein.
+- **Sitemap wird generiert** (`src/app/sitemap.ts`) und pflegt seit dem 05.08.2026 **keine eigene Pfadliste mehr**: die statischen Routen kommen aus `siteRoutes` (`src/config/navigation.ts`), Referenz- und Glossar-Detailseiten direkt aus den Datendateien. Ausgeschlossen werden automatisch alles mit `indexable: false` und die Alias-Routen (`/termin`, `/selbstcheck`), deren Canonical woanders hinzeigt.
+  Vorher standen Navigation und Sitemap als zwei getrennte Listen nebeneinander und waren auseinandergelaufen — `/leistungen`, `/haltung`, `/kontakt` und `/glossar` fehlten in der Sitemap, obwohl es sie gab.
 - Base URL: `https://kitech-software.de`
 - Locale: `de_DE`
 
@@ -243,8 +384,8 @@ Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.t
 
 ### KI-Crawler-Optimierung
 - `robots.txt`: Explizite Allow-Regeln fuer GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
-- `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **koennen hinter dem aktuellen Code-Stand zuruecklieben** (z.B. erwaehnen sie nicht `/solo`, `/enterprise`, `/lass-uns-reden`), vor Verlass darauf gegenpruefen.
-- `sitemap.xml`: Aktuell nur indexierbare Routen (Impressum, Datenschutz, AGB, `/lass-uns-reden`) - die Baustellen-Routen sind bewusst nicht gelistet (noindex).
+- `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **liegen hinter dem aktuellen Code-Stand zurueck** (sie kennen weder `/warum`, `/karriere` noch die reaktivierten Seiten), vor Verlass darauf gegenpruefen. **Offen:** beide auf den Stand nach dem 05.08.2026 bringen.
+- `sitemap.xml`: enthaelt aktuell 21 URLs — alle Hauptseiten, die Rechtstexte und die sechs Glossarartikel. Nicht enthalten: die beiden Sales Letter und `/karriere` (Platzhalterinhalte), die Referenz-Detailseiten (offene Punkte) und die Alias-Routen.
 
 ---
 
@@ -289,7 +430,7 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 | Calendly | Terminbuchung. Einzige aktuelle URL: `calendly.com/kitech-software/roi-analyse`, eingebettet auf `/lass-uns-reden` (Inline-Widget, Consent-gated). Alle anderen Stellen im Code verlinken intern auf `/lass-uns-reden`, nicht mehr direkt auf Calendly. |
 | Plausible | Self-hosted Analytics (nur nach Cookie-Consent), siehe oben. |
 | **Kundenportal** | Separates Projekt `kitech-app-portal` (Next.js, LogTo-Auth) unter `/home/deploy/KITech/projects/kitech-app-portal` — **ueberholt:** Seit der Next.js-Migration hat diese Website selbst ein Backend, der eingeloggte Bereich liegt hier unter `src/app/app/`. Das separate Projekt wird nicht mehr gebraucht. Im Header steht statt "Anmelden" ein Schloss, bis LogTo TLS hat. |
-| Skool | Community-Gruppe `skool.com/ki-fur-business-4646`, verlinkt ausschliesslich von `/community` — und dort erst ab dem 1. September 2026. |
+| Skool | Community-Gruppe `skool.com/ki-fur-business-4646` (URL in `src/config/company.ts`), verlinkt ausschliesslich von `/community` — und dort erst ab dem 1. September 2026. |
 
 ---
 
@@ -302,6 +443,23 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 - **Routing:** dateibasiert ueber `src/app/`. Kein SPA-Fallback mehr noetig — der Node-Server beantwortet jede Route direkt.
 - **Deploy-Workflow:** Kein automatischer GitHub-Webhook (mehrfach als kaputt verifiziert). Deploys laufen manuell ueber die Coolify-API (`GET /deploy?uuid=...`) nach explizitem Go durch den Auftraggeber — **nicht automatisch nach jedem Push.** Coolify baut den Branch **`main`**; ein Push auf einen Feature-Branch aendert live nichts.
 - **Vor jedem Deploy:** `docker build` lokal laufen lassen und den Container gegen die Routen pruefen. Der Coolify-Build nutzt dasselbe `Dockerfile` — was lokal bricht, bricht auch dort.
+
+  ```bash
+  npm run lint && npm test && npm run build
+  docker build -t kitech-website-test:local .
+  docker run -d --name kitech-test -p 8123:3000 kitech-website-test:local
+  # Routen abklopfen (200 erwartet, 404 nur fuer Unbekanntes):
+  for p in / /warum /leistungen /solo /enterprise /referenzen /haltung \
+           /community /karriere /kontakt /glossar /lass-uns-reden \
+           /eu-ai-act-selbstcheck /impressum /datenschutz /agb \
+           /glossar/mlops /karriere/b2b-setter /sitemap.xml /gibt-es-nicht; do
+    printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123$p)"
+  done
+  docker rm -f kitech-test && docker rmi kitech-website-test:local
+  ```
+
+  `npm start` funktioniert wegen `output: "standalone"` nur eingeschraenkt (Next
+  warnt beim Start) — fuer eine echte Pruefung immer den Container nehmen.
 
 ### Env-Variablen in Coolify
 
@@ -319,6 +477,13 @@ das Bundle eingebacken und erfordert deshalb einen Rebuild.
 ---
 
 ## Kontaktdaten
+
+**Im Code stehen diese Daten seit dem 05.08.2026 an genau einer Stelle:
+`src/config/company.ts`.** Vorher waren Telefonnummern, E-Mail-Adressen und die
+Anschrift ueber Header, Footer, Kontaktseite und die Conversion-Bausteine
+verteilt — mit zwei verschiedenen Telefonnummern nebeneinander. Wer eine Nummer
+aendert, aendert genau diese Datei. Ausgenommen sind die Rechtstexte
+(`Impressum.tsx`), wo die Angaben bewusst woertlich im Text stehen.
 
 - **E-Mail:** info@kitech-software.de (allgemein), aalkh@kitech-software.de (Ayham, personalisierte CTAs)
 - **Telefon (Festnetz):** +49 (0) 511 89738590

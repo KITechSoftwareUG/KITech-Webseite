@@ -1,44 +1,57 @@
 import type { MetadataRoute } from "next";
 import { BASE_URL } from "@/lib/metadata";
+import { siteRoutes } from "@/config/navigation";
+import { clientResults } from "@/data/client-results";
+import { glossaryTerms } from "@/data/glossary";
 
 /**
- * Sitemap wird jetzt generiert statt als statische public/sitemap.xml gepflegt.
+ * Sitemap wird generiert statt als statische `public/sitemap.xml` gepflegt.
  *
- * Hier stehen ausschließlich Routen, die auch wirklich indexierbar sind — also
- * ohne `noindex` in ihrer Metadata. Wer hier eine Seite einträgt, die auf
- * noindex steht, schickt Suchmaschinen bewusst ins Leere.
+ * Die Liste der statischen Routen stand bis zum 05.08.2026 hier als eigenes
+ * Array — also parallel zur Navigation, die dieselben Pfade kannte. Beide
+ * Listen sind auseinandergelaufen: `/referenzen` und `/community` waren
+ * eingetragen, `/leistungen`, `/haltung`, `/kontakt` und `/glossar` fehlten,
+ * obwohl es sie gab. Jetzt kommt alles aus `src/config/navigation.ts`.
  *
- * Bewusst NICHT enthalten:
- *   - /termin und /selbstcheck (Aliase, Canonical zeigt auf die Hauptroute)
- *   - beide Sales Letter (noch Platzhaltertext, deshalb noindex)
- *   - /skool (leitet permanent auf /community, siehe next.config.ts)
- *   - die einzelnen Referenz-Detailseiten: sie stehen auf noindex, solange in
- *     `client-results.ts` noch `openPoints` offen sind (Platzhaltertexte). Sobald
- *     ein Fall freigegeben ist, hier eintragen.
- *   - der eingeloggte Bereich (eigene Domain app.kitech-software.de, noindex)
- *   - /solo, /enterprise, /leistungen, /haltung, /kontakt, /glossar (Baustelle)
+ * Aufgenommen wird nur, was auch wirklich in den Index darf:
+ *   - `indexable: false` → die Seite setzt `noindex` in ihrer Metadata. Wer sie
+ *     hier einträgt, schickt Suchmaschinen bewusst ins Leere.
+ *   - `aliasOf` → Alias-Route (`/termin`, `/selbstcheck`), deren Canonical auf
+ *     die Hauptroute zeigt. Beide zu listen erzeugt Duplicate Content.
+ *
+ * Dynamische Detailseiten kommen direkt aus den Datendateien, damit sie nicht
+ * von Hand nachgetragen werden müssen:
+ *   - Referenzfälle: nur mit Langfassung UND ohne offene Punkte. Dieselbe
+ *     Bedingung wie das `noindex` in `app/referenzen/[slug]/page.tsx` — läuft
+ *     die auseinander, steht ein noindex-Fall in der Sitemap.
+ *   - Glossarbegriffe: alle, sie sind fertig geschrieben.
+ *   - Stellenanzeigen: bewusst gar nicht, siehe Kopf von `src/data/jobs.ts`.
  */
-const routes: Array<{
-  path: string;
-  lastModified: string;
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  priority: number;
-}> = [
-  { path: "/", lastModified: "2026-07-30", changeFrequency: "weekly", priority: 1.0 },
-  { path: "/lass-uns-reden", lastModified: "2026-07-11", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/referenzen", lastModified: "2026-08-02", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/community", lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/eu-ai-act-selbstcheck", lastModified: "2026-07-28", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/impressum", lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
-  { path: "/datenschutz", lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
-  { path: "/agb", lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
-];
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
-    url: `${BASE_URL}${route.path === "/" ? "" : route.path}`,
-    lastModified: route.lastModified,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
+  const statisch: MetadataRoute.Sitemap = siteRoutes
+    .filter((route) => route.indexable && !route.aliasOf)
+    .map((route) => ({
+      url: `${BASE_URL}${route.path === "/" ? "" : route.path}`,
+      lastModified: route.lastModified,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    }));
+
+  const referenzen: MetadataRoute.Sitemap = clientResults
+    .filter((result) => result.detail && !result.openPoints?.length)
+    .map((result) => ({
+      url: `${BASE_URL}/referenzen/${result.slug}`,
+      lastModified: "2026-08-05",
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    }));
+
+  const glossar: MetadataRoute.Sitemap = glossaryTerms.map((term) => ({
+    url: `${BASE_URL}/glossar/${term.slug}`,
+    lastModified: term.dateModified ?? "2026-08-05",
+    changeFrequency: "yearly" as const,
+    priority: 0.5,
   }));
+
+  return [...statisch, ...referenzen, ...glossar];
 }
