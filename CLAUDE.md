@@ -15,7 +15,7 @@
 
 **Aktueller Status:** Die Website wurde am 30.07.2026 von **Vite + React Router auf Next.js (App Router) migriert** — Grund: die Funnel-Seiten sollen organisch ranken, was mit einer Client-Side-SPA nicht geht.
 
-**Am 05.08.2026 ist der Relaunch live gegangen.** Bis dahin lag der komplette Migrationsstand unversioniert im Arbeitsverzeichnis; er steckt jetzt in `main` und ist deployt. Die alte Baustellen-Weiche (`src/App.tsx` → `UnderConstruction.tsx` für fast jeden Pfad) gibt es nicht mehr. Gleichzeitig wurde Coolify von `nixpacks` auf **`dockerfile`** umgestellt — ohne das läuft Next.js dort nicht. Siehe [Seiten & Routing](#seiten--routing) und [Hosting](#hosting).
+**Am 05.08.2026 ist der Relaunch live gegangen** (Commit `82bf44e`, deployt und gegen die Live-Domain geprüft). Bis dahin lag der komplette Migrationsstand unversioniert im Arbeitsverzeichnis; er steckt jetzt in `main` und ist deployt. Im selben Zug wurde die **Startseite überarbeitet**: der Hero auf eine einzige Aussage reduziert, die Kundenkarten mit Beleglinks auf die gebauten Produkte versehen und das Team um Rollen, Kurzbeschreibungen und LinkedIn ergänzt — siehe [Startseite](#startseite-hero-und-team) und [Kundenkarten](#kundenkarten-ergebnis-beleglinks-fotos-sterne). Die alte Baustellen-Weiche (`src/App.tsx` → `UnderConstruction.tsx` für fast jeden Pfad) gibt es nicht mehr. Gleichzeitig wurde Coolify von `nixpacks` auf **`dockerfile`** umgestellt — ohne das läuft Next.js dort nicht. Siehe [Seiten & Routing](#seiten--routing) und [Hosting](#hosting).
 
 **Ebenfalls am 05.08.2026: die Seitenarchitektur ist geradegezogen worden.** Vorher
 pflegten Kopfzeile, Fußzeile und Sitemap je eine eigene Pfadliste, sechs Seiten
@@ -145,7 +145,7 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 
 | Route | View | Index | Anmerkung |
 |---|---|---|---|
-| `/` | `Home.tsx` | ja | Hero, Kunden-Ergebniskarten, Team, Abschluss-CTA. |
+| `/` | `Home.tsx` | ja | Hero (nur die Aussage + CTA), Kunden-Ergebniskarten, Team, Abschluss-CTA. Siehe [Startseite](#startseite-hero-und-team). |
 | `/warum` | `Warum.tsx` | ja | Weiche zu den beiden Sales Lettern. Ziel des Navigationspunkts „Warum?“. |
 | `/warum-du-mit-ki-kein-geld-verdienst` | `WarumDuKeinGeld.tsx` | **nein** | Sales Letter, noch Platzhaltertext (`isPlaceholder`). |
 | `/warum-unternehmen-mit-ki-kein-geld-verdienen` | `WarumUnternehmenKeinGeld.tsx` | **nein** | dito. |
@@ -248,15 +248,58 @@ Gestaltung: sehr wenig Text, grosses freigestelltes Foto ohne Rahmen
 WebP wegen des Alphakanals, JPEG kann keine Transparenz), keine Canvas- oder
 Scroll-Effekte, kein Label-ueber-Headline-Muster.
 
-### Kundenkarten: Fotos, Sterne, Reihenfolge
+### Startseite: Hero und Team
+
+**Der Hero traegt genau eine Aussage** — „Falsche KI kostet **mehr** als keine KI."
+(weisser Marker auf „mehr") plus den Erstgespraech-CTA. Sonst nichts. Am
+05.08.2026 sind auf Ansage entfallen: das Label „Für den deutschen Mittelstand",
+der Positionierungsabsatz, die Medienflaeche (`HeroMedia.tsx` ist dadurch
+ungenutzt, die Datei liegt noch da) und die beiden Kacheln „50+ Projekte" /
+„98 % Kundenzufriedenheit". Begruendung: die Aussage soll allein wirken. Wer
+eines davon zurueckholt, nimmt ihr genau diese Wirkung.
+
+**Team** (`TeamSection.tsx`, Daten in `src/data/team.ts`): vier gleich breite
+Kacheln, je Name, Rolle, ein Satz und LinkedIn. Die Saetze und Rollen sind
+woertliche Vorgaben von Ayham — nicht umformulieren. Fehlt ein Foto (Joerg,
+Jennifer), zeigt die Kachel eine neutrale Silhouette statt einer leeren Flaeche.
+`linkedinUrl` ist bisher nur bei Ayham gefuellt; ohne URL rendert die Kachel
+keinen Link, statt auf ein fremdes Profil zu zeigen.
+
+### Kundenkarten: Ergebnis, Beleglinks, Fotos, Sterne
 
 Alles dazu steht in `src/data/client-results.ts`, gerendert von `ClientResults.tsx`
 (Startseite), `ReferenceCard.tsx` (Uebersicht) und `ReferenzDetail.tsx`.
 
-- **Sterne pro Kunde** (`rating`, aktuell ueberall 4). Ersetzt seit 04.08.2026 die
-  Sammelzeile "5 Sterne · 40+ Bewertungen" im Hero — die ist samt `HeroReviews.tsx`
-  und `reviewCountLabel` entfallen. Die Zahl wird jetzt einer namentlich genannten
-  Person zugeschrieben; belegt ist bisher nur Dennis Mikyas mit 5 Sternen.
+**Die Karte fuehrt mit dem Ergebnis.** Kennzahl gross, darunter eine
+Akzent-Unterstreichung, dann Label, ein Satz, die Belegzeilen und der Live-Link.
+Am 05.08.2026 war sie kurzzeitig auf Foto, Name, Zitat und Sterne reduziert —
+ohne jede Zahl. Das ist auf Ansage zurueckgenommen worden ("ganz prominent die
+Ergebnisse zeigen"). Wer sie erneut entkernt, nimmt der Startseite ihren
+einzigen harten Beweis.
+
+- **Beleglinks** (seit 05.08.2026): `liveUrl` zeigt auf das tatsaechlich gebaute
+  Produkt und wird als eigener "Live im Einsatz"-Block gerendert — ccp-portal.de
+  (cert consulting Pane), dashboard.niimmo.de (NiImmo), klargehalt.de. `companyUrl`
+  ist die Website des Kunden (pflegexperts.de, niimmo.de) und steht klein in der
+  Fusszeile der Karte. Beide Felder nur mit gepruefter Adresse fuellen; die
+  Unterscheidung ist wichtig, weil "hier laeuft es" mehr belegt als "den Kunden
+  gibt es". Fuer Nereo und die Lead-Pipeline existiert keine oeffentliche Adresse.
+- **Kartentexte** sind am 05.08.2026 neu geschrieben und gegen die Belegbasis
+  faktengeprueft worden. `label` und `summary` duerfen `duration`, `before`/`after`
+  und `review` **nicht wiederholen** — die rendert die Karte bereits als eigene
+  Zeilen. Formulierungen wie "Vollzeitstellen weniger Verwaltungsarbeit" sind
+  ausdruecklich raus: belegt ist eine Aufwands-Aequivalenz, kein Dauerzustand.
+- **Sterne pro Kunde** (`rating`, seit 05.08.2026 ueberall 5, vorher 4). Ersetzt
+  seit 04.08.2026 die Sammelzeile "5 Sterne · 40+ Bewertungen" im Hero — die ist
+  samt `HeroReviews.tsx` und `reviewCountLabel` entfallen.
+  ⚠️ **Offen:** Die Zahl wird einer namentlich genannten Person zugeschrieben,
+  schriftlich belegt sind aber nur Dennis Mikyas und Eugen Kretschmann. Fuer die
+  uebrigen fuenf Kunden fehlt eine dokumentierte Bewertung — erfundene
+  Bewertungen sind nach § 5b Abs. 3 UWG abmahnbar.
+- **`review`** ist der kurze Bewertungssatz auf der Karte. Nur befuellen, wo der
+  Satz woertlich so abgegeben wurde; aktuell nur bei Dennis Mikyas. Eugen
+  Kretschmann (KREMA) hat ein belegtes Zitat in `src/data/testimonials.ts`, aber
+  keinen Karteneintrag — dafuer fehlen Firma und Projektangaben.
 - **Portraits** liegen als freigestellte WebPs (transparent, auf die Person
   zugeschnitten, 520 px hoch) unter `public/images/kunden/`. Quelle waren SVG-
   Freisteller von Ayham; als SVG waren sie 3,9 MB, als WebP sind es 84 KB.
