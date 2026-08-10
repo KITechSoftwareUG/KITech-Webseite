@@ -193,7 +193,9 @@ export const siteRoutes: RouteDefinition[] = [
 
   { path: "/referenzen", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
   { path: "/haltung", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/community", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.9 },
+  // Seite liegt hinter Milchglas, solange IM_AUFBAU in views/Community.tsx true
+  // ist — bis dahin kein Index und nicht in der Sitemap.
+  { path: "/community", indexable: false, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.9 },
   { path: "/glossar", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.6 },
   { path: "/kontakt", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
 

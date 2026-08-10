@@ -32,6 +32,23 @@ import { trackEvent } from "@/lib/plausible";
  * dem Build-Zeitpunkt. Ohne Deploy wechselt die Seite also von selbst.
  */
 
+/**
+ * Legt die ganze Seite hinter Milchglas: der Inhalt bleibt sichtbar, ist aber
+ * unscharf und nicht bedienbar, darüber steht scharf der Hinweis, dass hier noch
+ * gearbeitet wird (Ansage vom 05.08.2026).
+ *
+ * **Zum Abschalten genügt `false`** — dann ist die Seite wieder vollständig da,
+ * am Inhalt darunter ändert sich nichts.
+ *
+ * Solange das `true` ist, gehört die Seite außerdem auf `noindex` und nicht in die
+ * Sitemap (beides in `src/app/community/page.tsx` bzw. `src/config/navigation.ts`
+ * hinterlegt) — eine verwischte Seite im Suchindex ist für Google dünner Inhalt.
+ *
+ * Kopfzeile und Fußzeile bleiben bewusst scharf und bedienbar: läge der Schleier
+ * auch über der Navigation, wäre die Seite eine Sackgasse ohne Rückweg.
+ */
+const IM_AUFBAU = true;
+
 /** Ziel nach dem Start. Vorher bewusst nirgends verlinkt. */
 const SKOOL_URL = company.skoolUrl;
 
@@ -75,6 +92,33 @@ function Konditionen() {
       </span>
       <span className="text-foreground">Begrenzte Plätze</span>
     </p>
+  );
+}
+
+/**
+ * Der scharfe Hinweis über dem verwischten Inhalt.
+ *
+ * `sticky` statt `fixed`: der Block wandert beim Scrollen mit, bleibt aber im
+ * Seitenfluss und damit im Container — `fixed` würde ihn aus dem Layout lösen und
+ * auf schmalen Schirmen über die Ränder hinausschieben. `top` liegt bei 42 % der
+ * Höhe, also knapp über der Mitte, wo der Blick zuerst hinfällt.
+ *
+ * Der eigene Kasten hat einen kräftigen eigenen Grund: Text direkt auf verwischtem
+ * Inhalt ist auch bei starker Unschärfe schwer zu lesen.
+ */
+function AufbauHinweis() {
+  return (
+    <div className="pointer-events-none sticky top-[42vh] z-10 flex justify-center px-5">
+      <div className="w-full max-w-[560px] border border-border bg-background/97 px-7 py-8 text-center shadow-[0_24px_60px_hsl(0_0%_0%/0.55)] sm:px-10 sm:py-10">
+        <p className="kinetic-display text-[26px] leading-tight text-foreground sm:text-[32px]">
+          Diese Seite ist noch im Aufbau.
+        </p>
+        <p className="mt-4 text-[15px] leading-[1.6] text-foreground/75 sm:text-base">
+          Die Community startet am{" "}
+          <span className="font-semibold text-foreground">{START_LABEL}</span>.
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -125,6 +169,22 @@ export default function Community() {
         )}
       />
 
+      {IM_AUFBAU && <AufbauHinweis />}
+
+      {/* Der eigentliche Seiteninhalt. Im Aufbau-Zustand liegt er hinter Milchglas:
+          `blur` macht ihn unscharf, `pointer-events-none` verhindert Klicks, und
+          `inert` nimmt ihn zusätzlich aus Tastaturfokus und Vorlesereihenfolge —
+          sonst könnte man sich mit der Tabulatortaste durch unsichtbare Felder
+          hangeln und ins Nichts absenden. Der leichte Grauschleier darüber senkt
+          den Kontrast so weit, dass der scharfe Hinweis klar davor steht. */}
+      <div
+        className={
+          IM_AUFBAU
+            ? "pointer-events-none select-none blur-[6px] saturate-[0.9] sm:blur-[8px]"
+            : undefined
+        }
+        inert={IM_AUFBAU}
+      >
       <div className={SITE_CONTAINER}>
         {/* Hero: Aussage links, Portrait rechts. Das Bild bekommt bewusst fast
             genauso viel Fläche wie der Text — es ist hier das Vertrauenselement,
@@ -221,6 +281,7 @@ export default function Community() {
             <Handlung id="warteliste-abschluss" position="community-abschluss" />
           </div>
         </section>
+      </div>
       </div>
     </PageShell>
   );
