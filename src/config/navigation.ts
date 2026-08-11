@@ -237,6 +237,14 @@ export const siteRoutes: RouteDefinition[] = [
   // Eingeloggter Bereich: eigene Domain (app.kitech-software.de über src/proxy.ts),
   // gehört nie in den Index.
   { path: "/app", indexable: false, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.1 },
+
+  // LinkedIn-"Featured"-Landingpages, je eigene Domain über src/proxy.ts
+  // (funnel.kitech-software.de, fokus.kitech-software.de). Bewusst nicht in
+  // mainNavigation/footerNavigation — reine Kampagnenseiten ohne
+  // Website-internen Zugang, siehe Ausnahme im Routen-Test. noindex, solange
+  // Pattern-Interrupt-Text Platzhalter ist (siehe src/data/funnel.ts, fokus.ts).
+  { path: "/funnel", indexable: false, lastModified: "2026-08-11", changeFrequency: "monthly", priority: 0.4 },
+  { path: "/fokus", indexable: false, lastModified: "2026-08-11", changeFrequency: "monthly", priority: 0.4 },
 ];
 
 /**
