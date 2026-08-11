@@ -75,7 +75,7 @@ export default function Leistungen() {
               </span>
 
               <div className="min-w-0">
-                <h3 className="kinetic-display text-balance text-[22px] leading-[1.15] text-foreground sm:text-[27px]">
+                <h3 className="kinetic-display text-balance text-h4 leading-[1.15] text-foreground sm:text-[27px]">
                   {service.title}
                 </h3>
                 <p className="mt-4 max-w-[560px] text-pretty text-[15px] leading-[1.65] text-foreground/82">
@@ -87,7 +87,7 @@ export default function Leistungen() {
                 {service.bullets.map((bullet) => (
                   <li
                     key={bullet}
-                    className="flex gap-3 text-[13px] leading-[1.5] text-muted-foreground"
+                    className="flex gap-3 text-fliess leading-[1.5] text-muted-foreground"
                   >
                     <span className="mt-[7px] h-1 w-1 shrink-0 bg-accent" aria-hidden="true" />
                     {bullet}
@@ -104,7 +104,7 @@ export default function Leistungen() {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="zielgruppen">
         <h2
           id="zielgruppen"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           Zwei Ausgangslagen, zwei Wege.
         </h2>
@@ -124,7 +124,7 @@ export default function Leistungen() {
       {/* Technologie: eine Zeile Belege, kein Kachelraster. Der Stack verkauft
           nichts — er beantwortet nur die Frage, worauf das Ganze läuft. */}
       <section className={`${SITE_CONTAINER} pb-20 sm:pb-24`} aria-labelledby="stack">
-        <h2 id="stack" className="text-[11px] uppercase tracking-wide text-muted-foreground">
+        <h2 id="stack" className="text-mini uppercase tracking-wide text-muted-foreground">
           Worauf es läuft
         </h2>
         <ul className="mt-5 flex flex-wrap gap-3">

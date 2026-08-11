@@ -50,7 +50,7 @@ export default function Karriere() {
       <section className={`${SITE_CONTAINER} py-14 sm:py-16`} aria-labelledby="stellen">
         <h2
           id="stellen"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[32px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {jobs.length} offene {jobs.length === 1 ? "Stelle" : "Stellen"}
         </h2>
@@ -70,7 +70,7 @@ export default function Karriere() {
                     {job.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[620px] text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+                  <p className="mt-3 max-w-[620px] text-pretty text-fliess leading-[1.6] text-muted-foreground">
                     {job.teaser}
                   </p>
 
@@ -86,7 +86,7 @@ export default function Karriere() {
                   </div>
                 </div>
 
-                <span className="inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-foreground">
+                <span className="inline-flex shrink-0 items-center gap-2 text-fliess font-semibold text-foreground">
                   Stelle ansehen
                   <ArrowRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -106,7 +106,7 @@ export default function Karriere() {
           <div className="max-w-[560px]">
             <h2
               id="initiativ"
-              className="kinetic-display text-balance text-[24px] leading-[1.12] text-foreground sm:text-[30px]"
+              className="kinetic-display text-balance text-h3 leading-[1.12] text-foreground sm:text-[30px]"
             >
               Nichts dabei, aber du kannst etwas, das wir brauchen?
             </h2>
@@ -121,10 +121,10 @@ export default function Karriere() {
             className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
-              <span className="text-[13px] font-semibold leading-tight">
+              <span className="text-fliess font-semibold leading-tight">
                 Initiativ bewerben
               </span>
-              <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
+              <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
                 {company.email.general}
               </span>
             </span>

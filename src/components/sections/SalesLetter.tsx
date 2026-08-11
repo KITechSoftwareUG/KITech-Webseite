@@ -28,7 +28,7 @@ function ImageSlot({ image }: { image: NonNullable<SalesLetterBlock["image"]> })
       <img
         src={image.src}
         alt={image.alt}
-        className="w-full rounded-2xl object-cover shadow-card ring-1 ring-border"
+        className="w-full rounded-lg object-cover border border-border"
         loading="lazy"
       />
     );
@@ -37,8 +37,8 @@ function ImageSlot({ image }: { image: NonNullable<SalesLetterBlock["image"]> })
   // Platzhalterfläche: hellgrauer Grund statt des früheren dunklen Verlaufs.
   // Gestrichelte Kante, damit sie sichtbar als "noch nicht befüllt" liest.
   return (
-    <div className="relative flex aspect-[3/4] w-full items-center justify-center rounded-2xl border border-dashed border-border bg-surface-strong">
-      <span className="px-4 text-center text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+    <div className="relative flex aspect-[3/4] w-full items-center justify-center rounded-lg border border-dashed border-border bg-surface-strong">
+      <span className="px-4 text-center text-mini font-semibold uppercase tracking-wide text-muted-foreground">
         Bild von Ayham
         <br />
         folgt
@@ -53,11 +53,11 @@ function Block({ block }: { block: SalesLetterBlock }) {
       {/* Überzeile als dunkelblaue Pille: der einzige Farbtupfer im Textfluss, und
           das einzige Element, das hier weißen Text tragen darf. */}
       {block.kicker && (
-        <span className="mb-4 block w-fit rounded-full bg-primary px-3.5 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
+        <span className="mb-4 block w-fit rounded-full bg-primary px-3.5 py-1 text-mini font-bold uppercase tracking-wide text-primary-foreground">
           {block.kicker}
         </span>
       )}
-      <h2 className="kinetic-display text-balance text-[26px] leading-[1.14] text-foreground sm:text-[34px]">
+      <h2 className="kinetic-display text-balance text-h3 leading-[1.14] text-foreground sm:text-[36px]">
         {block.heading}
       </h2>
       <div className="mt-6 space-y-4">
@@ -128,14 +128,14 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
       {/* Hero */}
       <header>
         <div className={`${SITE_CONTAINER} pb-20 pt-14 sm:pb-28 sm:pt-20`}>
-          <span className="mb-5 block w-fit rounded-full bg-primary px-4 py-1.5 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
+          <span className="mb-5 block w-fit rounded-full bg-primary px-4 py-1.5 text-mini font-bold uppercase tracking-wide text-primary-foreground">
             {content.hero.badge}
           </span>
 
           {/* Hero-Überschrift in Versalien — prägendster Zug der Vorlage. Der
               hervorgehobene Teil steht jetzt im dunkelblauen Marker statt im
               dunklen; weißer Text gehört im hellen Layout nur auf Dunkelblau. */}
-          <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[34px] uppercase leading-[1.08] text-foreground sm:text-[54px]">
+          <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[36px] uppercase leading-[1.08] text-foreground sm:text-[54px]">
             {content.hero.headline}{" "}
             <span className="box-decoration-clone rounded-lg bg-primary px-2.5 pb-1 text-primary-foreground">
               {content.hero.headlineHighlight}
@@ -154,10 +154,10 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
             className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
-              <span className="text-[13px] font-bold leading-tight">{content.hero.ctaLabel}</span>
+              <span className="text-fliess font-bold leading-tight">{content.hero.ctaLabel}</span>
               {/* Der Hinweis steht auf Dunkelblau: aufgehellte Weißstufe statt einer
                   Grauabstufung, die auf farbigem Grund schmutzig wirkt. */}
-              <span className="mt-1 text-[11px] font-normal leading-tight text-primary-foreground/75">
+              <span className="mt-1 text-mini font-normal leading-tight text-primary-foreground/75">
                 {content.hero.ctaHint}
               </span>
             </span>
@@ -183,9 +183,9 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
           die frühere Trennlinie. */}
       <section className="bg-surface py-20 sm:py-24">
         <div className={SITE_CONTAINER}>
-          <div className="flex flex-col items-start gap-8 rounded-2xl bg-white p-8 shadow-card ring-1 ring-border sm:p-12 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col items-start gap-8 rounded-lg bg-white p-8 border border-border sm:p-12 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-[560px]">
-              <h2 className="kinetic-display text-balance text-[26px] leading-[1.12] text-foreground sm:text-[34px]">
+              <h2 className="kinetic-display text-balance text-h3 leading-[1.12] text-foreground sm:text-[36px]">
                 {content.closing.heading}
               </h2>
               <p className="mt-4 text-pretty text-[15px] font-normal leading-[1.65] text-muted-foreground">
@@ -200,10 +200,10 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
               className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
-                <span className="text-[13px] font-bold leading-tight">
+                <span className="text-fliess font-bold leading-tight">
                   {content.closing.ctaLabel}
                 </span>
-                <span className="mt-1 text-[11px] font-normal leading-tight text-primary-foreground/75">
+                <span className="mt-1 text-mini font-normal leading-tight text-primary-foreground/75">
                   {content.closing.ctaHint}
                 </span>
               </span>

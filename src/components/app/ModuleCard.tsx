@@ -14,7 +14,7 @@ export function ModuleCard({ module }: { module: AppModule }) {
   const Icon = module.icon;
 
   return (
-    <article className="relative flex flex-col border border-border bg-card px-6 pb-7 pt-8 shadow-[0_20px_50px_hsl(0_0%_0%/0.35)] transition-colors hover:border-primary/60">
+    <article className="relative flex flex-col border border-border bg-surface px-6 pb-7 pt-8 shadow-[0_20px_50px_hsl(0_0%_0%/0.35)] transition-colors hover:border-primary/60">
       <span className="kinetic-data absolute right-0 top-0 bg-accent px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
         In Arbeit
       </span>

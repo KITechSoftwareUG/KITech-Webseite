@@ -62,10 +62,10 @@ export function Segment({ content }: { content: SegmentContent }) {
           className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <span className="flex flex-col text-left">
-            <span className="text-[13px] font-semibold leading-tight">
+            <span className="text-fliess font-semibold leading-tight">
               Kostenloses Erstgespräch buchen
             </span>
-            <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
+            <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
               30 Minuten, unverbindlich
             </span>
           </span>
@@ -79,7 +79,7 @@ export function Segment({ content }: { content: SegmentContent }) {
       <section className={`${SITE_CONTAINER} py-16 sm:py-20`} aria-labelledby="ausgangslage">
         <h2
           id="ausgangslage"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {content.painHeading}
         </h2>
@@ -88,7 +88,7 @@ export function Segment({ content }: { content: SegmentContent }) {
           {content.painPoints.map((point, index) => (
             <li
               key={point}
-              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-[19px] ${
+              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-lead ${
                 index > 0 ? "border-t border-border/60" : ""
               }`}
             >
@@ -102,7 +102,7 @@ export function Segment({ content }: { content: SegmentContent }) {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="leistungsumfang">
         <h2
           id="leistungsumfang"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {content.capabilityHeading}
         </h2>
@@ -110,14 +110,14 @@ export function Segment({ content }: { content: SegmentContent }) {
         <ul className="mt-9 grid gap-px border border-border bg-border sm:grid-cols-2">
           {content.capabilities.map((capability) => (
             <li key={capability.title} className="bg-background p-7">
-              <h3 className="text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+              <h3 className="text-lead font-semibold leading-snug text-foreground sm:text-lead">
                 {capability.title}
               </h3>
-              <p className="mt-3 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+              <p className="mt-3 text-pretty text-fliess leading-[1.6] text-muted-foreground">
                 {capability.description}
               </p>
               {capability.stack && (
-                <p className="kinetic-data mt-4 text-[11px] uppercase tracking-wide text-accent">
+                <p className="kinetic-data mt-4 text-mini uppercase tracking-wide text-accent">
                   {capability.stack}
                 </p>
               )}
@@ -131,7 +131,7 @@ export function Segment({ content }: { content: SegmentContent }) {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="ablauf">
         <h2
           id="ablauf"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {content.processHeading}
         </h2>
@@ -139,13 +139,13 @@ export function Segment({ content }: { content: SegmentContent }) {
         <ol className="mt-9 grid gap-px border border-border bg-border md:grid-cols-3">
           {content.process.map((step) => (
             <li key={step.number} className="bg-background p-7">
-              <span className="kinetic-data text-[26px] font-light leading-none text-accent">
+              <span className="kinetic-data text-h3 font-light leading-none text-accent">
                 {step.number}
               </span>
-              <h3 className="mt-5 text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+              <h3 className="mt-5 text-lead font-semibold leading-snug text-foreground sm:text-lead">
                 {step.title}
               </h3>
-              <p className="mt-3 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+              <p className="mt-3 text-pretty text-fliess leading-[1.6] text-muted-foreground">
                 {step.description}
               </p>
             </li>
@@ -157,7 +157,7 @@ export function Segment({ content }: { content: SegmentContent }) {
             den langen Text. */}
         <Link
           href={content.letter.href}
-          className="group mt-10 inline-flex items-center gap-3 border border-border px-5 py-4 text-[14px] text-foreground transition-colors hover:border-primary hover:text-primary"
+          className="group mt-10 inline-flex items-center gap-3 border border-border px-5 py-4 text-fliess text-foreground transition-colors hover:border-primary hover:text-primary"
         >
           {content.letter.label}
           <ArrowRight

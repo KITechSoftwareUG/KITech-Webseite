@@ -113,7 +113,7 @@ const trustBadges = [
 export function EnterpriseCloud() {
   return (
     <section
-      className="relative overflow-hidden py-20 lg:py-28 bg-card/30 border-y border-border"
+      className="relative overflow-hidden py-20 lg:py-28 bg-surface border-y border-border"
       aria-labelledby="enterprise-cloud-heading"
     >
       <StructuredData data={getEnterpriseCloudItemListSchema(enterpriseCloudPlatforms.map((p) => ({ ...p, areaServed: [...p.areaServed] })))} />
@@ -153,11 +153,11 @@ export function EnterpriseCloud() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08, ease: "easeOut" }}
-              className="group bg-background rounded-2xl border border-border p-6 lg:p-8 hover:border-enterprise-accent/50 transition-colors"
+              className="group bg-background rounded-lg border border-border p-6 lg:p-8 hover:border-enterprise-accent/50 transition-colors"
             >
               <div className="flex items-start justify-between mb-4 gap-4">
                 <h3 className="text-xl font-medium text-foreground">{p.name}</h3>
-                <span className="kinetic-data shrink-0 text-[10px] uppercase px-2 py-1 rounded-full border border-enterprise-accent/30 text-enterprise-accent bg-enterprise-accent/5">
+                <span className="kinetic-data shrink-0 text-mini uppercase px-2 py-1 rounded-full border border-enterprise-accent/30 text-enterprise-accent bg-enterprise-accent/5">
                   {p.badge}
                 </span>
               </div>

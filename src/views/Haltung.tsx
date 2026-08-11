@@ -67,7 +67,7 @@ export default function Haltung() {
           <img
             src={founderInfo.imageUrl}
             alt={`${founderInfo.name}, ${founderInfo.role} von KITech Software`}
-            className="portrait-fade w-full max-w-[300px] border border-border bg-[linear-gradient(168deg,hsl(245_28%_13%)_0%,hsl(243_20%_9%)_100%)] object-contain object-bottom"
+            className="portrait-fade w-full max-w-[300px] border border-border bg-surface object-contain object-bottom"
           />
 
           <div className="min-w-0">
@@ -75,7 +75,7 @@ export default function Haltung() {
               Der Gründer
             </h2>
 
-            <blockquote className="kinetic-display text-balance text-[24px] leading-[1.25] text-foreground sm:text-[32px]">
+            <blockquote className="kinetic-display text-balance text-h3 leading-[1.25] text-foreground sm:text-[36px]">
               „Ich habe zu oft gesehen, wie sechsstellige Beträge in Projekte gehen, die in
               einer schicken Demo enden und nie in der Bilanz ankommen. Mittelstand kann
               sich das nicht leisten.“
@@ -110,7 +110,7 @@ export default function Haltung() {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="werte">
         <h2
           id="werte"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           Wonach wir entscheiden.
         </h2>
@@ -118,7 +118,7 @@ export default function Haltung() {
         <dl className="mt-10 divide-y divide-border/60 border-y border-border/60">
           {principles.map((principle) => (
             <div key={principle.title} className="grid gap-3 py-7 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-10">
-              <dt className="text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+              <dt className="text-lead font-semibold leading-snug text-foreground sm:text-lead">
                 {principle.title}
               </dt>
               <dd className="max-w-[620px] text-pretty text-[15px] leading-[1.6] text-muted-foreground">
@@ -134,7 +134,7 @@ export default function Haltung() {
       <section className={`${SITE_CONTAINER} pb-20 sm:pb-24`} aria-labelledby="zusagen">
         <h2
           id="zusagen"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           Was ihr in jedem Projekt bekommt.
         </h2>
@@ -147,7 +147,7 @@ export default function Haltung() {
           ))}
         </ul>
 
-        <p className="mt-8 text-[14px] leading-[1.6] text-muted-foreground">
+        <p className="mt-8 text-fliess leading-[1.6] text-muted-foreground">
           Wie das in echten Projekten aussieht, steht bei den{" "}
           <Link href="/referenzen" className="text-foreground underline underline-offset-4 hover:text-primary">
             Referenzen

@@ -105,7 +105,7 @@ export default function Home() {
           {/* Der Hinweis steht in der Vorlage nicht — er gehoert zu unserem
               Inhalt und bleibt deshalb. Klein gesetzt, damit er die Geometrie
               des Hero nicht verschiebt. */}
-          <p className="mt-3 text-[13px] font-normal leading-tight text-muted-foreground">
+          <p className="mt-3 text-fliess font-normal leading-tight text-muted-foreground">
             30 Minuten, unverbindlich
           </p>
 

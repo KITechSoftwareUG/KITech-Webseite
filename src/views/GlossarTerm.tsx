@@ -37,13 +37,13 @@ export default function GlossarTerm({ term }: { term: GlossaryTerm }) {
           Alle Begriffe
         </Link>
 
-        <h1 className="kinetic-display kinetic-morph-in mt-8 text-balance text-[34px] leading-[1.1] text-foreground sm:text-[44px]">
+        <h1 className="kinetic-display kinetic-morph-in mt-8 text-balance text-[36px] leading-[1.1] text-foreground sm:text-[44px]">
           {term.term}
         </h1>
 
         {/* Die Kurzdefinition steht als Lead direkt unter der Überschrift und
             wiederholt sich bewusst nicht im ersten Abschnitt darunter. */}
-        <p className="mt-6 text-pretty text-[17px] leading-[1.55] text-foreground/90 sm:text-[19px]">
+        <p className="mt-6 text-pretty text-lead leading-[1.55] text-foreground/90 sm:text-lead">
           {term.shortDefinition}
         </p>
 
@@ -86,7 +86,7 @@ export default function GlossarTerm({ term }: { term: GlossaryTerm }) {
 
         {verwandte.length > 0 && (
           <nav className="mt-14 border-t border-border pt-10" aria-label="Verwandte Begriffe">
-            <h2 className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <h2 className="text-mini uppercase tracking-wide text-muted-foreground">
               Verwandte Begriffe
             </h2>
             <ul className="mt-5 flex flex-wrap gap-3">
@@ -94,7 +94,7 @@ export default function GlossarTerm({ term }: { term: GlossaryTerm }) {
                 <li key={eintrag.slug}>
                   <Link
                     href={`/glossar/${eintrag.slug}`}
-                    className="inline-flex border border-border px-3 py-2 text-[13px] text-foreground/85 transition-colors hover:border-primary hover:text-primary"
+                    className="inline-flex border border-border px-3 py-2 text-fliess text-foreground/85 transition-colors hover:border-primary hover:text-primary"
                   >
                     {eintrag.term}
                   </Link>

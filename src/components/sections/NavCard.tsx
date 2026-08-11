@@ -9,9 +9,10 @@ import { ArrowRight } from "lucide-react";
  * Alt-Seiten ist genau die Baukasten-Optik, die hier nicht wiederkommen soll.
  * Was die Kachel unterscheidet, ist der Text, nicht ein dekoratives Symbol.
  *
- * Die Kachel selbst ist seit dem hellen Design eine Karte im Standardschnitt
- * (`rounded-2xl`, weiss, Ring, weicher Schatten) — dieselbe Form wie die
- * Kundenkarten. Scharfkantige Kaesten wirken auf hellem Grund unfertig.
+ * Die Kachel ist **flach**: kein Rahmen, kein Schatten, kein eigener Grund.
+ * Die Design-Vorlage arbeitet auf ihren Unterseiten durchgehend ohne solche
+ * Kaesten — Struktur entsteht dort ueber Typografie und Abstaende. Getrennt
+ * werden die Kacheln nur durch eine feine Oberkante.
  */
 export function NavCard({
   href,
@@ -28,23 +29,23 @@ export function NavCard({
   return (
     <Link
       href={href}
-      className="group flex min-h-[220px] flex-col justify-between rounded-2xl bg-white p-7 shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated sm:p-8"
+      className="group flex min-h-[200px] flex-col justify-between border-t border-border pt-7 transition-opacity duration-200 hover:opacity-80"
     >
       <div>
         {eyebrow && (
-          <span className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className="block text-mini font-semibold uppercase tracking-wide text-muted-foreground">
             {eyebrow}
           </span>
         )}
         <h3
-          className={`kinetic-display text-balance text-[22px] leading-[1.15] text-foreground sm:text-[26px] ${
+          className={`kinetic-display text-balance text-h3 text-foreground ${
             eyebrow ? "mt-3" : ""
           }`}
         >
           {title}
         </h3>
         {description && (
-          <p className="mt-4 max-w-[420px] text-pretty text-[14px] font-normal leading-[1.6] text-muted-foreground">
+          <p className="mt-4 max-w-[420px] text-pretty text-fliess font-normal text-muted-foreground">
             {description}
           </p>
         )}
@@ -54,7 +55,7 @@ export function NavCard({
           verschachteltes Bedienelement waere fuer Tastatur und Screenreader
           doppelt. Deshalb `span` mit Button-Aussehen, das am Hover der Kachel
           haengt. Weisse Schrift steht auf `bg-primary` und bleibt lesbar. */}
-      <span className="mt-8 inline-flex h-[46px] w-fit items-center gap-2 rounded-full bg-primary px-6 text-[14px] font-bold text-primary-foreground transition-colors group-hover:bg-primary/90">
+      <span className="mt-8 inline-flex h-[54px] w-fit items-center gap-2 rounded-[100px] bg-primary px-[50px] text-lead font-medium text-primary-foreground transition-colors group-hover:bg-primary/90">
         Ansehen
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-1"

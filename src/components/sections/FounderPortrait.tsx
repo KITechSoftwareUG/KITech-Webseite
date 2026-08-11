@@ -99,15 +99,15 @@ export function FounderPortrait({ variant, className = "" }: Props) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
-          className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[90%] rounded-2xl bg-white ring-1 ring-border p-3 sm:p-4 shadow-elevated"
+          className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[90%] rounded-lg bg-white border border-border p-3 sm:p-4"
         >
-          <p className="text-[11px] sm:text-xs font-normal text-muted-foreground leading-snug italic mb-2">
+          <p className="text-mini sm:text-xs font-normal text-muted-foreground leading-snug italic mb-2">
             „{QUOTE_SHORT}"
           </p>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-semibold text-foreground">{NAME}</p>
-              <p className="text-[10px] font-normal text-muted-foreground">{ROLE}</p>
+              <p className="text-mini font-normal text-muted-foreground">{ROLE}</p>
             </div>
             <div className="h-px flex-1 mx-3 bg-border" />
             <a
@@ -119,7 +119,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
             >
               <Linkedin className="h-4 w-4" />
             </a>
-            <span className="text-[10px] font-bold text-primary tracking-widest">KITECH</span>
+            <span className="text-mini font-bold text-primary tracking-widest">KITECH</span>
           </div>
         </motion.div>
       </motion.div>

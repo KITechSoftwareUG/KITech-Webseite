@@ -56,7 +56,7 @@ function TeamTile({ member }: { member: TeamMember }) {
     : EMPTY_GROUND;
 
   return (
-    <li className="relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated">
+    <li className="relative flex flex-col overflow-hidden rounded-lg bg-white border border-border">
       {/* Feste Medienhoehe statt Seitenverhaeltnis: so bleibt der Block flach,
           egal wie breit die Spalten gerade sind. */}
       <div className={`relative h-[190px] overflow-hidden sm:h-[240px] lg:h-[260px] ${ground}`}>
@@ -90,10 +90,10 @@ function TeamTile({ member }: { member: TeamMember }) {
           ein Satz, LinkedIn. `mt-auto` am Link haelt die Verlinkung auf einer
           Linie, auch wenn die Saetze unterschiedlich lang umbrechen. */}
       <div className="flex flex-1 flex-col border-t border-border px-4 py-4 sm:px-5">
-        <span className="text-[13px] font-bold leading-tight text-foreground sm:text-[14px]">
+        <span className="text-fliess font-bold leading-tight text-foreground sm:text-fliess">
           {member.name}
         </span>
-        <span className="mt-1 text-[11px] font-normal leading-tight text-muted-foreground sm:text-[12px]">
+        <span className="mt-1 text-mini font-normal leading-tight text-muted-foreground sm:text-[12px]">
           {member.role}
         </span>
         <p className="mt-2.5 text-pretty text-[11.5px] font-normal leading-[1.55] text-muted-foreground sm:text-[12.5px]">
@@ -128,12 +128,12 @@ export function TeamSection() {
             Als dunkelblaue Pille statt als grauer Kasten — auf hellem Grund ist der
             umrandete Kasten kaum sichtbar, die Signalfarbe traegt ihn. */}
         <header className="max-w-[620px]">
-          <span className="mb-4 block w-fit rounded-full bg-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
+          <span className="mb-4 block w-fit rounded-full bg-primary px-3 py-1 text-mini font-bold uppercase tracking-wide text-primary-foreground">
             Wer wir sind
           </span>
           <h2
             id="team-heading"
-            className="kinetic-display text-balance text-[32px] leading-[1.1] text-foreground sm:text-[42px]"
+            className="kinetic-display text-balance text-[36px] leading-[1.1] text-foreground sm:text-[42px]"
           >
             Hier das KITech Team
           </h2>

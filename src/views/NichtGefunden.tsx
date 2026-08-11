@@ -25,11 +25,11 @@ export default function NichtGefunden() {
           404
         </p>
 
-        <h1 className="kinetic-display kinetic-morph-in mt-6 max-w-[720px] text-balance text-[32px] leading-[1.1] text-foreground sm:text-[46px]">
+        <h1 className="kinetic-display kinetic-morph-in mt-6 max-w-[720px] text-balance text-[36px] leading-[1.1] text-foreground sm:text-[46px]">
           Diese Seite gibt es nicht.
         </h1>
 
-        <p className="mt-6 max-w-[560px] text-pretty text-[17px] leading-[1.5] text-foreground/85">
+        <p className="mt-6 max-w-[560px] text-pretty text-lead leading-[1.5] text-foreground/85">
           Vielleicht ist die Adresse veraltet, vielleicht hat sich ein Zeichen vertippt.
           Hier geht es weiter:
         </p>
@@ -53,7 +53,7 @@ export default function NichtGefunden() {
                 />
               </span>
               {entry.description && (
-                <span className="mt-2 block text-[13px] leading-[1.5] text-muted-foreground">
+                <span className="mt-2 block text-fliess leading-[1.5] text-muted-foreground">
                   {entry.description}
                 </span>
               )}
@@ -63,7 +63,7 @@ export default function NichtGefunden() {
 
         <Link
           href="/"
-          className="mt-10 inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          className="mt-10 inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-fliess font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Zur Startseite
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

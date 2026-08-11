@@ -93,6 +93,28 @@ export default {
       maxWidth: {
         // Containerbreite der Vorlage.
         site: "1170px",
+        // Textspalte der Vorlage auf Unterseiten (Fliesstext, zentriert).
+        lesespalte: "540px",
+      },
+      /*
+       * Typo-Skala, aus der Vorlage gemessen (acquisition.com, Start- und
+       * Unterseiten). Sie ist bewusst eng: die Referenz kommt mit acht Stufen
+       * aus, unsere Seiten hatten achtzehn verschiedene Pixelwerte.
+       *
+       * Jede Stufe bringt ihre Zeilenhoehe mit, damit sie nicht an jeder
+       * Fundstelle neu gesetzt werden muss.
+       */
+      fontSize: {
+        hero: ["50px", { lineHeight: "57.5px", fontWeight: "800" }],
+        h1: ["48px", { lineHeight: "55.2px", fontWeight: "800" }],
+        h2: ["36px", { lineHeight: "41.4px", fontWeight: "800" }],
+        h3: ["24px", { lineHeight: "27.6px", fontWeight: "800" }],
+        h4: ["20px", { lineHeight: "23px", fontWeight: "800" }],
+        // 21/30 ist der Einordnungssatz unter der Hero-Ueberschrift.
+        subline: ["21px", { lineHeight: "30px" }],
+        lead: ["18px", { lineHeight: "27px" }],
+        fliess: ["15px", { lineHeight: "22.5px" }],
+        mini: ["12px", { lineHeight: "15.6px" }],
       },
       backgroundImage: {
         "gradient-conic": "conic-gradient(var(--conic-position), var(--tw-gradient-stops))",

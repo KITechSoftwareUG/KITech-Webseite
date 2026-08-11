@@ -20,7 +20,7 @@ export function StickyMobileCTA() {
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-md shadow-elevated transition-transform duration-300 ${
+      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-md transition-transform duration-300 ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
       role="region"

@@ -44,8 +44,8 @@ export function Funnel() {
           className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <span className="flex flex-col text-left">
-            <span className="text-[13px] font-semibold leading-tight">Erstgespräch buchen</span>
-            <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
+            <span className="text-fliess font-semibold leading-tight">Erstgespräch buchen</span>
+            <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
               30 Minuten, unverbindlich
             </span>
           </span>
@@ -57,7 +57,7 @@ export function Funnel() {
       <section className={`${SITE_CONTAINER} pb-16 pt-4`} aria-labelledby="verbrannt">
         <h2
           id="verbrannt"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.patternInterrupt.heading}
         </h2>
@@ -70,7 +70,7 @@ export function Funnel() {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="problem">
         <h2
           id="problem"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.painHeading}
         </h2>
@@ -79,7 +79,7 @@ export function Funnel() {
           {c.painPoints.map((point, index) => (
             <li
               key={point}
-              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-[19px] ${
+              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-lead ${
                 index > 0 ? "border-t border-border/60" : ""
               }`}
             >
@@ -97,7 +97,7 @@ export function Funnel() {
       <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="loesung">
         <h2
           id="loesung"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.solutionHeading}
         </h2>
@@ -108,17 +108,17 @@ export function Funnel() {
         <ul className="mt-9 grid gap-px border border-border bg-border sm:grid-cols-2">
           {c.solutionItems.map((item) => (
             <li key={item.title} className="bg-background p-7">
-              <h3 className="text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+              <h3 className="text-lead font-semibold leading-snug text-foreground sm:text-lead">
                 {item.title}
               </h3>
-              <p className="mt-3 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+              <p className="mt-3 text-pretty text-fliess leading-[1.6] text-muted-foreground">
                 {item.description}
               </p>
             </li>
           ))}
         </ul>
 
-        <p className="mt-9 max-w-[640px] text-balance text-[19px] font-semibold leading-snug text-foreground sm:text-[22px]">
+        <p className="mt-9 max-w-[640px] text-balance text-lead font-semibold leading-snug text-foreground sm:text-h4">
           {c.solutionOutro}
         </p>
       </section>

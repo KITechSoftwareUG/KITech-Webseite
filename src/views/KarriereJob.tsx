@@ -30,7 +30,7 @@ import { BASE_URL } from "@/lib/metadata";
 function Liste({ title, items }: { title: string; items: string[] }) {
   return (
     <section>
-      <h2 className="kinetic-display text-[20px] leading-[1.2] text-foreground sm:text-[24px]">
+      <h2 className="kinetic-display text-[20px] leading-[1.2] text-foreground sm:text-h3">
         {title}
       </h2>
       <ul className="mt-5 space-y-3">
@@ -75,13 +75,13 @@ export default function KarriereJob({ job }: { job: Job }) {
           Alle Stellen
         </Link>
 
-        <h1 className="kinetic-display kinetic-morph-in mt-8 max-w-[820px] text-balance text-[32px] leading-[1.1] text-foreground sm:text-[44px]">
+        <h1 className="kinetic-display kinetic-morph-in mt-8 max-w-[820px] text-balance text-[36px] leading-[1.1] text-foreground sm:text-[44px]">
           {job.title}
         </h1>
 
         {/* Eckdaten direkt unter der Überschrift: das sind die Angaben, wegen
             denen jemand weiterliest oder eben nicht. */}
-        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-foreground/75">
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-fliess text-foreground/75">
           <span className="inline-flex items-center gap-2">
             <Clock className="h-4 w-4 text-accent" aria-hidden="true" />
             {job.employmentType}
@@ -100,7 +100,7 @@ export default function KarriereJob({ job }: { job: Job }) {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:gap-14">
           <div className="min-w-0 space-y-12">
-            <p className="max-w-[640px] text-pretty text-[17px] leading-[1.6] text-foreground/90">
+            <p className="max-w-[640px] text-pretty text-lead leading-[1.6] text-foreground/90">
               {job.intro}
             </p>
 
@@ -115,7 +115,7 @@ export default function KarriereJob({ job }: { job: Job }) {
             <h2 className="kinetic-display text-[20px] leading-[1.2] text-foreground sm:text-[23px]">
               Bewerben
             </h2>
-            <p className="mt-4 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+            <p className="mt-4 text-pretty text-fliess leading-[1.6] text-muted-foreground">
               Ein Absatz dazu, warum du und warum wir. Lebenslauf, wenn du einen hast.
               Anschreiben nach Vorlage lesen wir ohnehin nicht.
             </p>
@@ -125,10 +125,10 @@ export default function KarriereJob({ job }: { job: Job }) {
               className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
-                <span className="text-[13px] font-semibold leading-tight">
+                <span className="text-fliess font-semibold leading-tight">
                   Bewerbung schreiben
                 </span>
-                <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
+                <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
                   {company.email.general}
                 </span>
               </span>

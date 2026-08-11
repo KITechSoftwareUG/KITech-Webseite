@@ -26,7 +26,7 @@ import { trackEvent } from "@/lib/plausible";
  * das bewusst, ein Silhouetten-Platzhalter zog nur Aufmerksamkeit auf die Luecke.
  *
  * Seit dem Wechsel auf das helle Design (11.08.2026) ist die Karte weiss,
- * `rounded-2xl`, mit `shadow-card` und `ring-1 ring-border` — dieselbe Form wie
+ * `rounded-lg`, mit `shadow-card` und `ring-1 ring-border` — dieselbe Form wie
  * die Startseitenkarte in `ClientResults.tsx`. Vorher trug sie einen dunklen
  * Verlauf mit hartem Schlagschatten. Die Kennzahl steht jetzt in Dunkelblau, der
  * frueher lime Akzent laeuft ueberall ueber `--primary`.
@@ -49,7 +49,7 @@ export function ReferenceCard({
   // an (`shadow-elevated`) statt die Rahmenfarbe zu wechseln — auf Weiss ist die
   // Hoehenaenderung das deutlichere Signal.
   const cardClass =
-    "group relative flex h-full flex-col rounded-2xl bg-white p-6 shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated sm:p-8";
+    "group relative flex h-full flex-col rounded-lg bg-white p-6 border border-border sm:p-8";
 
   const inner = (
     <>
@@ -103,12 +103,12 @@ export function ReferenceCard({
         {result.headline.label}
       </p>
 
-      <p className="mt-5 text-pretty text-[14px] font-normal leading-[1.6] text-muted-foreground">
+      <p className="mt-5 text-pretty text-fliess font-normal leading-[1.6] text-muted-foreground">
         {result.summary}
       </p>
 
       {hasFacts && (
-        <dl className="mt-6 space-y-2.5 border-t border-border pt-5 text-[13px]">
+        <dl className="mt-6 space-y-2.5 border-t border-border pt-5 text-fliess">
           {result.duration && (
             <div className="flex items-center gap-2">
               <dt className="sr-only">Projektdauer</dt>
@@ -138,7 +138,7 @@ export function ReferenceCard({
       {/* Das belegte Kundenzitat, wo eines vorliegt. Dunkelblaue Kante statt der
           frueheren Lime-Kante — es gibt nur noch eine Akzentfarbe. */}
       {result.review && (
-        <p className="mt-5 border-l-2 border-primary pl-3.5 text-[14px] font-medium italic leading-[1.5] text-foreground">
+        <p className="mt-5 border-l-2 border-primary pl-3.5 text-fliess font-medium italic leading-[1.5] text-foreground">
           „{result.review}“
         </p>
       )}
@@ -185,10 +185,10 @@ export function ReferenceCard({
           className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-primary/25 bg-primary/[0.06] px-3.5 py-3 transition-colors hover:border-primary/60 hover:bg-primary/[0.11]"
         >
           <span className="min-w-0">
-            <span className="block text-[11px] font-bold uppercase tracking-wide text-primary">
+            <span className="block text-mini font-bold uppercase tracking-wide text-primary">
               Live im Einsatz
             </span>
-            <span className="mt-0.5 block truncate text-[13px] font-medium text-foreground">
+            <span className="mt-0.5 block truncate text-fliess font-medium text-foreground">
               {hostLabel(result.liveUrl)}
             </span>
           </span>

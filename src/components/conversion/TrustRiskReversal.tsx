@@ -41,7 +41,7 @@ const guarantees = [
  * Kicker der Seite, jede weitere Section (inkl. dieser) haelt sich daran.
  *
  * Layout-Korrektur (finale Review-Runde): die urspruengliche Version rendert alle sechs
- * Versprechen als identisch grosse "rounded-2xl border + Icon-Chip"-Karten - genau das vom
+ * Versprechen als identisch grosse "rounded-lg border + Icon-Chip"-Karten - genau das vom
  * Design-Skill verbotene "identische Card-Grid"-Muster, und auf /enterprise bereits das
  * 3./4./5. Grid dieser Art in Folge (businessProblems, useCases, platforms nutzen aehnliche
  * Rezepturen). Ersetzt durch ein kartenloses Raster: kein Rahmen, kein Hintergrund, kein
@@ -51,7 +51,7 @@ const guarantees = [
  */
 export function TrustRiskReversal() {
   return (
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border/50">
+    <section className="py-20 lg:py-28 bg-surface border-y border-border/50">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -234,7 +234,7 @@ function Intro({ onStart }: { onStart: () => void }) {
 
         <div className={`${SITE_CONTAINER} grid gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-12 lg:py-28`}>
           <div className="lg:col-span-7">
-            <span className="mb-6 block w-fit bg-primary px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-primary-foreground">
+            <span className="mb-6 block w-fit bg-primary px-3 py-1.5 text-mini font-medium uppercase tracking-wide text-primary-foreground">
               EU AI Act · Selbstcheck
             </span>
 
@@ -279,7 +279,7 @@ function Intro({ onStart }: { onStart: () => void }) {
           {/* Statt drei generischer Benefit-Kacheln: die acht Pruefpunkte selbst.
               Wer wissen will, was der Check abfragt, sieht es hier vollstaendig. */}
           <div className="lg:col-span-5">
-            <div className="border border-border bg-card/60">
+            <div className="border border-border bg-surface">
               <p className="border-b border-border px-5 py-4 text-sm font-medium text-foreground">
                 Was geprüft wird
               </p>
@@ -291,7 +291,7 @@ function Intro({ onStart }: { onStart: () => void }) {
                     </span>
                     <span className="text-sm font-light text-foreground/90">{question.label}</span>
                     {question.weight === 2 && (
-                      <span className="ml-auto shrink-0 text-[10px] uppercase tracking-wide text-accent">
+                      <span className="ml-auto shrink-0 text-mini uppercase tracking-wide text-accent">
                         Kernpflicht
                       </span>
                     )}
@@ -352,7 +352,7 @@ function Check_({
             animate={{ opacity: 1, y: 0 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
             transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 border border-border bg-card"
+            className="mt-10 border border-border bg-surface"
           >
             <div className="border-b border-border px-6 py-8 sm:px-10 sm:py-10">
               <p className="kinetic-data text-xs text-muted-foreground">
@@ -547,7 +547,7 @@ function Result({
           {/* Der eigentliche Wert des Checks: nicht die Punktzahl, sondern die
               konkrete Liste dessen, was offen ist. */}
           {todo.length > 0 ? (
-            <div className="mt-12 border border-border bg-card/60">
+            <div className="mt-12 border border-border bg-surface">
               <p className="border-b border-border px-5 py-4 text-sm font-medium text-foreground">
                 {todo.length === 1 ? "Ein offener Punkt" : `${todo.length} offene Punkte`}
               </p>
@@ -580,7 +580,7 @@ function Result({
               </ul>
             </div>
           ) : (
-            <div className="mt-12 border border-border bg-card/60 px-5 py-6">
+            <div className="mt-12 border border-border bg-surface px-5 py-6">
               <p className="text-sm font-medium text-foreground">Keine offenen Punkte</p>
               <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">
                 Alle acht Punkte haben Sie mit Ja beantwortet. Bleibt die Frage, ob die Nachweise
@@ -660,7 +660,7 @@ function EmailSummary({ percent, todo }: { percent: number; todo: number[] }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-12 border border-border bg-card/60 p-5 sm:p-6">
+    <form onSubmit={onSubmit} className="mt-12 border border-border bg-surface p-5 sm:p-6">
       <p className="text-sm font-medium text-foreground">Ergebnis per E-Mail schicken</p>
       <p className="mt-2 max-w-xl text-sm font-light leading-relaxed text-muted-foreground">
         Optional. Öffnet Ihr E-Mail-Programm mit einer fertigen Zusammenfassung — Sie entscheiden,

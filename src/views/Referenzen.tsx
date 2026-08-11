@@ -43,7 +43,7 @@ export default function Referenzen() {
       />
 
       <section className={`${SITE_CONTAINER} pb-4 pt-14 sm:pt-20`}>
-        <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[34px] leading-[1.1] text-foreground sm:text-[48px]">
+        <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[36px] leading-[1.1] text-foreground sm:text-[48px]">
           Sechs Fälle, bei denen die Zahl für sich spricht.
         </h1>
 
@@ -54,7 +54,7 @@ export default function Referenzen() {
         <div className="mt-9 grid max-w-[520px] grid-cols-2 gap-5">
           <div className="flex min-h-[150px] flex-col items-center justify-center bg-primary px-5 text-center text-primary-foreground">
             <p className="kinetic-data text-[38px] font-light leading-none">50+</p>
-            <p className="mt-3 max-w-[170px] text-[14px] font-semibold leading-[1.25]">
+            <p className="mt-3 max-w-[170px] text-fliess font-semibold leading-[1.25]">
               Projekte abgeschlossen
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function Referenzen() {
             </p>
             {/* "davon" statt "Fälle im Detail": stellt den Bezug zur 50+-Kachel
                 daneben her — das war vorher die Aussage des gestrichenen Absatzes. */}
-            <p className="mt-3 max-w-[170px] text-[14px] font-semibold leading-[1.25] text-foreground">
+            <p className="mt-3 max-w-[170px] text-fliess font-semibold leading-[1.25] text-foreground">
               davon hier im Detail
             </p>
           </div>

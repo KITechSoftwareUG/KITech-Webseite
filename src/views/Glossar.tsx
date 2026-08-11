@@ -59,10 +59,10 @@ export default function Glossar() {
                 <h3 className="kinetic-display text-[20px] leading-[1.15] text-foreground sm:text-[23px]">
                   {term.term}
                 </h3>
-                <p className="mt-4 flex-1 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+                <p className="mt-4 flex-1 text-pretty text-fliess leading-[1.6] text-muted-foreground">
                   {term.shortDefinition}
                 </p>
-                <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold text-foreground">
+                <span className="mt-6 inline-flex items-center gap-2 text-fliess font-semibold text-foreground">
                   Weiterlesen
                   <ArrowRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"

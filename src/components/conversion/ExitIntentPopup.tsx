@@ -63,7 +63,7 @@ export function ExitIntentPopup() {
       onClick={close}
     >
       <div
-        className="relative w-full max-w-lg rounded-2xl border border-border bg-background p-6 sm:p-8 shadow-elevated"
+        className="relative w-full max-w-lg rounded-lg border border-border bg-background p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <button

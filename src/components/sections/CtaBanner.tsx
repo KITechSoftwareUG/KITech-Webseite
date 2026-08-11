@@ -38,17 +38,17 @@ export function CtaBanner({
   const headingId = `cta-${position.replace(/[^a-z0-9]+/gi, "-")}`;
 
   return (
-    <section className="border-t border-border bg-background py-20 sm:py-24" aria-labelledby={headingId}>
+    <section className="border-t border-border bg-background py-[64px]" aria-labelledby={headingId}>
       <div className={SITE_CONTAINER}>
         {/* Weisse Karte auf weissem Grund: der Ring und der weiche Schatten
             heben den Block ab, ohne einen zweiten Farbton einzufuehren. So
             sitzt der Abschluss-CTA auf jeder Seite gleich, egal ob der
             Abschnitt darueber weiss oder auf `bg-surface` steht. */}
-        <div className="flex flex-col items-start gap-8 rounded-2xl bg-white p-8 shadow-card ring-1 ring-border sm:p-12 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[560px]">
             <h2
               id={headingId}
-              className="kinetic-display text-balance text-[28px] leading-[1.12] text-foreground sm:text-[36px]"
+              className="kinetic-display text-balance text-[28px] leading-[1.12] text-foreground sm:text-h2"
             >
               {heading}
             </h2>
@@ -57,7 +57,7 @@ export function CtaBanner({
                 spült den CTA weich. Übrig bleibt der Satz, der wehtut. Er steht
                 zurueckgenommen in `muted-foreground`, damit die Überschrift und
                 die dunkelblaue Pille die Aufmerksamkeit behalten. */}
-            <p className="mt-4 text-pretty text-sm font-normal leading-[1.6] text-muted-foreground sm:text-[15px]">
+            <p className="mt-4 text-pretty text-fliess font-normal text-muted-foreground">
               {text}
             </p>
           </div>
@@ -71,8 +71,8 @@ export function CtaBanner({
             className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
-              <span className="text-[13px] font-bold leading-tight">{label}</span>
-              <span className="mt-1 text-[11px] font-normal leading-tight text-primary-foreground/75">
+              <span className="text-fliess font-bold leading-tight">{label}</span>
+              <span className="mt-1 text-mini font-normal leading-tight text-primary-foreground/75">
                 {hint}
               </span>
             </span>

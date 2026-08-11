@@ -47,8 +47,8 @@ export function Fokus() {
           className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <span className="flex flex-col text-left">
-            <span className="text-[13px] font-semibold leading-tight">Workshop-Platz sichern</span>
-            <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">299 €, 60-90 Minuten</span>
+            <span className="text-fliess font-semibold leading-tight">Workshop-Platz sichern</span>
+            <span className="mt-1 text-mini leading-tight text-primary-foreground/58">299 €, 60-90 Minuten</span>
           </span>
           <ArrowRight className="h-5 w-5 shrink-0" aria-hidden="true" />
         </Link>
@@ -58,7 +58,7 @@ export function Fokus() {
       <section className={`${SITE_CONTAINER} pb-16 pt-4`} aria-labelledby="verbrannt">
         <h2
           id="verbrannt"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.patternInterrupt.heading}
         </h2>
@@ -71,7 +71,7 @@ export function Fokus() {
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="erkennung">
         <h2
           id="erkennung"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.painHeading}
         </h2>
@@ -80,7 +80,7 @@ export function Fokus() {
           {c.painPoints.map((point, index) => (
             <li
               key={point}
-              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-[19px] ${
+              className={`py-6 text-[16px] leading-[1.5] text-foreground/88 sm:text-lead ${
                 index > 0 ? "border-t border-border/60" : ""
               }`}
             >
@@ -98,7 +98,7 @@ export function Fokus() {
       <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="konzept">
         <h2
           id="konzept"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           {c.processHeading}
         </h2>
@@ -109,13 +109,13 @@ export function Fokus() {
         <ol className="mt-9 grid gap-px border border-border bg-border md:grid-cols-3">
           {c.process.map((step) => (
             <li key={step.number} className="bg-background p-7">
-              <span className="kinetic-data text-[26px] font-light leading-none text-accent">
+              <span className="kinetic-data text-h3 font-light leading-none text-accent">
                 {step.number}
               </span>
-              <h3 className="mt-5 text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+              <h3 className="mt-5 text-lead font-semibold leading-snug text-foreground sm:text-lead">
                 {step.title}
               </h3>
-              <p className="mt-3 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+              <p className="mt-3 text-pretty text-fliess leading-[1.6] text-muted-foreground">
                 {step.description}
               </p>
             </li>
@@ -129,7 +129,7 @@ export function Fokus() {
         <div className="border border-border p-8 sm:p-12">
           <h2
             id="angebot"
-            className="kinetic-display text-balance text-[24px] leading-tight text-foreground sm:text-[30px]"
+            className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[30px]"
           >
             {c.offer.title}
           </h2>
@@ -147,16 +147,16 @@ export function Fokus() {
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[13px] text-muted-foreground">{c.offer.excludes}</p>
+          <p className="mt-4 text-fliess text-muted-foreground">{c.offer.excludes}</p>
 
           <div className="mt-10 flex flex-wrap items-end gap-4 border-t border-border pt-8">
-            <span className="text-[22px] font-medium text-muted-foreground line-through">
+            <span className="text-h4 font-medium text-muted-foreground line-through">
               {c.offer.priceOld}
             </span>
             <span className="kinetic-data text-[44px] font-light leading-none text-foreground">
               {c.offer.priceNew}
             </span>
-            <span className="border border-border px-3 py-1 text-[13px] font-semibold text-foreground">
+            <span className="border border-border px-3 py-1 text-fliess font-semibold text-foreground">
               {c.offer.discountLabel}
             </span>
           </div>
@@ -167,8 +167,8 @@ export function Fokus() {
             className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
-              <span className="text-[13px] font-semibold leading-tight">Workshop-Platz sichern</span>
-              <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">299 €, 60-90 Minuten</span>
+              <span className="text-fliess font-semibold leading-tight">Workshop-Platz sichern</span>
+              <span className="mt-1 text-mini leading-tight text-primary-foreground/58">299 €, 60-90 Minuten</span>
             </span>
             <ArrowRight className="h-5 w-5 shrink-0" aria-hidden="true" />
           </Link>
@@ -182,7 +182,7 @@ export function Fokus() {
         </h2>
         <div className="grid gap-10 sm:grid-cols-2">
           <div>
-            <h3 className="text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+            <h3 className="text-lead font-semibold leading-snug text-foreground sm:text-lead">
               {c.fit.forTitle}
             </h3>
             <ul className="mt-5">
@@ -200,7 +200,7 @@ export function Fokus() {
             </ul>
           </div>
           <div>
-            <h3 className="text-[17px] font-semibold leading-snug text-foreground sm:text-[19px]">
+            <h3 className="text-lead font-semibold leading-snug text-foreground sm:text-lead">
               {c.fit.notTitle}
             </h3>
             <ul className="mt-5">

@@ -98,7 +98,7 @@ export default function Kontakt() {
             {kontaktwege.map((weg) => {
               const inhalt = (
                 <>
-                  <span className="flex items-center gap-2 text-[11px] uppercase tracking-wide text-muted-foreground">
+                  <span className="flex items-center gap-2 text-mini uppercase tracking-wide text-muted-foreground">
                     <weg.icon className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
                     {weg.label}
                   </span>
@@ -130,10 +130,10 @@ export default function Kontakt() {
               rechts, damit er nicht als fünfte Kachel unter den Kontaktdaten
               verschwindet. */}
           <div className="border border-border bg-background/40 p-7 sm:p-8">
-            <h3 className="kinetic-display text-balance text-[22px] leading-[1.15] text-foreground sm:text-[26px]">
+            <h3 className="kinetic-display text-balance text-h4 leading-[1.15] text-foreground sm:text-h3">
               Kostenloses Erstgespräch
             </h3>
-            <p className="mt-4 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+            <p className="mt-4 text-pretty text-fliess leading-[1.6] text-muted-foreground">
               Wir sehen uns einen eurer Prozesse an und rechnen durch, was Automatisierung
               dort bringt. Kein Verkaufsgespräch — am Ende steht eine Einschätzung, auch
               wenn sie „lohnt sich nicht“ lautet.
@@ -145,8 +145,8 @@ export default function Kontakt() {
               className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
-                <span className="text-[13px] font-semibold leading-tight">Termin auswählen</span>
-                <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
+                <span className="text-fliess font-semibold leading-tight">Termin auswählen</span>
+                <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
                   30 Minuten, unverbindlich
                 </span>
               </span>
@@ -156,10 +156,10 @@ export default function Kontakt() {
             {/* Direkter Draht zum Gründer — bewusst getrennt von der allgemeinen
                 Adresse oben, damit klar ist, wen man hier erreicht. */}
             <div className="mt-7 border-t border-border/60 pt-6">
-              <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              <p className="text-mini uppercase tracking-wide text-muted-foreground">
                 Direkt zu {company.founder.name}
               </p>
-              <div className="mt-3 flex flex-col gap-2.5 text-[13px]">
+              <div className="mt-3 flex flex-col gap-2.5 text-fliess">
                 <a
                   href={`mailto:${company.email.founder}`}
                   onClick={() => trackEvent("Email_Klick", { position: "kontakt-gruender" })}
@@ -190,7 +190,7 @@ export default function Kontakt() {
           </div>
         </div>
 
-        <p className="mt-10 text-[14px] leading-[1.6] text-muted-foreground">
+        <p className="mt-10 text-fliess leading-[1.6] text-muted-foreground">
           Bewerbungen laufen nicht hierüber, sondern über die{" "}
           <Link href="/karriere" className="text-foreground underline underline-offset-4 hover:text-primary">
             offenen Stellen

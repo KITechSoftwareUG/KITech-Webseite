@@ -10,8 +10,11 @@ import { SITE_CONTAINER } from "@/components/layout/site-container";
  * Baukasten und nehmen der Aussage die Wucht.
  *
  * `lead` ist deshalb kein Erklärabsatz, sondern die zweite Hälfte der Aussage:
- * groß gesetzt, nah an der Überschrift, ein Satz. Wer drei Sätze braucht, hat
- * die Überschrift nicht scharf genug formuliert.
+ * ein Satz, nah an der Überschrift. Wer drei Sätze braucht, hat die Überschrift
+ * nicht scharf genug formuliert.
+ *
+ * Größen aus der Design-Vorlage gemessen (acquisition.com /careers):
+ * Überschrift 48 px / 800 / Zeilenhöhe 55,2 px, Satz darunter 18 px / 27 px.
  *
  * Bewusst **ohne** `uppercase`: Versalien sind im hellen Design der Zug des
  * Heros auf der Startseite. Die Titel hier sind ganze Sätze mit Satzzeichen
@@ -30,15 +33,15 @@ export function PageHeading({
   children?: ReactNode;
 }) {
   return (
-    <section className={`${SITE_CONTAINER} pb-4 pt-14 sm:pt-20`}>
-      <h1 className="kinetic-display kinetic-morph-in max-w-[860px] text-balance text-[34px] leading-[1.1] text-foreground sm:text-[48px]">
+    <section className={`${SITE_CONTAINER} pb-4 pt-[40px] sm:pt-[64px]`}>
+      <h1 className="kinetic-display kinetic-morph-in max-w-[860px] text-balance text-[36px] leading-[41.4px] text-foreground sm:text-h1">
         {title}
       </h1>
 
       {/* Der Lead steht in `muted-foreground`: dunkles Grau auf hellem Grund,
           klar lesbar und trotzdem eine Stufe unter der Überschrift. */}
       {lead && (
-        <p className="mt-7 max-w-[640px] text-pretty text-[18px] font-normal leading-[1.45] text-muted-foreground sm:text-[22px]">
+        <p className="mt-6 max-w-[640px] text-pretty text-lead font-normal text-muted-foreground">
           {lead}
         </p>
       )}

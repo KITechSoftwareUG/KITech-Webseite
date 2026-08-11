@@ -35,10 +35,10 @@ function OpenPointsNotice({ points }: { points: string[] }) {
       aria-label="Offene Punkte zu diesem Fall"
       className="max-w-[760px] border border-accent/40 bg-accent/5 p-6 sm:p-7"
     >
-      <span className="block w-fit bg-accent px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-background">
+      <span className="block w-fit bg-accent px-2 py-1 text-mini font-semibold uppercase tracking-wide text-background">
         In Arbeit
       </span>
-      <p className="mt-4 text-[14px] leading-[1.6] text-foreground/85">
+      <p className="mt-4 text-fliess leading-[1.6] text-foreground/85">
         An diesem Fall wird noch gearbeitet. Was oben in Zahlen steht, ist belegt; offen
         ist:
       </p>
@@ -46,7 +46,7 @@ function OpenPointsNotice({ points }: { points: string[] }) {
         {points.map((point) => (
           <li
             key={point}
-            className="flex items-start gap-2.5 text-[14px] leading-[1.6] text-muted-foreground"
+            className="flex items-start gap-2.5 text-fliess leading-[1.6] text-muted-foreground"
           >
             <span className="mt-[7px] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true" />
             {point}
@@ -121,11 +121,11 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                     {result.person.name}
                   </p>
                   {result.person.role && (
-                    <p className="mt-1 text-[13px] leading-tight text-muted-foreground">
+                    <p className="mt-1 text-fliess leading-tight text-muted-foreground">
                       {result.person.role}
                     </p>
                   )}
-                  <p className="mt-2 text-[13px] leading-tight text-muted-foreground">
+                  <p className="mt-2 text-fliess leading-tight text-muted-foreground">
                     {result.company}
                   </p>
                   {result.logo && (
@@ -140,7 +140,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                 </div>
               </div>
 
-              <h1 className="kinetic-display kinetic-morph-in mt-10 max-w-[640px] text-balance text-[34px] leading-[1.08] text-foreground sm:text-[46px]">
+              <h1 className="kinetic-display kinetic-morph-in mt-10 max-w-[640px] text-balance text-[36px] leading-[1.08] text-foreground sm:text-[46px]">
                 <span className="kinetic-data font-light">{result.headline.value}</span>{" "}
                 {result.headline.label}
               </h1>
@@ -152,7 +152,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
 
             {/* Belegzeilen rechts: Dauer und Prozessvergleich, exakt wie auf der Karte. */}
             {hasFacts && (
-              <dl className="border border-border bg-[linear-gradient(168deg,hsl(245_28%_13%)_0%,hsl(243_20%_9%)_100%)] p-6 text-[14px] sm:p-8">
+              <dl className="border border-border bg-surface p-6 text-fliess sm:p-8">
                 {result.duration && (
                   <div className="flex items-center gap-2.5">
                     <dt className="sr-only">Projektdauer</dt>
@@ -194,7 +194,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                 </div>
               )}
 
-              <p className="max-w-[760px] text-pretty text-[19px] leading-[1.5] text-foreground sm:text-[24px]">
+              <p className="max-w-[760px] text-pretty text-lead leading-[1.5] text-foreground sm:text-h3">
                 {detail.intro}
               </p>
 
@@ -206,7 +206,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                       key={section.heading}
                       className="border-t border-border/60 pt-8 lg:grid lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-12"
                     >
-                      <h2 className="kinetic-display text-balance text-[22px] leading-tight text-foreground sm:text-[26px]">
+                      <h2 className="kinetic-display text-balance text-h4 leading-tight text-foreground sm:text-h3">
                         {section.heading}
                       </h2>
                       <div className="mt-5 max-w-[720px] lg:mt-0">
@@ -240,7 +240,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
               {/* === Projektverlauf === */}
               {detail.phases.length > 0 && (
                 <section className="mt-16 border-t border-border/60 pt-8 lg:grid lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-12">
-                  <h2 className="kinetic-display text-[22px] leading-tight text-foreground sm:text-[26px]">
+                  <h2 className="kinetic-display text-h4 leading-tight text-foreground sm:text-h3">
                     Projektverlauf
                   </h2>
                   <ol className="relative mt-6 max-w-[720px] border-l border-border lg:mt-0">
@@ -274,7 +274,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
               {/* === Ergebnis-Kennzahlen === */}
               {detail.metrics.length > 0 && (
                 <section className="mt-16 border-t border-border/60 pt-8">
-                  <h2 className="kinetic-display text-[22px] leading-tight text-foreground sm:text-[26px]">
+                  <h2 className="kinetic-display text-h4 leading-tight text-foreground sm:text-h3">
                     Was dabei herausgekommen ist
                   </h2>
                   {/* gap-px auf border-Grund: erzeugt Haarlinien zwischen den Kacheln,
@@ -297,7 +297,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                         <p className="kinetic-data text-[36px] font-light leading-none text-foreground">
                           {metric.value}
                         </p>
-                        <p className="mt-3 text-[14px] font-semibold leading-[1.3] text-foreground">
+                        <p className="mt-3 text-fliess font-semibold leading-[1.3] text-foreground">
                           {metric.label}
                         </p>
                       </div>
@@ -309,7 +309,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
               {/* === Eingesetzte Technik === */}
               {detail.stack.length > 0 && (
                 <section className="mt-16 border-t border-border/60 pt-8 lg:grid lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-12">
-                  <h2 className="kinetic-display text-[22px] leading-tight text-foreground sm:text-[26px]">
+                  <h2 className="kinetic-display text-h4 leading-tight text-foreground sm:text-h3">
                     Eingesetzte Technik
                   </h2>
                   <ul className="mt-6 flex max-w-[720px] flex-wrap gap-2.5 lg:mt-0">
@@ -327,12 +327,12 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
 
               {/* === Kundenzitat === nur, wenn es wörtlich vorliegt und freigegeben ist. */}
               {detail.quote && (
-                <figure className="mt-16 border border-border bg-[linear-gradient(168deg,hsl(245_28%_13%)_0%,hsl(243_20%_9%)_100%)] p-8 sm:p-12">
+                <figure className="mt-16 border border-border bg-surface p-8 sm:p-12">
                   <Quote className="h-6 w-6 text-accent" aria-hidden="true" />
-                  <blockquote className="mt-5 max-w-[760px] text-pretty text-[19px] leading-[1.5] text-foreground sm:text-[22px]">
+                  <blockquote className="mt-5 max-w-[760px] text-pretty text-lead leading-[1.5] text-foreground sm:text-h4">
                     „{detail.quote.text}“
                   </blockquote>
-                  <figcaption className="mt-6 border-t border-border/60 pt-5 text-[13px] text-muted-foreground">
+                  <figcaption className="mt-6 border-t border-border/60 pt-5 text-fliess text-muted-foreground">
                     {detail.quote.author}
                   </figcaption>
                 </figure>
@@ -344,10 +344,10 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
           <div className="border-t border-border/60 bg-background">
             <div className={`${SITE_CONTAINER} py-16 sm:py-20`}>
               <div className="max-w-[720px] border border-border p-8 sm:p-10">
-                <span className="mb-5 block w-fit border border-border px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                <span className="mb-5 block w-fit border border-border px-3 py-1 text-mini font-medium uppercase tracking-wide text-muted-foreground">
                   In Arbeit
                 </span>
-                <h2 className="kinetic-display text-balance text-[24px] leading-[1.15] text-foreground sm:text-[30px]">
+                <h2 className="kinetic-display text-balance text-h3 leading-[1.15] text-foreground sm:text-[30px]">
                   Dieser Fall wird gerade ausführlich aufbereitet.
                 </h2>
                 <p className="mt-5 text-pretty text-[15px] leading-[1.65] text-muted-foreground">
@@ -358,7 +358,7 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                 </p>
                 <Link
                   href="/referenzen"
-                  className="mt-7 inline-flex items-center gap-2 text-[13px] font-semibold text-foreground transition-colors hover:text-primary"
+                  className="mt-7 inline-flex items-center gap-2 text-fliess font-semibold text-foreground transition-colors hover:text-primary"
                 >
                   <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                   Zurück zu allen Referenzen
@@ -381,14 +381,14 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
         >
           <Link
             href="/referenzen"
-            className="group flex items-center gap-3 bg-background p-6 transition-colors hover:bg-card sm:p-8"
+            className="group flex items-center gap-3 bg-background p-6 transition-colors hover:bg-surface sm:p-8"
           >
             <ArrowLeft
               className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
               aria-hidden="true"
             />
             <span>
-              <span className="block text-[11px] uppercase tracking-wide text-muted-foreground">
+              <span className="block text-mini uppercase tracking-wide text-muted-foreground">
                 Übersicht
               </span>
               <span className="mt-1 block text-[15px] font-semibold text-foreground">
@@ -400,10 +400,10 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
           {nextResult && (
             <Link
               href={`/referenzen/${nextResult.slug}`}
-              className="group flex items-center justify-end gap-3 bg-background p-6 text-right transition-colors hover:bg-card sm:p-8"
+              className="group flex items-center justify-end gap-3 bg-background p-6 text-right transition-colors hover:bg-surface sm:p-8"
             >
               <span className="min-w-0">
-                <span className="block text-[11px] uppercase tracking-wide text-muted-foreground">
+                <span className="block text-mini uppercase tracking-wide text-muted-foreground">
                   Nächster Fall
                 </span>
                 <span className="mt-1 block truncate text-[15px] font-semibold text-foreground">

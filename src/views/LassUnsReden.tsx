@@ -133,7 +133,7 @@ export default function LassUnsReden() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative flex min-h-[320px] items-end overflow-hidden border border-border bg-card"
+              className="relative flex min-h-[320px] items-end overflow-hidden border border-border bg-surface"
             >
               <img
                 src={ayhamPortrait.src}
@@ -175,7 +175,7 @@ export default function LassUnsReden() {
                 {testimonials.map((t) => (
                   <div
                     key={t.author}
-                    className="flex h-full flex-col gap-3 border border-border bg-card p-4"
+                    className="flex h-full flex-col gap-3 border border-border bg-surface p-4"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex gap-0.5" aria-hidden="true">
@@ -197,7 +197,7 @@ export default function LassUnsReden() {
                       )}
                       <div className="min-w-0">
                         <p className="text-xs font-medium leading-snug text-foreground">{t.author}</p>
-                        <p className="text-[11px] leading-snug text-muted-foreground">{t.role}</p>
+                        <p className="text-mini leading-snug text-muted-foreground">{t.role}</p>
                       </div>
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export default function LassUnsReden() {
 
           {/* Rechte Spalte: Calendly */}
           <div className="lg:sticky lg:top-24">
-            <div className="overflow-hidden border border-border bg-card">
+            <div className="overflow-hidden border border-border bg-surface">
               {widgetError ? (
                 <div className="flex min-h-[400px] flex-col items-center justify-center gap-3 p-10 text-center">
                   <p className="text-sm text-muted-foreground">
@@ -256,7 +256,7 @@ export default function LassUnsReden() {
                 <div className="relative" style={{ minWidth: 320, height: 700 }}>
                   {!widgetReady && (
                     <div
-                      className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-card"
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface"
                       role="status"
                       aria-live="polite"
                     >
@@ -279,7 +279,7 @@ export default function LassUnsReden() {
                       trackEvent("Calendly_Klick", { position: "lass-uns-reden-embed" });
                       setWidgetEnabled(true);
                     }}
-                    className="inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                    className="inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-fliess font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                   >
                     Kalender laden
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />

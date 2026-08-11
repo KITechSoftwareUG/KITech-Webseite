@@ -91,7 +91,7 @@ export default function Warum() {
       <section className={`${SITE_CONTAINER} py-20 sm:py-24`} aria-labelledby="ursache">
         <h2
           id="ursache"
-          className="kinetic-display text-balance text-[26px] leading-tight text-foreground sm:text-[34px]"
+          className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
           Woran es tatsächlich liegt.
         </h2>
@@ -100,7 +100,7 @@ export default function Warum() {
           {GRUENDE.map((grund, index) => (
             <li
               key={grund}
-              className={`py-6 text-[17px] leading-[1.45] text-foreground/88 sm:text-[21px] ${
+              className={`py-6 text-lead leading-[1.45] text-foreground/88 sm:text-[21px] ${
                 index > 0 ? "border-t border-border/60" : ""
               }`}
             >

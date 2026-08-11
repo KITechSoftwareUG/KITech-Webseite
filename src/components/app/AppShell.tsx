@@ -113,7 +113,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         Zum Inhalt springen
       </a>
 
-      <header className="sticky top-0 z-30 border-b border-border bg-card">
+      <header className="sticky top-0 z-30 border-b border-border bg-surface">
         <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
             <Link href={OVERVIEW_HREF} aria-label="KITech Software – zur Übersicht" className="flex shrink-0">
@@ -170,7 +170,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </header>
 
       <div className="flex flex-1">
-        <aside className="hidden shrink-0 border-r border-border bg-card lg:block lg:w-[248px]">
+        <aside className="hidden shrink-0 border-r border-border bg-surface lg:block lg:w-[248px]">
           {/* Eigene Klebeposition unterhalb der 64px hohen Kopfzeile, damit die
               Navigation beim Scrollen langer Inhalte stehen bleibt. */}
           <div className="sticky top-16 flex h-[calc(100vh-4rem)] flex-col justify-between py-6">

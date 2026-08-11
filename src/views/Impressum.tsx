@@ -17,7 +17,7 @@ export default function Impressum() {
       <StructuredData data={getFounderPersonSchema()} />
       <section className="py-20 lg:py-28">
         <div className={TEXT_CONTAINER}>
-          <h1 className="kinetic-display mb-10 text-[34px] leading-[1.1] text-foreground sm:text-[44px]">Impressum</h1>
+          <h1 className="kinetic-display mb-10 text-[36px] leading-[1.1] text-foreground sm:text-[44px]">Impressum</h1>
 
           <div className="prose prose-slate dark:prose-invert max-w-none space-y-6">
             <div>
