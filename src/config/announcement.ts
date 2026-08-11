@@ -15,7 +15,7 @@
 export interface Announcement {
   /** Kurzes Label in der weissen Pille, z. B. "NEU". Optional. */
   badge?: string;
-  /** Der fette Teil der Zeile. */
+  /** Der fette Teil der Zeile — ohne Satzzeichen am Ende, der Doppelpunkt kommt aus der Komponente. */
   lead: string;
   /** Der leichte Teil dahinter. */
   text: string;
@@ -24,7 +24,7 @@ export interface Announcement {
 
 export const announcement: Announcement | null = {
   badge: "NEU",
-  lead: "Kostenloses Erstgespräch:",
+  lead: "Kostenloses Erstgespräch",
   text: "In 30 Minuten wissen wir beide, ob es passt",
   href: "/lass-uns-reden",
 };

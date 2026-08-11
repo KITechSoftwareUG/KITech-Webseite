@@ -41,26 +41,30 @@ export function AnnouncementBar() {
         onClick={() => trackEvent("CTA_Klick", { position: "ankuendigungsbalken" })}
         className="mx-auto flex h-[56px] max-w-site items-center justify-center gap-2.5 px-4 text-center transition-opacity hover:opacity-90 sm:h-[68px] sm:gap-3"
       >
+        {/* Die Pille steht auch mobil: ohne sie und ohne den Pfeil wirkt der
+            Balken dort wie eine versehentlich stehengebliebene Textzeile. */}
         {announcement.badge && (
-          <span className="hidden shrink-0 rounded-full bg-white px-[7px] py-[3px] text-[13px] font-bold leading-[18px] text-black sm:inline-block">
+          <span className="shrink-0 rounded-full bg-white px-[7px] py-[3px] text-[11px] font-bold leading-[16px] text-black sm:text-[13px] sm:leading-[18px]">
             {announcement.badge}
           </span>
         )}
 
-        {/* Mobil bricht die Zeile auf zwei Zeilen um statt den Balken zu sprengen;
-            ab sm steht sie einzeilig wie in der Vorlage. */}
+        {/* Mobil traegt nur der fette Teil; der Zusatz wuerde die Zeile
+            sprengen. Ab sm steht sie einzeilig wie in der Vorlage. */}
         <span className="text-[13px] leading-tight sm:text-[15px] sm:font-light sm:leading-[19.5px]">
           <strong className="font-bold sm:text-[18px] sm:leading-[19.5px]">
             {announcement.lead}
-          </strong>{" "}
-          <span className="hidden sm:inline">{announcement.text}</span>
+          </strong>
+          {/* Doppelpunkt gehoert zum ausgeblendeten Teil: mobil steht sonst
+              "Kostenloses Erstgespraech:" mit einem Doppelpunkt ins Leere. */}
+          <span className="hidden sm:inline">: {announcement.text}</span>
         </span>
 
         {/* Der lange Pfeil ist ein Erkennungszeichen der Vorlage. Als SVG statt
             als Unicode-Pfeil, weil "⟶" je nach Schrift unterschiedlich lang
-            gerendert wird. */}
+            gerendert wird. Mobil kuerzer, damit die Zeile nicht umbricht. */}
         <svg
-          className="hidden h-[10px] w-[34px] shrink-0 sm:block"
+          className="h-[9px] w-[22px] shrink-0 sm:h-[10px] sm:w-[34px]"
           viewBox="0 0 34 10"
           fill="none"
           aria-hidden="true"
