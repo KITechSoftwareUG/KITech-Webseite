@@ -79,7 +79,6 @@ export const mainNavigation: NavEntry[] = [
   leistungenEntry,
   { label: "Referenzen", href: "/referenzen", description: "Kundenfälle mit Zahlen." },
   { label: "Haltung", href: "/haltung", description: "Wonach wir entscheiden." },
-  { label: "Community", href: "/community", description: "Die KI-Community auf Skool." },
   { label: "Karriere", href: "/karriere", description: "Offene Stellen bei KITech." },
   { label: "Kontakt", href: "/kontakt", description: "Direkter Draht, ohne Formularschleife." },
 ];
@@ -119,7 +118,6 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
         href: "/warum-unternehmen-mit-ki-kein-geld-verdienen",
       },
       { label: "Glossar", href: "/glossar" },
-      { label: "Community", href: "/community" },
     ],
   },
 ];
@@ -193,9 +191,6 @@ export const siteRoutes: RouteDefinition[] = [
 
   { path: "/referenzen", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
   { path: "/haltung", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.7 },
-  // Seite liegt hinter Milchglas, solange IM_AUFBAU in views/Community.tsx true
-  // ist — bis dahin kein Index und nicht in der Sitemap.
-  { path: "/community", indexable: false, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.9 },
   { path: "/glossar", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.6 },
   { path: "/kontakt", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
 
@@ -246,11 +241,16 @@ export const siteRoutes: RouteDefinition[] = [
 
 /**
  * Weiterleitungen aus `next.config.ts`. Hier gespiegelt, damit der Routen-Test
- * einen Link auf `/skool` nicht als toten Link meldet — die Adresse ist gültig,
- * sie landet nur woanders.
+ * einen Link auf eine entfallene Adresse nicht als toten Link meldet — die
+ * Adresse ist gültig, sie landet nur woanders.
+ *
+ * `/community` und `/skool` sind am 05.08.2026 entfallen (siehe CLAUDE.md,
+ * Abschnitt "Entfernt"). Beide leiten auf die Startseite, statt ins Leere zu
+ * laufen: die Adressen standen in der Navigation und wurden geteilt.
  */
 export const permanentRedirects: Record<string, string> = {
-  "/skool": "/community",
+  "/skool": "/",
+  "/community": "/",
 };
 
 /** Alle statischen Pfade als Menge — praktisch für Prüfungen. */

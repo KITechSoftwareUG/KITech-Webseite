@@ -63,13 +63,20 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   /**
-   * `/skool` war bis zum 05.08.2026 eine eigene Funnel-Seite mit Warteliste.
-   * Die Community läuft jetzt ausschließlich über `/community`. Der Redirect
-   * bleibt dauerhaft stehen: die alte Adresse wurde bereits geteilt, und ein
-   * 404 wäre für jeden, der sie noch hat, das Ende des Wegs.
+   * `/skool` und `/community` sind am 05.08.2026 entfallen — die Community wird
+   * vorerst nicht auf der Website beworben (siehe CLAUDE.md, Abschnitt
+   * "Entfernt"). Beide Adressen standen in der Navigation und wurden geteilt;
+   * ein 404 wäre für jeden, der sie noch hat, das Ende des Wegs. Deshalb
+   * Weiterleitung auf die Startseite statt ersatzlosem Wegfall.
+   *
+   * Spiegelbild in `src/config/navigation.ts` (`permanentRedirects`) — der
+   * Routen-Test prüft beide gegeneinander.
    */
   async redirects() {
-    return [{ source: "/skool", destination: "/community", permanent: true }];
+    return [
+      { source: "/skool", destination: "/", permanent: true },
+      { source: "/community", destination: "/", permanent: true },
+    ];
   },
   async headers() {
     return [

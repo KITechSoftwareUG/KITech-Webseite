@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun, Terminal, Lock } from "lucide-react";
+import { Menu, X, Moon, Sun, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { trackEvent } from "@/lib/plausible";
@@ -15,11 +15,6 @@ const navigation = [
   { name: "Referenzen", href: "/referenzen" },
   { name: "Kontakt", href: "/kontakt" },
 ];
-
-/**
- * Der Mitgliederbereich ist noch nicht freigeschaltet — siehe SiteHeader.tsx.
- * Statt eines Links steht hier ein Schloss.
- */
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -65,14 +60,6 @@ export function Header() {
                 <Moon className="h-5 w-5 text-muted-foreground" />
               )}
             </button>
-
-            <span
-              className="hidden items-center gap-2 rounded-none border border-border/60 px-4 py-2 text-sm font-light text-foreground/45 sm:inline-flex"
-              aria-label="Mitgliederbereich – in Arbeit, noch nicht freigeschaltet"
-            >
-              <Lock className="h-4 w-4" aria-hidden="true" />
-              Mitgliederbereich
-            </span>
 
             <Button
               variant="hero"
@@ -125,13 +112,6 @@ export function Header() {
                   {item.name}
                 </Link>
               ))}
-              <span
-                className="flex items-center justify-center gap-2 rounded-none border border-border/60 px-4 py-3 text-center text-sm font-light text-foreground/45"
-                aria-label="Mitgliederbereich – in Arbeit, noch nicht freigeschaltet"
-              >
-                <Lock className="h-4 w-4" aria-hidden="true" />
-                Mitgliederbereich
-              </span>
               <Button
                 variant="hero"
                 className="mt-2"

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Lock, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { mainNavigation, type NavEntry } from "@/config/navigation";
 import { SITE_CONTAINER } from "./site-container";
 
@@ -31,31 +31,13 @@ import { SITE_CONTAINER } from "./site-container";
  * auf dem Handy eine Sackgasse.
  */
 
-/**
- * Der Mitgliederbereich ist gebaut, aber bewusst noch NICHT freigeschaltet:
- * LogTo hat noch kein TLS, und ob der Bereich am Ende selbst gebaut wird oder
- * über Skool läuft, ist offen. Bis dahin steht hier ein Schloss statt eines
- * Links — es zeigt, dass es ihn geben wird, ohne ein Versprechen einzulösen,
- * das noch nicht eingelöst werden kann.
- *
- * Zum Freischalten: dieses Element wieder durch einen `<a>` auf
- * `${NEXT_PUBLIC_APP_URL}/auth/login` ersetzen (der Code dafür liegt unter
- * `src/app/app/`).
+/*
+ * Hier stand bis zum 05.08.2026 ein Schloss "Mitgliederbereich – bald". Auf
+ * Ansage entfernt: ein angekündigter Bereich, den es noch nicht gibt, ist ein
+ * Versprechen ohne Termin. Der Code des eingeloggten Bereichs liegt unverändert
+ * unter `src/app/app/` und ist über `app.kitech-software.de` erreichbar, sobald
+ * LogTo ein Zertifikat hat — er ist hier nur nicht mehr angekündigt.
  */
-function LoginSchloss({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center gap-2 border border-border/60 whitespace-nowrap px-3 py-2 text-[12px] font-medium text-foreground/45 ${className}`}
-      aria-label="Mitgliederbereich – in Arbeit, noch nicht freigeschaltet"
-    >
-      <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-      Mitgliederbereich
-      <span className="kinetic-data border border-border/60 px-1.5 py-0.5 text-[9px] uppercase leading-none text-foreground/40">
-        bald
-      </span>
-    </span>
-  );
-}
 
 /**
  * Ist dieser Punkt (oder einer seiner Unterpunkte) die aktuelle Seite?
@@ -267,7 +249,6 @@ export function SiteHeader({ className }: { className?: string }) {
           {mainNavigation.map((entry) => (
             <DesktopEntry key={entry.href} entry={entry} pathname={pathname} />
           ))}
-          <LoginSchloss />
         </nav>
 
         <button
@@ -299,7 +280,6 @@ export function SiteHeader({ className }: { className?: string }) {
                   onNavigate={() => setOpen(false)}
                 />
               ))}
-              <LoginSchloss className="mt-4 justify-between px-4 py-3 text-[15px]" />
             </div>
           </motion.nav>
         )}

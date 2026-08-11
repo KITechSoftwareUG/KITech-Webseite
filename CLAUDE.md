@@ -87,13 +87,12 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   ├── robots.txt             # SEO + KI-Crawler-Freigaben
 │   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (liegt hinter dem aktuellen Stand)
 │   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (liegt hinter dem aktuellen Stand)
-│   ├── media/                   # ayham-community.webp (freigestellt, /community), skool-og.jpg
 │   ├── images/kunden/           # Kundenfotos fuer die Ergebniskarten
 │   └── logo.png                 # Echtes, lokal gebuendeltes Logo
 ├── deploy/
 │   └── COOLIFY.md               # Deployment-Anleitung (nginx.conf/security-headers.conf entfallen)
 ├── Dockerfile                  # Multi-Stage (node:20-alpine, Next standalone, Port 3000) - der aktive Build Pack
-├── next.config.ts              # Security-Header, CSP, Redirect /skool -> /community, output: standalone
+├── next.config.ts              # Security-Header, CSP, Redirects (/skool, /community -> /), output: standalone
 ├── src/
 │   ├── proxy.ts                # Host-Rewrite: app.kitech-software.de -> /app/*
 │   ├── index.css               # Design Tokens (CSS Custom Properties) - dark-first, siehe Design System
@@ -108,7 +107,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   │   │                        #   Header/Footer/Layout/FunnelLayout = Alt-Layout, nur noch fuer legacy/
 │   │   ├── seo/                # StructuredData (JSON-LD)
 │   │   ├── sections/           # PageHeading, NavCard, CtaBanner (Basis fuer FinalCta/ReferenceCta),
-│   │   │                        #   ClientResults, TeamSection, CommunityCountdown, CommunityWarteliste,
+│   │   │                        #   ClientResults, TeamSection,
 │   │   │                        #   HeroMedia, FounderPortrait, SalesLetter
 │   │   ├── conversion/         # StickyMobileCTA, ExitIntentPopup, TrustRiskReversal
 │   │   ├── canvas/              # SignalField (Canvas-basierte Hintergrund-Animation)
@@ -125,7 +124,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   │   ├── glossary-schema.ts
 │   │   ├── metadata.ts          # buildMetadata() - ersetzt die alte SEOHead-Komponente
 │   │   └── __tests__/           # Vitest: Schemas, Breadcrumbs + routes.test.ts (Link-/Routen-Pruefung)
-│   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, api/warteliste, page.tsx je Route
+│   ├── app/                     # Next.js App Router: layout.tsx, providers.tsx, sitemap.ts, page.tsx je Route
 │   └── views/                   # Seiten-Komponenten (Client Components), von app/*/page.tsx eingebunden
 │       └── legacy/              # Alt-Seiten, nicht geroutet, aus tsconfig/eslint ausgenommen
 ├── .env.example                 # Env-Var-Vorlage (nie .env committen)
@@ -153,7 +152,6 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 | `/solo`, `/enterprise` | `Segment.tsx` über `Solo.tsx`/`Enterprise.tsx` | ja | Eine Vorlage, zwei Zielgruppen. Inhalt: `src/data/segments.ts`. |
 | `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Übersicht ja, Details **nein** | Details auf `noindex`, solange `openPoints` offen sind. |
 | `/haltung` | `Haltung.tsx` | ja | Werte + Gründerzitat. Inhalt: `src/data/principles.ts`. |
-| `/community` | `Community.tsx` | ja | Skool-Community — siehe eigenen Abschnitt unten. |
 | `/karriere`, `/karriere/[slug]` | `Karriere.tsx`, `KarriereJob.tsx` | **nein** | Stellen sind Platzhalter — siehe [Stellenportal](#stellenportal). |
 | `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
 | `/glossar`, `/glossar/[slug]` | `Glossar.tsx`, `GlossarTerm.tsx` | ja | Sechs Begriffe aus `src/data/glossary.ts`, seit der Migration erstmals wieder erreichbar. |
@@ -179,7 +177,7 @@ Warum?  ▾  ├─ Warum du mit KI kein Geld verdienst
            └─ Warum Unternehmen mit KI kein Geld verdienen
 Leistungen ▾  ├─ Für Selbstständige (/solo)
               └─ Für Unternehmen (/enterprise)
-Referenzen · Haltung · Community · Karriere · Kontakt
+Referenzen · Haltung · Karriere · Kontakt
 ```
 
 Die beiden Untermenüs klappen auf dem Desktop bei Hover und Tastaturfokus auf
@@ -223,30 +221,41 @@ Sitemap kommt.
 Bewerbungen laufen per `mailto:` an `info@kitech-software.de` mit vorbelegtem
 Betreff — bewusst keine erfundene `karriere@`-Adresse, die kein Postfach hat.
 
-### `/community` — die Skool-Community
+### Entfernt am 05.08.2026: Community und Mitgliederbereich
 
-Einziger Einstiegspunkt, es gibt bewusst **keine** zweite Community-Seite und keinen
-Funnel davor. Der frühere Warteliste-Funnel `/skool` ist entfallen und leitet per 308
-hierher (Redirect in `next.config.ts`).
+**Auf Ansage komplett von der Website genommen** — die Skool-Community war noch
+nicht startklar, und ein angekuendigter Mitgliederbereich ohne Termin ist ein
+Versprechen, das niemand einloest.
 
-Die Seite hat zwei Zustaende:
-
-| Zeitpunkt | Was der Besucher sieht |
+| Weg | Was es war |
 |---|---|
-| vor dem **1. September 2026** | Countdown (`CommunityCountdown.tsx`) plus Warteliste (`CommunityWarteliste.tsx` → `/api/warteliste` → `WAITLIST_WEBHOOK_URL`) |
-| ab dem Start | Button "Jetzt kostenlos beitreten" → `https://www.skool.com/ki-fur-business-4646` |
+| `/community` (Route, View, Countdown, Warteliste) | Einstieg in die Skool-Gruppe, zuletzt hinter Milchglas |
+| `/api/warteliste` + `WAITLIST_WEBHOOK_URL` | Anmeldungen an einen n8n-Webhook |
+| `public/media/ayham-community.webp`, `skool-og.jpg` | freigestelltes Foto, Social-Vorschaubild |
+| `company.skoolUrl` | die Gruppen-Adresse |
+| Schloss "Mitgliederbereich – bald" in `SiteHeader.tsx` und `Header.tsx` | Ankuendigung des eingeloggten Bereichs |
 
-Umgeschaltet wird **im Browser**, sobald der Countdown durch ist. Die Seite wird
-statisch vorgerendert — ein serverseitiger Datumsvergleich stuende fuer immer auf dem
-Build-Zeitpunkt. Der Wechsel braucht deshalb keinen Deploy.
+**Der Code ist nicht verloren:** vollstaendig im Commit **`31a655b`**
+("Community-Seite hinter Milchglas, solange sie im Aufbau ist"). Zurueckholen:
 
-**Offen:** `WAITLIST_WEBHOOK_URL` ist in Coolify noch nicht gesetzt. Bis dahin
-antwortet `/api/warteliste` mit 503 und die Warteliste sammelt nichts ein.
+```bash
+git checkout 31a655b -- src/views/Community.tsx src/app/community \
+  src/components/sections/CommunityCountdown.tsx \
+  src/components/sections/CommunityWarteliste.tsx \
+  src/app/api/warteliste public/media
+```
 
-Gestaltung: sehr wenig Text, grosses freigestelltes Foto ohne Rahmen
-(`public/media/ayham-community.webp`, aus Ayhams `skool_bild.svg` konvertiert —
-WebP wegen des Alphakanals, JPEG kann keine Transparenz), keine Canvas- oder
-Scroll-Effekte, kein Label-ueber-Headline-Muster.
+Danach wieder eintragen: `src/config/navigation.ts` (Kopfzeile, Fußzeile,
+`siteRoutes`), `company.skoolUrl`, `WAITLIST_WEBHOOK_URL` in `.env.example`,
+und den Redirect in `next.config.ts` zuruecknehmen.
+
+**Nicht angefasst:** der eingeloggte Bereich selbst (`src/app/app/`,
+`src/components/app/`, `src/proxy.ts`, LogTo). Er ist weiterhin da und ueber
+`app.kitech-software.de` erreichbar, sobald LogTo ein Zertifikat hat — er wird
+auf der oeffentlichen Seite nur nicht mehr angekuendigt.
+
+`/community` und `/skool` leiten beide per 308 auf die Startseite: beide Adressen
+standen in der Navigation und wurden geteilt.
 
 ### Startseite: Hero und Team
 
@@ -408,7 +417,7 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 |---|---|
 | `backdrop="header"` (Standard) | eingefaerbter Kopfbereich, 620 px, laeuft nach unten aus |
 | `backdrop="full"` | ganze Flaeche (404) |
-| `backdrop="none"` | schwarzer Grund (`/community` — dort traegt das Foto die Seite, `/eu-ai-act-selbstcheck` — bringt sein eigenes Feld mit) |
+| `backdrop="none"` | schwarzer Grund (`/eu-ai-act-selbstcheck` — bringt sein eigenes Feld mit) |
 | `backdropClassName` | eigene Hoehe, z. B. bildschirmhoch auf der Startseite |
 
 ---
@@ -473,7 +482,6 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 | Calendly | Terminbuchung. Einzige aktuelle URL: `calendly.com/kitech-software/roi-analyse`, eingebettet auf `/lass-uns-reden` (Inline-Widget, Consent-gated). Alle anderen Stellen im Code verlinken intern auf `/lass-uns-reden`, nicht mehr direkt auf Calendly. |
 | Plausible | Self-hosted Analytics (nur nach Cookie-Consent), siehe oben. |
 | **Kundenportal** | Separates Projekt `kitech-app-portal` (Next.js, LogTo-Auth) unter `/home/deploy/KITech/projects/kitech-app-portal` — **ueberholt:** Seit der Next.js-Migration hat diese Website selbst ein Backend, der eingeloggte Bereich liegt hier unter `src/app/app/`. Das separate Projekt wird nicht mehr gebraucht. Im Header steht statt "Anmelden" ein Schloss, bis LogTo TLS hat. |
-| Skool | Community-Gruppe `skool.com/ki-fur-business-4646` (URL in `src/config/company.ts`), verlinkt ausschliesslich von `/community` — und dort erst ab dem 1. September 2026. |
 
 ---
 
@@ -493,7 +501,7 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
   docker run -d --name kitech-test -p 8123:3000 kitech-website-test:local
   # Routen abklopfen (200 erwartet, 404 nur fuer Unbekanntes):
   for p in / /warum /leistungen /solo /enterprise /referenzen /haltung \
-           /community /karriere /kontakt /glossar /lass-uns-reden \
+           /karriere /kontakt /glossar /lass-uns-reden \
            /eu-ai-act-selbstcheck /impressum /datenschutz /agb \
            /glossar/mlops /karriere/b2b-setter /sitemap.xml /gibt-es-nicht; do
     printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123$p)"
@@ -510,9 +518,8 @@ Gesetzt ist aktuell nur `NIXPACKS_NODE_VERSION` (Altlast, ohne Wirkung). **Nicht
 
 | Variable | Art | Folge, solange sie fehlt |
 |---|---|---|
-| `WAITLIST_WEBHOOK_URL` | Runtime | Die Warteliste auf `/community` antwortet mit 503 und sammelt nichts ein. |
 | `LOGTO_*` | Runtime | Der eingeloggte Bereich funktioniert nicht — ist ohnehin noch nicht freigeschaltet. |
-| `NEXT_PUBLIC_APP_URL` | Build-Time | Wird derzeit nirgends gelesen (Header zeigt ein Schloss statt eines Login-Links). |
+| `NEXT_PUBLIC_APP_URL` | Build-Time | Wird derzeit nirgends gelesen (der Header kuendigt den Mitgliederbereich nicht mehr an). |
 
 Runtime-Variablen brauchen nur einen Neustart, keinen neuen Build. `NEXT_PUBLIC_*` wird in
 das Bundle eingebacken und erfordert deshalb einen Rebuild.

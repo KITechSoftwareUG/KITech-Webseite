@@ -220,7 +220,7 @@ describe("Interne Links", () => {
   it("verweist auf keine Route, die es nur als Alt-Seite gab", () => {
     // Diese Pfade gab es vor dem Relaunch; sie dürfen nicht versehentlich
     // zurückkommen, ohne dass eine Route dafür angelegt wird.
-    const entfallen = ["/skool"];
+    const entfallen = ["/skool", "/community"];
     const direkteTreffer = links.filter((link) => entfallen.includes(link.ziel));
 
     for (const treffer of direkteTreffer) {

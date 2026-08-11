@@ -49,9 +49,6 @@ export const company = {
     linkedinUrl: "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
   },
 
-  /** Community-Gruppe. Wird ausschließlich von /community verlinkt, dort erst ab Start. */
-  skoolUrl: "https://www.skool.com/ki-fur-business-4646",
-
   registry: {
     court: "Amtsgericht Hannover",
     number: "HRB 230077",
