@@ -26,7 +26,7 @@ export const metadata: Metadata = {
  * Scrollbalken dunkel rendern; die Seite hat keinen Dark Mode mehr.
  */
 export const viewport: Viewport = {
-  themeColor: "#0A2EA3",
+  themeColor: "#1B47C4",
   colorScheme: "light",
 };
 

@@ -10,8 +10,8 @@ Vorher war die Seite dark-first ("KI-Redesign v2", near-black + Signal-Lime).
 
 | Rolle | Wert | Token | Einsatz |
 |---|---|---|---|
-| Signal | `#0A2EA3` | `--primary` / `bg-primary` | Buttons, Ankündigungsbalken, Fußzeile, Kennzahlen, Akzente |
-| Struktur | `#131628` | `--foreground` / `--navbar` | Navigationsleiste, Überschriften, Fließtext |
+| Signal | `#1B47C4` | `--primary` / `bg-primary` | Buttons, Ankündigungsbalken, Fußzeile, Kennzahlen, Akzente |
+| Struktur | `#131A2E` | `--foreground` / `--navbar` | Navigationsleiste, Überschriften, Fließtext |
 | Grund | `#FFFFFF` | `--background` | Standardgrund aller Abschnitte |
 | Grund, abgesetzt | `#FAFAFA` / `#EFEFEF` | `bg-surface` / `bg-surface-strong` | Abschnitte, die sich vom Weiß absetzen; Bildfelder |
 

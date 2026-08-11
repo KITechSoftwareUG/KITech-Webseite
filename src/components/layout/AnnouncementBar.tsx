@@ -39,7 +39,11 @@ export function AnnouncementBar() {
       <Link
         href={announcement.href}
         onClick={() => trackEvent("CTA_Klick", { position: "ankuendigungsbalken" })}
-        className="mx-auto flex h-[56px] max-w-site items-center justify-center gap-2.5 px-4 text-center transition-opacity hover:opacity-90 sm:h-[68px] sm:gap-3"
+        /* `min-h` statt fester Hoehe: auf dem Handy bricht die Zeile um und der
+           Balken waechst mit, statt den Text abzuschneiden. Die Hoehe fliesst
+           ueber `announcementSpacerClass` in den Seitenabstand ein — deshalb
+           mobil dieselbe Untergrenze wie dort. */
+        className="mx-auto flex min-h-[56px] max-w-site items-center justify-center gap-2.5 px-4 py-2.5 text-center transition-opacity hover:opacity-90 sm:h-[68px] sm:gap-3 sm:py-0"
       >
         {/* Die Pille steht auch mobil: ohne sie und ohne den Pfeil wirkt der
             Balken dort wie eine versehentlich stehengebliebene Textzeile. */}
@@ -49,15 +53,14 @@ export function AnnouncementBar() {
           </span>
         )}
 
-        {/* Mobil traegt nur der fette Teil; der Zusatz wuerde die Zeile
-            sprengen. Ab sm steht sie einzeilig wie in der Vorlage. */}
-        <span className="text-[13px] leading-tight sm:text-[15px] sm:font-light sm:leading-[19.5px]">
+        {/* Die Zeile steht vollstaendig — auch auf dem Handy, wo sie dann
+            zweizeilig umbricht. Genau so macht es die Vorlage; der frueher hier
+            mobil ausgeblendete Zusatz liess den Balken halbleer wirken. */}
+        <span className="text-[13px] leading-[1.35] sm:text-[15px] sm:font-light sm:leading-[19.5px]">
           <strong className="font-bold sm:text-[18px] sm:leading-[19.5px]">
-            {announcement.lead}
-          </strong>
-          {/* Doppelpunkt gehoert zum ausgeblendeten Teil: mobil steht sonst
-              "Kostenloses Erstgespraech:" mit einem Doppelpunkt ins Leere. */}
-          <span className="hidden sm:inline">: {announcement.text}</span>
+            {announcement.lead}:
+          </strong>{" "}
+          {announcement.text}
         </span>
 
         {/* Der lange Pfeil ist ein Erkennungszeichen der Vorlage. Als SVG statt

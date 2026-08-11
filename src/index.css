@@ -21,7 +21,7 @@
   und Text, Poppins als einzige Schrift, Pill-Buttons.
 
   Die drei Farben tragen die ganze Seite:
-    Dunkelblau #0A2EA3 — Aktion. Buttons, Ankuendigungsbalken, Fusszeile, Akzente.
+    Dunkelblau #1B47C4 — Aktion. Buttons, Ankuendigungsbalken, Fusszeile, Akzente.
     Navy    #131628  — Struktur. Navigationsleiste, Ueberschriften, Fliesstext.
     Weiss   #FFFFFF  — Grund. Sektionen wechseln zwischen Weiss und #FAFAFA.
 
@@ -46,8 +46,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 231 36% 12%;
 
-    /* #0A2EA3 — die eine Signalfarbe */
-    --primary: 226 88% 34%;
+    /* #1B47C4 — die eine Signalfarbe */
+    --primary: 224 76% 44%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -58,7 +58,7 @@
 
     /* Akzent = dieselbe Signalfarbe. Ein zweiter Akzentton (frueher Lime) wuerde
        die Seite wieder in zwei Signale zerlegen — genau das soll sie nicht. */
-    --accent: 226 88% 34%;
+    --accent: 224 76% 44%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 48%;
@@ -69,29 +69,29 @@
 
     --border: 0 0% 89%;
     --input: 0 0% 89%;
-    --ring: 226 88% 34%;
+    --ring: 224 76% 44%;
 
     /* Buttons sind Pillen (100 px). Der Token bleibt fuer shadcn-Bausteine. */
     --radius: 0.5rem;
 
     /* Navy der Navigationsleiste, als eigener Token: sie ist der einzige dunkle
        Block auf der Seite und darf nicht am Textfarbton haengen. */
-    --navbar: 231 36% 12%;
+    --navbar: 224 40% 14%;
     --navbar-foreground: 0 0% 100%;
 
     /* Pfad-Akzente (Solo/Enterprise). Beide laufen jetzt ueber dieselbe
        Signalfarbe, differenziert ueber die Helligkeit statt ueber Amber/Lime —
        zwei zusaetzliche Markenfarben waeren im hellen Layout Chaos. */
-    --solo-accent: 226 88% 34%;
+    --solo-accent: 224 76% 44%;
     --solo-accent-foreground: 0 0% 100%;
-    --enterprise-accent: 226 80% 22%;
+    --enterprise-accent: 224 70% 28%;
     --enterprise-accent-foreground: 0 0% 100%;
 
     --gradient-hero: linear-gradient(180deg, hsl(0 0% 94%) 0%, hsl(0 0% 98%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 90% 22%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 85% 20%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(224 76% 44%) 0%, hsl(224 78% 30%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(224 76% 44%) 0%, hsl(224 76% 26%) 100%);
 
-    --shadow-soft: 0 8px 24px -8px hsl(226 88% 34% / 0.35);
+    --shadow-soft: 0 8px 24px -8px hsl(224 76% 44% / 0.35);
     --shadow-card: 0 1px 3px 0 hsl(231 36% 12% / 0.08), 0 1px 2px -1px hsl(231 36% 12% / 0.06);
     --shadow-elevated: 0 24px 60px -20px hsl(231 36% 12% / 0.25);
   }
@@ -106,13 +106,13 @@
     --card-foreground: 231 36% 12%;
     --popover: 0 0% 100%;
     --popover-foreground: 231 36% 12%;
-    --primary: 226 88% 34%;
+    --primary: 224 76% 44%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 96%;
     --secondary-foreground: 231 36% 12%;
     --muted: 0 0% 96%;
     --muted-foreground: 231 12% 42%;
-    --accent: 226 88% 34%;
+    --accent: 224 76% 44%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
@@ -120,17 +120,17 @@
     --success-foreground: 0 0% 100%;
     --border: 0 0% 89%;
     --input: 0 0% 89%;
-    --ring: 226 88% 34%;
-    --navbar: 231 36% 12%;
+    --ring: 224 76% 44%;
+    --navbar: 224 40% 14%;
     --navbar-foreground: 0 0% 100%;
-    --solo-accent: 226 88% 34%;
+    --solo-accent: 224 76% 44%;
     --solo-accent-foreground: 0 0% 100%;
-    --enterprise-accent: 226 80% 22%;
+    --enterprise-accent: 224 70% 28%;
     --enterprise-accent-foreground: 0 0% 100%;
     --gradient-hero: linear-gradient(180deg, hsl(0 0% 94%) 0%, hsl(0 0% 98%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 90% 22%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 85% 20%) 100%);
-    --shadow-soft: 0 8px 24px -8px hsl(226 88% 34% / 0.35);
+    --gradient-cta: linear-gradient(135deg, hsl(224 76% 44%) 0%, hsl(224 78% 30%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(224 76% 44%) 0%, hsl(224 76% 26%) 100%);
+    --shadow-soft: 0 8px 24px -8px hsl(224 76% 44% / 0.35);
     --shadow-card: 0 1px 3px 0 hsl(231 36% 12% / 0.08), 0 1px 2px -1px hsl(231 36% 12% / 0.06);
     --shadow-elevated: 0 24px 60px -20px hsl(231 36% 12% / 0.25);
   }

@@ -225,9 +225,9 @@ export function SiteHeader({ className }: { className?: string }) {
   return (
     <header className={`relative z-40 w-full bg-navbar text-navbar-foreground ${className ?? ""}`}>
       <div className={HEADER_CONTAINER}>
-        <div className="flex h-[65px] items-center justify-between gap-6">
+        <div className="flex h-[72px] items-center justify-between gap-6 sm:h-[65px]">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
-            <img src="/logo.png" alt="KITech Software Logo" className="h-7 w-auto sm:h-8" />
+            <img src="/logo.png" alt="KITech Software Logo" className="h-9 w-auto sm:h-10" />
           </Link>
 
           {/* Ab `lg` (1024px) passt die volle Leiste. Darunter Hamburger. */}
