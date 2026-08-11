@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
   description:
     "Keine weiteren Tutorials. Kein weiterer Prompt-Ordner. Sondern ein konkreter Plan für deine Situation.",
   path: "/fokus",
+  ogImage: "https://kitech-software.de/images/og/fokus.png",
   noindex: true,
 });
 

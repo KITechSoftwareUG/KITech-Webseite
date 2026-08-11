@@ -11,6 +11,7 @@ export const metadata = buildMetadata({
   description:
     "KI wird erst produktiv, wenn sie auf relevante Unternehmensdaten, Systeme und Prozesse zugreifen kann.",
   path: "/funnel",
+  ogImage: "https://kitech-software.de/images/og/funnel.png",
   noindex: true,
 });
 
