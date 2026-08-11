@@ -60,6 +60,16 @@ export interface ClientResult {
   liveUrl: string | null;
   /** Website des Kunden. Belegt, dass es die Firma wirklich gibt. */
   companyUrl: string | null;
+  /**
+   * Blendet den Fall auf der STARTSEITE aus; in der Referenz-Uebersicht und auf
+   * der Detailseite bleibt er sichtbar. Gesteuert ueber `homeClientResults`
+   * am Dateiende.
+   *
+   * Aktuell nur bei klargehalt gesetzt (Leon Battel) — auf Ansage vom
+   * 05.08.2026, ohne Begruendung im Briefing. Nicht ohne Ruecksprache
+   * entfernen.
+   */
+  hideOnHome?: boolean;
   person: {
     name: string;
     /** Rolle beim Kunden, optional. */
@@ -222,10 +232,11 @@ export const clientResults: ClientResult[] = [
   },
   {
     slug: "klargehalt-saas",
-    company: "KlarGehalt.de",
+    company: "klargehalt.de",
     logo: null,
     liveUrl: "https://klargehalt.de",
     companyUrl: null,
+    hideOnHome: true,
     person: {
       name: "Leon Battel",
       role: null,
@@ -253,7 +264,7 @@ export const clientResults: ClientResult[] = [
         {
           heading: "Ausgangslage",
           paragraphs: [
-            "Platzhalter: Was war der Ausgangspunkt für KlarGehalt.de — welche Idee, " +
+            "Platzhalter: Was war der Ausgangspunkt für klargehalt.de — welche Idee, " +
               "welcher Markt, welche Frist? Was lag zu Projektbeginn schon vor und was " +
               "musste bei null anfangen?",
             "Platzhalter: Für wen ist das Produkt gedacht, und was hätten diese Kunden " +
@@ -555,3 +566,15 @@ export const clientResults: ClientResult[] = [
     },
   },
 ];
+
+/**
+ * Die Faelle, die auf der STARTSEITE erscheinen — Reihenfolge = Reihenfolge im
+ * Raster (zwei Spalten, also Index 1 = oben rechts).
+ *
+ * Abgeleitet aus `clientResults`, damit beide Listen nicht auseinanderlaufen:
+ * wer einen Fall ergaenzt, hat ihn automatisch auch hier. Ausgeblendet wird
+ * ausschliesslich ueber `hideOnHome` am jeweiligen Eintrag.
+ */
+export const homeClientResults: ClientResult[] = clientResults.filter(
+  (result) => !result.hideOnHome
+);

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 import { BASE_URL } from "@/lib/metadata";
 import "@/index.css";
 
 /**
- * Root-Layout. Die Schriften (Onest, Recursive Variable, IBM Plex Mono) kommen
- * weiterhin per @fontsource-Import aus `src/index.css` — sie werden lokal
- * gebündelt, es geht also keine Anfrage an Google Fonts raus (DSGVO).
+ * Root-Layout. Die Schrift (Poppins) kommt per @fontsource-Import aus
+ * `src/index.css` — lokal gebündelt, es geht also keine Anfrage an Google Fonts
+ * raus (DSGVO).
  *
  * `suppressHydrationWarning` am <html> ist nötig, weil next-themes die
  * Theme-Klasse vor dem ersten Paint per Skript setzt.
@@ -17,6 +17,17 @@ export const metadata: Metadata = {
   description:
     "Wir sind euer Anwendungspartner für KI — von der Anwendung im Tagesgeschäft bis zum messbaren Ergebnis.",
   icons: { icon: "/favicon.ico" },
+};
+
+/**
+ * Färbt die Browserleiste auf Mobilgeräten. Dunkelblau wie der Ankündigungsbalken,
+ * der ganz oben steht — sonst entsteht darüber ein fremdfarbiger Streifen.
+ * `colorScheme: "light"` verhindert, dass Browser Formularelemente und
+ * Scrollbalken dunkel rendern; die Seite hat keinen Dark Mode mehr.
+ */
+export const viewport: Viewport = {
+  themeColor: "#0A2EA3",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

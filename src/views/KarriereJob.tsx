@@ -122,13 +122,13 @@ export default function KarriereJob({ job }: { job: Job }) {
 
             <a
               href={bewerbungsLink}
-              className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-foreground px-6 text-background transition-colors hover:bg-foreground/90"
+              className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
                 <span className="text-[13px] font-semibold leading-tight">
                   Bewerbung schreiben
                 </span>
-                <span className="mt-1 text-[11px] leading-tight text-background/58">
+                <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
                   {company.email.general}
                 </span>
               </span>

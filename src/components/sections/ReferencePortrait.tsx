@@ -6,6 +6,10 @@ import type { ClientResult } from "@/data/client-results";
  * Ausweis wirken; so steht die Person frei im Layout. Die Tiefe kommt aus dem
  * Schlagschatten statt aus einem Rahmen.
  *
+ * Der Schatten ist mit dem hellen Design (11.08.2026) deutlich zurückgenommen und
+ * in den Navy-Ton der Seite gedreht. Der frühere harte Schwarzschatten war für den
+ * dunklen Grund gebaut; auf Weiß legt er einen grauen Schleier um die Person.
+ *
  * Liegt kein Foto vor, wird **nichts** gerendert (`null`). Eine Initialen-Kachel
  * als Ersatz wäre nur ein leerer Kasten — die aufrufende Seite prüft deshalb
  * selbst auf `person.photo` und passt ihr Layout an.

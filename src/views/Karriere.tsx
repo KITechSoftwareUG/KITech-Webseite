@@ -118,13 +118,13 @@ export default function Karriere() {
 
           <a
             href={`mailto:${company.email.general}?subject=${encodeURIComponent("Initiativbewerbung")}`}
-            className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 bg-foreground px-6 text-background transition-colors hover:bg-foreground/90"
+            className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
               <span className="text-[13px] font-semibold leading-tight">
                 Initiativ bewerben
               </span>
-              <span className="mt-1 text-[11px] leading-tight text-background/58">
+              <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
                 {company.email.general}
               </span>
             </span>

@@ -32,7 +32,7 @@ export function Funnel() {
         title={
           <>
             {c.headline}{" "}
-            <span className="box-decoration-clone bg-foreground px-2.5 pb-1 text-background">
+            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
               {c.headlineHighlight}
             </span>
           </>
@@ -41,11 +41,11 @@ export function Funnel() {
       >
         <Link
           href="/lass-uns-reden"
-          className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-foreground px-6 text-background transition-colors hover:bg-foreground/90"
+          className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <span className="flex flex-col text-left">
             <span className="text-[13px] font-semibold leading-tight">Erstgespräch buchen</span>
-            <span className="mt-1 text-[11px] leading-tight text-background/58">
+            <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
               30 Minuten, unverbindlich
             </span>
           </span>

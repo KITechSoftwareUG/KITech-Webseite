@@ -1,31 +1,58 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock, ExternalLink } from "lucide-react";
 import type { ClientResult } from "@/data/client-results";
 import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
 import { trackEvent } from "@/lib/plausible";
 
 /**
- * Karte im Raster der Referenz-Übersicht. Gleiche Bildsprache wie die
- * Ergebniskarten auf der Startseite (`ClientResults.tsx`), aber ohne den
- * überstehenden Portrait-Block: die Übersicht zeigt sechs Karten dicht
- * untereinander, der Überstand würde dort nur Abstand fressen.
+ * DIE Kundenkarte — eine Komponente fuer beide Einsatzorte:
+ *   - Referenz-Uebersicht (`/referenzen`): ganze Karte ist der Link.
+ *   - Startseite (`ClientResults.tsx`): zusaetzlich Beleglinks, deshalb NICHT
+ *     als Ganzes verlinkt (ein <a> in einem <Link> waere ungueltiges HTML).
  *
- * Die ganze Karte ist der Link — auf der Übersicht gibt es kein zweites Ziel,
- * und ein 300 px hoher Klickbereich trifft sich am Handy deutlich besser als eine
- * Textzeile am Kartenfuß.
+ * Am 05.08.2026 zusammengefuehrt: die Startseite hatte eine eigene, engere
+ * Variante mit dem Portrait in einem grauen Kasten. Auf Ansage gilt jetzt das
+ * Design der Referenz-Uebersicht ueberall — freigestelltes Portrait, das oben
+ * aus der Karte ragt, Sterne und Logo in einer Zeile unter dem Namen, grosszuegige
+ * Abstaende. Zwei getrennte Karten waren genau der Grund, warum die beiden
+ * Seiten auseinandergelaufen sind; deshalb hier nur noch eine.
+ *
+ * Das Portrait steht bewusst OHNE Rahmen und ohne Hintergrundflaeche im Layout.
+ * Ein Kasten drumherum liess es wie ein Ausweisfoto wirken. Liegt kein Foto vor,
+ * rendert `ReferencePortrait` nichts und der Text rueckt nach links auf — auch
+ * das bewusst, ein Silhouetten-Platzhalter zog nur Aufmerksamkeit auf die Luecke.
+ *
+ * Seit dem Wechsel auf das helle Design (11.08.2026) ist die Karte weiss,
+ * `rounded-2xl`, mit `shadow-card` und `ring-1 ring-border` — dieselbe Form wie
+ * die Startseitenkarte in `ClientResults.tsx`. Vorher trug sie einen dunklen
+ * Verlauf mit hartem Schlagschatten. Die Kennzahl steht jetzt in Dunkelblau, der
+ * frueher lime Akzent laeuft ueberall ueber `--primary`.
  */
-export function ReferenceCard({ result }: { result: ClientResult }) {
+export function ReferenceCard({
+  result,
+  /**
+   * Startseite: zeigt zusaetzlich den "Live im Einsatz"-Block und die
+   * Kundenwebsite. Schaltet die Karte von "ganz Link" auf "Links einzeln" um.
+   */
+  withProofLinks = false,
+}: {
+  result: ClientResult;
+  withProofLinks?: boolean;
+}) {
   const hasFacts = Boolean(result.duration || (result.before && result.after) || result.extra);
 
-  return (
-    <Link
-      href={`/referenzen/${result.slug}`}
-      onClick={() => trackEvent("CTA_Klick", { position: `referenz-karte-${result.slug}` })}
-      className="group relative flex h-full flex-col border border-border bg-[linear-gradient(168deg,hsl(245_28%_13%)_0%,hsl(243_20%_9%)_100%)] p-6 shadow-[0_20px_50px_hsl(0_0%_0%/0.35)] transition-colors hover:border-primary/60 sm:p-8"
-    >
+  // Weisse Karte auf hellem Grund: sichtbar wird sie ueber den feinen Ring und
+  // den Schatten, nicht ueber einen Eigengrund. Beim Ueberfahren hebt sie sich
+  // an (`shadow-elevated`) statt die Rahmenfarbe zu wechseln — auf Weiss ist die
+  // Hoehenaenderung das deutlichere Signal.
+  const cardClass =
+    "group relative flex h-full flex-col rounded-2xl bg-white p-6 shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated sm:p-8";
+
+  const inner = (
+    <>
       <div className="flex items-start gap-5">
         <ReferencePortrait
           person={result.person}
@@ -34,24 +61,27 @@ export function ReferenceCard({ result }: { result: ClientResult }) {
         />
 
         <div className="min-w-0 pt-1">
-          <p className="text-[15px] font-semibold leading-tight text-foreground sm:text-base">
+          <p className="text-[15px] font-bold leading-tight text-foreground sm:text-base">
             {result.person.name}
           </p>
           {result.person.role && (
-            <p className="mt-1 text-[12px] leading-tight text-muted-foreground">
+            <p className="mt-1 text-[12px] font-normal leading-tight text-muted-foreground">
               {result.person.role}
             </p>
           )}
-          <p className="mt-1.5 text-[12px] leading-tight text-muted-foreground">{result.company}</p>
+          <p className="mt-1.5 text-[12px] font-normal leading-tight text-muted-foreground">
+            {result.company}
+          </p>
 
-          {/* Bewertung und Logo teilen sich eine Zeile, wie auf den Ergebniskarten
-              der Startseite.
-              Heller Kasten hinter dem Logo: die Kundenlogos sind gemischt (transparent,
-              weiß hinterlegt, dunkle Schrift) und würden sonst teils verschwinden. */}
+          {/* Bewertung und Logo teilen sich eine Zeile — untereinander wuerden sie
+              den Kartenkopf unnoetig in die Hoehe ziehen.
+              Der frueher noetige weisse Kasten hinter dem Logo ist entfallen: die
+              Karte ist jetzt selbst weiss, und alle hinterlegten Kundenlogos sind
+              dunkel auf transparent — auf Weiss stehen sie ohne Hilfsflaeche. */}
           <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-2">
             <StarRating value={result.rating} />
             {result.logo && (
-              <span className="inline-flex h-10 items-center bg-white px-2.5">
+              <span className="inline-flex h-10 items-center">
                 <img
                   src={result.logo}
                   alt={`${result.company} Firmenlogo`}
@@ -64,50 +94,136 @@ export function ReferenceCard({ result }: { result: ClientResult }) {
         </div>
       </div>
 
-      {/* Die eine Zahl — sie trägt die Karte, nicht der Text darunter. */}
-      <p className="kinetic-data mt-7 text-[46px] font-light leading-none text-foreground sm:text-[54px]">
+      {/* Die eine Zahl — sie trägt die Karte, nicht der Text darunter. In Dunkelblau,
+          weil das die einzige Signalfarbe ist und die Zahl der einzige Beweis. */}
+      <p className="kinetic-data mt-7 text-[46px] leading-none text-primary sm:text-[54px]">
         {result.headline.value}
       </p>
       <p className="mt-3 max-w-[320px] text-[15px] font-semibold leading-tight text-foreground">
         {result.headline.label}
       </p>
 
-      <p className="mt-5 text-pretty text-[14px] leading-[1.6] text-muted-foreground">
+      <p className="mt-5 text-pretty text-[14px] font-normal leading-[1.6] text-muted-foreground">
         {result.summary}
       </p>
 
       {hasFacts && (
-        <dl className="mt-6 space-y-2.5 border-t border-border/60 pt-5 text-[13px]">
+        <dl className="mt-6 space-y-2.5 border-t border-border pt-5 text-[13px]">
           {result.duration && (
             <div className="flex items-center gap-2">
               <dt className="sr-only">Projektdauer</dt>
-              <Clock className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
+              <Clock className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true" />
               <dd className="font-semibold text-foreground">{result.duration}</dd>
             </div>
           )}
           {result.before && result.after && (
             <div className="flex flex-wrap items-center gap-2">
               <dt className="sr-only">Vorher und nachher</dt>
-              <dd className="text-muted-foreground line-through decoration-muted-foreground/50">
+              <dd className="font-normal text-muted-foreground line-through decoration-muted-foreground/50">
                 {result.before}
               </dd>
-              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
+              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true" />
               <dd className="font-semibold text-foreground">{result.after}</dd>
             </div>
           )}
           {result.extra && (
             <div className="flex items-center gap-2">
               <dt className="sr-only">Weitere Kennzahl</dt>
-              <dd className="font-semibold text-accent">{result.extra}</dd>
+              <dd className="font-semibold text-primary">{result.extra}</dd>
             </div>
           )}
         </dl>
       )}
 
-      <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-7 text-[13px] font-semibold text-foreground transition-colors group-hover:text-primary">
-        Fall ansehen
-        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-      </span>
-    </Link>
+      {/* Das belegte Kundenzitat, wo eines vorliegt. Dunkelblaue Kante statt der
+          frueheren Lime-Kante — es gibt nur noch eine Akzentfarbe. */}
+      {result.review && (
+        <p className="mt-5 border-l-2 border-primary pl-3.5 text-[14px] font-medium italic leading-[1.5] text-foreground">
+          „{result.review}“
+        </p>
+      )}
+    </>
   );
+
+  // Uebersicht: ein einziges Klickziel ueber die ganze Karte. Ein 300 px hoher
+  // Klickbereich trifft sich am Handy deutlich besser als eine Textzeile am Fuss.
+  if (!withProofLinks) {
+    return (
+      <Link
+        href={`/referenzen/${result.slug}`}
+        onClick={() => trackEvent("CTA_Klick", { position: `referenz-karte-${result.slug}` })}
+        className={cardClass}
+      >
+        {inner}
+        {/* Der Abstand sitzt auf dem Wrapper, nicht auf der Pille: ein `pt-7`
+            direkt auf der dunkelblauen Flaeche wuerde sie oben aufblaehen. */}
+        <div className="mt-auto pt-7">
+          <span className="inline-flex h-[46px] w-fit items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors group-hover:bg-primary/90">
+            Fall ansehen
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </span>
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <article className={cardClass}>
+      {inner}
+
+      {/* Der Live-Link auf das gebaute Produkt: eigener Block mit Akzentkante,
+          weil er der ueberpruefbarste Beweis auf der ganzen Seite ist. "Wir haben
+          ein Portal gebaut" ist eine Behauptung, "hier ist es" ist ein Beweis.
+          Sehr schwach dunkelblau hinterlegt statt gefuellt: der Block soll sich vom
+          Kartenweiss absetzen, aber der Pille darunter nicht die Wirkung nehmen. */}
+      {result.liveUrl && (
+        <a
+          href={result.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent("CTA_Klick", { position: `live-link-${result.slug}` })}
+          className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-primary/25 bg-primary/[0.06] px-3.5 py-3 transition-colors hover:border-primary/60 hover:bg-primary/[0.11]"
+        >
+          <span className="min-w-0">
+            <span className="block text-[11px] font-bold uppercase tracking-wide text-primary">
+              Live im Einsatz
+            </span>
+            <span className="mt-0.5 block truncate text-[13px] font-medium text-foreground">
+              {hostLabel(result.liveUrl)}
+            </span>
+          </span>
+          <ExternalLink className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+        </a>
+      )}
+
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 pt-7">
+        {result.companyUrl ? (
+          <a
+            href={result.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[12px] font-normal text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 transition-colors hover:text-primary"
+          >
+            {hostLabel(result.companyUrl)}
+          </a>
+        ) : (
+          <span />
+        )}
+
+        <Link
+          href={`/referenzen/${result.slug}`}
+          onClick={() => trackEvent("CTA_Klick", { position: `kundenkarte-${result.slug}` })}
+          className="inline-flex h-[46px] items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          Fall ansehen
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+/** "https://dashboard.niimmo.de" -> "dashboard.niimmo.de" */
+function hostLabel(url: string) {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 }

@@ -6,16 +6,17 @@
  * das Logo in der Kopfzeile sichtbar hin und her — der Rahmen, in dem die Seite
  * steht, wackelte. Ein Wert für alle.
  *
- * 1180 px ist der breiteste der drei Werte: Karten- und Tabellenraster brauchen
- * ihn, und Textspalten werden ohnehin über eigene `max-w`-Werte begrenzt. Ein
- * schmaler Hero (Startseite) bleibt schmal, indem er die Textspalte begrenzt —
- * nicht den Seitencontainer.
+ * Der Wert steht als `max-w-site` (1170 px) in `tailwind.config.ts` — dieselbe
+ * Breite, die auch die Navigationsleiste und der Ankündigungsbalken nutzen, und
+ * dieselbe wie in der Design-Vorlage. Textspalten werden ohnehin über eigene
+ * `max-w`-Werte begrenzt; ein schmaler Hero bleibt schmal, indem er die
+ * Textspalte begrenzt — nicht den Seitencontainer.
  *
  * Als Konstante statt als Tailwind-Klasse in `tailwind.config.ts`, weil sie auch
  * in Sektionen gebraucht wird, die außerhalb der Shell sitzen (ClientResults,
  * FinalCta) und dort mit derselben Kante fluchten müssen.
  */
-export const SITE_CONTAINER = "mx-auto w-full max-w-[1180px] px-5 sm:px-8";
+export const SITE_CONTAINER = "mx-auto w-full max-w-site px-5 sm:px-8";
 
 /**
  * Schmale Spalte für zusammenhängenden Fließtext (Rechtstexte, Glossar-Artikel).

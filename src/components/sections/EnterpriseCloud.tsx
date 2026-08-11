@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Cloud, Shield, Server, Check, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SignalField } from "@/components/canvas/SignalField";
 import { trackEvent } from "@/lib/plausible";
 import {
   StructuredData,
@@ -103,12 +102,13 @@ const trustBadges = [
 ];
 
 /**
- * Visuelle Ausfuehrung (KI-Redesign v2): kinetic-display statt Serif-Kursiv, Lime statt
- * Gradient-Text im Heading (Gradient-Text ist laut Design-Skill verboten). Ein dezentes,
- * dichtes SignalField als Kopf-Backdrop statt eines CSS-Blueprint-Grids – bewusst gedimmt
- * (geringe Intensity), damit Ueberschrift/Text lesbar bleiben, das Canvas traegt hier
- * Atmosphaere, nicht Kontrast. Karten durchgehend Border-only (kein shadow-card/-elevated
- * zusaetzlich zum Border), Tech-Feature-Badges nutzen kinetic-data statt font-mono.
+ * ACHTUNG — diese Sektion wird derzeit von keiner Seite gerendert. Sie bleibt im
+ * Repo, weil `enterpriseCloudPlatforms` die Datengrundlage des JSON-LD-Tests in
+ * `src/lib/__tests__/enterprise-cloud-schema.test.ts` ist. Wer sie wieder
+ * einhaengt, prueft sie vorher gegen docs/DESIGN.md.
+ *
+ * Mit dem hellen Design (11.08.2026) ist das Canvas-Signalfeld im Kopfbereich
+ * entfallen; an seiner Stelle steht ein heller Verlauf.
  */
 export function EnterpriseCloud() {
   return (
@@ -119,9 +119,10 @@ export function EnterpriseCloud() {
       <StructuredData data={getEnterpriseCloudItemListSchema(enterpriseCloudPlatforms.map((p) => ({ ...p, areaServed: [...p.areaServed] })))} />
       <StructuredData data={getEnterpriseCloudFAQSchema()} />
 
-      <div className="absolute inset-x-0 top-0 h-72 opacity-[0.35]" aria-hidden="true">
-        <SignalField density={0.9} intensity={0.7} accentColor="--enterprise-accent" />
-      </div>
+      <div
+        className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-surface-strong to-transparent"
+        aria-hidden="true"
+      />
 
       <div className="container relative">
         <motion.div

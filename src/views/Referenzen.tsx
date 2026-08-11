@@ -52,7 +52,7 @@ export default function Referenzen() {
             Die zweite Zahl kommt direkt aus der Datendatei und kann deshalb nicht
             auseinanderlaufen, wenn Fälle dazukommen. */}
         <div className="mt-9 grid max-w-[520px] grid-cols-2 gap-5">
-          <div className="flex min-h-[150px] flex-col items-center justify-center bg-foreground px-5 text-center text-background">
+          <div className="flex min-h-[150px] flex-col items-center justify-center bg-primary px-5 text-center text-primary-foreground">
             <p className="kinetic-data text-[38px] font-light leading-none">50+</p>
             <p className="mt-3 max-w-[170px] text-[14px] font-semibold leading-[1.25]">
               Projekte abgeschlossen

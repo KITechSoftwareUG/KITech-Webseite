@@ -12,6 +12,12 @@ import { SITE_CONTAINER } from "@/components/layout/site-container";
  * `lead` ist deshalb kein Erklärabsatz, sondern die zweite Hälfte der Aussage:
  * groß gesetzt, nah an der Überschrift, ein Satz. Wer drei Sätze braucht, hat
  * die Überschrift nicht scharf genug formuliert.
+ *
+ * Bewusst **ohne** `uppercase`: Versalien sind im hellen Design der Zug des
+ * Heros auf der Startseite. Die Titel hier sind ganze Sätze mit Satzzeichen
+ * ("Direkt an den Tisch, nicht ins Formular.") — in Großbuchstaben verlieren
+ * sie über zwei Zeilen ihre Lesbarkeit. Die Wucht kommt aus Gewicht (800 über
+ * `kinetic-display`) und Größe.
  */
 export function PageHeading({
   title,
@@ -29,8 +35,10 @@ export function PageHeading({
         {title}
       </h1>
 
+      {/* Der Lead steht in `muted-foreground`: dunkles Grau auf hellem Grund,
+          klar lesbar und trotzdem eine Stufe unter der Überschrift. */}
       {lead && (
-        <p className="mt-7 max-w-[640px] text-pretty text-[18px] leading-[1.45] text-foreground/90 sm:text-[22px]">
+        <p className="mt-7 max-w-[640px] text-pretty text-[18px] font-normal leading-[1.45] text-muted-foreground sm:text-[22px]">
           {lead}
         </p>
       )}

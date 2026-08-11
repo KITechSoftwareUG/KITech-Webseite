@@ -51,7 +51,7 @@ export default function Haltung() {
         title={
           <>
             KI wird überall reingequetscht.{" "}
-            <span className="box-decoration-clone bg-foreground px-2.5 pb-1 text-background">
+            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
               Ohne klaren Nutzen
             </span>
             .

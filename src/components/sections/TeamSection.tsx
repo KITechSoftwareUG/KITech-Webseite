@@ -1,12 +1,11 @@
 "use client";
 
 import { Linkedin, UserRound } from "lucide-react";
-import { SignalField } from "@/components/canvas/SignalField";
 import { teamRoster, type TeamMember } from "@/data/team";
 
 /**
  * "Wer wir sind" als EIN geschlossener Block: vier gleich grosse Kacheln in einer
- * Reihe, umlaufend gerahmt, 1px-Fugen dazwischen.
+ * Reihe.
  *
  * Vorher stand Ayham bis zu 840px hoch in der Mitte und drei kleine Portraits
  * schwebten absolut positioniert drumherum — die Sektion baute ueber 1200px hoch.
@@ -15,36 +14,39 @@ import { teamRoster, type TeamMember } from "@/data/team";
  * kein Schweben, keine absolute Positionierung.
  *
  * Ayham ist nicht mehr ueber die GROESSE hervorgehoben, sondern ueber die
- * BEHANDLUNG (Akzentkante oben, hellerer Grund). Nur so bleiben alle vier Kacheln
- * identisch breit — und genau das ist das "geblockte" Bild.
+ * BEHANDLUNG (Akzentkante oben in der Signalfarbe). Nur so bleiben alle vier
+ * Kacheln identisch breit — und genau das ist das "geblockte" Bild.
  *
  * Seit 05.08.2026 traegt jede Kachel zusaetzlich einen Satz zur Person und die
  * LinkedIn-Verlinkung. Die Medienhoehe ist dafuer bewusst gesunken: der Textblock
  * darunter holt sich die Hoehe zurueck, die das Bild abgibt, der Gesamtblock
  * bleibt damit so flach wie vorher.
  *
- * Die Fugen entstehen ueber `gap-px` auf dem Raster plus `bg-border` am Container:
- * saubere 1px-Linien ohne nth-child-Randlogik, auch wenn das Raster auf Mobile
- * zweispaltig umbricht.
+ * Helles Design (11.08.2026): Die Kacheln waren ein zusammenhaengendes Gitter mit
+ * 1px-Fugen (`gap-px` auf `bg-border`) — eine Loesung fuer den dunklen Grund, wo
+ * eine Linie das einzige Mittel war, Flaechen zu trennen. Auf Weiss uebernimmt das
+ * die Karte selbst: vier eigenstaendige weisse Karten mit Rundung, Schatten und
+ * Ring, wie in `ClientResults`. Die Canvas-Animation im Sektionshintergrund
+ * (`SignalField`) ist ersatzlos entfallen, es gibt auf hellem Grund nichts zu
+ * leuchten.
  */
 
 /**
- * Studio-Grund hinter dem freigestellten Portrait. Ohne diese aufgehellte Flaeche
- * verschwinden dunkle Anzuege auf dem near-black Seitenhintergrund.
+ * Grund hinter dem freigestellten Portrait. Die Fotos sind transparent
+ * freigestellt; auf reinem Weiss saehe die Person aus, als schwebe sie im Nichts.
+ * Das leichte Grau setzt ein sichtbares Bildfeld ab, ohne wie ein zweiter
+ * Farbton zu wirken — dasselbe Feld wie in den Kundenkarten.
  */
-const PHOTO_GROUND =
-  "bg-[linear-gradient(165deg,hsl(240_14%_42%)_0%,hsl(243_22%_22%)_62%,hsl(243_28%_14%)_100%)]";
+const PHOTO_GROUND = "bg-surface-strong";
 
-/** Gleicher Grund, eine Spur heller — die Hervorhebung des Gruenders. */
-const PHOTO_GROUND_HIGHLIGHT =
-  "bg-[linear-gradient(165deg,hsl(240_18%_50%)_0%,hsl(244_26%_26%)_62%,hsl(244_30%_15%)_100%)]";
+/** Gleiches Bildfeld, eine Spur heller — die Hervorhebung des Gruenders. */
+const PHOTO_GROUND_HIGHLIGHT = "bg-surface";
 
 /**
- * Kachel ohne Portrait: derselbe ausgeleuchtete Hintergrund wie hinter den Fotos,
- * damit die Kachel sichtbar zum selben "Raum" gehoert.
+ * Kachel ohne Portrait: derselbe Grund wie hinter den Fotos, damit die Kachel
+ * sichtbar zum selben "Raum" gehoert.
  */
-const EMPTY_GROUND =
-  "bg-[radial-gradient(120%_90%_at_50%_0%,hsl(243_20%_24%)_0%,hsl(243_24%_13%)_58%,hsl(243_28%_9%)_100%)]";
+const EMPTY_GROUND = "bg-surface-strong";
 
 function TeamTile({ member }: { member: TeamMember }) {
   const ground = member.photo
@@ -54,7 +56,7 @@ function TeamTile({ member }: { member: TeamMember }) {
     : EMPTY_GROUND;
 
   return (
-    <li className="relative flex flex-col bg-background">
+    <li className="relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated">
       {/* Feste Medienhoehe statt Seitenverhaeltnis: so bleibt der Block flach,
           egal wie breit die Spalten gerade sind. */}
       <div className={`relative h-[190px] overflow-hidden sm:h-[240px] lg:h-[260px] ${ground}`}>
@@ -62,9 +64,10 @@ function TeamTile({ member }: { member: TeamMember }) {
           <img
             src={member.photo}
             alt={`${member.name}, ${member.role}`}
-            /* Schlagschatten wie bei den Silhouetten in ClientResults: er loest die
-               freigestellte Person vom Grund ab, ohne einen Rahmen zu brauchen. */
-            className="h-full w-full object-cover object-top drop-shadow-[0_16px_28px_rgba(0,0,0,0.55)]"
+            /* Weicher, dunkler Schlagschatten statt des frueheren harten Schwarz:
+               auf hellem Grund liest sich ein starker Schatten als Schmutzrand.
+               Er loest die freigestellte Person vom Bildfeld ab, ohne Rahmen. */
+            className="h-full w-full object-cover object-top drop-shadow-[0_14px_24px_rgba(19,22,40,0.18)]"
             loading="lazy"
           />
         ) : (
@@ -72,28 +75,28 @@ function TeamTile({ member }: { member: TeamMember }) {
              sehr niedrigem Kontrast. Bewusst kein "Foto folgt"-Text und keine
              Initialen — die Kachel soll gestaltet wirken, nicht unfertig. */
           <div className="flex h-full w-full items-center justify-center" aria-hidden="true">
-            <UserRound className="h-20 w-20 text-foreground/20 sm:h-24 sm:w-24" strokeWidth={1} />
+            <UserRound
+              className="h-20 w-20 text-muted-foreground/35 sm:h-24 sm:w-24"
+              strokeWidth={1}
+            />
           </div>
         )}
         {member.highlight && (
-          <span
-            className="absolute inset-x-0 top-0 h-[3px] bg-accent"
-            aria-hidden="true"
-          />
+          <span className="absolute inset-x-0 top-0 h-[3px] bg-primary" aria-hidden="true" />
         )}
       </div>
 
       {/* Textleiste: in allen vier Kacheln strukturell identisch — Name, Rolle,
           ein Satz, LinkedIn. `mt-auto` am Link haelt die Verlinkung auf einer
           Linie, auch wenn die Saetze unterschiedlich lang umbrechen. */}
-      <div className="flex flex-1 flex-col border-t border-border/70 px-3 py-3.5 sm:px-4">
-        <span className="text-[13px] font-semibold leading-tight text-foreground sm:text-[14px]">
+      <div className="flex flex-1 flex-col border-t border-border px-4 py-4 sm:px-5">
+        <span className="text-[13px] font-bold leading-tight text-foreground sm:text-[14px]">
           {member.name}
         </span>
-        <span className="mt-1 text-[11px] leading-tight text-muted-foreground sm:text-[12px]">
+        <span className="mt-1 text-[11px] font-normal leading-tight text-muted-foreground sm:text-[12px]">
           {member.role}
         </span>
-        <p className="mt-2.5 text-pretty text-[11.5px] leading-[1.55] text-muted-foreground sm:text-[12.5px]">
+        <p className="mt-2.5 text-pretty text-[11.5px] font-normal leading-[1.55] text-muted-foreground sm:text-[12.5px]">
           {member.bio}
         </p>
 
@@ -102,7 +105,7 @@ function TeamTile({ member }: { member: TeamMember }) {
             href={member.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-auto inline-flex w-fit items-center gap-1.5 pt-3.5 text-[11.5px] font-semibold text-foreground transition-colors hover:text-primary sm:text-[12px]"
+            className="mt-auto inline-flex w-fit items-center gap-1.5 pt-3.5 text-[11.5px] font-semibold text-primary transition-opacity hover:opacity-80 sm:text-[12px]"
           >
             <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
             LinkedIn
@@ -116,27 +119,16 @@ function TeamTile({ member }: { member: TeamMember }) {
 
 export function TeamSection() {
   return (
-    <section
-      className="relative isolate overflow-hidden bg-background py-16 sm:py-20"
-      aria-labelledby="team-heading"
-    >
-      <div className="absolute inset-0 -z-10" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(245 48% 10%) 54%, hsl(0 0% 4%) 100%)",
-          }}
-        />
-        <SignalField density={0.35} intensity={0.35} baseColor="--primary" accentColor="--accent" />
-        <div className="absolute inset-x-0 top-0 h-px bg-border/60" />
-      </div>
-
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+    // `bg-surface` statt Weiss: die Sektion steht zwischen weissen Abschnitten,
+    // und die weissen Karten brauchen einen Grund, von dem sie sich abheben.
+    <section className="bg-surface py-16 sm:py-20" aria-labelledby="team-heading">
+      <div className="mx-auto w-full max-w-site px-5 sm:px-8">
         {/* Kein erklaerender Absatz unter der Headline — bewusst ersatzlos gestrichen.
-            Das Label bleibt: es ist als einzige Ausnahme ausdruecklich freigegeben. */}
+            Das Label bleibt: es ist als einzige Ausnahme ausdruecklich freigegeben.
+            Als dunkelblaue Pille statt als grauer Kasten — auf hellem Grund ist der
+            umrandete Kasten kaum sichtbar, die Signalfarbe traegt ihn. */}
         <header className="max-w-[620px]">
-          <span className="mb-4 block w-fit border border-border px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+          <span className="mb-4 block w-fit rounded-full bg-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
             Wer wir sind
           </span>
           <h2
@@ -147,9 +139,10 @@ export function TeamSection() {
           </h2>
         </header>
 
-        {/* `bg-border` faerbt die 1px-Fugen zwischen den Kacheln. */}
-        <div className="mt-8 border border-border bg-border sm:mt-10">
-          <ul className="grid grid-cols-2 gap-px lg:grid-cols-4">
+        {/* Eigenstaendige Karten mit echtem Abstand statt eines Gitters mit
+            1px-Fugen — siehe Kopfkommentar. */}
+        <div className="mt-8 sm:mt-10">
+          <ul className="grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-6">
             {teamRoster.map((member) => (
               <TeamTile key={member.name} member={member} />
             ))}

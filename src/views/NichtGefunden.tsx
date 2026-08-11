@@ -19,7 +19,7 @@ import { mainNavigation } from "@/config/navigation";
  */
 export default function NichtGefunden() {
   return (
-    <PageShell backdrop="full" backdropVignette>
+    <PageShell backdrop="surface">
       <section className={`${SITE_CONTAINER} py-20 sm:py-28`}>
         <p className="kinetic-data text-[64px] font-light leading-none text-accent sm:text-[88px]">
           404
@@ -63,7 +63,7 @@ export default function NichtGefunden() {
 
         <Link
           href="/"
-          className="mt-10 inline-flex h-[52px] items-center gap-3 bg-foreground px-6 text-[13px] font-semibold text-background transition-colors hover:bg-foreground/90"
+          className="mt-10 inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Zur Startseite
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

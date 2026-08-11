@@ -16,15 +16,14 @@ export default {
       },
     },
     extend: {
+      // Eine Familie fuer alles: Poppins. Der Charakter kommt aus den
+      // Gewichtsspruengen (400 Fliesstext / 500 Navigation / 700 Buttons /
+      // 800 Ueberschriften), nicht aus einem zweiten Schriftschnitt.
+      // Vorher: Onest fuer Text + Recursive Variable fuer Ueberschriften.
       fontFamily: {
-        sans: ["Onest", "system-ui", "sans-serif"],
-        // "Recursive" ist ein Variable Font mit MONO-Achse (0=serifenlos, 1=mono) und
-        // CASL-Achse - wird in den neu gebauten KI-Redesign-Seiten (Startseite/Solo/
-        // Enterprise) fuer Headlines genutzt, oft animiert zwischen den Achsen-Werten
-        // ("Text wird waehrend des Renderns praeziser/computationaler"). Siehe .kinetic-*
-        // Utilities in index.css. Restliche Seiten bleiben bei Onest (Bestandsmarke).
-        display: ["'Recursive Variable'", "'Recursive'", "system-ui", "sans-serif"],
-        body: ["Onest", "system-ui", "sans-serif"],
+        sans: ["Poppins", "system-ui", "sans-serif"],
+        display: ["Poppins", "system-ui", "sans-serif"],
+        body: ["Poppins", "system-ui", "sans-serif"],
         mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
       },
       colors: {
@@ -73,6 +72,20 @@ export default {
           DEFAULT: "hsl(var(--enterprise-accent))",
           foreground: "hsl(var(--enterprise-accent-foreground))",
         },
+        // Grundtoene fuer Sektionen: `surface` ist das leichte Grau, mit dem sich
+        // Abschnitte vom weissen Grund absetzen, `navbar` das Navy der Kopfzeile.
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          strong: "hsl(var(--surface-strong))",
+        },
+        navbar: {
+          DEFAULT: "hsl(var(--navbar))",
+          foreground: "hsl(var(--navbar-foreground))",
+        },
+      },
+      maxWidth: {
+        // Containerbreite der Vorlage.
+        site: "1170px",
       },
       backgroundImage: {
         "gradient-conic": "conic-gradient(var(--conic-position), var(--tw-gradient-stops))",

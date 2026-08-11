@@ -142,11 +142,11 @@ export default function Kontakt() {
             <Link
               href="/lass-uns-reden"
               onClick={() => trackEvent("Calendly_Klick", { position: "kontakt-seite" })}
-              className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-foreground px-6 text-background transition-colors hover:bg-foreground/90"
+              className="mt-7 inline-flex h-[56px] w-full items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
                 <span className="text-[13px] font-semibold leading-tight">Termin auswählen</span>
-                <span className="mt-1 text-[11px] leading-tight text-background/58">
+                <span className="mt-1 text-[11px] leading-tight text-primary-foreground/58">
                   30 Minuten, unverbindlich
                 </span>
               </span>

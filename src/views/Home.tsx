@@ -3,46 +3,35 @@
 import Link from "next/link";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { PageShell } from "@/components/layout/PageShell";
-import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { ClientResults } from "@/components/sections/ClientResults";
-import { TeamSection } from "@/components/sections/TeamSection";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { ScrollHint } from "@/components/sections/ScrollHint";
+import { teamRoster } from "@/data/team";
 import { trackEvent } from "@/lib/plausible";
 
 /**
- * Startseite. Aufbau:
- *   Hero    : ausschliesslich die eine Aussage plus der Erstgespraech-CTA.
- *   Darunter: Kunden-Ergebniskarten, Team, Abschluss-CTA.
+ * Startseite. Zwei Abschnitte, mehr nicht:
  *
- * Der Hero ist am 05.08.2026 auf Ansage radikal leergeraeumt worden. Entfallen
- * sind dabei: das Label "Für den deutschen Mittelstand", der Positionierungs-
- * Absatz ("Wir sind euer Anwendungspartner …"), die Medienflaeche (HeroMedia)
- * und die beiden Kennzahl-Kacheln "50+ Projekte" / "98 % Kundenzufriedenheit".
- * Begruendung: die Aussage soll allein wirken. Wer eines davon zurueckholt,
- * nimmt ihr genau die Wirkung, wegen der der Hero leergeraeumt wurde.
+ *   1. Hero — hellgrauer Grund, zwei freigestellte Personen an den Raendern,
+ *      mittig die eine Aussage plus dunkelblauer Pill-CTA.
+ *   2. Drei Referenzkarten nebeneinander mit pulsierendem Pfeil daneben.
  *
- * Frueher entfernt: ROI-Badge, Logo-Karussell, Trust-Badges und die
- * Sammel-Bewertungszeile ("5 Sterne, 40+ Bewertungen") — die Sterne stehen
- * jetzt bei den einzelnen Kunden auf den Bewertungskarten, wo sie einer
- * konkreten Aussage zugeordnet sind statt anonym im Hero zu haengen.
+ * **Darunter kommt bewusst nichts.** Das ist ausdrueckliche Vorgabe (11.08.2026):
+ * "Darunter KOMPLETT LEER LASSEN, ich gebe dir alles vor." Team-Abschnitt und
+ * Abschluss-CTA sind deshalb von der Startseite genommen — die Komponenten
+ * (`TeamSection`, `FinalCta`) liegen unveraendert im Repo und koennen jederzeit
+ * wieder eingehaengt werden. Wer hier ohne Ansage etwas ergaenzt, laeuft der
+ * Vorgabe zuwider.
  *
- * Kopfzeile, Fusszeile und Hintergrund kommen seit dem Aufraeumen am 05.08.2026
- * aus `PageShell` — vorher baute diese Datei alle drei selbst, mit einer eigenen
- * Containerbreite (1060px) und einer eigenen Fusszeile.
+ * Die Aussage im Hero bleibt woertlich, wie sie war — nur ihre Gestaltung ist
+ * neu. Der frueher entfernte Positionierungsabsatz kommt NICHT zurueck.
  */
+
+/** Die beiden Personen an den Hero-Raendern — dieselbe Quelle wie der Team-Abschnitt. */
+const ayham = teamRoster.find((m) => m.name.startsWith("Ayham"));
+const leon = teamRoster.find((m) => m.name === "Leon");
+
 export default function Home() {
   return (
-    <PageShell
-      /* Der eingefaerbte Bereich endet dort, wo der Hero endet — deshalb
-         mitwachsend statt fester Wert: auf grossen Schirmen fuellt der Hero
-         einen Bildschirm, auf dem Handy deutlich weniger. Laeuft der Verlauf
-         zu weit, faerbt er die ersten Ergebniskarten mit ein. */
-      backdropClassName="absolute inset-x-0 top-0 -z-10 h-[540px] sm:h-[640px] lg:h-[100svh]"
-      backdropVignette
-      backdropDensity={0.5}
-      backdropIntensity={0.5}
-    >
+    <PageShell backdrop="none">
       <StructuredData
         data={getWebPageSchema(
           "KITech Software",
@@ -51,59 +40,60 @@ export default function Home() {
         )}
       />
 
-      {/* Die Aussage steht allein und mittig. Die Hoehe ist bewusst grosszuegig:
-          der Satz braucht Luft um sich herum, sonst ist er nur eine grosse Zeile
-          statt eine Ansage. `min-h` mit abgezogener Kopfzeilenhoehe, damit der
-          Scroll-Hinweis unten noch im ersten Bildschirm sitzt. */}
-      <div
-        className={`${SITE_CONTAINER} flex flex-col items-center justify-center pb-16 pt-20 text-center sm:pb-20 sm:pt-28 lg:min-h-[calc(100svh-210px)] lg:pt-24`}
-      >
-        {/* Der weisse Marker sitzt auf "mehr" — dem einen Wort, das die Aussage
-            traegt. Bewusst nur ein Wort: ueber mehrere Zeilen gezogen zerfaellt
-            der Marker in versetzte Bloecke und wird unruhig. */}
-        <h1 className="kinetic-display kinetic-morph-in max-w-[16ch] text-balance text-[33px] leading-[1.1] text-foreground sm:text-[58px] sm:leading-[1.08] lg:text-[80px]">
-          Falsche KI kostet{" "}
-          <span className="box-decoration-clone bg-foreground px-2.5 pb-1 text-background">
-            mehr
-          </span>{" "}
-          als keine KI.
-        </h1>
+      {/*
+        Hero. Der graue Grund laeuft ueber die volle Breite, der Inhalt sitzt im
+        Seitencontainer. Die Portraits stehen absolut an den Raendern und sind
+        unter `lg` ausgeblendet: auf schmalen Fenstern wuerden sie den Text
+        ueberlagern, und beschnittene Koepfe sehen nach Fehler aus.
+      */}
+      <section className="relative isolate overflow-hidden bg-surface-strong">
+        {ayham?.photo && (
+          <img
+            src={ayham.photo}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 hidden h-[86%] w-auto select-none object-contain object-bottom lg:block xl:h-[92%]"
+          />
+        )}
+        {leon?.photo && (
+          <img
+            src={leon.photo}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 right-0 hidden h-[86%] w-auto select-none object-contain object-bottom lg:block xl:h-[92%]"
+          />
+        )}
 
-        {/* Calendly-CTA: weisser Block wie in der Referenz ("Termin vereinbaren..."),
-            bewusst der visuell dominanteste Block auf der Seite. Der einzige
-            Zusatz, der im Hero bleiben darf — er erklaert nichts, er handelt. */}
-        <Link
-          href="/lass-uns-reden"
-          onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
-          /* Groesser als der Standard-CTA im Rest der Seite: er ist im leeren
-             Hero der einzige Gegenpol zur 80px-Headline und wuerde in der
-             kleineren Fassung daneben verschwinden. */
-          className="mt-12 inline-flex h-[60px] w-full max-w-[330px] flex-col items-center justify-center bg-foreground px-6 text-center text-background transition-colors hover:bg-foreground/90 sm:mt-14 sm:w-[330px]"
-        >
-          <span className="block text-[15px] font-semibold leading-tight">
+        <div className="relative mx-auto flex min-h-[380px] w-full max-w-site flex-col items-center justify-center px-5 py-16 text-center sm:px-8 sm:py-20 lg:min-h-[460px] lg:py-24">
+          {/*
+            Versalien und Gewicht 800 sind der praegendste Zug der Vorlage.
+            Der dunkelblaue Marker sitzt auf dem einen Wort, das die Aussage traegt —
+            frueher war er weiss auf dunklem Grund, jetzt umgekehrt.
+          */}
+          <h1 className="kinetic-morph-in max-w-[15ch] text-balance text-[30px] font-extrabold uppercase leading-[1.08] tracking-tight text-foreground sm:text-[42px] lg:text-[54px]">
+            Falsche KI kostet{" "}
+            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
+              mehr
+            </span>{" "}
+            als keine KI.
+          </h1>
+
+          <Link
+            href="/lass-uns-reden"
+            onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
+            className="mt-9 inline-flex h-[56px] w-full max-w-[420px] items-center justify-center rounded-full bg-primary px-8 text-[16px] font-bold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90 sm:mt-10 sm:text-[20px]"
+          >
             Kostenloses Erstgespräch buchen
-          </span>
-          <span className="mt-1 block text-[12px] font-normal leading-tight text-background/58">
+          </Link>
+
+          <p className="mt-4 text-[13px] font-normal text-muted-foreground">
             30 Minuten, unverbindlich
-          </span>
-        </Link>
-      </div>
+          </p>
+        </div>
+      </section>
 
-      <ScrollHint targetId="ergebnisse" label="Ergebnisse ansehen" />
-
-      {/* Das alte Logo-Karussell ist hier bewusst entfernt: Kundenreferenzen laufen
-          ausschliesslich ueber die Ergebniskarten. Eine Leiste mit blossen Logos
-          wiederholt nur, was die Karten mit echten Zahlen besser sagen. */}
-
-      {/* Kunden-Ergebniskarten (6 Karten, 2 Spalten). Daten in src/data/client-results.ts. */}
+      {/* Drei Referenzkarten mit pulsierendem Pfeil. Danach endet die Seite. */}
       <ClientResults />
-
-      {/* "Wer wir sind": vier gleich breite Kacheln in einem geschlossenen Block.
-          Ayham ist über die Behandlung hervorgehoben (Akzentkante, hellerer Grund),
-          nicht mehr über die Größe — siehe Kommentar in TeamSection.tsx. */}
-      <TeamSection />
-
-      <FinalCta />
     </PageShell>
   );
 }

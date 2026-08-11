@@ -4,8 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Mail, Check, Minus, X } from "lucide-react";
-import { SignalField } from "@/components/canvas/SignalField";
-import { PageShell } from "@/components/layout/PageShell";
+import { CheckShell } from "@/components/layout/CheckShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
@@ -175,19 +174,25 @@ export default function EuAiActSelbstcheck() {
 
   return (
     /*
-     * Der Check hatte bis zum 05.08.2026 eine eigene, reduzierte Kopfzeile (nur
-     * Logo, kein Menue) und eine eigene Fusszeile. Gedacht war das als Fokus-
-     * Screen; in der Praxis war die Seite damit eine Sackgasse — sie steht in der
-     * Fusszeile jeder anderen Seite, aber von hier fuehrte kein Weg zurueck in die
-     * Website. Jetzt traegt sie denselben Rahmen wie alle anderen Seiten.
+     * Der Check laeuft seit dem 11.08.2026 markenfrei: keine Kopfzeile mit Logo,
+     * keine Fusszeile mit Firmierung, kein Ankuendigungsbalken — statt der
+     * `PageShell` traegt er die `CheckShell` (siehe die Begruendung dort).
      *
-     * `backdrop="none"`, weil der Intro-Screen sein eigenes Signalfeld mitbringt —
-     * zwei uebereinander wuerden sich gegenseitig aufhellen.
-     *
-     * grid + place-items-center: der jeweils aktive Schritt sitzt vertikal mittig
-     * im verbleibenden Raum, statt oben zu kleben und unten Leere zu lassen.
+     * Er stand vorher im vollen Seitenrahmen, weil er als eigener Fokus-Screen
+     * eine Sackgasse war. Der markenfreie Rahmen loest das anders: er verlinkt
+     * oben rechts weiter — auf den Selbstcheck zur Entgelttransparenzrichtlinie
+     * unter klargehalt.de, das zweite Werkzeug derselben Art.
      */
-    <PageShell backdrop="none" mainClassName="grid place-items-center">
+    <CheckShell
+      title="EU AI Act · Selbstcheck"
+      link={{
+        href: "https://www.klargehalt.de/selbstcheck",
+        label: "Entgelttransparenzrichtlinie prüfen",
+        shortLabel: "Entgelttransparenz",
+        trackingPosition: "selbstcheck-klargehalt",
+      }}
+      note="Orientierung auf Basis Ihrer Angaben, keine Rechtsberatung. Die Antworten bleiben in Ihrem Browser."
+    >
       <>
         {stage === "intro" && <Intro onStart={start} />}
         {stage === "check" && (
@@ -209,7 +214,7 @@ export default function EuAiActSelbstcheck() {
           />
         )}
       </>
-    </PageShell>
+    </CheckShell>
   );
 }
 
@@ -219,17 +224,17 @@ function Intro({ onStart }: { onStart: () => void }) {
   return (
     <>
       <section className="relative isolate w-full overflow-hidden">
-        <div className="absolute inset-0 -z-10" aria-hidden="true">
-          <SignalField density={0.4} intensity={0.55} baseColor="--primary" accentColor="--accent" />
-        </div>
+        {/* Heller Kopfbereich statt des frueheren Canvas-Signalfelds: die
+            Animation war ein Element des dunklen Designs, auf weissem Grund gibt
+            es nichts zu leuchten (siehe docs/DESIGN.md). */}
         <div
-          className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/80 to-background"
+          className="absolute inset-x-0 top-0 -z-10 h-[420px] bg-gradient-to-b from-surface-strong to-background"
           aria-hidden="true"
         />
 
         <div className={`${SITE_CONTAINER} grid gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-12 lg:py-28`}>
           <div className="lg:col-span-7">
-            <span className="mb-6 block w-fit border border-foreground/20 bg-foreground px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-background">
+            <span className="mb-6 block w-fit bg-primary px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-primary-foreground">
               EU AI Act · Selbstcheck
             </span>
 
@@ -251,11 +256,11 @@ function Intro({ onStart }: { onStart: () => void }) {
             <button
               type="button"
               onClick={onStart}
-              className="group mt-10 inline-flex w-full items-center justify-between gap-6 border border-foreground bg-foreground px-6 py-5 text-background transition-colors hover:bg-foreground/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-auto"
+              className="group mt-10 inline-flex w-full items-center justify-between gap-6 bg-primary px-6 py-5 text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-auto"
             >
               <span className="text-left">
                 <span className="block text-base font-medium sm:text-lg">Check starten</span>
-                <span className="mt-1 block text-xs font-light text-background/70 sm:text-sm">
+                <span className="mt-1 block text-xs font-light text-primary-foreground/70 sm:text-sm">
                   Acht Fragen, Ergebnis direkt im Anschluss
                 </span>
               </span>
@@ -431,7 +436,7 @@ function Progress({ index, answers }: { index: number; answers: Record<number, A
               key={question.label}
               className={[
                 "h-1 flex-1 transition-colors",
-                answer ? "" : i === index ? "bg-foreground/50" : "bg-border",
+                answer ? "" : i === index ? "bg-primary/50" : "bg-border",
               ].join(" ")}
               style={background ? { backgroundColor: background } : undefined}
             />
@@ -587,13 +592,13 @@ function Result({
           <Link
             href="/lass-uns-reden"
             onClick={() => trackEvent("Calendly_Klick", { position: "selbstcheck-ergebnis" })}
-            className="group mt-12 inline-flex w-full items-center justify-between gap-6 border border-foreground bg-foreground px-6 py-5 text-background transition-colors hover:bg-foreground/90 sm:w-auto"
+            className="group mt-12 inline-flex w-full items-center justify-between gap-6 bg-primary px-6 py-5 text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
           >
             <span className="text-left">
               <span className="block text-base font-medium sm:text-lg">
                 {todo.length > 0 ? "Offene Punkte besprechen" : "Nachweise prüfen lassen"}
               </span>
-              <span className="mt-1 block text-xs font-light text-background/70 sm:text-sm">
+              <span className="mt-1 block text-xs font-light text-primary-foreground/70 sm:text-sm">
                 Kostenloses Erstgespräch, 30 Minuten, ohne Verpflichtung
               </span>
             </span>
@@ -678,7 +683,7 @@ function EmailSummary({ percent, todo }: { percent: number; todo: number[] }) {
         <button
           type="submit"
           disabled={!valid}
-          className="inline-flex h-12 items-center justify-center gap-2 border border-foreground bg-foreground px-5 text-sm font-medium text-background transition-colors hover:bg-foreground/90 disabled:cursor-not-allowed disabled:border-border disabled:bg-transparent disabled:text-muted-foreground"
+          className="inline-flex h-12 items-center justify-center gap-2 bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:border-border disabled:bg-transparent disabled:text-muted-foreground"
         >
           <Mail className="h-4 w-4" aria-hidden="true" />
           Entwurf öffnen
@@ -693,9 +698,12 @@ function EmailSummary({ percent, todo }: { percent: number; todo: number[] }) {
           className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
           required
         />
+        {/* Ohne Firmennamen, weil die Seite markenfrei laeuft — wer die Anfrage
+            erhaelt und verantwortet, steht in der verlinkten Erklaerung und im
+            Empfaengerfeld der Mail, die sich gleich oeffnet. */}
         <span>
-          Ich bin einverstanden, dass KITech Software meine E-Mail-Adresse für die Antwort auf diese
-          Anfrage verwendet.{" "}
+          Ich bin einverstanden, dass meine E-Mail-Adresse für die Antwort auf diese Anfrage
+          verwendet wird. Empfänger und Verantwortlicher stehen im{" "}
           <Link href="/datenschutz" className="underline underline-offset-2 hover:text-foreground">
             Datenschutz
           </Link>

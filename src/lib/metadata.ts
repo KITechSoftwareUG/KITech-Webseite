@@ -21,7 +21,14 @@ interface BuildMetadataOptions {
   /** Pfad ab Domainwurzel, z. B. "/referenzen". */
   path: string;
   ogType?: "website" | "article";
-  ogImage?: string;
+  /**
+   * Vorschaubild beim Teilen. `null` lässt den Eintrag weg — dann greift die
+   * Datei-Konvention von Next.js (`opengraph-image.tsx` im Routenordner).
+   * Nötig für markenfreie Seiten: das Standardbild ist das Firmenlogo.
+   */
+  ogImage?: string | null;
+  /** Absender beim Teilen. `null` lässt ihn weg — siehe `ogImage`. */
+  siteName?: string | null;
   /** Setzt robots auf noindex/nofollow — für Seiten ohne fertigen Inhalt. */
   noindex?: boolean;
 }
@@ -32,6 +39,7 @@ export function buildMetadata({
   path,
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
+  siteName = "KITech Software",
   noindex = false,
 }: BuildMetadataOptions): Metadata {
   const url = path.startsWith("http") ? path : `${BASE_URL}${path}`;
@@ -46,15 +54,15 @@ export function buildMetadata({
       description,
       type: ogType,
       url,
-      images: [ogImage],
+      ...(ogImage ? { images: [ogImage] } : {}),
       locale: "de_DE",
-      siteName: "KITech Software",
+      ...(siteName ? { siteName } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
   };
 }

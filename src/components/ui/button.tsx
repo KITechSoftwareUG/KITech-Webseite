@@ -4,27 +4,38 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+/*
+ * Buttons sind in diesem Design **Pillen**: voll gerundet, dunkelblau gefuellt,
+ * fetter Text. Das ist neben der Schrift der auffaelligste Zug der Vorlage.
+ *
+ * Vorher: `rounded-lg` plus `font-light` — eckige, duenn beschriftete Knoepfe
+ * fuer das dunkle Layout. Auf hellem Grund wirken die duennen Schnitte kraftlos,
+ * deshalb durchgaengig `font-bold`.
+ *
+ * `rounded-full` steht in der Basis, damit jede Variante es erbt; einzelne
+ * Aufrufer koennen es weiterhin per `className` ueberschreiben.
+ */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-light ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-lg",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border-2 border-foreground/15 bg-transparent text-foreground hover:border-foreground/30 hover:bg-foreground/5",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-foreground/5",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-lg font-light",
-        heroOutline: "border-2 border-foreground/20 bg-transparent text-foreground hover:bg-foreground/5 font-light",
-        cta: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-lg font-light",
-        ctaOutline: "border border-border bg-card/50 text-foreground hover:bg-card font-light",
+        hero: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-lg",
+        heroOutline: "border-2 border-foreground/15 bg-transparent text-foreground hover:border-foreground/30 hover:bg-foreground/5",
+        cta: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-lg",
+        ctaOutline: "border-2 border-foreground/15 bg-transparent text-foreground hover:border-foreground/30 hover:bg-foreground/5",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-12 px-6 text-base",
-        xl: "h-14 px-8 text-base",
+        default: "h-11 px-6 py-2",
+        sm: "h-9 px-4",
+        lg: "h-[52px] px-8 text-base",
+        xl: "h-[56px] px-10 text-[18px]",
         icon: "h-10 w-10",
       },
     },

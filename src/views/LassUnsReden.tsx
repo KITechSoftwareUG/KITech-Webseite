@@ -147,7 +147,7 @@ export default function LassUnsReden() {
               <div className="relative z-10 p-6 sm:p-8">
                 <h1 className="kinetic-display kinetic-morph-in max-w-sm text-[30px] leading-[1.1] text-foreground sm:text-[38px]">
                   Falsche KI ist die{" "}
-                  <span className="box-decoration-clone bg-foreground px-2 pb-0.5 text-background">
+                  <span className="box-decoration-clone bg-primary px-2 pb-0.5 text-primary-foreground">
                     teuerste KI
                   </span>
                   .
@@ -279,7 +279,7 @@ export default function LassUnsReden() {
                       trackEvent("Calendly_Klick", { position: "lass-uns-reden-embed" });
                       setWidgetEnabled(true);
                     }}
-                    className="inline-flex h-[52px] items-center gap-3 bg-foreground px-6 text-[13px] font-semibold text-background transition-colors hover:bg-foreground/90"
+                    className="inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                   >
                     Kalender laden
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />

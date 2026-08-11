@@ -1,267 +1,137 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Clock, ExternalLink, UserRound } from "lucide-react";
-import { clientResults, type ClientResult } from "@/data/client-results";
+import { ArrowRight } from "lucide-react";
+import { homeClientResults, type ClientResult } from "@/data/client-results";
+import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
-import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
 /**
- * Kunden-Ergebniskarten unter dem Hero: sechs Karten, zwei Spalten auf Desktop,
- * eine mobil. Jede Karte ist ein Beweis, kein Teaser.
+ * Die drei Referenzkarten der Startseite, nebeneinander, mit einem pulsierenden
+ * Pfeil rechts daneben.
  *
- * Reihenfolge auf der Karte ist bewusst gewaehlt und folgt dem Blickverlauf:
- *   1. Gesicht + Name + Sterne   -> "hier steht ein echter Mensch dahinter"
- *   2. DIE ZAHL, gross, mit Akzentlinie darunter -> das Ergebnis, vor jedem Text
- *   3. ein Satz, was gebaut wurde -> Einordnung
- *   4. harte Belegzeilen (Dauer, vorher/nachher)
- *   5. der Live-Link auf das gebaute Produkt -> der eigentliche Trust-Anker
+ * Aufbau und Zahl sind vorgegeben (11.08.2026): **genau drei** Karten und der
+ * Pfeil. In der Design-Vorlage steht an dieser Stelle eine Reihe von
+ * Kurs-Kacheln; hier tragen dieselbe Position die Kunden.
  *
- * Zur Historie: Am 05.08.2026 war diese Karte kurzzeitig auf Foto, Name, Zitat
- * und Sterne zusammengestrichen — ohne jede Zahl. Das ist auf Ansage
- * zurueckgenommen ("ganz prominent die Ergebnisse zeigen"). Die Sterne aus
- * jenem Umbau bleiben, sie stehen jetzt in der Kopfzeile neben der Person.
+ * Der Pfeil ist kein Dekor, sondern der Weg zu den uebrigen Faellen: er fuehrt
+ * auf `/referenzen`. Er pulsiert dauerhaft (`animate-pulse-nudge`), damit klar
+ * ist, dass die drei Karten nicht alles sind. Bei `prefers-reduced-motion`
+ * steht er still — die Animation ist ein Hinweis, kein Inhalt, und darf
+ * niemanden aus der Seite werfen.
  *
- * Der Live-Link ist das staerkste Element der Karte und deshalb visuell als
- * eigener Block gesetzt, nicht als Textlink nebenbei: "wir haben ein Portal
- * gebaut" ist eine Behauptung, "hier ist es, klick drauf" ist ein Beweis.
- *
- * Bewusst scharfkantig (keine rounded-*), passend zum Design-System.
- * Inhalte in src/data/client-results.ts.
+ * Karte selbst: Foto oben (freigestellt, laeuft nach unten aus), darunter Name,
+ * Firma, Sterne, die eine Zahl gross, ein Satz, Pill-Button. Reihenfolge folgt
+ * dem Blickverlauf — Gesicht, dann Ergebnis, dann Text.
  */
 
-/**
- * Aufgehellter Grund hinter dem freigestellten Portrait. Ohne ihn verschwinden
- * dunkle Oberteile auf dem dunklen Kartengrund — gleiche Rolle wie in TeamSection.
- */
-const PHOTO_GROUND =
-  "bg-[linear-gradient(165deg,hsl(240_14%_40%)_0%,hsl(243_22%_21%)_62%,hsl(243_28%_13%)_100%)]";
+/** Wie viele Karten auf der Startseite stehen. Bewusst hier und nicht in den Daten. */
+const ANZAHL_KARTEN = 3;
 
-/** Gleicher Raum, nur ohne Person davor — fuer Kunden ohne freigegebenes Foto. */
-const EMPTY_GROUND =
-  "bg-[radial-gradient(120%_90%_at_50%_0%,hsl(243_20%_23%)_0%,hsl(243_24%_13%)_58%,hsl(243_28%_9%)_100%)]";
-
-/** "https://dashboard.niimmo.de" -> "dashboard.niimmo.de" */
-function hostLabel(url: string) {
-  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-}
-
-function ResultCard({ result }: { result: ClientResult }) {
+function ReferenzKarte({ result }: { result: ClientResult }) {
   return (
-    <article className="flex flex-col border border-border bg-[linear-gradient(168deg,hsl(245_28%_13%)_0%,hsl(243_20%_9%)_100%)] shadow-[0_20px_50px_hsl(0_0%_0%/0.35)] transition-colors hover:border-primary/60">
-      <div className="flex">
-        {/* Bildspalte: feste Breite, volle Hoehe des Kartenkopfs. */}
-        <div
-          className={`relative w-[104px] shrink-0 self-stretch overflow-hidden sm:w-[124px] ${
-            result.person.photo ? PHOTO_GROUND : EMPTY_GROUND
-          }`}
-        >
-          {result.person.photo ? (
-            <img
-              src={result.person.photo}
-              alt={`${result.person.name}${result.person.role ? `, ${result.person.role}` : ""}`}
-              className="absolute inset-0 h-full w-full object-cover object-top drop-shadow-[0_14px_24px_rgba(0,0,0,0.55)]"
-              loading="lazy"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center" aria-hidden="true">
-              <UserRound className="h-11 w-11 text-foreground/20 sm:h-12 sm:w-12" strokeWidth={1} />
-            </div>
-          )}
-        </div>
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-border transition-shadow duration-200 hover:shadow-elevated">
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
+        {/*
+          Portrait links neben dem Namen statt als eigenes Bildfeld ueber der
+          Karte. Ein Bildfeld mit fester Hoehe stand bei den Faellen ohne Foto als
+          leere graue Flaeche da und sah aus wie ein Ladefehler — aktuell liegt
+          nur fuer einen der drei Faelle ein Freisteller vor. Fehlt das Foto,
+          rendert `ReferencePortrait` nichts und die Zeile rueckt nach links auf.
+        */}
+        <div className="flex items-start gap-4">
+          <ReferencePortrait
+            person={result.person}
+            className="w-[64px] shrink-0"
+            imageClassName="h-[74px]"
+          />
 
-        <div className="flex min-w-0 flex-1 flex-col px-4 py-4 sm:px-5 sm:py-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold leading-tight text-foreground sm:text-[15px]">
-                {result.person.name}
-              </p>
-              <p className="mt-1 text-[12px] leading-tight text-muted-foreground">
-                {result.company}
-              </p>
-            </div>
-            <div className="shrink-0 pt-0.5">
+          <div className="min-w-0">
+            <p className="text-[16px] font-bold leading-tight text-foreground">
+              {result.person.name}
+            </p>
+            <p className="mt-1 text-[13px] font-normal leading-tight text-muted-foreground">
+              {result.company}
+            </p>
+            <div className="mt-2">
               <StarRating value={result.rating} />
             </div>
           </div>
-
-          {/* Die eine Zahl — der Held der Karte. Die Akzentlinie darunter ist
-              woertlich die Unterstreichung: `w-fit` am Wrapper haelt sie exakt
-              so breit wie die Zahl, statt quer durch die Karte zu laufen. */}
-          <div className="mt-4 w-fit sm:mt-5">
-            <p className="kinetic-data text-[40px] font-light leading-none text-foreground sm:text-[50px]">
-              {result.headline.value}
-            </p>
-            <span className="mt-2 block h-[3px] w-full bg-accent" aria-hidden="true" />
-          </div>
-          <p className="mt-2.5 max-w-[300px] text-[14px] font-semibold leading-tight text-foreground sm:text-[15px]">
-            {result.headline.label}
-          </p>
         </div>
-      </div>
 
-      {/* Ab hier laeuft der Inhalt ueber die volle Kartenbreite — unter der
-          Bildspalte ist sonst nur Leerraum, und der Text braucht die Zeilenlaenge. */}
-      <div className="flex flex-1 flex-col px-4 pb-4 sm:px-5 sm:pb-5">
-        <p className="text-pretty text-[13px] leading-[1.6] text-muted-foreground sm:text-[14px]">
-          {result.summary}
+        {/* Die eine Zahl — sie traegt die Karte, nicht der Text darunter. */}
+        <p className="kinetic-data mt-5 text-[34px] leading-none text-primary">
+          {result.headline.value}
+        </p>
+        <p className="mt-2 text-[14px] font-semibold leading-snug text-foreground">
+          {result.headline.label}
         </p>
 
-        {/* Harte Belegzeilen: Dauer und Prozessvergleich. */}
-        {(result.duration || (result.before && result.after) || result.extra) && (
-          <dl className="mt-4 space-y-2 border-t border-border/60 pt-3.5 text-[13px]">
-            {result.duration && (
-              <div className="flex items-center gap-2">
-                <dt className="sr-only">Projektdauer</dt>
-                <Clock className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
-                <dd className="font-semibold text-foreground">{result.duration}</dd>
-              </div>
-            )}
-            {result.before && result.after && (
-              <div className="flex flex-wrap items-center gap-2">
-                <dt className="sr-only">Vorher und nachher</dt>
-                <dd className="text-muted-foreground line-through decoration-muted-foreground/50">
-                  {result.before}
-                </dd>
-                <ArrowRight className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
-                <dd className="font-semibold text-foreground">{result.after}</dd>
-              </div>
-            )}
-            {result.extra && (
-              <div className="flex items-center gap-2">
-                <dt className="sr-only">Weitere Kennzahl</dt>
-                <dd className="font-semibold text-accent">{result.extra}</dd>
-              </div>
-            )}
-          </dl>
-        )}
-
-        {/* Das belegte Kundenzitat, wo eines vorliegt. */}
+        {/* Der Bewertungssatz, wo einer belegt ist. Sonst faellt die Zeile weg —
+            hier wird nichts erfunden und nichts aus `summary` umformuliert. */}
         {result.review && (
-          <p className="mt-4 border-l-2 border-accent/70 pl-3 text-[13px] font-medium italic leading-[1.5] text-foreground sm:text-[14px]">
+          <p className="mt-4 text-[14px] font-normal italic leading-[1.55] text-muted-foreground">
             „{result.review}“
           </p>
         )}
 
-        {/* Der Live-Link auf das gebaute Produkt: eigener Block, Akzentkante,
-            weil er der ueberpruefbarste Beweis auf der ganzen Seite ist. */}
-        {result.liveUrl && (
-          <a
-            href={result.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent("CTA_Klick", { position: `live-link-${result.slug}` })}
-            className="group mt-4 flex items-center justify-between gap-3 border border-accent/40 bg-accent/[0.07] px-3 py-2.5 transition-colors hover:border-accent hover:bg-accent/[0.13]"
-          >
-            <span className="min-w-0">
-              <span className="block text-[11px] font-semibold uppercase tracking-wide text-accent">
-                Live im Einsatz
-              </span>
-              <span className="mt-0.5 block truncate text-[13px] font-medium text-foreground">
-                {hostLabel(result.liveUrl)}
-              </span>
-            </span>
-            <ExternalLink
-              className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              aria-hidden="true"
-            />
-          </a>
-        )}
+        {/* Der Fuellraum sitzt in einem eigenen Element statt als `mt-auto` am
+            Button: so steht der Button in allen drei Karten auf gleicher Hoehe
+            UND haelt einen festen Mindestabstand zum Text darueber. */}
+        <div className="flex-1" aria-hidden="true" />
 
-        {/* Fusszeile: Logo als Firmenbeleg, daneben der Weg in den Fall.
-            Heller Kasten hinter dem Logo, weil die Kundenlogos gemischt sind
-            (transparent, weiss hinterlegt, dunkle Schrift) und auf dem dunklen
-            Kartengrund sonst teils verschwinden. */}
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 pt-4">
-          <div className="flex items-center gap-3">
-            {result.logo && (
-              <span className="inline-flex h-9 items-center bg-white px-2.5">
-                <img
-                  src={result.logo}
-                  alt={`${result.company} Firmenlogo`}
-                  className="max-h-6 w-auto max-w-[104px] object-contain"
-                  loading="lazy"
-                />
-              </span>
-            )}
-            {result.companyUrl && (
-              <a
-                href={result.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[12px] text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 transition-colors hover:text-foreground"
-              >
-                {hostLabel(result.companyUrl)}
-              </a>
-            )}
-          </div>
-
-          <Link
-            href={`/referenzen/${result.slug}`}
-            onClick={() => trackEvent("CTA_Klick", { position: `kundenkarte-${result.slug}` })}
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground transition-colors hover:text-primary"
-          >
-            Fall ansehen
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
+        <Link
+          href={`/referenzen/${result.slug}`}
+          onClick={() => trackEvent("CTA_Klick", { position: `kundenkarte-${result.slug}` })}
+          className="mt-6 flex h-[46px] w-full items-center justify-center rounded-full bg-primary text-[15px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          Fall ansehen
+        </Link>
       </div>
     </article>
   );
 }
 
 export function ClientResults() {
+  // `homeClientResults` statt `clientResults`: einzelne Faelle sind per
+  // `hideOnHome` von der Startseite ausgenommen (siehe src/data/client-results.ts).
+  const karten = homeClientResults.slice(0, ANZAHL_KARTEN);
+
   return (
-    // Kein border-t und kein eigener Hintergrund: der Hero läuft farblich in diese
-    // Sektion aus, eine harte Trennlinie würde den Fluss zerschneiden.
     <section
       id="ergebnisse"
-      className="scroll-mt-8 bg-background py-12 sm:py-16"
+      className="scroll-mt-8 bg-background py-14 sm:py-20"
       aria-labelledby="ergebnisse-heading"
     >
-      {/* Gleiche Breite wie der Rest der Seite: die Karten stehen damit in einer
-          Flucht mit Kopfzeile und Fußzeile und wirken nicht wie ein zweites Layout. */}
-      <div className={SITE_CONTAINER}>
-        <header className="mx-auto max-w-[680px] text-center">
-          {/* Nur die Headline, kein erklärender Absatz darunter: die Abfolge
-              Headline -> Fließtext ist als Sektionsaufbau ausdrücklich raus. Die
-              Einordnung ("das ist eine Auswahl") steht stattdessen als Zeile UNTER
-              dem Raster — dort ordnet sie ein, statt vorab zu erklären. */}
-          <h2
-            id="ergebnisse-heading"
-            className="kinetic-display text-balance text-[30px] leading-[1.1] text-foreground sm:text-[38px]"
-          >
-            Was am Ende zählt, steht hier.
-          </h2>
-        </header>
+      <div className="mx-auto w-full max-w-site px-5 sm:px-8">
+        <h2 id="ergebnisse-heading" className="sr-only">
+          Kundenreferenzen
+        </h2>
 
-        <div className="mt-10 grid gap-6 sm:mt-12 sm:grid-cols-2">
-          {clientResults.map((result) => (
-            <ResultCard key={result.slug} result={result} />
+        {/*
+          Drei Karten plus Pfeil. Auf Desktop steht der Pfeil als vierte Spalte
+          rechts daneben (`auto`, damit er nur so breit wird wie noetig), mobil
+          rutscht er unter die Karten und bekommt dort einen Text, weil ein
+          einzelner Pfeil ohne Beschriftung auf dem Handy nichts erklaert.
+        */}
+        <div className="grid items-stretch gap-6 lg:grid-cols-[repeat(3,minmax(0,1fr))_auto] lg:gap-7">
+          {karten.map((result) => (
+            <ReferenzKarte key={result.slug} result={result} />
           ))}
-        </div>
 
-        {/* Die Einordnung "das ist eine Auswahl, kein Gesamtwerk" gehört hierher,
-            nicht über die Karten: unter dem Raster ist sie Fazit statt Vorrede.
-            ACHTUNG: "Sechs" und "über 50" stehen hier als fester Text, nicht aus
-            den Daten. Dieselbe Projektzahl liegt hardcodiert in der Kachel von
-            src/views/Referenzen.tsx. Kommt ein siebter Fall in client-results.ts
-            dazu oder ändert sich die Projektzahl, müssen beide Stellen von Hand
-            mitgezogen werden. (Aus dem Hero von src/views/Home.tsx ist die Zahl
-            am 05.08.2026 entfallen.) */}
-        <div className="mt-12 flex flex-col items-center gap-3 text-center">
-          <p className="text-[15px] leading-tight text-muted-foreground">
-            <span className="kinetic-data font-semibold text-foreground">Sechs von über 50</span>{" "}
-            abgeschlossenen Projekten.
-          </p>
           <Link
             href="/referenzen"
             onClick={() => trackEvent("CTA_Klick", { position: "ergebnisse-alle-referenzen" })}
-            className="inline-flex items-center gap-1.5 border-b border-foreground/30 pb-0.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+            aria-label="Alle Referenzen ansehen"
+            className="group flex items-center justify-center gap-3 rounded-2xl px-2 py-4 text-primary transition-colors hover:text-primary/80 lg:w-[76px] lg:flex-col lg:py-0"
           >
-            Alle Fälle ansehen
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            <ArrowRight
+              className="h-9 w-9 animate-pulse-nudge lg:h-11 lg:w-11"
+              strokeWidth={2.5}
+              aria-hidden="true"
+            />
+            <span className="text-[15px] font-bold lg:sr-only">Alle Referenzen</span>
           </Link>
         </div>
       </div>

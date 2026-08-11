@@ -62,7 +62,7 @@ export default function Warum() {
         title={
           <>
             Die Technik war noch nie{" "}
-            <span className="box-decoration-clone bg-foreground px-2.5 pb-1 text-background">
+            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
               das Problem
             </span>
             .

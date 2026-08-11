@@ -1,127 +1,138 @@
-@import "@fontsource/onest/100.css";
-@import "@fontsource/onest/200.css";
-@import "@fontsource/onest/300.css";
-@import "@fontsource/onest/400.css";
-@import "@fontsource/onest/500.css";
-@import "@fontsource/onest/600.css";
-@import "@fontsource/onest/700.css";
-@import "@fontsource-variable/recursive";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/poppins/200.css";
+@import "@fontsource/poppins/300.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/800.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
-  KI-Redesign v2 ("kinetisch, leuchtend, praezise"): reiner neutraler Hintergrund
-  (kein Farbton im BG/Card/Border) - die Stimmung traegt sich ausschliesslich ueber
-  Primary/Accent, nicht ueber einen getoenten Hintergrund. Das war der Kernfehler
-  der vorherigen "elegant/editorial" Version: derselbe Blauton in BG UND Primary
-  ergab einen gedaempften, monochromen Eindruck. Primary bleibt Markenblau, aber
-  deutlich hoeher gesaettigt ("elektrisch" statt "gedaempftes Saphir"). Accent ist
-  ein Signal-Lime (kuehl/systemisch, komplementaer in Hue UND Lightness zu Primary).
-  --solo-accent/--enterprise-accent differenzieren die Pfade jetzt ueber Waerme
-  (Amber vs. Lime) statt ueber zwei gedaempfte Pastelltoene.
+  ============================================================================
+  Designsystem "Hell / Dunkelblau" — Stand 11.08.2026
+  ============================================================================
+
+  Vollstaendiger Bruch mit dem vorherigen dark-first "KI-Redesign v2". Vorgabe
+  Ayham: die Seite soll dem Aufbau von acquisition.com folgen — heller Grund,
+  ein einziges kraeftiges Dunkelblau als Signalfarbe, tiefes Navy fuer Kopfzeile
+  und Text, Poppins als einzige Schrift, Pill-Buttons.
+
+  Die drei Farben tragen die ganze Seite:
+    Dunkelblau #0A2EA3 — Aktion. Buttons, Ankuendigungsbalken, Fusszeile, Akzente.
+    Navy    #131628  — Struktur. Navigationsleiste, Ueberschriften, Fliesstext.
+    Weiss   #FFFFFF  — Grund. Sektionen wechseln zwischen Weiss und #FAFAFA.
+
+  Es gibt bewusst KEINEN Dark Mode mehr: `.dark` spiegelt dieselben Werte, damit
+  ein alter `class="dark"`-Zustand (next-themes ist noch installiert) die Seite
+  nicht zerlegt. Wer echten Dark Mode will, muss ihn neu entwerfen — halb
+  invertierte Tokens ergaeben nur Grau in Grau.
 */
 @layer base {
   :root {
-    --background: 0 0% 6%;
-    --foreground: 0 0% 97%;
+    /* Grund und Text */
+    --background: 0 0% 100%;
+    --foreground: 231 36% 12%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 97%;
+    /* Sektionsgrund, der sich vom Weiss absetzt, ohne grau zu wirken */
+    --surface: 0 0% 98%;
+    --surface-strong: 0 0% 94%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 97%;
+    --card: 0 0% 100%;
+    --card-foreground: 231 36% 12%;
 
-    --primary: 245 85% 62%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 231 36% 12%;
+
+    /* #0A2EA3 — die eine Signalfarbe */
+    --primary: 226 88% 34%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 0 0% 97%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 231 36% 12%;
 
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 68%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 231 12% 42%;
 
-    --accent: 85 70% 55%;
-    --accent-foreground: 0 0% 8%;
+    /* Akzent = dieselbe Signalfarbe. Ein zweiter Akzentton (frueher Lime) wuerde
+       die Seite wieder in zwei Signale zerlegen — genau das soll sie nicht. */
+    --accent: 226 88% 34%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 55%;
+    --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 55% 48%;
+    --success: 152 55% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 245 85% 62%;
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 226 88% 34%;
 
-    --radius: 0.625rem;
+    /* Buttons sind Pillen (100 px). Der Token bleibt fuer shadcn-Bausteine. */
+    --radius: 0.5rem;
 
-    /* Pfad-Akzente: warm/menschlich (Solo, Amber) vs. kuehl/systemisch (Enterprise, Lime) */
-    --solo-accent: 38 80% 58%;
-    --solo-accent-foreground: 0 0% 8%;
-    --enterprise-accent: 85 70% 55%;
-    --enterprise-accent-foreground: 0 0% 8%;
+    /* Navy der Navigationsleiste, als eigener Token: sie ist der einzige dunkle
+       Block auf der Seite und darf nicht am Textfarbton haengen. */
+    --navbar: 231 36% 12%;
+    --navbar-foreground: 0 0% 100%;
 
-    /* Nur fuer Alt-Seiten (Leistungen/Referenzen/Haltung/Kontakt), die .gradient-text
-       noch verwenden - in neu gebauten Komponenten NICHT verwenden (Gradient-Text ist
-       laut Design-Skill ein verbotenes Muster: rein dekorativ, nie bedeutungstragend).
-       Bleibt hell genug fuer Lesbarkeit (>4.5:1), damit dort nichts unsichtbar wird. */
-    --gradient-hero: linear-gradient(160deg, hsl(0 0% 9%) 0%, hsl(245 40% 16%) 55%, hsl(0 0% 4%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(245 85% 62%) 0%, hsl(245 60% 32%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(245 85% 68%) 0%, hsl(85 70% 60%) 100%);
+    /* Pfad-Akzente (Solo/Enterprise). Beide laufen jetzt ueber dieselbe
+       Signalfarbe, differenziert ueber die Helligkeit statt ueber Amber/Lime —
+       zwei zusaetzliche Markenfarben waeren im hellen Layout Chaos. */
+    --solo-accent: 226 88% 34%;
+    --solo-accent-foreground: 0 0% 100%;
+    --enterprise-accent: 226 80% 22%;
+    --enterprise-accent-foreground: 0 0% 100%;
 
-    --shadow-soft: 0 4px 24px -4px hsl(245 85% 50% / 0.3);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.7);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 94%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 90% 22%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 85% 20%) 100%);
+
+    --shadow-soft: 0 8px 24px -8px hsl(226 88% 34% / 0.35);
+    --shadow-card: 0 1px 3px 0 hsl(231 36% 12% / 0.08), 0 1px 2px -1px hsl(231 36% 12% / 0.06);
+    --shadow-elevated: 0 24px 60px -20px hsl(231 36% 12% / 0.25);
   }
 
+  /* Bewusst identisch zu :root — siehe Kommentar oben. */
   .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 245 88% 64%;
+    --background: 0 0% 100%;
+    --foreground: 231 36% 12%;
+    --surface: 0 0% 98%;
+    --surface-strong: 0 0% 94%;
+    --card: 0 0% 100%;
+    --card-foreground: 231 36% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 231 36% 12%;
+    --primary: 226 88% 34%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 11%;
-    --muted-foreground: 0 0% 66%;
-
-    --accent: 85 72% 57%;
-    --accent-foreground: 0 0% 7%;
-
-    --destructive: 0 68% 50%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 231 36% 12%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 231 12% 42%;
+    --accent: 226 88% 34%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
-
-    --success: 152 55% 46%;
+    --success: 152 55% 38%;
     --success-foreground: 0 0% 100%;
-
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 245 88% 64%;
-
-    --solo-accent: 38 82% 60%;
-    --solo-accent-foreground: 0 0% 7%;
-    --enterprise-accent: 85 72% 57%;
-    --enterprise-accent-foreground: 0 0% 7%;
-
-    --gradient-hero: linear-gradient(160deg, hsl(0 0% 7%) 0%, hsl(245 42% 14%) 55%, hsl(0 0% 3%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(245 88% 64%) 0%, hsl(245 62% 28%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(245 88% 70%) 0%, hsl(85 72% 62%) 100%);
-
-    --shadow-soft: 0 4px 24px -4px hsl(245 88% 50% / 0.35);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.6), 0 1px 2px -1px hsl(0 0% 0% / 0.5);
-    --shadow-elevated: 0 20px 60px -12px hsl(0 0% 0% / 0.75);
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 226 88% 34%;
+    --navbar: 231 36% 12%;
+    --navbar-foreground: 0 0% 100%;
+    --solo-accent: 226 88% 34%;
+    --solo-accent-foreground: 0 0% 100%;
+    --enterprise-accent: 226 80% 22%;
+    --enterprise-accent-foreground: 0 0% 100%;
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 94%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 90% 22%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(226 88% 34%) 0%, hsl(226 85% 20%) 100%);
+    --shadow-soft: 0 8px 24px -8px hsl(226 88% 34% / 0.35);
+    --shadow-card: 0 1px 3px 0 hsl(231 36% 12% / 0.08), 0 1px 2px -1px hsl(231 36% 12% / 0.06);
+    --shadow-elevated: 0 24px 60px -20px hsl(231 36% 12% / 0.25);
   }
 }
 
@@ -134,8 +145,21 @@
     scroll-behavior: smooth;
   }
 
+  /*
+    `font-normal` statt des frueheren `font-thin`: Poppins in 100/200 ist auf
+    hellem Grund praktisch unlesbar. Die Vorlage faehrt Fliesstext auf 400.
+  */
   body {
-    @apply bg-background text-foreground font-body antialiased font-thin;
+    @apply bg-background text-foreground font-body antialiased font-normal;
+  }
+
+  /*
+    Ueberschriften sind in diesem System immer schwer (800) und eng gesetzt —
+    das ist der praegendste Zug der Vorlage. Gilt global, damit keine Seite
+    danebenliegt, die ihre Ueberschriften nicht einzeln bekleidet.
+  */
+  h1, h2, h3, h4 {
+    @apply font-extrabold tracking-tight;
   }
 }
 
@@ -164,24 +188,12 @@
     box-shadow: var(--shadow-soft);
   }
 
-  /*
-    Accent-matched Glow-Varianten fuer Solo/Enterprise-CTAs: der Button-Basisvariante
-    ("default"/"hero"/"cta" in button.tsx) haengt immer .shadow-soft an, dessen Farbe fest
-    auf Primary/Blau kodiert ist (--shadow-soft). Sobald ein Button per className auf
-    bg-solo-accent/bg-enterprise-accent umgefaerbt wird, blieb der Glow trotzdem blau - ein
-    sichtbarer Farbbruch (blauer Schein unter einem Amber/Lime-Button), der der komplett
-    entgegengesetzt zur bewussten Warm/Kuehl-Differenzierung der beiden Pfade steht.
-    !important ist hier bewusst und eng gefasst: garantiert den Sieg gegen das von der
-    Button-Variante ererbte .shadow-soft, unabhaengig von Klassen-Reihenfolge im DOM
-    (tailwind-merge dedupliziert eigene, nicht-generierte Utility-Klassen wie .shadow-soft
-    nicht automatisch).
-  */
   .shadow-soft-solo {
-    box-shadow: 0 4px 24px -4px hsl(var(--solo-accent) / 0.4) !important;
+    box-shadow: 0 8px 24px -8px hsl(var(--solo-accent) / 0.35) !important;
   }
 
   .shadow-soft-enterprise {
-    box-shadow: 0 4px 24px -4px hsl(var(--enterprise-accent) / 0.4) !important;
+    box-shadow: 0 8px 24px -8px hsl(var(--enterprise-accent) / 0.35) !important;
   }
 
   .shadow-card {
@@ -202,41 +214,67 @@
   }
 
   /*
-    Recursive-Variable-Font-Achsen ("kinetische Typografie"): MONO faehrt zwischen
-    0 (humanistisch/serifenlos) und 1 (monospaced/technisch), CASL zwischen 0 (formal)
-    und 1 (casual). Statt zwei Schriftfamilien zu pairen, nutzt das Redesign EINE
-    Familie und "berechnet" den Charakter ueber die Achsen - Headlines starten sanser,
-    driften beim Laden Richtung MONO 1 (kinetic-morph-in), Daten-/Label-Text sitzt
-    dauerhaft bei MONO 1. Font-Feature statt Deko - direkt aus der Font-Technologie,
-    nicht aus einem generischen Muster.
+    ==========================================================================
+    Typografie-Utilities
+    ==========================================================================
+
+    Die Namen `kinetic-display` / `kinetic-data` / `kinetic-morph-in` stammen aus
+    dem alten Recursive-Variable-System und stehen an ueber hundert Stellen im
+    Code. Sie bleiben als Namen erhalten und zeigen jetzt auf Poppins — so
+    zieht der Schriftwechsel ueberall automatisch mit, statt in jeder Datei
+    einzeln nachgezogen werden zu muessen.
+
+    Recursive ist samt seiner MONO/CASL-Achsen entfallen: eine zweite Schrift
+    mit variablen Achsen widerspricht dem Prinzip der Vorlage, die alles mit
+    genau einer Familie und harten Gewichtsspruengen (400 / 500 / 700 / 800)
+    macht.
   */
   .kinetic-display {
-    font-family: "Recursive Variable", "Recursive", system-ui, sans-serif;
-    font-variation-settings: "MONO" 0.35, "CASL" 0, "slnt" 0;
-    font-weight: 680;
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 800;
     letter-spacing: -0.02em;
   }
 
   .kinetic-data {
-    font-family: "Recursive Variable", "Recursive", system-ui, sans-serif;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    font-feature-settings: "tnum" 1, "zero" 1;
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-feature-settings: "tnum" 1;
   }
 
+  /* Weiches Einblenden der H1 beim Laden. Frueher morphte hier die
+     Schriftachse; ohne Variable Font bleibt die Bewegung, nicht die Achse. */
   @keyframes kinetic-morph-in {
-    from { font-variation-settings: "MONO" 0, "CASL" 0.3, "slnt" 0; opacity: 0; filter: blur(6px); }
-    to { font-variation-settings: "MONO" 0.35, "CASL" 0, "slnt" 0; opacity: 1; filter: blur(0); }
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .kinetic-morph-in {
-    animation: kinetic-morph-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: kinetic-morph-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /*
+    Pulsierender Hinweis-Pfeil neben den Referenzkarten der Startseite.
+    Bewegung UND Deckkraft zusammen: eine reine Opazitaets-Pulsation wird auf
+    hellem Grund kaum wahrgenommen, eine reine Bewegung wirkt wie ein Ruckeln.
+  */
+  @keyframes pulse-nudge {
+    0%, 100% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(10px); opacity: 0.55; }
+  }
+
+  .animate-pulse-nudge {
+    animation: pulse-nudge 1.6s ease-in-out infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .kinetic-morph-in {
       animation-duration: 0.001s;
+    }
+
+    .animate-pulse-nudge,
+    .animate-marquee {
+      animation: none;
     }
   }
 }
