@@ -51,19 +51,25 @@ export default function Home() {
         )}
       />
 
+      {/*
+        Hero. Alle Maße aus der Vorlage gemessen (acquisition.com, 1440 px):
+          grauer Bereich   432 px hoch
+          Ueberschrift     50 px / 800 / Zeilenhoehe 57,5 px, zentriert, y = 203
+          Einordnungssatz  21 px / 400, zentriert
+          Knopf            420 × 56 px, Radius 100 px, 20 px / 700
+          Portraits        259 px breit, unten buendig, vom Rand angeschnitten
+
+        Die Ueberschrift bleibt auf ALLEN Breiten bei 50 px — die Vorlage
+        skaliert sie nicht herunter, sondern laesst sie auf dem Handy vier
+        Zeilen fuellen. Das ist gemessen und bewusst uebernommen.
+      */}
       <section className="relative isolate overflow-hidden bg-surface-strong">
-        {/*
-          Desktop: die Portraits stehen absolut an den Seitenraendern und werden
-          vom Fensterrand angeschnitten. Bewusst schmal (240/270 px) — in der
-          Vorlage sind sie rund 260 px breit und rahmen den Text, statt mit ihm
-          um Aufmerksamkeit zu konkurrieren.
-        */}
         {ayham?.photo && (
           <img
             src={ayham.photo}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 left-0 hidden w-[240px] select-none object-contain object-bottom lg:block xl:w-[270px]"
+            className="pointer-events-none absolute bottom-0 left-0 hidden w-[18vw] max-w-[259px] select-none object-contain object-bottom sm:block"
           />
         )}
         {leon?.photo && (
@@ -71,67 +77,55 @@ export default function Home() {
             src={leon.photo}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 right-0 hidden w-[240px] select-none object-contain object-bottom lg:block xl:w-[270px]"
+            className="pointer-events-none absolute bottom-0 right-0 hidden w-[18vw] max-w-[259px] select-none object-contain object-bottom sm:block"
           />
         )}
 
-        <div className="relative mx-auto flex w-full max-w-site flex-col items-center px-5 pb-0 pt-12 text-center sm:px-8 sm:pt-16 lg:min-h-[460px] lg:justify-center lg:pb-16 lg:pt-20">
-          {/*
-            Versalien und Gewicht 800 sind der praegendste Zug der Vorlage. Die
-            Groessen folgen ihr: rund 38 px auf dem Handy (dort traegt die
-            Aussage vier Zeilen), 54 px ab Desktop.
-          */}
-          <h1 className="kinetic-morph-in max-w-[15ch] text-balance text-[38px] font-extrabold uppercase leading-[1.06] tracking-tight text-foreground sm:text-[46px] lg:text-[54px]">
+        <div className="relative mx-auto flex w-full max-w-site flex-col items-center px-[10px] pt-[40px] text-center sm:pt-[70px] lg:pt-[100px] dt:h-[432px] dt:px-0 dt:pt-[70px]">
+          <h1 className="kinetic-morph-in max-w-[13ch] text-balance text-[50px] font-extrabold uppercase leading-[57.5px] tracking-tight text-foreground">
             Falsche KI kostet{" "}
-            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
+            <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
               mehr
             </span>{" "}
             als keine KI.
           </h1>
 
-          <p className="mt-6 max-w-[540px] text-pretty text-[17px] font-normal leading-[1.5] text-foreground/80 sm:mt-7 sm:text-[19px]">
+          <p className="mt-[22px] max-w-[590px] text-pretty text-[21px] font-normal leading-[30px] text-foreground">
             {HERO_SUBLINE}
           </p>
 
           <Link
             href="/lass-uns-reden"
             onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
-            className="mt-8 inline-flex h-[56px] w-full max-w-[420px] items-center justify-center rounded-full bg-primary px-8 text-[17px] font-bold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90 sm:mt-9 sm:text-[20px]"
+            className="mt-[39px] inline-flex h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 dt:h-[56px] dt:w-[420px]"
           >
             Kostenloses Erstgespräch buchen
           </Link>
 
-          <p className="mt-4 text-[13px] font-normal text-muted-foreground">
+          {/* Der Hinweis steht in der Vorlage nicht — er gehoert zu unserem
+              Inhalt und bleibt deshalb. Klein gesetzt, damit er die Geometrie
+              des Hero nicht verschiebt. */}
+          <p className="mt-3 text-[13px] font-normal leading-tight text-muted-foreground">
             30 Minuten, unverbindlich
           </p>
 
           {/*
-            Handy und Tablet: beide Portraits stehen als ein Block unter dem CTA,
-            unten buendig und leicht ineinander gerueckt — die Entsprechung zum
-            Paarfoto der Vorlage, aus den beiden vorhandenen Einzelfreistellern
-            gebaut. Vorher waren sie unter `lg` ganz ausgeblendet; damit fehlte
-            dem Hero auf dem Handy sein Gesicht.
-
-            `-space-x-6` laesst die beiden sich leicht ueberlappen, damit sie als
-            eine Gruppe gelesen werden und nicht als zwei ausgeschnittene Figuren.
+            Handy und Tablet: beide Portraits stehen als ein Block unter dem
+            Knopf — die Vorlage zeigt dort ein Bild ueber die volle Breite, wo
+            auf dem Desktop die beiden Randfiguren stehen. Aus den zwei
+            vorhandenen Einzelfreistellern gebaut; `-space-x-6` laesst sie sich
+            leicht ueberlappen, damit sie als Gruppe gelesen werden und nicht
+            als zwei ausgeschnittene Figuren.
           */}
           <div
-            className="mt-10 flex h-[260px] w-full items-end justify-center -space-x-6 sm:h-[320px] lg:hidden"
+            className="-mx-[10px] mt-[30px] flex w-[calc(100%+20px)] items-end justify-center -space-x-4 sm:hidden"
             aria-hidden="true"
           >
             {ayham?.photo && (
-              <img
-                src={ayham.photo}
-                alt=""
-                className="h-full w-auto max-w-[48%] select-none object-contain object-bottom"
-              />
+              <img src={ayham.photo} alt="" className="w-1/2 select-none object-contain object-bottom" />
             )}
             {leon?.photo && (
-              <img
-                src={leon.photo}
-                alt=""
-                className="h-full w-auto max-w-[48%] select-none object-contain object-bottom"
-              />
+              <img src={leon.photo} alt="" className="w-1/2 select-none object-contain object-bottom" />
             )}
           </div>
         </div>

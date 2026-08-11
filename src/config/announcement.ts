@@ -25,6 +25,6 @@ export interface Announcement {
 export const announcement: Announcement | null = {
   badge: "NEU",
   lead: "Kostenloses Erstgespräch",
-  text: "In 30 Minuten wissen wir beide, ob es passt",
+  text: "In 30 Minuten wissen wir, ob es passt",
   href: "/lass-uns-reden",
 };

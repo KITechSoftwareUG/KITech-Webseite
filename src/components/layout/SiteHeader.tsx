@@ -30,7 +30,7 @@ import { mainNavigation, type NavEntry } from "@/config/navigation";
  */
 
 /** Innenbreite der Leiste — dieselbe Kante wie der Seiteninhalt. */
-const HEADER_CONTAINER = "mx-auto w-full max-w-site px-5 sm:px-8";
+const HEADER_CONTAINER = "mx-auto w-full max-w-site px-[10px] dt:px-0";
 
 /**
  * Ist dieser Punkt (oder einer seiner Unterpunkte) die aktuelle Seite?
@@ -225,13 +225,14 @@ export function SiteHeader({ className }: { className?: string }) {
   return (
     <header className={`relative z-40 w-full bg-navbar text-navbar-foreground ${className ?? ""}`}>
       <div className={HEADER_CONTAINER}>
-        <div className="flex h-[72px] items-center justify-between gap-6 sm:h-[65px]">
+        <div className="flex h-[76px] items-center justify-between gap-6 dt:h-[65px]">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
-            <img src="/logo.png" alt="KITech Software Logo" className="h-9 w-auto sm:h-10" />
+            <img src="/logo.png" alt="KITech Software Logo" className="h-10 w-auto dt:h-8" />
           </Link>
 
-          {/* Ab `lg` (1024px) passt die volle Leiste. Darunter Hamburger. */}
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Hauptnavigation">
+          {/* Ab 1025 px volle Leiste, darunter Hamburger — derselbe Punkt,
+              an dem die Vorlage umschaltet (gemessen). */}
+          <nav className="hidden items-center gap-7 dt:flex" aria-label="Hauptnavigation">
             {mainNavigation.map((entry) => (
               <DesktopEntry key={entry.href} entry={entry} pathname={pathname} />
             ))}
@@ -239,7 +240,7 @@ export function SiteHeader({ className }: { className?: string }) {
 
           <button
             type="button"
-            className="-mr-2 p-2 text-white lg:hidden"
+            className="-mr-2 p-2 text-white dt:hidden"
             aria-label={open ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -254,7 +255,7 @@ export function SiteHeader({ className }: { className?: string }) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden lg:hidden"
+              className="overflow-hidden dt:hidden"
               aria-label="Hauptnavigation (mobil)"
             >
               <div className="flex flex-col border-t border-white/12 pb-4 pt-1">

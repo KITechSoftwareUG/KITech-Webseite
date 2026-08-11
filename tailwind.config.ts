@@ -16,6 +16,13 @@ export default {
       },
     },
     extend: {
+      // `dt` = der Breakpoint, an dem die Referenz von der mobilen auf die
+      // Desktop-Kopfzeile schaltet: gemessen bei 1024/1025 px (bis 1024
+      // Hamburger und hohe Leiste, ab 1025 volle Navigation). Tailwinds `lg`
+      // liegt bei 1024 und wuerde eine Pixelbreite zu frueh greifen.
+      screens: {
+        dt: "1025px",
+      },
       // Eine Familie fuer alles: Poppins. Der Charakter kommt aus den
       // Gewichtsspruengen (400 Fliesstext / 500 Navigation / 700 Buttons /
       // 800 Ueberschriften), nicht aus einem zweiten Schriftschnitt.

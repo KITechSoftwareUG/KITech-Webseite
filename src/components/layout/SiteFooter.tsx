@@ -27,7 +27,7 @@ import { trackEvent } from "@/lib/plausible";
 export function SiteFooter() {
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className={`${SITE_CONTAINER} py-14 sm:py-16`}>
+      <div className={`${SITE_CONTAINER} pb-[25px] pt-[35px] dt:pb-[35px]`}>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,1fr))] lg:gap-10">
           {/* Marke */}
           <div>
