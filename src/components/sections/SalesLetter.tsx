@@ -22,15 +22,21 @@ import type { SalesLetterBlock, SalesLetterContent } from "@/data/sales-letters"
 
 function ImageSlot({ image }: { image: NonNullable<SalesLetterBlock["image"]> }) {
   if (image.src) {
-    // Bilder liegen wie Karten auf der Seite: gerundet, mit feinem Ring statt
-    // harter Kante — eine scharfkantige Fotofläche wirkt auf Weiß unfertig.
+    /*
+      Die Fläche behält ihr Seitenverhältnis, das Bild steht unten bündig darin.
+      Vorher lag hier ein `object-cover` ohne feste Höhe: bei den freigestellten
+      Aufnahmen (transparenter Grund) hätte das die Person beschnitten und den
+      Rahmen um leere Fläche gezogen.
+    */
     return (
-      <img
-        src={image.src}
-        alt={image.alt}
-        className="w-full rounded-lg object-cover border border-border"
-        loading="lazy"
-      />
+      <div className="flex aspect-[3/4] w-full items-end justify-center overflow-hidden rounded-lg border border-border bg-surface-strong">
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="h-full w-auto object-contain object-bottom"
+          loading="lazy"
+        />
+      </div>
     );
   }
 
@@ -151,7 +157,10 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
             onClick={() =>
               trackEvent("Calendly_Klick", { position: `salesletter-hero-${content.audience}` })
             }
-            className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
+            /* `min-h` statt fester Höhe: die Beschriftung ist zweizeilig, und die
+               Platzangabe darunter wächst mit dem Text. Mit `h-[56px]` schnitt
+               der Knopf beides ab, sobald der Hinweis länger wurde. */
+            className="mt-10 inline-flex min-h-[56px] w-full max-w-[380px] items-center justify-between gap-4 rounded-full bg-primary px-7 py-3 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
           >
             <span className="flex flex-col text-left">
               <span className="text-fliess font-bold leading-tight">{content.hero.ctaLabel}</span>
@@ -197,7 +206,7 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
               onClick={() =>
                 trackEvent("Calendly_Klick", { position: `salesletter-ende-${content.audience}` })
               }
-              className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
+              className="inline-flex min-h-[56px] w-full max-w-[380px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-7 py-3 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
             >
               <span className="flex flex-col text-left">
                 <span className="text-fliess font-bold leading-tight">

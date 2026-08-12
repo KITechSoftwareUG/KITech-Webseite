@@ -1,14 +1,13 @@
 import { buildMetadata } from "@/lib/metadata";
+import { unternehmenLetter } from "@/data/sales-letters";
 import WarumUnternehmenKeinGeld from "@/views/WarumUnternehmenKeinGeld";
 
-// noindex, solange der Sales Letter nur Platzhaltertext enthaelt
-// (siehe isPlaceholder in src/data/sales-letters.ts).
+/** Siehe Schwesterroute: Metadaten aus der Datendatei, `noindex` an `isPlaceholder`. */
 export const metadata = buildMetadata({
-  title: "Warum Unternehmen mit KI kein Geld verdienen – KITech Software",
-  description:
-    "Platzhalter-Beschreibung: Warum KI-Projekte im Mittelstand im Pilotstadium sterben — und woran man es vorher erkennt.",
-  path: "/warum-unternehmen-mit-ki-kein-geld-verdienen",
-  noindex: true,
+  title: unternehmenLetter.seo.title,
+  description: unternehmenLetter.seo.description,
+  path: `/${unternehmenLetter.slug}`,
+  noindex: Boolean(unternehmenLetter.isPlaceholder),
 });
 
 export default function Page() {

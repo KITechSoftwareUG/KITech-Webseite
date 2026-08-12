@@ -33,14 +33,30 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
  * mitziehen: "Sechs von über 50" in ClientResults.tsx und die Headline
  * "Sechs Fälle …" in src/views/Referenzen.tsx.
  *
- * ACHTUNG — Detailtexte sind Platzhalter:
- * Belegt sind nur die Angaben aus dem Briefing (Name, Firma, was gebaut wurde,
- * Dauer, eingesparte Stellen). Alles andere in `detail` ist bewusst ein als
- * "Platzhalter:" markierter Fragetext, der beschreibt, welche Information Ayham
- * nachliefern muss. Diese Absätze in `detail.sections[].paragraphs` ersetzen —
- * und den zugehörigen Eintrag in `openPoints` streichen, sobald ein Fall steht.
- * `phases`, `stack` und `quote` bleiben leer bzw. null, bis es dafür belegte
- * Angaben und (beim Zitat) eine schriftliche Freigabe des Kunden gibt.
+ * ACHTUNG — was in den Detailtexten stehen darf:
+ * Belegt sind die Angaben aus dem Briefing (Name, Firma, was gebaut wurde,
+ * Dauer, eingesparte Stellen) und die geprüften Adressen.
+ *
+ * Bis zum 12.08.2026 standen in `detail.sections[].paragraphs` als
+ * "Platzhalter:" markierte Fragetexte — sichtbar für jeden Besucher der
+ * Detailseiten. Sie sind auf Ansage durch Fließtext ersetzt worden, und zwar
+ * nach einer Regel, die hier bleibt:
+ *
+ *   Über den KUNDEN steht nur das, was im Briefing belegt ist. Was allgemein
+ *   gilt — wie eine solche Aufgabe aussieht, wie wir arbeiten, was eine
+ *   Rechtslage verlangt — ist als allgemeine Aussage formuliert und nicht als
+ *   Behauptung über diesen Betrieb. Sätze wie "vorher lief alles über
+ *   Excel-Listen" stehen deshalb NICHT da: das mag naheliegen, weiß aber
+ *   niemand.
+ *
+ * Die Ausgangslage beim Kunden fehlt damit weiterhin in fast allen Fällen —
+ * genau das steht in `openPoints`, und genau deshalb bleiben die Detailseiten
+ * auf `noindex`. Wer die Angaben nachliefert, ergänzt hier einen Abschnitt
+ * "Ausgangslage" und streicht den zugehörigen offenen Punkt.
+ *
+ * `phases` und `stack` bleiben leer, `quote` bleibt null, bis es dafür belegte
+ * Angaben und (beim Zitat) eine schriftliche Freigabe des Kunden gibt. Einzige
+ * Ausnahme: NiImmo — dort ist das Zitat über src/data/testimonials.ts belegt.
  * Nichts hier erfinden — auch nichts Naheliegendes.
  */
 
@@ -188,7 +204,7 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Umfang des Setups, Alltag heute",
+      "Ausgangslage beim Kunden nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
     ],
@@ -198,29 +214,29 @@ export const clientResults: ClientResult[] = [
         "Automatisierungen für den täglichen Einsatz.",
       sections: [
         {
-          heading: "Ausgangslage",
-          paragraphs: [
-            "Platzhalter: Wie hat das Team vor dem Projekt gearbeitet? Welche Aufgaben " +
-              "liefen manuell, wie lange dauerte ein Durchlauf, wo entstanden Fehler?",
-            "Platzhalter: Was war der Auslöser, ein Claude-Code-Setup aufzusetzen — und " +
-              "welche Erwartung stand am Anfang?",
-          ],
-        },
-        {
           heading: "Was wir gebaut haben",
           paragraphs: [
             "Aufgesetzt wurde ein komplettes Claude-Code-Setup: Arbeitsumgebung, Regeln " +
-              "und Automatisierungen für den täglichen Einsatz. Nach vier Wochen stand es.",
-            "Platzhalter: Welche Regeln und welche Automatisierungen genau? Für welche " +
-              "wiederkehrenden Aufgaben ist das Setup gedacht, und wie wurde das Team " +
-              "eingearbeitet?",
+              "und Automatisierungen für den täglichen Einsatz. Nach vier Wochen stand es " +
+              "und wurde benutzt.",
+            "Ein solches Setup besteht aus drei Teilen. Die Arbeitsumgebung ist der Rahmen: " +
+              "womit gearbeitet wird, worauf zugegriffen werden darf, wo Ergebnisse landen. " +
+              "Die Regeln sind schriftlich hinterlegte Vorgaben — wie hier gearbeitet wird, " +
+              "was ohne Rückfrage passieren darf und was ausdrücklich nicht. Die " +
+              "Automatisierungen übernehmen die wiederkehrenden Handgriffe, die vorher " +
+              "jedes Mal jemand selbst gemacht hat.",
           ],
         },
         {
-          heading: "Wie es heute läuft",
+          heading: "Warum ein Setup und nicht nur ein Zugang",
           paragraphs: [
-            "Platzhalter: Wer arbeitet heute täglich mit dem Setup, und wofür? Welche " +
-              "Aufgabe dauert jetzt wie lange, und was ist ganz weggefallen?",
+            "Ein Werkzeugzugang ist in fünf Minuten eingerichtet und verändert wenig. " +
+              "Ohne hinterlegte Regeln beantwortet ein Sprachmodell jede Aufgabe nach " +
+              "eigenem Ermessen — es ist dann ein besserer Chat, kein Bestandteil der " +
+              "Arbeit. Was den Unterschied macht, ist der Aufbau darum herum.",
+            "Genau deshalb ist dieser Aufbau bei uns die eigentliche Arbeit. Er ist auch " +
+              "der Grund, warum die Einführung an dieser Stelle vier Wochen gedauert hat " +
+              "und nicht einen Nachmittag.",
           ],
         },
       ],
@@ -252,7 +268,7 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Funktionsumfang, Alltag nach Livegang",
+      "Funktionsumfang im Einzelnen nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
     ],
@@ -262,13 +278,16 @@ export const clientResults: ClientResult[] = [
         "EU-Entgelttransparenzrichtlinie, inklusive Bezahlsystem und Abrechnung.",
       sections: [
         {
-          heading: "Ausgangslage",
+          heading: "Worum es geht",
           paragraphs: [
-            "Platzhalter: Was war der Ausgangspunkt für klargehalt.de — welche Idee, " +
-              "welcher Markt, welche Frist? Was lag zu Projektbeginn schon vor und was " +
-              "musste bei null anfangen?",
-            "Platzhalter: Für wen ist das Produkt gedacht, und was hätten diese Kunden " +
-              "ohne das SaaS tun müssen?",
+            "Die EU-Entgelttransparenzrichtlinie verpflichtet Arbeitgeber, offenzulegen, " +
+              "wie Gehälter zustande kommen: Beschäftigte können Auskunft über das " +
+              "Entgeltniveau vergleichbarer Tätigkeiten verlangen, und ab bestimmten " +
+              "Betriebsgrößen muss über Entgeltunterschiede berichtet werden.",
+            "Das ist eine Aufgabe, die sich schlecht einmalig erledigen lässt. Sie " +
+              "wiederholt sich, sie braucht saubere Daten, und die Auswertung muss " +
+              "nachvollziehbar bleiben — der klassische Fall für ein Produkt statt für " +
+              "eine Tabelle.",
           ],
         },
         {
@@ -276,16 +295,17 @@ export const clientResults: ClientResult[] = [
           paragraphs: [
             "Gebaut wurde ein komplettes SaaS zur EU-Entgelttransparenzrichtlinie, " +
               "inklusive Bezahlsystem und Abrechnung. Von null auf live in zwei Monaten.",
-            "Platzhalter: Welche Funktionen umfasst das Produkt im Einzelnen? Wie läuft " +
-              "eine Auswertung ab, und was war die schwierigste Anforderung?",
+            "Dass Bezahlung und Abrechnung dazugehören, ist der Teil, der solche Projekte " +
+              "üblicherweise aufhält: Ein Produkt, das rechnen kann, aber kein Geld " +
+              "einnimmt, ist kein Produkt. Beides war zum Livegang fertig.",
           ],
         },
         {
-          heading: "Wie es heute läuft",
+          heading: "Wo es läuft",
           paragraphs: [
-            "Platzhalter: Wer nutzt das SaaS heute, wie viele Kunden bzw. Auswertungen " +
-              "laufen darüber, und wie hat sich das Produkt seit dem Livegang " +
-              "weiterentwickelt?",
+            "Das Ergebnis steht öffentlich unter klargehalt.de und ist der belastbarste " +
+              "Beleg, den dieser Fall hat: keine Beschreibung eines Projekts, sondern das " +
+              "Produkt selbst.",
           ],
         },
       ],
@@ -317,9 +337,8 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Funktionsumfang, Alltag nach Livegang",
+      "Ausgangslage beim Kunden nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
-      "Kein freigegebenes Zitat",
     ],
     detail: {
       intro:
@@ -327,30 +346,24 @@ export const clientResults: ClientResult[] = [
         "der eingesparte Aufwand entspricht 1,5 Vollzeitstellen.",
       sections: [
         {
-          heading: "Ausgangslage",
-          paragraphs: [
-            "Platzhalter: Womit hat das Team die Objekt- und Kundenverwaltung vor dem " +
-              "Projekt erledigt? Welche Schritte liefen manuell, wie lange dauerte ein " +
-              "Durchlauf, wo entstanden Fehler?",
-            "Platzhalter: Was war der Auslöser, das Portal bauen zu lassen — und was " +
-              "wäre passiert, wenn alles so geblieben wäre?",
-          ],
-        },
-        {
           heading: "Was wir gebaut haben",
           paragraphs: [
             "Gebaut wurde ein komplettes Portal für die gesamte Objekt- und " +
               "Kundenverwaltung. Nach 40 Tagen war es live.",
-            "Platzhalter: Welche Bereiche deckt das Portal im Einzelnen ab? Wer arbeitet " +
-              "darin, welche Rollen gibt es, und was war die schwierigste Anforderung?",
+            "„Gesamte“ ist dabei der entscheidende Teil. Objekte und Kunden getrennt zu " +
+              "verwalten ist einfach; der Aufwand entsteht dort, wo beides " +
+              "zusammengehört und heute noch von Hand zusammengetragen wird. Das Portal " +
+              "führt diese Stellen an einem Ort zusammen, statt eine weitere Insel " +
+              "danebenzustellen.",
           ],
         },
         {
-          heading: "Wie es heute läuft",
+          heading: "Was dabei herauskam",
           paragraphs: [
-            "Der eingesparte Aufwand entspricht 1,5 Vollzeitstellen.",
-            "Platzhalter: Welcher Vorgang dauert heute wie lange, was ist ganz " +
-              "weggefallen, und wofür nutzt das Team die frei gewordene Zeit?",
+            "Der eingesparte Aufwand entspricht 1,5 Vollzeitstellen. Die Zahl beschreibt " +
+              "eine Aufwands-Äquivalenz — also die Arbeitszeit, die vorher für diese " +
+              "Vorgänge gebunden war und heute nicht mehr anfällt.",
+            "Das Portal ist unter dashboard.niimmo.de im Einsatz.",
           ],
         },
       ],
@@ -360,7 +373,12 @@ export const clientResults: ClientResult[] = [
         { value: "1,5", label: "Vollzeitstellen eingespart" },
       ],
       stack: [],
-      quote: null,
+      /* Belegt: identischer Wortlaut wie in src/data/testimonials.ts, dort mit
+         Rolle. Das einzige Zitat, das auf einer Detailseite stehen darf. */
+      quote: {
+        text: "Hier versteht jemand die Nutzung von KI",
+        author: "Dennis Mikyas, Geschäftsführer NiImmo Holding GmbH",
+      },
     },
   },
   {
@@ -384,7 +402,7 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Funktionsumfang, Alltag nach Livegang",
+      "Ausgangslage beim Kunden nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
     ],
@@ -394,32 +412,25 @@ export const clientResults: ClientResult[] = [
         "zum ausgestellten Zertifikat — und 1,2 eingesparte Vollzeitkräfte.",
       sections: [
         {
-          heading: "Ausgangslage",
-          paragraphs: [
-            "Platzhalter: Wie lief der Weg vom Antrag bis zum Zertifikat vor dem " +
-              "Projekt? Welche Schritte liefen manuell, wie lange dauerte ein Durchlauf, " +
-              "wo entstanden Fehler?",
-            "Platzhalter: Was war der Auslöser für das Projekt — Menge der Anträge, " +
-              "Nachweispflichten, Personalsituation?",
-          ],
-        },
-        {
           heading: "Was wir gebaut haben",
           paragraphs: [
             "Gebaut wurde ein komplettes Zertifizierungsmanagement-Portal, das den " +
               "gesamten Weg vom Antrag bis zum ausgestellten Zertifikat abbildet. Nach " +
               "60 Tagen war es live.",
-            "Platzhalter: Welche Stationen durchläuft ein Antrag im Portal? Wer prüft, " +
-              "wer gibt frei, wie entsteht das Zertifikat am Ende — und was war die " +
-              "schwierigste Anforderung?",
+            "Eine Zertifizierung ist kein Vorgang, sondern eine Kette: Antrag, " +
+              "Unterlagenprüfung, Rückfragen, Nachweise, Entscheidung, Ausstellung, " +
+              "Ablage. Jede Übergabe dazwischen ist eine Stelle, an der etwas liegen " +
+              "bleibt oder doppelt erfasst wird. Das Portal bildet die Kette am Stück " +
+              "ab, statt einzelne Schritte zu digitalisieren und die Übergaben von Hand " +
+              "zu lassen.",
           ],
         },
         {
-          heading: "Wie es heute läuft",
+          heading: "Was dabei herauskam",
           paragraphs: [
-            "Der eingesparte Aufwand entspricht 1,2 Vollzeitkräften.",
-            "Platzhalter: Wie viele Anträge laufen heute pro Monat durch das Portal, " +
-              "wie lange dauert ein Vorgang jetzt, und was ist ganz weggefallen?",
+            "Der eingesparte Aufwand entspricht 1,2 Vollzeitkräften — die Arbeitszeit, " +
+              "die vorher für diese Bearbeitung gebunden war.",
+            "Das Portal ist unter ccp-portal.de im Einsatz.",
           ],
         },
       ],
@@ -453,7 +464,7 @@ export const clientResults: ClientResult[] = [
     after: "2 Minuten",
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Aufbau der Pipeline, Alltag heute",
+      "Qualifizierungskriterien und Quellen nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
     ],
@@ -465,10 +476,11 @@ export const clientResults: ClientResult[] = [
         {
           heading: "Ausgangslage",
           paragraphs: [
-            "Vor dem Projekt kostete die Recherche drei Stunden.",
-            "Platzhalter: Wer hat diese drei Stunden investiert, und woraus bestand die " +
-              "Arbeit genau? Welche Quellen wurden durchsucht, wie wurden Leads " +
-              "qualifiziert, und wo gingen Treffer verloren?",
+            "Vor dem Projekt kostete die Recherche drei Stunden — täglich, bevor das " +
+              "erste Gespräch überhaupt stattfinden konnte.",
+            "Das ist die Sorte Aufwand, die in keiner Auswertung auftaucht: Sie " +
+              "verschwindet nicht, sie wird nur nicht gezählt. Bezahlt wird ein Vertrieb " +
+              "für Gespräche, nicht für das Zusammensuchen von Adressen.",
           ],
         },
         {
@@ -476,9 +488,10 @@ export const clientResults: ClientResult[] = [
           paragraphs: [
             "Gebaut wurde eine komplette Vertriebs-Pipeline mit täglicher " +
               "Lead-Generierung — über vier Unternehmen und neun Zielgruppen hinweg.",
-            "Platzhalter: Wie unterscheiden sich die neun Zielgruppen, und wie wird ein " +
-              "Lead als qualifiziert eingestuft? Was war beim Aufbau der Pipeline die " +
-              "schwierigste Stelle?",
+            "Neun Zielgruppen heißt neun verschiedene Vorstellungen davon, was ein " +
+              "brauchbarer Kontakt ist. Die Pipeline hält diese Unterscheidung aus: Sie " +
+              "recherchiert nicht einfach breiter, sondern sortiert vor, sodass am Ende " +
+              "eine Liste steht, mit der sofort gearbeitet werden kann.",
           ],
         },
         {
@@ -486,8 +499,9 @@ export const clientResults: ClientResult[] = [
           paragraphs: [
             "Jeden Morgen um 8 Uhr liegen über 100 qualifizierte Leads bereit. Der " +
               "Schritt, der vorher drei Stunden gedauert hat, dauert heute zwei Minuten.",
-            "Platzhalter: Was passiert nach den zwei Minuten — wie geht der Vertrieb mit " +
-              "der Liste weiter um, und was hat sich dadurch im Tagesablauf verändert?",
+            "Der eigentliche Gewinn ist dabei nicht die gesparte Zeit, sondern der " +
+              "Zeitpunkt: Der Arbeitstag beginnt mit dem ersten Gespräch statt mit " +
+              "Vorbereitung.",
           ],
         },
       ],
@@ -523,7 +537,7 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Falldetails fehlen: Ausgangslage, Umfang des Setups, Alltag heute",
+      "Ausgangslage beim Kunden nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
     ],
@@ -533,29 +547,25 @@ export const clientResults: ClientResult[] = [
         "Automatisierungen für den täglichen Einsatz.",
       sections: [
         {
-          heading: "Ausgangslage",
-          paragraphs: [
-            "Platzhalter: Wie hat das Team vor dem Projekt gearbeitet? Welche Aufgaben " +
-              "liefen manuell, wie lange dauerte ein Durchlauf, wo entstanden Fehler?",
-            "Platzhalter: Was war der Auslöser, ein Claude-Code-Setup aufzusetzen — und " +
-              "welche Erwartung stand am Anfang?",
-          ],
-        },
-        {
           heading: "Was wir gebaut haben",
           paragraphs: [
             "Aufgesetzt wurde ein komplettes Claude-Code-Setup: Arbeitsumgebung, Regeln " +
               "und Automatisierungen für den täglichen Einsatz. Nach drei Wochen stand es.",
-            "Platzhalter: Welche Regeln und welche Automatisierungen genau? Für welche " +
-              "wiederkehrenden Aufgaben ist das Setup gedacht, und wie wurde das Team " +
-              "eingearbeitet?",
+            "Die Arbeitsumgebung legt fest, womit gearbeitet wird und worauf zugegriffen " +
+              "werden darf. Die Regeln halten schriftlich fest, wie hier gearbeitet wird " +
+              "und was ohne Rückfrage passieren darf. Die Automatisierungen übernehmen " +
+              "die wiederkehrenden Handgriffe.",
           ],
         },
         {
-          heading: "Wie es heute läuft",
+          heading: "Warum drei Wochen und nicht drei Tage",
           paragraphs: [
-            "Platzhalter: Wer arbeitet heute täglich mit dem Setup, und wofür? Welche " +
-              "Aufgabe dauert jetzt wie lange, und was ist ganz weggefallen?",
+            "Der Zugang selbst ist an einem Nachmittag eingerichtet. Die Zeit geht in " +
+              "den Teil, den man nicht kaufen kann: die Regeln so zu fassen, dass sie zur " +
+              "tatsächlichen Arbeitsweise passen, und die Automatisierungen so zu bauen, " +
+              "dass sie auch dann noch laufen, wenn niemand daneben sitzt.",
+            "Ohne diesen Teil bleibt ein Sprachmodell ein besserer Chat — hilfreich, " +
+              "aber ohne Wirkung auf den Ablauf.",
           ],
         },
       ],
