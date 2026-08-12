@@ -142,7 +142,7 @@ export default function Leistungen() {
 
       <CtaBanner
         heading="Welcher Prozess bei euch zuerst?"
-        text="Im Erstgespräch nehmen wir einen konkreten Ablauf auseinander und rechnen ihn durch."
+        text="In der KI-Bewertung nehmen wir einen konkreten Ablauf auseinander und rechnen ihn durch."
         position="leistungen-abschluss"
       />
     </PageShell>

@@ -46,6 +46,6 @@ export const funnelContent = {
 
   cta: {
     heading: "Lass uns prüfen, wo KI in deinem Unternehmen wirklich produktiv werden kann.",
-    text: "Im Erstgespräch analysieren wir, welche Prozesse, Daten und Systeme sich sinnvoll verbinden lassen.",
+    text: "In der KI-Bewertung analysieren wir, welche Prozesse, Daten und Systeme sich sinnvoll verbinden lassen.",
   },
 };

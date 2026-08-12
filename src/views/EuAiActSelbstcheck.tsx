@@ -599,7 +599,7 @@ function Result({
                 {todo.length > 0 ? "Offene Punkte besprechen" : "Nachweise prüfen lassen"}
               </span>
               <span className="mt-1 block text-xs font-light text-primary-foreground/70 sm:text-sm">
-                Kostenloses Erstgespräch, 30 Minuten, ohne Verpflichtung
+                Kostenlose KI-Bewertung, 60 Minuten, ohne Verpflichtung
               </span>
             </span>
             <ArrowRight

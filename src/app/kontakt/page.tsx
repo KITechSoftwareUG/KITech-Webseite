@@ -4,7 +4,7 @@ import Kontakt from "@/views/Kontakt";
 export const metadata = buildMetadata({
   title: "Kontakt – KITech Software",
   description:
-    "Erstgespräch im Kalender buchen, schreiben oder anrufen. KITech Software UG, Hannover — ohne Formularschleife.",
+    "KI-Bewertung im Kalender sichern, schreiben oder anrufen. KITech Software UG, Hannover — ohne Formularschleife.",
   path: "/kontakt",
 });
 

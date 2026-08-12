@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
+import { angebot } from "@/config/angebot";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { PageHeading } from "@/components/sections/PageHeading";
 import { CtaBanner } from "@/components/sections/CtaBanner";
@@ -44,7 +45,7 @@ export function Funnel() {
           className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <span className="flex flex-col text-left">
-            <span className="text-fliess font-semibold leading-tight">Erstgespräch buchen</span>
+            <span className="text-fliess font-semibold leading-tight">{angebot.cta}</span>
             <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
               30 Minuten, unverbindlich
             </span>

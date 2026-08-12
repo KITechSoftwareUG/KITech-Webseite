@@ -278,7 +278,7 @@ export function getContactPageSchema(): SchemaBase {
     "@type": "ContactPage",
     name: "Kontakt – KITech Software",
     url: "https://kitech-software.de/kontakt",
-    description: "Erstgespräch und Kontaktdaten der KITech Software UG (haftungsbeschränkt).",
+    description: "KI-Bewertung und Kontaktdaten der KITech Software UG (haftungsbeschränkt).",
     mainEntity: {
       "@type": "Organization",
       name: "KITech Software UG (haftungsbeschränkt)",

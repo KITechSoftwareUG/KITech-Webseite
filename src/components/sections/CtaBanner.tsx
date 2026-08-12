@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { angebot, verfuegbarkeit } from "@/config/angebot";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
@@ -23,9 +24,9 @@ export function CtaBanner({
   text,
   /** Landet als `position` im Plausible-Event. Muss pro Einbaustelle eindeutig sein. */
   position,
-  label = "Kostenloses Erstgespräch buchen",
-  hint = "30 Minuten, unverbindlich",
-  href = "/lass-uns-reden",
+  label = angebot.cta,
+  hint = verfuegbarkeit(),
+  href = angebot.href,
 }: {
   heading: string;
   text: string;
@@ -52,7 +53,7 @@ export function CtaBanner({
             >
               {heading}
             </h2>
-            {/* Nur eine Zeile statt eines Erklärabsatzes: "kostenlos", "30 Minuten"
+            {/* Nur eine Zeile statt eines Erklärabsatzes: Dauer und Platzangabe
                 und "unverbindlich" stehen bereits im Button — sie hier zu wiederholen
                 spült den CTA weich. Übrig bleibt der Satz, der wehtut. Er steht
                 zurueckgenommen in `muted-foreground`, damit die Überschrift und

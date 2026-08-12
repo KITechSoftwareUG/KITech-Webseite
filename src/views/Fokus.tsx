@@ -19,7 +19,7 @@ import { fokusContent as c } from "@/data/fokus";
  * Segment-Seiten wie /solo nicht brauchen, ein bezahltes Einzelangebot schon).
  *
  * OFFEN: CTA verlinkt wie überall auf `/lass-uns-reden` (Calendly
- * "roi-analyse") — das ist der allgemeine Erstgespräch-Kalender, kein
+ * "roi-analyse") — das ist der allgemeine Kalender der KI-Bewertung, kein
  * dediziertes Buchungs-/Zahlungsformular für den 299-€-Workshop. Braucht
  * Ayhams Entscheidung, ob das reicht oder ein eigener Slot/Zahlungslink nötig
  * ist, bevor die Seite live/indexiert geht.

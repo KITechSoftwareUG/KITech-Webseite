@@ -25,7 +25,7 @@ const guarantees = [
   {
     icon: ShieldCheck,
     title: "NDA von Anfang an",
-    text: "Vertraulichkeitsvereinbarung bereits vor dem Erstgespräch – auf Wunsch in 24 h.",
+    text: "Vertraulichkeitsvereinbarung bereits vor der Bewertung – auf Wunsch in 24 h.",
   },
   {
     icon: MapPin,

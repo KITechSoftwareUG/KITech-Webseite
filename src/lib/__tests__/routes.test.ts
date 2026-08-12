@@ -256,6 +256,7 @@ describe("Navigation", () => {
      */
     const ausgenommen = new Set([
       "/termin", // Alias auf /lass-uns-reden
+      "/selbstcheck_eu_ai_act", // markenfreie Einzelseite, bewusst ohne Website-internen Zugang
       "/selbstcheck", // Alias auf /selbstcheck_eu_ai_act
       "/app", // eigener Bereich, eigene Domain
       "/funnel", // LinkedIn-Landingpage, eigene Domain, bewusst ohne Website-Navigation

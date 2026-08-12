@@ -5,6 +5,7 @@ import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredDat
 import { PageShell } from "@/components/layout/PageShell";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { teamRoster } from "@/data/team";
+import { angebot, verfuegbarkeit } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -94,18 +95,20 @@ export default function Home({
           </p>
 
           <Link
-            href="/lass-uns-reden"
+            href={angebot.href}
             onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
             className="mt-[39px] inline-flex h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 dt:h-[56px] dt:w-[420px]"
           >
-            Kostenloses Erstgespräch buchen
+            {angebot.cta}
           </Link>
 
           {/* Der Hinweis steht in der Vorlage nicht — er gehoert zu unserem
               Inhalt und bleibt deshalb. Klein gesetzt, damit er die Geometrie
               des Hero nicht verschiebt. */}
+          {/* Dauer und Platzangabe direkt unter dem Knopf: die Begrenzung ist
+              echt (fuenf Stunden pro Woche) und traegt sich deshalb selbst. */}
           <p className="mt-3 text-mini font-normal text-muted-foreground">
-            30 Minuten, unverbindlich
+            Kostenlos · {angebot.dauer} · {verfuegbarkeit()}
           </p>
 
           {/*

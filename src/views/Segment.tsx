@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
+import { angebot } from "@/config/angebot";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { PageHeading } from "@/components/sections/PageHeading";
 import { CtaBanner } from "@/components/sections/CtaBanner";
@@ -63,7 +64,7 @@ export function Segment({ content }: { content: SegmentContent }) {
         >
           <span className="flex flex-col text-left">
             <span className="text-fliess font-semibold leading-tight">
-              Kostenloses Erstgespräch buchen
+              {angebot.cta}
             </span>
             <span className="mt-1 text-mini leading-tight text-primary-foreground/58">
               30 Minuten, unverbindlich

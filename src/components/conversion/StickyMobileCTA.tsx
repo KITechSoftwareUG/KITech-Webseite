@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Calendar, Phone } from "lucide-react";
+import { angebot } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
 
 const PHONE = "+4915164682544";
@@ -43,7 +44,7 @@ export function StickyMobileCTA() {
           className="flex items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-light text-primary-foreground hover:opacity-90 transition-opacity"
         >
           <Calendar className="h-4 w-4" />
-          Erstgespräch
+          {angebot.kurz}
         </button>
       </div>
     </div>

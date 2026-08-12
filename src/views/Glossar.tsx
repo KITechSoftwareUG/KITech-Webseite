@@ -77,7 +77,7 @@ export default function Glossar() {
 
       <CtaBanner
         heading="Begriffe klären ist einfach. Prozesse ändern nicht."
-        text="Im Erstgespräch reden wir nicht über Definitionen, sondern über einen konkreten Ablauf bei euch."
+        text="In der KI-Bewertung reden wir nicht über Definitionen, sondern über einen konkreten Ablauf bei euch."
         position="glossar-uebersicht"
       />
     </PageShell>

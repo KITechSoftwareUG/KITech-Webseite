@@ -6,7 +6,7 @@ import Home from "@/views/Home";
 export const metadata = buildMetadata({
   title: "KITech Software – Anwendungspartner für KI im Mittelstand",
   description:
-    "99 % der KI-Projekte scheitern an der falschen KI. Wir sind euer Anwendungspartner und verändern, wie KI in eurem Unternehmen tatsächlich eingesetzt wird. Kostenloses Erstgespräch buchen.",
+    "99 % der KI-Projekte scheitern an der falschen KI. Wir sind euer Anwendungspartner und verändern, wie KI in eurem Unternehmen tatsächlich eingesetzt wird. Kostenlose Bewertung eurer KI-Aufstellung — 60 Minuten, 5 Plätze pro Woche.",
   path: "/",
 });
 

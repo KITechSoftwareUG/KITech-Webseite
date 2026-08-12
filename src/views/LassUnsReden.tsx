@@ -3,15 +3,26 @@
 import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/components/layout/PageShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
+import { angebot, verfuegbarkeit } from "@/config/angebot";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { motion } from "framer-motion";
-import { Star, X, ArrowRight, CalendarClock, Loader2, Quote, Linkedin } from "lucide-react";
+import { Star, X, ArrowRight, CalendarClock, Loader2, Quote, Linkedin, Check } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 import { hasAnalyticsConsent } from "@/lib/consent";
 import { testimonials } from "@/data/testimonials";
 import { founderInfo } from "@/components/sections/FounderPortrait";
 import ayhamPortrait from "@/assets/ayham-portrait-casual.webp";
 
+
+/**
+ * Was in der Stunde passiert. Beschreibt den Ablauf, nicht das Ergebnis —
+ * ein Versprechen wie "Sie sparen X" waere weder belegbar noch zulaessig.
+ */
+const ABLAUF = [
+  "Wir gehen durch, was bei euch schon läuft: Tools, Automatisierungen, KI-Einsatz.",
+  "Wir schauen, an welchen Stellen Aufwand entsteht, der sich abstellen lässt.",
+  "Ihr bekommt eine Einschätzung, was sich zuerst lohnt — und was nicht.",
+];
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
@@ -120,7 +131,7 @@ export default function LassUnsReden() {
       <StructuredData
         data={getWebPageSchema(
           "Lass uns reden",
-          "Kostenloses Erstgespräch direkt im Kalender buchen",
+          "Kostenlose KI-Bewertung direkt im Kalender sichern",
           "https://kitech-software.de/lass-uns-reden"
         )}
       />
@@ -129,6 +140,43 @@ export default function LassUnsReden() {
         <div className={`${SITE_CONTAINER} grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16`}>
           {/* Linke Spalte: Mini-Funnel */}
           <div className="space-y-10">
+            {/*
+              Angebotskopf. Die Seite hiess frueher "Erstgespraech" und begann
+              direkt mit dem Portrait; seit 12.08.2026 ist sie die Landeseite
+              eines benannten Angebots und muss zuerst sagen, was es gibt.
+
+              Die Platzangabe kommt aus `verfuegbarkeit()` und damit aus
+              gepflegten Zahlen — eine Verknappung, die unabhaengig von der
+              Wirklichkeit immer knapp aussieht, waere nach Anhang zu § 3
+              Abs. 3 UWG Nr. 7 per se unzulaessig.
+            */}
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-mini font-bold uppercase tracking-wide text-primary-foreground">
+                {verfuegbarkeit()}
+              </span>
+
+              <h1 className="kinetic-display kinetic-morph-in mt-5 max-w-[600px] text-balance text-[36px] leading-[41.4px] text-foreground sm:text-h1">
+                {angebot.name}
+              </h1>
+
+              <p className="mt-5 max-w-[560px] text-pretty text-lead font-normal text-muted-foreground">
+                {angebot.beschreibung}
+              </p>
+
+              <ul className="mt-7 space-y-3">
+                {ABLAUF.map((punkt) => (
+                  <li key={punkt} className="flex gap-3 text-fliess text-foreground">
+                    <Check className="mt-[3px] h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    {punkt}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-6 text-fliess font-normal text-muted-foreground">
+                Kostenlos · {angebot.dauer} · ohne Verpflichtung
+              </p>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}

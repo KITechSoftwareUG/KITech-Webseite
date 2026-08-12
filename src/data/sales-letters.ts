@@ -70,7 +70,7 @@ export const soloLetter: SalesLetterContent = {
     headline: "Warum du mit KI",
     headlineHighlight: "kein Geld verdienst.",
     sub: placeholderParagraph,
-    ctaLabel: "Erstgespräch buchen",
+    ctaLabel: "Kostenlose KI-Bewertung sichern",
     ctaHint: "30 Minuten, unverbindlich",
   },
   blocks: [
@@ -111,7 +111,7 @@ export const soloLetter: SalesLetterContent = {
   closing: {
     heading: "Platzhalter: Wenn du das ernst meinst, reden wir.",
     paragraph: placeholderParagraph,
-    ctaLabel: "Erstgespräch buchen",
+    ctaLabel: "Kostenlose KI-Bewertung sichern",
     ctaHint: "30 Minuten, unverbindlich",
   },
   isPlaceholder: true,

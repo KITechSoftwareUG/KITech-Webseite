@@ -95,8 +95,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
       { label: "Leistungen", href: "/leistungen" },
       { label: "Für Selbstständige", href: "/solo" },
       { label: "Für Unternehmen", href: "/enterprise" },
-      { label: "EU-AI-Act-Selbstcheck", href: "/selbstcheck_eu_ai_act" },
-      { label: "Erstgespräch buchen", href: "/lass-uns-reden" },
+      { label: "KI-Bewertung sichern", href: "/lass-uns-reden" },
     ],
   },
   {
@@ -214,20 +213,25 @@ export const siteRoutes: RouteDefinition[] = [
     changeFrequency: "monthly",
     priority: 0.5,
   },
+  // Der Selbstcheck gehoert nicht zur Website: markenfreie Einzelseite, die
+  // ausserhalb eingesetzt wird (siehe CLAUDE.md, "Markenfreier Selbstcheck").
+  // Deshalb bewusst in keiner Navigation, nicht in der Sitemap und auf noindex
+  // — dieselbe Behandlung wie die Kampagnenseiten /funnel und /fokus. Auch der
+  // Routen-Test nimmt beide Pfade aus der Erreichbarkeitspruefung aus.
   {
     path: "/selbstcheck_eu_ai_act",
-    indexable: true,
+    indexable: false,
     lastModified: "2026-08-11",
     changeFrequency: "monthly",
-    priority: 0.8,
+    priority: 0.4,
   },
   {
     path: "/selbstcheck",
-    indexable: true,
+    indexable: false,
     aliasOf: "/selbstcheck_eu_ai_act",
     lastModified: "2026-08-11",
     changeFrequency: "monthly",
-    priority: 0.5,
+    priority: 0.4,
   },
 
   { path: "/impressum", indexable: true, lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
@@ -256,14 +260,14 @@ export const siteRoutes: RouteDefinition[] = [
  * Abschnitt "Entfernt"). Beide leiten auf die Startseite, statt ins Leere zu
  * laufen: die Adressen standen in der Navigation und wurden geteilt.
  *
- * `/eu-ai-act-selbstcheck` ist am 11.08.2026 zu `/selbstcheck_eu_ai_act`
- * geworden. Die alte Adresse steht seit Juli in der Sitemap und ist verlinkt —
- * ohne Weiterleitung liefe jeder bestehende Verweis auf eine 404.
+ * Der Selbstcheck hat hier bewusst *keinen* Eintrag: seine alte Adresse
+ * `/eu-ai-act-selbstcheck` laeuft seit dem 11.08.2026 auf eine 404, auf Ansage.
+ * Die Seite soll auf der Website an keiner Stelle mehr vorkommen — auch nicht
+ * als Weiterleitung.
  */
 export const permanentRedirects: Record<string, string> = {
   "/skool": "/",
   "/community": "/",
-  "/eu-ai-act-selbstcheck": "/selbstcheck_eu_ai_act",
 };
 
 /** Alle statischen Pfade als Menge — praktisch für Prüfungen. */

@@ -10,9 +10,10 @@ export const metadata = buildMetadata({
   description:
     "Prüfen Sie in wenigen Minuten, welche Pflichten der EU AI Act für Ihren KI-Einsatz mit sich bringt.",
   path: "/selbstcheck_eu_ai_act",
-  // Markenfrei wie die Langform — Begründung dort.
+  // Markenfrei und noindex wie die Langform — Begründung dort.
   ogImage: null,
   siteName: null,
+  noindex: true,
 });
 
 export default function Page() {
