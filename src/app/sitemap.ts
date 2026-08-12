@@ -3,6 +3,7 @@ import { BASE_URL } from "@/lib/metadata";
 import { siteRoutes } from "@/config/navigation";
 import { clientResults } from "@/data/client-results";
 import { glossaryTerms } from "@/data/glossary";
+import { wissenArtikel } from "@/data/wissen";
 
 /**
  * Sitemap wird generiert statt als statische `public/sitemap.xml` gepflegt.
@@ -25,6 +26,8 @@ import { glossaryTerms } from "@/data/glossary";
  *     Bedingung wie das `noindex` in `app/referenzen/[slug]/page.tsx` — läuft
  *     die auseinander, steht ein noindex-Fall in der Sitemap.
  *   - Glossarbegriffe: alle, sie sind fertig geschrieben.
+ *   - Artikel aus `/gratis-wissen`: alle. Sie sind der Grund, warum dieser
+ *     Bereich existiert — sie sollen ranken.
  *   - Stellenanzeigen: bewusst gar nicht, siehe Kopf von `src/data/jobs.ts`.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -53,5 +56,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...statisch, ...referenzen, ...glossar];
+  const wissen: MetadataRoute.Sitemap = wissenArtikel.map((artikel) => ({
+    url: `${BASE_URL}/gratis-wissen/${artikel.slug}`,
+    lastModified: artikel.datum,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...statisch, ...referenzen, ...glossar, ...wissen];
 }
