@@ -34,19 +34,19 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
  * Vollständig im Commit davor; zurückholen mit
  * `git show <commit>:src/data/client-results.ts`.
  *
- * WARTET AUF INHALT — Thomas / Grynia:
- * Soll den Recherche-Fall ersetzen (Vermittlung von Arbeitskräften,
- * automatisierte Kette, Kundenrecherche in 10 Minuten). Das Foto liegt unter
- * `public/images/kunden/grynia.webp`. Es fehlen: Nachname, die genaue
- * Firmenschreibweise und die Kennzahl in der Form, in der sie auf der Karte
- * stehen soll.
+ * ANGELEGT am 12.08.2026 — Thomas / Grynia:
+ * Ersetzt den entfernten Recherche-Fall. Belegt sind aus Ayhams Ansage: Vorname
+ * Thomas, Branche (Vermittlung von Arbeitskräften), was gebaut wurde
+ * (automatisierte Kette) und die Kennzahl (Kundenrecherche in 10 Minuten). Das
+ * Foto lag seit dem 05.08.2026 bereit.
  *
- * WARTET AUF INHALT — Grynia:
- * `public/images/kunden/grynia.webp` liegt bereits bereit, aber es gibt noch keinen
- * Eintrag dafür. Ayham liefert die Angaben nach (04.08.2026). Solange Name, Firma
- * und die eine Zahl fehlen, wäre eine siebte Karte eine leere Hülle. Beim Ergänzen
- * mitziehen: "Sechs von über 50" in ClientResults.tsx und die Headline
- * "Sechs Fälle …" in src/views/Referenzen.tsx.
+ * ⚠️ ZWEI ANGABEN SIND UNGEPRÜFT und stehen deshalb in `openPoints`:
+ *   - Der **Nachname** fehlt. Auf der Karte steht bisher nur "Thomas".
+ *   - Die **Firmenschreibweise** ist aus dem Dateinamen der Bildlieferung
+ *     übernommen (`portrait_referenz_grynia.svg`). In der Ansage klang sie wie
+ *     "Grüner Consulting" — das war mutmaßlich die Spracherkennung. Ein falsch
+ *     geschriebener Kundenname auf einer Referenzkarte ist genau die Sorte
+ *     Fehler, die beim Kunden auffällt; bitte bestätigen.
  *
  * ACHTUNG — was in den Detailtexten stehen darf:
  * Belegt sind die Angaben aus dem Briefing (Name, Firma, was gebaut wurde,
@@ -467,6 +467,70 @@ export const clientResults: ClientResult[] = [
         { value: "60 Tage", label: "bis live" },
         { value: "1,2", label: "Vollzeitkräfte eingespart" },
       ],
+      stack: [],
+      quote: null,
+    },
+  },
+  {
+    slug: "grynia-kundenrecherche",
+    company: "Grynia",
+    logo: null,
+    liveUrl: null,
+    companyUrl: null,
+    person: {
+      name: "Thomas",
+      role: null,
+      photo: "/images/kunden/grynia.webp",
+    },
+    rating: 5,
+    review: null,
+    kategorie: "Vertriebs-Automatisierung",
+    headline: { value: "10 Minuten", label: "für die Kundenrecherche" },
+    summary:
+      "Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Kundenrecherche, die vorher von Hand lief, ist in zehn Minuten erledigt.",
+    duration: null,
+    before: null,
+    after: null,
+    extra: null,
+    openPoints: [
+      "Nachname fehlt — auf der Karte steht bisher nur der Vorname",
+      "Firmenschreibweise bestätigen (hier nach dem Dateinamen der Bildlieferung)",
+      "Ausgangslage beim Kunden nicht dokumentiert",
+      "Eingesetzte Technik nicht dokumentiert",
+      "Kein freigegebenes Zitat",
+    ],
+    detail: {
+      intro:
+        "Eine automatisierte Kette für die Vermittlung von Arbeitskräften — die " +
+        "Kundenrecherche dauert zehn Minuten.",
+      sections: [
+        {
+          heading: "Was wir gebaut haben",
+          paragraphs: [
+            "Gebaut wurde eine automatisierte Kette für die Kundenrecherche in der " +
+              "Vermittlung von Arbeitskräften. Der Schritt, der am Anfang jedes " +
+              "Vermittlungsvorgangs steht, dauert damit zehn Minuten.",
+            "„Kette“ ist dabei der entscheidende Teil: Recherche besteht nicht aus einem " +
+              "Handgriff, sondern aus einer Reihe davon — suchen, prüfen, zuordnen, " +
+              "festhalten. Automatisiert man nur einen davon, bleibt die Übergabe " +
+              "dazwischen von Hand und der Zeitgewinn verpufft.",
+          ],
+        },
+        {
+          heading: "Warum ausgerechnet die Recherche",
+          paragraphs: [
+            "Es ist die Sorte Aufwand, die in keiner Auswertung auftaucht: Sie " +
+              "verschwindet nicht, sie wird nur nicht gezählt. Bezahlt wird eine " +
+              "Vermittlung für die Vermittlung, nicht für das Zusammensuchen von " +
+              "Informationen davor.",
+            "Genau deshalb ist sie eine gute erste Stelle für Automatisierung — sie " +
+              "liegt am Anfang, sie wiederholt sich, und der Gewinn ist sofort " +
+              "sichtbar.",
+          ],
+        },
+      ],
+      phases: [],
+      metrics: [{ value: "10 Minuten", label: "für die Kundenrecherche" }],
       stack: [],
       quote: null,
     },
