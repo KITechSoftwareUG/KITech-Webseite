@@ -270,6 +270,55 @@ Leere, und Google fällt die bekannte URL als 404 aus dem Index.
 anderen Routen ab (Vorgabe Ayham). Google behandelt `_` nicht als Worttrenner —
 für die Suche ist `selbstcheck_eu_ai_act` ein Wort.
 
+### Kampagnenseiten `/funnel` und `/fokus`
+
+Zwei eigene Domains, ein Repo: `funnel.kitech-software.de` und
+`fokus.kitech-software.de` werden in `src/proxy.ts` auf die internen Segmente
+`/funnel` und `/fokus` umgeschrieben (Rewrite, kein Redirect — die Adresszeile
+bleibt stehen). Beide stehen auf `noindex`, in keiner Navigation und in keiner
+Sitemap; der Routen-Test nimmt sie von der Erreichbarkeitsprüfung aus.
+
+**`/funnel` bewirbt seit dem 12.08.2026 einen kostenlosen Live-Workshop**
+(vorher: allgemeine Seite über KI-Infrastruktur). Aufhänger ist die Umkehrung —
+nicht „wie du mit KI mehr Umsatz machst", sondern *warum du es bisher nicht
+tust*. Zielgruppe sind Geschäftsführer und Entscheider im Mittelstand.
+
+Die **Sektionsreihenfolge stammt aus einer Vorlage**, die Ayham vorgegeben hat
+(`src/assets/funnels.leadersmedia.de_scale_ (1).png`): Hero mit Termin → Beweis
+→ Problem → CTA → Mechanismus → Wiedererkennung → Vorher/Nachher → Ergebnisse →
+Qualifizierung → CTA → Gründer → FAQ → Abschluss-CTA. Übernommen wurde die
+*Struktur*, nicht das Aussehen — Farben, Typografie und Knöpfe kommen aus dem
+Designsystem dieser Website. Erzählerisch bleibt es Schema A des
+`funnel-narrativ`-Skills.
+
+Drei Eigenheiten sind Absicht: **derselbe CTA an vier Stellen** (wer irgendwo
+überzeugt ist, klickt dort), **Chevrons statt Trennlinien** zwischen den
+Blöcken, und **Beweis in zwei Formen** — kurze Kundenstimmen früh, Kennzahlen
+erst nach dem Problem.
+
+Nicht übernommen wurde alles, was die Vorlage an Beweis behauptet, ohne dass es
+hier belegbar wäre: zehn Testimonials mit Zahlen (wir haben zwei abgegebene
+Zitate), eine Sammelbewertung und ein durchgestrichener Vorher-Preis.
+
+| Was | Wo |
+|---|---|
+| Rahmen ohne Ausgänge | `src/components/layout/FunnelShell.tsx` — Logo (ohne Link) + Rechtstexte, sonst nichts. **Nicht `PageShell`**: volle Navigation gibt kaltem Traffic ein Dutzend Ausgänge vor dem einen Knopf. |
+| Inhalt | `src/data/funnel.ts` |
+| Termin + Countdown | `src/components/sections/WorkshopTermin.tsx` — rendert **nur mit echtem Datum**. `termin: null` ⇒ der ganze Block entfällt. |
+
+⚠️ **Drei offene Punkte, solange sie stehen bleibt `noindex`:** es ist kein
+Termin eingetragen, `patternInterrupt.body` ist Platzhaltertext, und der CTA
+führt auf `/lass-uns-reden` (Kalender der KI-Bewertung) statt auf eine
+Workshop-Anmeldung. Details stehen im Kopfkommentar von `src/data/funnel.ts`.
+
+**`/fokus` ist auf Ansage leer** (12.08.2026). Dort stand ein 1:1-Workshop für
+299 € — ein Preis aus dem Vite-Vorgänger, der so nicht mehr gilt. Die Route
+bleibt bestehen statt zu verschwinden, weil die Domain eingerichtet und
+möglicherweise geteilt ist; eine 404 auf einer beworbenen Adresse ist schlechter
+als eine Seite, die sagt, dass gerade nichts da ist. Der alte Inhalt liegt
+vollständig im Commit `176b6a2` (`git checkout 176b6a2 -- src/data/fokus.ts
+src/views/Fokus.tsx`).
+
 ### Entfernt am 05.08.2026: Community und Mitgliederbereich
 
 **Auf Ansage komplett von der Website genommen** — die Skool-Community war noch

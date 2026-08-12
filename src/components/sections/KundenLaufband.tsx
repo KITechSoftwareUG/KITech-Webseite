@@ -112,6 +112,16 @@ export function KundenLaufband() {
               key={durchlauf}
               className="flex gap-6"
               aria-hidden={durchlauf > 0 ? "true" : undefined}
+              /*
+               * `inert` gehoert zwingend zu `aria-hidden` dazu: die Karten sind
+               * Links und blieben sonst mit der Tabulatortaste erreichbar,
+               * obwohl kein Screenreader sie ansagt (WCAG 4.1.2). Es waren zwoelf
+               * solcher Stellen — der Fokus verschwand fuer Tastaturnutzer
+               * scheinbar ins Nichts, und weil die Kopien ausserhalb des
+               * sichtbaren Bereichs liegen, verschob der Browser beim Tabben
+               * zusaetzlich das ganze Band.
+               */
+              inert={durchlauf > 0}
             >
               {sortiert.map((result) => (
                 <LaufbandKarte key={`${durchlauf}-${result.slug}`} result={result} />

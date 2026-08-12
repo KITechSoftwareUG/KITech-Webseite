@@ -2,16 +2,16 @@ import { buildMetadata } from "@/lib/metadata";
 import { Fokus } from "@/views/Fokus";
 
 /**
- * LinkedIn-"Featured"-Landingpage, erreichbar unter fokus.kitech-software.de
- * (Host-Rewrite in src/proxy.ts) und intern unter /fokus. noindex, solange
- * Pattern-Interrupt-Text Platzhalter ist (siehe src/data/fokus.ts).
+ * Landingpage unter fokus.kitech-software.de (Host-Rewrite in src/proxy.ts),
+ * intern /fokus. Steht auf Ansage leer — Begründung in src/views/Fokus.tsx.
+ *
+ * `noindex` bleibt: eine Seite ohne Inhalt gehört nicht in den Suchindex, und
+ * das alte Vorschaubild bewarb den 299-€-Workshop, den es hier nicht mehr gibt.
  */
 export const metadata = buildMetadata({
-  title: "1:1-KI-Workshop – KITech Software",
-  description:
-    "Keine weiteren Tutorials. Kein weiterer Prompt-Ordner. Sondern ein konkreter Plan für deine Situation.",
+  title: "KITech Software",
+  description: "Diese Seite hat aktuell keinen Inhalt.",
   path: "/fokus",
-  ogImage: "https://kitech-software.de/images/og/fokus.png",
   noindex: true,
 });
 
