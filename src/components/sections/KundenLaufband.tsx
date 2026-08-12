@@ -121,7 +121,7 @@ export function KundenLaufband() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 flex w-full max-w-site justify-center px-[10px] dt:px-0">
+      <div className="mx-auto mt-10 flex w-full max-w-site justify-center px-[15px]">
         <Link
           href="/referenzen"
           onClick={() => trackEvent("CTA_Klick", { position: "laufband-alle-referenzen" })}

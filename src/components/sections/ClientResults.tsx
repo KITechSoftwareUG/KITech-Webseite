@@ -92,7 +92,7 @@ export function ClientResults() {
       className="scroll-mt-8 bg-background pb-[60px] pt-[50px]"
       aria-labelledby="ergebnisse-heading"
     >
-      <div className="mx-auto w-full max-w-site px-[10px] dt:px-0">
+      <div className="mx-auto w-full max-w-site px-[15px]">
         <h2 id="ergebnisse-heading" className="sr-only">
           Kundenreferenzen
         </h2>

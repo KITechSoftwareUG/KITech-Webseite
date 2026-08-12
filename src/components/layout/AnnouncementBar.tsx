@@ -23,25 +23,27 @@ import { trackEvent } from "@/lib/plausible";
  * Zeile um und der Balken waechst mit, statt den Text abzuschneiden. 22 px
  * Innenabstand plus 24 px Zeilenhoehe ergeben die gemessenen 68 px.
  *
+ * **`sticky`, nicht `fixed`.** Vorher lag der Balken fixiert ueber der Seite und
+ * ein Abstandshalter fester Hoehe (87/68 px) hielt darunter Platz frei. Beides
+ * musste zusammenpassen — und tat es nicht, sobald der Text eine Zeile mehr
+ * brauchte: auf dem Handy wurde der Balken 107 px hoch und schob sich ueber die
+ * Navigationsleiste. Sticky nimmt seinen Platz selbst im Fluss ein und bleibt
+ * trotzdem oben stehen, waehrend die Navigationsleiste darunter wegscrollt. Es
+ * gibt damit keine zweite Hoehenangabe mehr, die falsch werden kann.
+ *
  * Inhalt kommt aus `src/config/announcement.ts`; steht dort `null`, rendert
- * diese Komponente nichts und `announcementSpacerClass` wird leer.
+ * diese Komponente nichts.
  */
-
-/**
- * Oberer Abstand, den der Seiteninhalt braucht, damit er nicht unter dem
- * fixierten Balken beginnt. Entspricht den gemessenen Hoehen der Vorlage.
- */
-export const announcementSpacerClass = announcement ? "pt-[87px] sm:pt-[68px]" : "";
 
 export function AnnouncementBar() {
   if (!announcement) return null;
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 bg-primary text-primary-foreground">
+    <div className="sticky top-0 z-50 w-full bg-primary text-primary-foreground">
       <Link
         href={announcement.href}
         onClick={() => trackEvent("CTA_Klick", { position: "ankuendigungsbalken" })}
-        className="mx-auto flex min-h-[87px] max-w-site items-center justify-center px-[10px] py-[22px] text-center text-[15px] font-light leading-[19.5px] transition-opacity hover:opacity-90 sm:min-h-[68px] dt:px-0"
+        className="mx-auto flex min-h-[87px] max-w-site items-center justify-center px-[15px] py-[22px] text-center text-[15px] font-light leading-[19.5px] transition-opacity hover:opacity-90 sm:min-h-[68px]"
       >
         {/*
           Pille, Text und Pfeil stehen im selben Textfluss (inline), nicht als
@@ -57,7 +59,11 @@ export function AnnouncementBar() {
             </span>
           )}
           <strong className="text-[18px] font-bold leading-[19.5px]">{announcement.lead}:</strong>{" "}
-          {announcement.text}{" "}
+          {/* Bis 1023 px die Kurzfassung — die lange braucht dort drei Zeilen
+              statt der zwei, die die Vorlage zeigt. Der Umschaltpunkt liegt bei
+              1024 px, weil die lange Fassung rund 750 px Zeilenbreite braucht. */}
+          <span className="lg:hidden">{announcement.textKurz}</span>
+          <span className="hidden lg:inline">{announcement.text}</span>{" "}
           {/* Der lange Pfeil ist ein Erkennungszeichen der Vorlage. Als SVG statt
               als Unicode-Pfeil, weil "⟶" je nach Schrift unterschiedlich lang
               gerendert wird. */}

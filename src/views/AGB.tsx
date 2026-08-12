@@ -16,7 +16,14 @@ export default function AGB() {
       />
       <section className="py-20 lg:py-28">
         <div className={TEXT_CONTAINER}>
-          <h1 className="kinetic-display mb-10 text-[36px] leading-[1.1] text-foreground sm:text-[44px]">Allgemeine Geschäftsbedingungen</h1>
+          {/* Siehe Datenschutz.tsx: "Geschäftsbedingungen" passte bei 36 px auf
+              kein Handydisplay und schob die Seite seitwärts. */}
+          <h1
+            lang="de"
+            className="kinetic-display mb-10 hyphens-auto break-words text-[30px] leading-[1.1] text-foreground sm:text-[44px]"
+          >
+            Allgemeine Geschäftsbedingungen
+          </h1>
           
           <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
             <div>

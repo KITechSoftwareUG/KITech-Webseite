@@ -11,18 +11,17 @@ export const metadata = buildMetadata({
 });
 
 /**
- * Pfad des Hero-Portraits. Ayham liefert die freigestellte Aufnahme unter
- * `public/images/ayham-hero.png` nach.
+ * Pfad des Hero-Portraits: die freigestellte Aufnahme von Ayham, seit dem
+ * 12.08.2026 im Repo (`src/assets/portrait_Ayham.svg` als Quelle, daraus
+ * getrimmt und auf 700 px Höhe gerechnet — 40 KB statt 1 MB).
  *
  * Die Prüfung läuft **hier**, in der Server Component, und damit beim Build:
  * liegt die Datei, wird sie ausgeliefert; liegt sie nicht, fällt die Startseite
  * auf das vorhandene Team-Portrait zurück. Ein `<picture>`-Element hätte das
  * nicht geleistet — es wählt nach Dateityp, nicht danach, ob die Datei
  * existiert, und hätte bei fehlender Datei ein kaputtes Bild gezeigt.
- *
- * Sobald die Aufnahme im Repo liegt, greift sie beim nächsten Build von selbst.
  */
-const HERO_PORTRAIT = "/images/ayham-hero.png";
+const HERO_PORTRAIT = "/images/ayham-hero.webp";
 const heroPortrait = existsSync(path.join(process.cwd(), "public", HERO_PORTRAIT))
   ? HERO_PORTRAIT
   : null;

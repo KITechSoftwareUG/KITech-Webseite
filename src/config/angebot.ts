@@ -78,3 +78,15 @@ export const verfuegbarkeit = (): string => {
   const frei = PLAETZE_FREI === 1 ? "noch 1 frei" : `noch ${PLAETZE_FREI} frei`;
   return `${belegt} von ${PLAETZE_PRO_WOCHE} Plätzen belegt — ${frei}`;
 };
+
+/**
+ * Dieselbe Aussage in kurz — für den Ankündigungsbalken auf schmalen Displays.
+ *
+ * Die lange Fassung braucht dort drei Zeilen; die Vorlage zeigt an derselben
+ * Stelle zwei. Gekürzt wird nur die Formulierung, nicht die Aussage: die Zahl
+ * der freien Plätze bleibt dieselbe.
+ */
+export const verfuegbarkeitKurz = (): string => {
+  if (PLAETZE_FREI === null) return `${PLAETZE_PRO_WOCHE} Plätze pro Woche`;
+  return `noch ${PLAETZE_FREI} von ${PLAETZE_PRO_WOCHE} Plätzen frei`;
+};

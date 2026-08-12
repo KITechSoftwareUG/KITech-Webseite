@@ -77,12 +77,25 @@ export default function Home({
             src={portrait}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 right-0 hidden w-[18vw] max-w-[259px] select-none object-contain object-bottom sm:block"
+            className="pointer-events-none absolute bottom-0 right-0 hidden h-[300px] w-auto select-none object-contain object-bottom sm:block lg:h-[360px] dt:h-[400px]"
           />
         )}
 
-        <div className="relative mx-auto flex w-full max-w-site flex-col items-center px-[10px] pt-[40px] text-center sm:pt-[70px] lg:pt-[100px] dt:h-[432px] dt:px-0 dt:pt-[70px]">
-          <h1 className="kinetic-morph-in max-w-[13ch] text-balance text-[50px] font-extrabold uppercase leading-[57.5px] tracking-tight text-foreground">
+        {/*
+          `min-h`, nicht `h`: der Abschnitt ist in der Vorlage 432 px hoch, und
+          genau so hoch wird er auch hier — solange der Inhalt hineinpasst. Mit
+          fester Höhe staucht Flexbox stattdessen die Kinder, sobald etwas mehr
+          Platz braucht. Genau das ist passiert: die Überschrift brach dreizeilig
+          statt zweizeilig um, und der Knopf wurde von 56 auf 41 px zusammen-
+          gedrückt — sichtbar als "die Verhältnisse stimmen nicht".
+        */}
+        <div className="relative mx-auto flex w-full max-w-site flex-col items-center px-[15px] pt-[40px] text-center sm:pt-[70px] lg:pt-[100px] dt:min-h-[432px] dt:pt-[70px]">
+          {/*
+            Breite so gewählt, dass die Aussage auf zwei Zeilen umbricht — in der
+            Vorlage ist die Überschrift zweizeilig, erste Zeile 607 px breit.
+            `max-w-[13ch]` ergab drei Zeilen und damit 57,5 px Überlänge.
+          */}
+          <h1 className="kinetic-morph-in max-w-[660px] text-balance text-[50px] font-extrabold uppercase leading-[57.5px] tracking-tight text-foreground">
             Falsche KI kostet{" "}
             <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
               mehr
@@ -90,7 +103,10 @@ export default function Home({
             als keine KI.
           </h1>
 
-          <p className="mt-[22px] max-w-[590px] text-pretty text-subline font-normal text-foreground">
+          {/* Mobil 18 px / 27, ab 1025 px 21 px / 30 — beides aus der Vorlage
+              gemessen. Die Überschrift behält dagegen auf allen Breiten ihre
+              50 px, auch das ist so gemessen. */}
+          <p className="mt-[22px] max-w-[590px] text-pretty text-[18px] font-normal leading-[27px] text-foreground dt:text-subline">
             {HERO_SUBLINE}
           </p>
 

@@ -1,18 +1,24 @@
 /**
  * Einheitliche Seitenbreite — Maße aus der Design-Vorlage gemessen.
  *
- * Vorlage (acquisition.com), Container `.header__container`:
- *   ab 1025 px : Breite = min(100%, 1170 px), **kein** seitliches Padding
- *   bis 1024 px: Breite = 100% − 20 px, also 10 px Rand je Seite
+ * Der Container der Vorlage ist ein Bootstrap-Container: **1170 px Außenbreite
+ * mit 15 px Innenabstand je Seite**, die Inhaltsspalte also 1140 px breit. Am
+ * Referenzbild nachgerechnet (Fenster 1350 px): die Spalte läuft von 105 bis
+ * 1245 px, das Logo setzt bei 114 an (die 9 px sind Weißraum in der Logodatei),
+ * der letzte Navigationspunkt endet bei 1251.
  *
- * Die 10 px sind auffällig schmal — auf dem Handy steht der Text damit fast am
- * Displayrand. Das ist so gemessen und wird bewusst übernommen; die Vorlage hat
- * Vorrang vor dem, was üblicherweise als komfortabel gilt.
+ * Vorher stand hier `dt:px-0`, die Spalte war also 1170 px breit und begann bei
+ * 90 px. Dadurch saßen Logo und Navigation je 15 px weiter außen als in der
+ * Vorlage — in der Kopfzeile der sichtbarste Unterschied.
+ *
+ * Der Innenabstand gilt auf allen Breiten: mobil misst die Vorlage 20 px vom
+ * Displayrand bis zur Logo-Glyphe, also ebenfalls rund 15 px Abstand plus den
+ * Weißraum der Datei.
  *
  * Ein Wert für alle Seiten: vorher trug jede ihren eigenen, und beim Wechsel
  * zwischen zwei Seiten sprang das Logo in der Kopfzeile sichtbar hin und her.
  */
-export const SITE_CONTAINER = "mx-auto w-full max-w-site px-[10px] dt:px-0";
+export const SITE_CONTAINER = "mx-auto w-full max-w-site px-[15px]";
 
 /**
  * Schmale Spalte für zusammenhängenden Fließtext (Rechtstexte, Glossar-Artikel).

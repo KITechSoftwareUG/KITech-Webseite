@@ -1,4 +1,4 @@
-import { angebot, verfuegbarkeit } from "./angebot";
+import { angebot, verfuegbarkeit, verfuegbarkeitKurz } from "./angebot";
 
 /**
  * Inhalt des Ankuendigungsbalkens ganz oben.
@@ -27,6 +27,11 @@ export interface Announcement {
   lead: string;
   /** Der leichte Teil dahinter. */
   text: string;
+  /**
+   * Kurzfassung fuer schmale Displays. Der Balken ist in der Vorlage auf dem
+   * Handy zweizeilig; die lange Fassung braucht dort drei Zeilen.
+   */
+  textKurz: string;
   href: string;
 }
 
@@ -34,5 +39,6 @@ export const announcement: Announcement | null = {
   badge: "NEU",
   lead: `${angebot.kurz} 2026`,
   text: `Kostenlos, ${angebot.dauer} — ${verfuegbarkeit()}`,
+  textKurz: `Kostenlos, 60 Min — ${verfuegbarkeitKurz()}`,
   href: angebot.href,
 };

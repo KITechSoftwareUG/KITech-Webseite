@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { mainNavigation, type NavEntry } from "@/config/navigation";
+import { SITE_CONTAINER } from "@/components/layout/site-container";
 
 /**
  * Navigationsleiste: dunkles Navy-Band ueber die volle Breite, Logo links,
@@ -30,7 +31,7 @@ import { mainNavigation, type NavEntry } from "@/config/navigation";
  */
 
 /** Innenbreite der Leiste — dieselbe Kante wie der Seiteninhalt. */
-const HEADER_CONTAINER = "mx-auto w-full max-w-site px-[10px] dt:px-0";
+const HEADER_CONTAINER = SITE_CONTAINER;
 
 /**
  * Ist dieser Punkt (oder einer seiner Unterpunkte) die aktuelle Seite?
@@ -227,16 +228,23 @@ export function SiteHeader({ className }: { className?: string }) {
       <div className={HEADER_CONTAINER}>
         <div className="flex h-[76px] items-center justify-between gap-6 dt:h-[65px]">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
-            <img
-              src="/logo-weiss.svg"
-              alt="KITech Software Logo"
-              className="h-10 w-auto dt:h-8"
-            />
+            {/*
+              Höhe aus der Vorlage: dort ist die Wortmarke am Desktop 19 px hoch,
+              auf dem Handy 26 px. Unsere Logodatei hat oben und unten je rund
+              3 px Weißraum, die Glyphen füllen also gut vier Fünftel der
+              angegebenen Höhe — 24 px bzw. 32 px CSS treffen die Vorlage.
+
+              Vorher stand hier h-10/dt:h-8. Die Wortmarke war damit ein Drittel
+              größer als in der Vorlage und ließ die Navigationsleiste optisch
+              schwerer wirken, obwohl beide Leisten exakt gleich hoch sind.
+            */}
+            <img src="/logo-weiss.svg" alt="KITech Software Logo" className="h-8 w-auto dt:h-6" />
           </Link>
 
           {/* Ab 1025 px volle Leiste, darunter Hamburger — derselbe Punkt,
-              an dem die Vorlage umschaltet (gemessen). */}
-          <nav className="hidden items-center gap-7 dt:flex" aria-label="Hauptnavigation">
+              an dem die Vorlage umschaltet (gemessen). Abstand zwischen den
+              Punkten ebenfalls gemessen: 21 px. */}
+          <nav className="hidden items-center gap-[21px] dt:flex" aria-label="Hauptnavigation">
             {mainNavigation.map((entry) => (
               <DesktopEntry key={entry.href} entry={entry} pathname={pathname} />
             ))}

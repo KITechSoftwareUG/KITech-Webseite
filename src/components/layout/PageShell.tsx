@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { AnnouncementBar, announcementSpacerClass } from "./AnnouncementBar";
+import { AnnouncementBar } from "./AnnouncementBar";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 
@@ -13,8 +13,8 @@ import { SiteFooter } from "./SiteFooter";
  *   Inhalt
  *   Fusszeile           (dunkelblau)
  *
- * Der obere Abstand (`announcementSpacerClass`) haelt den Platz frei, den der
- * fixierte Balken einnimmt. Ohne ihn laege die Navigationsleiste darunter.
+ * Der Balken steht `sticky` im normalen Fluss und braucht deshalb keinen
+ * Abstandshalter mehr (siehe `AnnouncementBar`).
  *
  * Der frueher hier eingehaengte `SignalBackdrop` (dunkler Verlauf plus
  * Canvas-Signalfeld) ist mit dem Wechsel auf das helle Design entfallen. Der
@@ -45,10 +45,7 @@ export function PageShell({
       } text-foreground`}
     >
       <AnnouncementBar />
-
-      <div className={announcementSpacerClass}>
-        <SiteHeader />
-      </div>
+      <SiteHeader />
 
       <main className={`relative flex-1 ${mainClassName}`}>
         {backdrop === "header" && (
