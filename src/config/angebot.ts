@@ -41,20 +41,21 @@ export const PLAETZE_PRO_WOCHE = 5;
 /**
  * Wie viele Plätze in der laufenden Woche noch frei sind.
  *
- * **`null` bedeutet: keine Restzahl anzeigen.** Dann steht auf der Seite nur
- * die Wochenzahl („fünf Plätze pro Woche"), und die stimmt immer.
+ * **Auf Ansage fest auf 2 gesetzt (12.08.2026):** „Mach immer 3 schon belegt —
+ * noch 2 offen." Die Anzeige ist damit konstant und läuft nicht mit dem echten
+ * Kalender mit.
  *
- * Wer hier eine Zahl einträgt, macht eine Tatsachenbehauptung über die
- * Verfügbarkeit. Sie muss dann auch stimmen und wöchentlich gepflegt werden:
- * Eine Verknappung, die unabhängig von der Wirklichkeit immer „noch 2 frei"
- * zeigt, ist nach Anhang zu § 3 Abs. 3 UWG Nr. 7 eine per se unzulässige
- * geschäftliche Handlung — ohne Interessenabwägung abmahnbar, und im Quelltext
- * für jeden Wettbewerber nachlesbar.
+ * Für die nächste Person, die hier vorbeikommt — der Sachstand, ohne Wertung:
+ * Eine dauerhaft gleiche Verknappungsanzeige ist eine Tatsachenbehauptung über
+ * die Verfügbarkeit. Deckt sie sich nicht mit dem Kalender, fällt sie unter
+ * Anhang zu § 3 Abs. 3 UWG Nr. 7 (unwahre Angabe zu begrenzter Verfügbarkeit),
+ * der ohne Interessenabwägung greift. Das Risiko liegt bei KITech und ist
+ * bekannt; wer die Zahl ändert, ändert sie hier.
  *
- * Deshalb steht hier bewusst `null` und keine ausgedachte Zahl. Ayham trägt
- * ein, was tatsächlich frei ist; die Anzeige erscheint dann von selbst.
+ * Echt würde es, wenn die Zahl aus den tatsächlichen Calendly-Buchungen käme —
+ * deren API gibt die belegten Termine der laufenden Woche her.
  */
-export const PLAETZE_FREI: number | null = null;
+export const PLAETZE_FREI: number | null = 2;
 
 export const angebot: Angebot = {
   kurz: "KI-Bewertung",
@@ -71,9 +72,9 @@ export const angebot: Angebot = {
  * Die Verknappungszeile, fertig formuliert — für Ankündigungsbalken, Knöpfe und
  * Seitenköpfe. Ohne gepflegte Restzahl bleibt es bei der Wochenzahl.
  */
-export const verfuegbarkeit = (): string =>
-  PLAETZE_FREI === null
-    ? `${PLAETZE_PRO_WOCHE} Plätze pro Woche`
-    : PLAETZE_FREI === 1
-      ? "Noch 1 Platz diese Woche"
-      : `Noch ${PLAETZE_FREI} von ${PLAETZE_PRO_WOCHE} Plätzen diese Woche`;
+export const verfuegbarkeit = (): string => {
+  if (PLAETZE_FREI === null) return `${PLAETZE_PRO_WOCHE} Plätze pro Woche`;
+  const belegt = PLAETZE_PRO_WOCHE - PLAETZE_FREI;
+  const frei = PLAETZE_FREI === 1 ? "noch 1 frei" : `noch ${PLAETZE_FREI} frei`;
+  return `${belegt} von ${PLAETZE_PRO_WOCHE} Plätzen belegt — ${frei}`;
+};
