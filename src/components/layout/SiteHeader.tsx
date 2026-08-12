@@ -227,7 +227,11 @@ export function SiteHeader({ className }: { className?: string }) {
       <div className={HEADER_CONTAINER}>
         <div className="flex h-[76px] items-center justify-between gap-6 dt:h-[65px]">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
-            <img src="/logo.png" alt="KITech Software Logo" className="h-10 w-auto dt:h-8" />
+            <img
+              src="/logo.png"
+              alt="KITech Software Logo"
+              className="h-10 w-auto brightness-0 invert dt:h-8"
+            />
           </Link>
 
           {/* Ab 1025 px volle Leiste, darunter Hamburger — derselbe Punkt,

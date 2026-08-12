@@ -1,6 +1,6 @@
 # Designsystem — Hell / Dunkelblau
 
-Stand 11.08.2026. Vorgabe Ayham: die Seite folgt dem Aufbau von acquisition.com.
+Stand 12.08.2026. Vorgabe Ayham: die Seite folgt dem Aufbau von acquisition.com.
 Vorher war die Seite dark-first ("KI-Redesign v2", near-black + Signal-Lime).
 **Dieses Dokument ist die verbindliche Referenz für jede neue Komponente.**
 
@@ -53,12 +53,29 @@ Vorlage. Für Fließtext und Zwischenüberschriften gilt das nicht.
 Größen: `h-[46px]` in Karten, `h-[56px]` als Haupt-CTA. Die Varianten in
 `src/components/ui/button.tsx` bringen das mit; eigene Buttons bauen es nach.
 
-**Karten** sind `rounded-2xl`, weiß, `shadow-card`, `ring-1 ring-border`.
-Das ist die eine Ausnahme von der früheren Regel „nichts Rundes": im hellen
-Layout wirken scharfkantige Karten wie unfertige Kästen.
+**Karten sind flach.** Kein Schatten, kein Ring, kein eigener Grund — die
+Vorlage arbeitet auf ihren Unterseiten durchgehend ohne solche Kästen, Struktur
+entsteht über Typografie, Trennlinien und Abstand. Wo eine Karte Inhalte
+wirklich gruppiert (das Referenzraster mit sechs Fällen), bleibt ein feiner
+`border border-border`; gerundet wird höchstens mit `rounded-lg`.
 
 **Container**: `SITE_CONTAINER` (= `max-w-site`, 1170 px) aus
-`src/components/layout/site-container.ts`. Für Fließtext `TEXT_CONTAINER`.
+`src/components/layout/site-container.ts`. Bis 1024 px nur 10 px Rand je Seite —
+so gemessen, bewusst schmal. Für Fließtext `TEXT_CONTAINER`.
+
+**Breakpoint `dt` (1025 px)**: der Punkt, an dem die Vorlage von der mobilen auf
+die Desktop-Kopfzeile schaltet. Tailwinds `lg` liegt bei 1024 und greift eine
+Pixelbreite zu früh.
+
+**Typo-Skala** (Tokens in `tailwind.config.ts`, alle mit Zeilenhöhe):
+`text-hero` 50/57,5 · `text-h1` 48/55,2 · `text-h2` 36/41,4 · `text-h3` 24/27,6 ·
+`text-h4` 20/23 · `text-subline` 21/30 · `text-lead` 18/27 · `text-fliess` 15/22,5 ·
+`text-mini` 12/15,6.
+
+**Logo**: liegt nur zweifarbig-grau vor und geht auf Navy wie auf der Signalfarbe
+unter. Kopf- und Fußzeile setzen deshalb `brightness-0 invert` — das färbt jede
+Bildfarbe zu reinem Weiß, wie in der Vorlage. Eine zweite Bilddatei braucht es
+dafür nicht.
 
 **Seitenrahmen**: immer `PageShell`. Sie bringt Ankündigungsbalken,
 Navigationsleiste und Fußzeile mit.
@@ -103,7 +120,8 @@ Navigationsleiste sticky macht, bricht die Vorgabe.
 | `text-foreground/85`, `/82`, `/88` | `text-muted-foreground` |
 | `text-foreground/62`, `/68` | `text-muted-foreground` |
 | `border-border/60`, `/40` | `border-border` |
-| `bg-[linear-gradient(168deg,hsl(245_28%_13%)…)]` (Kartengrund) | `bg-white shadow-card ring-1 ring-border` |
+| `bg-[linear-gradient(168deg,hsl(245_28%_13%)…)]` (Kartengrund) | flach, höchstens `border border-border` |
+| `bg-card` (im hellen System reines Weiß, auf Weiß unsichtbar) | `bg-surface` |
 | `text-accent` (Lime) | `text-primary` |
 | `shadow-[0_20px_50px_hsl(0_0%_0%/0.35)]` | `shadow-card` bzw. `shadow-elevated` |
 | `font-thin` / `font-light` | `font-normal` |
