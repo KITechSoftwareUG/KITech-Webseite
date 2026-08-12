@@ -76,12 +76,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/skool", destination: "/", permanent: true },
       { source: "/community", destination: "/", permanent: true },
-      // Umbenannt am 11.08.2026 — siehe permanentRedirects in src/config/navigation.ts.
-      {
-        source: "/eu-ai-act-selbstcheck",
-        destination: "/selbstcheck_eu_ai_act",
-        permanent: true,
-      },
     ];
   },
   async headers() {

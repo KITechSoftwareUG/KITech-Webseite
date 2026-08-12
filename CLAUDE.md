@@ -156,7 +156,7 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 | `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
 | `/glossar`, `/glossar/[slug]` | `Glossar.tsx`, `GlossarTerm.tsx` | ja | Sechs Begriffe aus `src/data/glossary.ts`, seit der Migration erstmals wieder erreichbar. |
 | `/lass-uns-reden` (`/termin`) | `LassUnsReden.tsx` | ja | Calendly-Inline-Embed, Consent-gated. Ziel aller „Erstgespräch“-CTAs. |
-| `/selbstcheck_eu_ai_act` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | ja | Interaktiver Check, seit 11.08.2026 **markenfrei** — siehe [Markenfreier Selbstcheck](#markenfreier-selbstcheck). Hieß bis dahin `/eu-ai-act-selbstcheck`; die alte Adresse leitet per 308 weiter. |
+| `/selbstcheck_eu_ai_act` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | **nein** | Interaktiver Check, seit 11.08.2026 **markenfrei und von der Website abgekoppelt** — siehe [Markenfreier Selbstcheck](#markenfreier-selbstcheck). Steht in keiner Navigation und in keiner Sitemap. |
 | `/impressum`, `/datenschutz`, `/agb` | Rechtstexte | ja | Seit 05.08.2026 in der normalen Shell statt im Alt-Layout. |
 | *(alles andere)* | `NichtGefunden.tsx` | – | Echte 404 mit voller Navigation. Vorher zeigte hier die Baustellenseite. |
 | `/app/*` | `src/app/app/` | nein | Eingeloggter Bereich (LogTo), über `src/proxy.ts` an `app.kitech-software.de` gebunden. **Noch nicht freigeschaltet** — im Header steht ein Schloss statt eines Login-Links. |
@@ -224,9 +224,16 @@ Betreff — bewusst keine erfundene `karriere@`-Adresse, die kein Postfach hat.
 ### Markenfreier Selbstcheck
 
 `/selbstcheck_eu_ai_act` (Kurz-Alias `/selbstcheck`) läuft seit dem 11.08.2026
-**ohne Marke** — auf Ansage. Der Check soll als eigenes Werkzeug gelesen werden,
-nicht als Unterseite einer Agentur: wer ihn geteilt bekommt, sieht zuerst die
-Sache, nicht den Absender.
+**ohne Marke und außerhalb der Website** — auf Ansage. Der Check soll als eigenes
+Werkzeug gelesen werden, nicht als Unterseite einer Agentur: wer ihn geteilt
+bekommt, sieht zuerst die Sache, nicht den Absender.
+
+**Die Seite kommt auf der Website an keiner Stelle mehr vor.** Sie steht in
+keiner Navigation (auch nicht in der Fußzeile), in keiner Sitemap, sie steht auf
+`noindex, nofollow`, und ihre alte Adresse `/eu-ai-act-selbstcheck` liefert
+bewusst eine **404 statt einer Weiterleitung**. Wer die Seite aufruft, hat die
+Adresse von woanders. Der Routen-Test nimmt beide Pfade deshalb aus der
+Erreichbarkeitsprüfung aus — dieselbe Ausnahme wie `/funnel` und `/fokus`.
 
 | Was | Wo |
 |---|---|
@@ -250,12 +257,14 @@ Sache, nicht den Absender.
 ⚠️ Wer hier Logo oder Fußzeile der Hauptseite wieder einbaut, nimmt der Seite
 genau die Eigenschaft, für die sie gebaut wurde.
 
-**Umbenennung:** Die Route hieß bis zum 11.08.2026 `/eu-ai-act-selbstcheck`. Die
-alte Adresse leitet per 308 weiter (`next.config.ts` + gespiegelt in
-`permanentRedirects`, `src/config/navigation.ts`) — sie stand seit Juli in der
-Sitemap und ist von außen verlinkt. `buildMetadata` hat für diese Seite zwei
-optionale Felder bekommen (`ogImage: null`, `siteName: null`); alle anderen
-Seiten bleiben unverändert.
+**Umbenennung:** Die Route hieß bis zum 11.08.2026 `/eu-ai-act-selbstcheck` und
+war regulär verlinkt und indexiert. Eine 308-Weiterleitung war kurzzeitig
+eingebaut und ist auf Ansage wieder entfernt worden — sie wäre genau die Spur in
+`next.config.ts`, die es nicht mehr geben soll. Folge: alte Links laufen ins
+Leere, und Google fällt die bekannte URL als 404 aus dem Index.
+
+`buildMetadata` hat für diese Seite zwei optionale Felder bekommen
+(`ogImage: null`, `siteName: null`); alle anderen Seiten bleiben unverändert.
 
 ⚠️ **Offen:** Der Unterstrich-Pfad weicht von der kebab-case-Konvention aller
 anderen Routen ab (Vorgabe Ayham). Google behandelt `_` nicht als Worttrenner —
@@ -477,7 +486,7 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 ### KI-Crawler-Optimierung
 - `robots.txt`: Explizite Allow-Regeln fuer GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
 - `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **liegen hinter dem aktuellen Code-Stand zurueck** (sie kennen weder `/warum`, `/karriere` noch die reaktivierten Seiten), vor Verlass darauf gegenpruefen. **Offen:** beide auf den Stand nach dem 05.08.2026 bringen.
-- `sitemap.xml`: enthaelt aktuell 21 URLs — alle Hauptseiten, die Rechtstexte und die sechs Glossarartikel. Nicht enthalten: die beiden Sales Letter und `/karriere` (Platzhalterinhalte), die Referenz-Detailseiten (offene Punkte) und die Alias-Routen.
+- `sitemap.xml`: enthaelt aktuell 19 URLs — alle Hauptseiten, die Rechtstexte und die sechs Glossarartikel. Nicht enthalten: die beiden Sales Letter und `/karriere` (Platzhalterinhalte), die Referenz-Detailseiten (offene Punkte), die Kampagnenseiten `/funnel` und `/fokus`, der Selbstcheck (siehe [Markenfreier Selbstcheck](#markenfreier-selbstcheck)) und die Alias-Routen.
 
 ---
 
