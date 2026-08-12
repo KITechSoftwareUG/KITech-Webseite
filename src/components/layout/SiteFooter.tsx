@@ -44,9 +44,9 @@ export function SiteFooter() {
         <div className="flex flex-col items-center gap-6 dt:flex-row dt:items-center dt:justify-between dt:gap-10">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
             <img
-              src="/logo.png"
+              src="/logo-weiss.svg"
               alt="KITech Software Logo"
-              className="h-9 w-auto brightness-0 invert dt:h-8"
+              className="h-9 w-auto dt:h-8"
             />
           </Link>
 

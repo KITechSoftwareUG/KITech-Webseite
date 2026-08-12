@@ -156,7 +156,7 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 | `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
 | `/glossar`, `/glossar/[slug]` | `Glossar.tsx`, `GlossarTerm.tsx` | ja | Sechs Begriffe aus `src/data/glossary.ts`, seit der Migration erstmals wieder erreichbar. |
 | `/lass-uns-reden` (`/termin`) | `LassUnsReden.tsx` | ja | Calendly-Inline-Embed, Consent-gated. Ziel aller „Erstgespräch“-CTAs. |
-| `/eu-ai-act-selbstcheck` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | ja | Interaktiver Check, seit 05.08.2026 mit normaler Kopf- und Fußzeile. |
+| `/selbstcheck_eu_ai_act` (`/selbstcheck`) | `EuAiActSelbstcheck.tsx` | ja | Interaktiver Check, seit 11.08.2026 **markenfrei** — siehe [Markenfreier Selbstcheck](#markenfreier-selbstcheck). Hieß bis dahin `/eu-ai-act-selbstcheck`; die alte Adresse leitet per 308 weiter. |
 | `/impressum`, `/datenschutz`, `/agb` | Rechtstexte | ja | Seit 05.08.2026 in der normalen Shell statt im Alt-Layout. |
 | *(alles andere)* | `NichtGefunden.tsx` | – | Echte 404 mit voller Navigation. Vorher zeigte hier die Baustellenseite. |
 | `/app/*` | `src/app/app/` | nein | Eingeloggter Bereich (LogTo), über `src/proxy.ts` an `app.kitech-software.de` gebunden. **Noch nicht freigeschaltet** — im Header steht ein Schloss statt eines Login-Links. |
@@ -220,6 +220,46 @@ Sitemap kommt.
 
 Bewerbungen laufen per `mailto:` an `info@kitech-software.de` mit vorbelegtem
 Betreff — bewusst keine erfundene `karriere@`-Adresse, die kein Postfach hat.
+
+### Markenfreier Selbstcheck
+
+`/selbstcheck_eu_ai_act` (Kurz-Alias `/selbstcheck`) läuft seit dem 11.08.2026
+**ohne Marke** — auf Ansage. Der Check soll als eigenes Werkzeug gelesen werden,
+nicht als Unterseite einer Agentur: wer ihn geteilt bekommt, sieht zuerst die
+Sache, nicht den Absender.
+
+| Was | Wo |
+|---|---|
+| Eigener Rahmen statt `PageShell` | `src/components/layout/CheckShell.tsx` — kein Logo, keine Hauptnavigation, kein Ankündigungsbalken, keine große Fußzeile |
+| Verweis oben rechts | Prop `link` der `CheckShell` → `https://www.klargehalt.de/selbstcheck` (Selbstcheck zur Entgelttransparenzrichtlinie), neues Fenster |
+| Vorschaubild ohne Logo | `src/components/seo/selbstcheck-og.tsx`, eingebunden über `opengraph-image.tsx` in **beiden** Routenordnern |
+| Titel ohne Firmenname | `buildMetadata({ ogImage: null, siteName: null })` in beiden `page.tsx` |
+
+**Warum die Ausnahmen bleiben:**
+
+- **Impressum, Datenschutz, AGB, Cookie-Einstellungen** stehen klein in der
+  Fußzeile der `CheckShell`. Die Anbieterkennzeichnung ist nach § 5 DDG Pflicht
+  und muss von jeder öffentlichen Seite ohne Umweg erreichbar sein — der
+  Firmenname steht dann dort, nicht auf dem Check.
+- **Der Ergebnis-CTA** führt weiter intern auf `/lass-uns-reden`, der
+  E-Mail-Entwurf geht an `info@kitech-software.de`. Beides trägt auf der Seite
+  keinen Markennamen; ohne diesen Weg hätte der Check keinen Zweck.
+- **Die Domain** bleibt `kitech-software.de` und steht in Adresszeile, Canonical
+  und `og:url`. Markenfrei heißt hier: nichts Sichtbares auf der Seite.
+
+⚠️ Wer hier Logo oder Fußzeile der Hauptseite wieder einbaut, nimmt der Seite
+genau die Eigenschaft, für die sie gebaut wurde.
+
+**Umbenennung:** Die Route hieß bis zum 11.08.2026 `/eu-ai-act-selbstcheck`. Die
+alte Adresse leitet per 308 weiter (`next.config.ts` + gespiegelt in
+`permanentRedirects`, `src/config/navigation.ts`) — sie stand seit Juli in der
+Sitemap und ist von außen verlinkt. `buildMetadata` hat für diese Seite zwei
+optionale Felder bekommen (`ogImage: null`, `siteName: null`); alle anderen
+Seiten bleiben unverändert.
+
+⚠️ **Offen:** Der Unterstrich-Pfad weicht von der kebab-case-Konvention aller
+anderen Routen ab (Vorgabe Ayham). Google behandelt `_` nicht als Worttrenner —
+für die Suche ist `selbstcheck_eu_ai_act` ein Wort.
 
 ### Entfernt am 05.08.2026: Community und Mitgliederbereich
 
@@ -417,7 +457,7 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 |---|---|
 | `backdrop="header"` (Standard) | eingefaerbter Kopfbereich, 620 px, laeuft nach unten aus |
 | `backdrop="full"` | ganze Flaeche (404) |
-| `backdrop="none"` | schwarzer Grund (`/eu-ai-act-selbstcheck` — bringt sein eigenes Feld mit) |
+| `backdrop="none"` | ohne eigenen Grund, fuer Seiten mit eigenem Hintergrund |
 | `backdropClassName` | eigene Hoehe, z. B. bildschirmhoch auf der Startseite |
 
 ---
@@ -502,7 +542,7 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
   # Routen abklopfen (200 erwartet, 404 nur fuer Unbekanntes):
   for p in / /warum /leistungen /solo /enterprise /referenzen /haltung \
            /karriere /kontakt /glossar /lass-uns-reden \
-           /eu-ai-act-selbstcheck /impressum /datenschutz /agb \
+           /selbstcheck_eu_ai_act /impressum /datenschutz /agb \
            /glossar/mlops /karriere/b2b-setter /sitemap.xml /gibt-es-nicht; do
     printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123$p)"
   done

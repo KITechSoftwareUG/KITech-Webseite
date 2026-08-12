@@ -7,7 +7,7 @@ import { ImageResponse } from "next/og";
  * auf einer markenfreien Seite waere ausgerechnet die Vorschau das Erste, was
  * die Marke zeigt. Hier steht stattdessen die Aussage des Checks.
  *
- * Die Datei wird von beiden Routen eingebunden (`/eu-ai-act-selbstcheck` und
+ * Die Datei wird von beiden Routen eingebunden (`/selbstcheck_eu_ai_act` und
  * dem Alias `/selbstcheck`), weil Next.js `opengraph-image` pro Routenordner
  * erwartet.
  *

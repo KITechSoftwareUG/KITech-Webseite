@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
   title: "EU-AI-Act-Selbstcheck – acht Fragen, Ergebnis sofort",
   description:
     "Prüfen Sie in wenigen Minuten, welche Pflichten der EU AI Act für Ihren KI-Einsatz mit sich bringt.",
-  path: "/eu-ai-act-selbstcheck",
+  path: "/selbstcheck_eu_ai_act",
   ogImage: null,
   siteName: null,
 });

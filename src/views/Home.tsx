@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { PageShell } from "@/components/layout/PageShell";
-import { ClientResults } from "@/components/sections/ClientResults";
+import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { teamRoster } from "@/data/team";
 import { trackEvent } from "@/lib/plausible";
 
@@ -11,36 +11,50 @@ import { trackEvent } from "@/lib/plausible";
  * Startseite. Zwei Abschnitte, mehr nicht:
  *
  *   1. Hero — hellgrauer Grund, Aussage, ein Satz darunter, Pill-CTA.
- *      Die beiden Portraits stehen auf dem Desktop an den Seitenraendern, auf
- *      dem Handy als Block unter dem CTA (siehe Kommentar am Bildblock).
- *   2. Drei Referenzkarten nebeneinander mit pulsierendem Pfeil daneben.
+ *      Rechts steht Ayham; auf dem Handy unter dem Knopf.
+ *   2. Kundenkarten als durchlaufendes Laufband.
  *
  * **Darunter kommt bewusst nichts.** Das ist ausdrueckliche Vorgabe (11.08.2026):
  * "Darunter KOMPLETT LEER LASSEN, ich gebe dir alles vor." Team-Abschnitt und
  * Abschluss-CTA sind deshalb von der Startseite genommen — die Komponenten
- * (`TeamSection`, `FinalCta`) liegen unveraendert im Repo und koennen jederzeit
- * wieder eingehaengt werden. Wer hier ohne Ansage etwas ergaenzt, laeuft der
- * Vorgabe zuwider.
+ * (`TeamSection`, `FinalCta`) liegen unveraendert im Repo.
  *
- * Die Aussage im Hero bleibt woertlich, wie sie war.
+ * **Nur eine Person im Hero** (Vorgabe 12.08.2026): "Ich moechte, dass in beiden
+ * Versionen nur ich als erstes Foto auftauche." Leons Portrait ist deshalb aus
+ * dem Hero genommen — er bleibt im Team-Abschnitt und als Kunde im Laufband.
+ *
+ * Geometrie aus der Vorlage gemessen (acquisition.com, 1440 px):
+ *   grauer Bereich   432 px hoch
+ *   Ueberschrift     50 px / 800 / Zeilenhoehe 57,5 px, zentriert, y = 203
+ *   Einordnungssatz  21 px / 400
+ *   Knopf            420 x 56 px, Radius 100 px, 20 px / 700
+ *   Portrait         259 px breit (18 % der Fensterbreite), unten buendig
  */
 
-/** Die beiden Personen im Hero — dieselbe Quelle wie der Team-Abschnitt. */
-const ayham = teamRoster.find((m) => m.name.startsWith("Ayham"));
-const leon = teamRoster.find((m) => m.name === "Leon");
+/**
+ * Ersatz, solange die neue freigestellte Aufnahme fehlt: das vorhandene
+ * Team-Portrait. Welcher Pfad tatsaechlich gilt, entscheidet der Server-Wrapper
+ * `src/app/page.tsx` beim Build (siehe Kommentar dort) und reicht ihn als
+ * `heroPortrait` herein.
+ */
+const ersatzPortrait = teamRoster.find((m) => m.name.startsWith("Ayham"))?.photo ?? null;
 
 /**
- * Der Satz unter der Aussage. Auf Ansage vom 11.08.2026 aufgenommen — die
- * Design-Vorlage traegt an dieser Stelle eine Einordnung, und ohne sie steht die
- * Aussage im Hero allein zwischen zwei grossen Leerflaechen.
- *
- * Die Zahl "ueber 50" ist dieselbe wie auf der Referenz-Uebersicht. Aendert sie
- * sich, muss sie hier und in `src/views/Referenzen.tsx` mitgezogen werden.
+ * Der Satz unter der Aussage. Die Zahl "ueber 50" ist dieselbe wie auf der
+ * Referenz-Uebersicht. Aendert sie sich, muss sie hier und in
+ * `src/views/Referenzen.tsx` mitgezogen werden.
  */
 const HERO_SUBLINE =
   "Über 50 abgeschlossene Projekte — vom ersten Gespräch bis zur Software, die im Tagesgeschäft läuft.";
 
-export default function Home() {
+export default function Home({
+  /** Freigestelltes Hero-Portrait, vom Server-Wrapper geprüft. `null` => Ersatz. */
+  heroPortrait = null,
+}: {
+  heroPortrait?: string | null;
+}) {
+  const portrait = heroPortrait ?? ersatzPortrait;
+
   return (
     <PageShell backdrop="none">
       <StructuredData
@@ -51,30 +65,15 @@ export default function Home() {
         )}
       />
 
-      {/*
-        Hero. Alle Maße aus der Vorlage gemessen (acquisition.com, 1440 px):
-          grauer Bereich   432 px hoch
-          Ueberschrift     50 px / 800 / Zeilenhoehe 57,5 px, zentriert, y = 203
-          Einordnungssatz  21 px / 400, zentriert
-          Knopf            420 × 56 px, Radius 100 px, 20 px / 700
-          Portraits        259 px breit, unten buendig, vom Rand angeschnitten
-
-        Die Ueberschrift bleibt auf ALLEN Breiten bei 50 px — die Vorlage
-        skaliert sie nicht herunter, sondern laesst sie auf dem Handy vier
-        Zeilen fuellen. Das ist gemessen und bewusst uebernommen.
-      */}
       <section className="relative isolate overflow-hidden bg-surface-strong">
-        {ayham?.photo && (
+        {/*
+          Desktop: das Portrait steht absolut am rechten Rand und wird vom
+          Fensterrand angeschnitten. 18 % der Fensterbreite entspricht den in
+          der Vorlage gemessenen 259 px bei 1440.
+        */}
+        {portrait && (
           <img
-            src={ayham.photo}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 left-0 hidden w-[18vw] max-w-[259px] select-none object-contain object-bottom sm:block"
-          />
-        )}
-        {leon?.photo && (
-          <img
-            src={leon.photo}
+            src={portrait}
             alt=""
             aria-hidden="true"
             className="pointer-events-none absolute bottom-0 right-0 hidden w-[18vw] max-w-[259px] select-none object-contain object-bottom sm:block"
@@ -90,7 +89,7 @@ export default function Home() {
             als keine KI.
           </h1>
 
-          <p className="mt-[22px] max-w-[590px] text-pretty text-[21px] font-normal leading-[30px] text-foreground">
+          <p className="mt-[22px] max-w-[590px] text-pretty text-subline font-normal text-foreground">
             {HERO_SUBLINE}
           </p>
 
@@ -105,34 +104,28 @@ export default function Home() {
           {/* Der Hinweis steht in der Vorlage nicht — er gehoert zu unserem
               Inhalt und bleibt deshalb. Klein gesetzt, damit er die Geometrie
               des Hero nicht verschiebt. */}
-          <p className="mt-3 text-fliess font-normal leading-tight text-muted-foreground">
+          <p className="mt-3 text-mini font-normal text-muted-foreground">
             30 Minuten, unverbindlich
           </p>
 
           {/*
-            Handy und Tablet: beide Portraits stehen als ein Block unter dem
-            Knopf — die Vorlage zeigt dort ein Bild ueber die volle Breite, wo
-            auf dem Desktop die beiden Randfiguren stehen. Aus den zwei
-            vorhandenen Einzelfreistellern gebaut; `-space-x-6` laesst sie sich
-            leicht ueberlappen, damit sie als Gruppe gelesen werden und nicht
-            als zwei ausgeschnittene Figuren.
+            Handy und Tablet: das Portrait steht unter dem Knopf, mittig und
+            unten buendig — dort, wo die Vorlage ihr Hero-Bild zeigt.
           */}
-          <div
-            className="-mx-[10px] mt-[30px] flex w-[calc(100%+20px)] items-end justify-center -space-x-4 sm:hidden"
-            aria-hidden="true"
-          >
-            {ayham?.photo && (
-              <img src={ayham.photo} alt="" className="w-1/2 select-none object-contain object-bottom" />
-            )}
-            {leon?.photo && (
-              <img src={leon.photo} alt="" className="w-1/2 select-none object-contain object-bottom" />
-            )}
-          </div>
+          {portrait && (
+            <div className="mt-[30px] flex w-full justify-center sm:hidden" aria-hidden="true">
+              <img
+                src={portrait}
+                alt=""
+                className="h-[320px] w-auto select-none object-contain object-bottom"
+              />
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Drei Referenzkarten mit pulsierendem Pfeil. Danach endet die Seite. */}
-      <ClientResults />
+      {/* Kundenkarten als durchlaufendes Band. Danach endet die Seite. */}
+      <KundenLaufband />
     </PageShell>
   );
 }

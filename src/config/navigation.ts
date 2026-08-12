@@ -95,7 +95,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
       { label: "Leistungen", href: "/leistungen" },
       { label: "Für Selbstständige", href: "/solo" },
       { label: "Für Unternehmen", href: "/enterprise" },
-      { label: "EU-AI-Act-Selbstcheck", href: "/eu-ai-act-selbstcheck" },
+      { label: "EU-AI-Act-Selbstcheck", href: "/selbstcheck_eu_ai_act" },
       { label: "Erstgespräch buchen", href: "/lass-uns-reden" },
     ],
   },
@@ -215,17 +215,17 @@ export const siteRoutes: RouteDefinition[] = [
     priority: 0.5,
   },
   {
-    path: "/eu-ai-act-selbstcheck",
+    path: "/selbstcheck_eu_ai_act",
     indexable: true,
-    lastModified: "2026-07-28",
+    lastModified: "2026-08-11",
     changeFrequency: "monthly",
     priority: 0.8,
   },
   {
     path: "/selbstcheck",
     indexable: true,
-    aliasOf: "/eu-ai-act-selbstcheck",
-    lastModified: "2026-07-28",
+    aliasOf: "/selbstcheck_eu_ai_act",
+    lastModified: "2026-08-11",
     changeFrequency: "monthly",
     priority: 0.5,
   },
@@ -255,10 +255,15 @@ export const siteRoutes: RouteDefinition[] = [
  * `/community` und `/skool` sind am 05.08.2026 entfallen (siehe CLAUDE.md,
  * Abschnitt "Entfernt"). Beide leiten auf die Startseite, statt ins Leere zu
  * laufen: die Adressen standen in der Navigation und wurden geteilt.
+ *
+ * `/eu-ai-act-selbstcheck` ist am 11.08.2026 zu `/selbstcheck_eu_ai_act`
+ * geworden. Die alte Adresse steht seit Juli in der Sitemap und ist verlinkt —
+ * ohne Weiterleitung liefe jeder bestehende Verweis auf eine 404.
  */
 export const permanentRedirects: Record<string, string> = {
   "/skool": "/",
   "/community": "/",
+  "/eu-ai-act-selbstcheck": "/selbstcheck_eu_ai_act",
 };
 
 /** Alle statischen Pfade als Menge — praktisch für Prüfungen. */

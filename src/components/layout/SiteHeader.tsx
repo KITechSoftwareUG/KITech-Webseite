@@ -228,9 +228,9 @@ export function SiteHeader({ className }: { className?: string }) {
         <div className="flex h-[76px] items-center justify-between gap-6 dt:h-[65px]">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
             <img
-              src="/logo.png"
+              src="/logo-weiss.svg"
               alt="KITech Software Logo"
-              className="h-10 w-auto brightness-0 invert dt:h-8"
+              className="h-10 w-auto dt:h-8"
             />
           </Link>
 
