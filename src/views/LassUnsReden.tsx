@@ -4,36 +4,51 @@ import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/components/layout/PageShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { angebot, verfuegbarkeit } from "@/config/angebot";
+import { company } from "@/config/company";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
-import { motion } from "framer-motion";
-import { Star, X, ArrowRight, CalendarClock, Loader2, Quote, Linkedin, Check } from "lucide-react";
+import { ArrowRight, CalendarClock, Check, Loader2, Mail, MessageCircle, Phone } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
 import { hasAnalyticsConsent } from "@/lib/consent";
-import { testimonials } from "@/data/testimonials";
-import { founderInfo } from "@/components/sections/FounderPortrait";
-import ayhamPortrait from "@/assets/ayham-portrait-casual.webp";
-
 
 /**
- * Was in der Stunde passiert. Beschreibt den Ablauf, nicht das Ergebnis —
- * ein Versprechen wie "Sie sparen X" waere weder belegbar noch zulaessig.
+ * Terminseite — die einzige Seite, auf der etwas passieren soll.
+ *
+ * **Neu gebaut am 12.08.2026 auf Ansage** ("die ist katastrophal … einfach
+ * richtig fett und deutlich Termin zusagen und fertig"). Vorher stand hier ein
+ * kompletter Mini-Funnel neben dem Kalender: Portrait mit Zitat, drei
+ * Kundenstimmen, eine Liste "Das läuft bei vielen falsch", eine Liste "Warum Sie
+ * mit mir reden sollten". Wer schon auf dieser Seite ist, hat sich entschieden —
+ * jedes weitere Argument ist dort nur noch eine Ablenkung vom Kalender.
+ *
+ * Was dabei ebenfalls verschwunden ist, und das ist der wichtigere Teil: die
+ * Zeile **"Festpreis. Erreichen wir das Ziel nicht, zahlen Sie nicht."** Das ist
+ * ein bindendes Zahlungsversprechen. Es war beim Relaunch aus `principles.ts`,
+ * `services.ts` und `segments.ts` bewusst herausgenommen worden, weil es
+ * ausdrücklich freigegeben gehört — auf dieser Seite stand es noch. Wer es
+ * zurückholt, holt es überall zurück oder nirgends.
+ *
+ * Das Portrait ist ebenfalls raus (Ansage). Es stand direkt unter der
+ * Überschrift und schob den Kalender auf dem Handy weit nach unten.
+ *
+ * Aufbau jetzt: Angebot, Kalender, drei Direktwege. Sonst nichts.
  */
+
 const ABLAUF = [
-  "Wir gehen durch, was bei euch schon läuft: Tools, Automatisierungen, KI-Einsatz.",
+  "Wir gehen durch, was bei dir schon läuft: Werkzeuge, Automatisierungen, KI-Einsatz.",
   "Wir schauen, an welchen Stellen Aufwand entsteht, der sich abstellen lässt.",
-  "Ihr bekommt eine Einschätzung, was sich zuerst lohnt — und was nicht.",
+  "Du bekommst eine Einschätzung, was sich zuerst lohnt — und was nicht.",
 ];
 
 const CALENDLY_URL = "https://calendly.com/kitech-software/roi-analyse";
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
 
+/** wa.me erwartet die Nummer ohne Pluszeichen, Leerzeichen und Klammern. */
+const WHATSAPP_URL = `https://wa.me/${company.mobile.href.replace(/\D/g, "")}`;
+
 declare global {
   interface Window {
     Calendly?: {
-      initInlineWidget: (options: {
-        url: string;
-        parentElement: HTMLElement;
-      }) => void;
+      initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void;
     };
   }
 }
@@ -49,7 +64,9 @@ function loadCalendlyScript(): Promise<void> {
     );
     if (existing) {
       existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () => reject(new Error("Calendly-Skript konnte nicht geladen werden.")));
+      existing.addEventListener("error", () =>
+        reject(new Error("Calendly-Skript konnte nicht geladen werden."))
+      );
       return;
     }
     const script = document.createElement("script");
@@ -62,33 +79,48 @@ function loadCalendlyScript(): Promise<void> {
 }
 
 /**
- * Drei echte, bereits an anderer Stelle im Code verwendete Kundenstimmen
- * (siehe src/pages/Enterprise.tsx) - hier bewusst dieselben, keine neuen
- * erfunden.
+ * Ein Direktweg — Anrufen, WhatsApp, E-Mail. Große Fläche, großes Zeichen:
+ * Wer nicht durch einen Kalender will, soll den Weg daran nicht suchen müssen.
  */
-
-/**
- * Basiert auf der bestehenden Positionierung (frühere Vergleichstabelle
- * "KITech vs. typische KI-Agentur" sowie den Enterprise-Problem-Statements),
- * nicht neu erfunden. Bewusst durchgehend "Sie" - konsistent mit dem Rest
- * der Seite (vorher fälschlich "ihr/du" gemischt).
- */
-const mistakes = [
-  "Sie zahlen nach Stunden, nicht nach Ergebnis.",
-  "Sie bekommen Demos, die nie produktiv gehen.",
-  "Das Risiko liegt bei Ihnen, nicht bei der Agentur.",
-  "Ihre Daten landen unkontrolliert in Public-Cloud-Tools ohne AVV.",
-];
-
-/**
- * Basiert auf der Gründer-Positionierung aus Haltung.tsx (ROI-Garantie,
- * Festpreis, Risiko-Umkehr).
- */
-const reasons = [
-  "ROI in Euro, nicht in Buzzwords – vor Projektstart schriftlich definiert.",
-  "Festpreis. Erreichen wir das Ziel nicht, zahlen Sie nicht.",
-  "Das Risiko der Umsetzung liegt bei uns, nicht bei Ihnen.",
-];
+function Direktweg({
+  href,
+  icon: Icon,
+  label,
+  wert,
+  event,
+  extern,
+}: {
+  href: string;
+  icon: typeof Phone;
+  label: string;
+  wert: string;
+  event: "Telefon_Klick" | "Email_Klick" | "CTA_Klick";
+  extern?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      {...(extern ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      onClick={() => trackEvent(event, { position: "lass-uns-reden-direkt" })}
+      className="group flex items-center gap-4 border border-border bg-background p-5 transition-colors hover:border-primary sm:p-6"
+    >
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-primary text-primary-foreground transition-transform group-hover:scale-105">
+        <Icon className="h-6 w-6" strokeWidth={2.2} aria-hidden="true" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-mini font-semibold uppercase tracking-wide text-muted-foreground">
+          {label}
+        </span>
+        {/* `break-all` statt `truncate`: eine abgeschnittene Adresse
+            ("info@kitech-softw…") ist als Kontaktweg wertlos. Lieber
+            umbrechen. */}
+        <span className="mt-0.5 block break-all text-[15px] font-bold leading-tight text-foreground sm:text-[16px]">
+          {wert}
+        </span>
+      </span>
+    </a>
+  );
+}
 
 export default function LassUnsReden() {
   // Bewusst mit `false` starten und den Consent erst nach dem Mount lesen: der
@@ -125,217 +157,143 @@ export default function LassUnsReden() {
   }, [widgetEnabled]);
 
   return (
-    /* Signal-Hintergrund wie auf Startseite und Funnel-Seiten - die Terminseite
-       soll sich nicht wie ein Fremdkörper anfühlen. */
-    <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[560px]">
+    <PageShell backdropClassName="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px] bg-gradient-to-b from-surface-strong to-background">
       <StructuredData
         data={getWebPageSchema(
-          "Lass uns reden",
-          "Kostenlose KI-Bewertung direkt im Kalender sichern",
+          angebot.name,
+          angebot.beschreibung,
           "https://kitech-software.de/lass-uns-reden"
         )}
       />
 
-      <section className="relative py-12 lg:py-16">
-        <div className={`${SITE_CONTAINER} grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16`}>
-          {/* Linke Spalte: Mini-Funnel */}
-          <div className="space-y-10">
-            {/*
-              Angebotskopf. Die Seite hiess frueher "Erstgespraech" und begann
-              direkt mit dem Portrait; seit 12.08.2026 ist sie die Landeseite
-              eines benannten Angebots und muss zuerst sagen, was es gibt.
+      {/* === Kopf: eine Aussage, eine Platzangabe === */}
+      <section className={`${SITE_CONTAINER} pb-10 pt-12 text-center sm:pt-16`}>
+        {/*
+          Die Platzangabe kommt aus `verfuegbarkeit()` und damit aus gepflegten
+          Zahlen — eine Verknappung, die unabhängig von der Wirklichkeit immer
+          knapp aussieht, wäre nach Anhang zu § 3 Abs. 3 UWG Nr. 7 per se
+          unzulässig.
+        */}
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-mini font-bold uppercase tracking-wide text-primary-foreground">
+          {verfuegbarkeit()}
+        </span>
 
-              Die Platzangabe kommt aus `verfuegbarkeit()` und damit aus
-              gepflegten Zahlen — eine Verknappung, die unabhaengig von der
-              Wirklichkeit immer knapp aussieht, waere nach Anhang zu § 3
-              Abs. 3 UWG Nr. 7 per se unzulaessig.
-            */}
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-mini font-bold uppercase tracking-wide text-primary-foreground">
-                {verfuegbarkeit()}
-              </span>
+        <h1 className="kinetic-morph-in mx-auto mt-6 max-w-[720px] text-balance text-[38px] font-extrabold uppercase leading-[1.08] tracking-tight text-foreground sm:text-[50px] sm:leading-[57.5px]">
+          {angebot.name}
+        </h1>
 
-              <h1 className="kinetic-display kinetic-morph-in mt-5 max-w-[600px] text-balance text-[36px] leading-[41.4px] text-foreground sm:text-h1">
-                {angebot.name}
-              </h1>
+        <p className="mx-auto mt-5 max-w-[620px] text-pretty text-[18px] font-normal leading-[27px] text-foreground dt:text-subline">
+          {angebot.beschreibung}
+        </p>
 
-              <p className="mt-5 max-w-[560px] text-pretty text-lead font-normal text-muted-foreground">
-                {angebot.beschreibung}
-              </p>
+        <p className="mt-4 text-fliess font-semibold text-muted-foreground">
+          Kostenlos · {angebot.dauer} · ohne Verpflichtung
+        </p>
+      </section>
 
-              <ul className="mt-7 space-y-3">
-                {ABLAUF.map((punkt) => (
-                  <li key={punkt} className="flex gap-3 text-fliess text-foreground">
-                    <Check className="mt-[3px] h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                    {punkt}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-6 text-fliess font-normal text-muted-foreground">
-                Kostenlos · {angebot.dauer} · ohne Verpflichtung
-              </p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative flex min-h-[320px] items-end overflow-hidden border border-border bg-surface"
-            >
-              <img
-                src={ayhamPortrait.src}
-                alt="Ayham Alkhalil, Gründer KITech Software"
-                className="absolute bottom-0 right-0 h-full max-h-[380px] w-auto object-contain object-bottom opacity-90"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-card via-card/80 to-transparent"
-                aria-hidden="true"
-              />
-              <div className="relative z-10 p-6 sm:p-8">
-                <h1 className="kinetic-display kinetic-morph-in max-w-sm text-[30px] leading-[1.1] text-foreground sm:text-[38px]">
-                  Falsche KI ist die{" "}
-                  <span className="box-decoration-clone bg-primary px-2 pb-0.5 text-primary-foreground">
-                    teuerste KI
-                  </span>
-                  .
-                </h1>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Ayham Alkhalil, Gründer KITech Software
-                </p>
+      {/* === Kalender: das Hauptelement, volle Breite, mittig === */}
+      <section className={`${SITE_CONTAINER} pb-4`}>
+        <div className="mx-auto max-w-[900px] overflow-hidden border border-border bg-surface">
+          {widgetError ? (
+            <div className="flex min-h-[320px] flex-col items-center justify-center gap-3 p-10 text-center">
+              <p className="text-fliess text-muted-foreground">
+                Der Kalender lädt gerade nicht. Nimm{" "}
                 <a
-                  href={founderInfo.linkedinUrl}
+                  href={CALENDLY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-opacity hover:opacity-80"
+                  className="font-semibold text-primary underline underline-offset-4"
                 >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
-                  Auf LinkedIn vernetzen
-                </a>
-              </div>
-            </motion.div>
-
-            <div>
-              <h2 className="kinetic-data mb-4 text-xs uppercase tracking-widest text-muted-foreground">
-                Was Kunden sagen
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {testimonials.map((t) => (
-                  <div
-                    key={t.author}
-                    className="flex h-full flex-col gap-3 border border-border bg-surface p-4"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-0.5" aria-hidden="true">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
-                        ))}
-                      </div>
-                      <Quote className="h-4 w-4 shrink-0 text-muted-foreground/40" aria-hidden="true" />
-                    </div>
-                    <p className="text-sm italic leading-snug text-foreground/90">„{t.quote}"</p>
-                    <div className="mt-auto flex items-center gap-2.5 border-t border-border pt-3">
-                      {t.logo && (
-                        <img
-                          src={t.logo}
-                          alt=""
-                          aria-hidden="true"
-                          className="h-5 w-5 shrink-0 object-contain"
-                        />
-                      )}
-                      <div className="min-w-0">
-                        <p className="text-xs font-medium leading-snug text-foreground">{t.author}</p>
-                        <p className="text-mini leading-snug text-muted-foreground">{t.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  Calendly direkt
+                </a>{" "}
+                — oder einen der Wege darunter.
+              </p>
             </div>
-
-            <div>
-              <h2 className="kinetic-data mb-4 text-xs uppercase tracking-widest text-muted-foreground">
-                Das läuft bei vielen falsch
-              </h2>
-              <ul className="space-y-2.5">
-                {mistakes.map((m) => (
-                  <li key={m} className="flex items-start gap-2.5 text-sm text-foreground/90">
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
-                    {m}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="kinetic-data mb-4 text-xs uppercase tracking-widest text-muted-foreground">
-                Warum Sie mit mir reden sollten
-              </h2>
-              <ul className="space-y-2.5">
-                {reasons.map((r) => (
-                  <li key={r} className="flex items-start gap-2.5 text-sm text-foreground/90">
-                    <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Rechte Spalte: Calendly */}
-          <div className="lg:sticky lg:top-24">
-            <div className="overflow-hidden border border-border bg-surface">
-              {widgetError ? (
-                <div className="flex min-h-[400px] flex-col items-center justify-center gap-3 p-10 text-center">
-                  <p className="text-sm text-muted-foreground">
-                    Der Kalender konnte nicht geladen werden. Bitte weichen Sie kurz auf{" "}
-                    <a
-                      href={CALENDLY_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary underline underline-offset-4"
-                    >
-                      Calendly direkt
-                    </a>{" "}
-                    aus, oder schreiben Sie uns.
-                  </p>
-                </div>
-              ) : widgetEnabled ? (
-                <div className="relative" style={{ minWidth: 320, height: 700 }}>
-                  {!widgetReady && (
-                    <div
-                      className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface"
-                      role="status"
-                      aria-live="polite"
-                    >
-                      <Loader2 className="h-6 w-6 animate-spin text-accent" aria-hidden="true" />
-                      <span className="text-sm text-muted-foreground">Kalender wird geladen …</span>
-                    </div>
-                  )}
-                  <div ref={containerRef} className="h-full w-full" />
-                </div>
-              ) : (
-                <div className="flex min-h-[400px] flex-col items-center justify-center gap-5 p-10 text-center">
-                  <CalendarClock className="h-8 w-8 text-accent" aria-hidden="true" />
-                  <p className="max-w-xs text-sm leading-[1.6] text-muted-foreground">
-                    Der Kalender wird über den externen Dienst Calendly geladen. Mit Klick
-                    stimmen Sie dem Laden externer Inhalte zu.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      trackEvent("Calendly_Klick", { position: "lass-uns-reden-embed" });
-                      setWidgetEnabled(true);
-                    }}
-                    className="inline-flex h-[52px] items-center gap-3 bg-primary px-6 text-fliess font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                  >
-                    Kalender laden
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </button>
+          ) : widgetEnabled ? (
+            <div className="relative" style={{ minWidth: 320, height: 720 }}>
+              {!widgetReady && (
+                <div
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <Loader2 className="h-6 w-6 animate-spin text-primary" aria-hidden="true" />
+                  <span className="text-fliess text-muted-foreground">Kalender wird geladen …</span>
                 </div>
               )}
+              <div ref={containerRef} className="h-full w-full" />
             </div>
+          ) : (
+            /* Klick-Gate: Calendly setzt echte Third-Party-Cookies und wird
+               deshalb wie Plausible behandelt, nicht als technisch notwendig. */
+            <div className="flex min-h-[360px] flex-col items-center justify-center gap-5 p-8 text-center sm:p-12">
+              <CalendarClock className="h-10 w-10 text-primary" aria-hidden="true" />
+              <p className="max-w-sm text-fliess leading-[1.6] text-muted-foreground">
+                Der Kalender läuft über Calendly. Mit einem Klick lädst du ihn — dabei werden
+                Daten an den Dienst übertragen.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  trackEvent("Calendly_Klick", { position: "lass-uns-reden-embed" });
+                  setWidgetEnabled(true);
+                }}
+                className="inline-flex h-[60px] w-full max-w-[420px] items-center justify-center gap-3 rounded-[50px] bg-primary px-6 text-[18px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Termin aussuchen
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* === Direktwege: für alle, die nicht durch einen Kalender wollen === */}
+      <section className={`${SITE_CONTAINER} py-12 sm:py-16`}>
+        <div className="mx-auto max-w-[900px]">
+          <h2 className="text-center text-[24px] font-extrabold uppercase leading-tight tracking-tight text-foreground sm:text-[30px]">
+            Lieber direkt?
+          </h2>
+          <p className="mt-3 text-center text-fliess text-muted-foreground">
+            Ruf an oder schreib — {company.availability} geht jemand ran.
+          </p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <Direktweg
+              href={company.mobile.href}
+              icon={Phone}
+              label="Anrufen"
+              wert={company.mobile.display}
+              event="Telefon_Klick"
+            />
+            <Direktweg
+              href={WHATSAPP_URL}
+              icon={MessageCircle}
+              label="WhatsApp"
+              wert={company.mobile.display}
+              event="CTA_Klick"
+              extern
+            />
+            <Direktweg
+              href={`mailto:${company.email.general}?subject=${encodeURIComponent(angebot.name)}`}
+              icon={Mail}
+              label="E-Mail"
+              wert={company.email.general}
+              event="Email_Klick"
+            />
           </div>
+
+          {/* Was in der Stunde passiert — klein, unter dem Knopf, als Absicherung
+              gegen die Frage "worauf lasse ich mich da ein". Nicht darüber: es
+              soll den Kalender nicht nach unten schieben. */}
+          <ul className="mx-auto mt-12 max-w-[620px] space-y-3 border-t border-border pt-8">
+            {ABLAUF.map((punkt) => (
+              <li key={punkt} className="flex gap-3 text-fliess leading-[1.6] text-muted-foreground">
+                <Check className="mt-[3px] h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                {punkt}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </PageShell>

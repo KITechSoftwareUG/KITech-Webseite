@@ -38,7 +38,11 @@ export interface Announcement {
 export const announcement: Announcement | null = {
   badge: "NEU",
   lead: `${angebot.kurz} 2026`,
-  text: `Kostenlos, ${angebot.dauer} — ${verfuegbarkeit()}`,
-  textKurz: `Kostenlos, 60 Min — ${verfuegbarkeitKurz()}`,
+  /* Der Rhythmus steckt seit dem 12.08.2026 in `verfuegbarkeit()` selbst
+     ("Jeden Donnerstag 5 Plätze — diese Woche noch 2 Plätze frei"). Die Dauer
+     steht deshalb nicht mehr davor: Der Balken trägt eine Zeile, und die
+     Begrenzung ist dort die wichtigere Angabe als die 60 Minuten. */
+  text: verfuegbarkeit(),
+  textKurz: verfuegbarkeitKurz(),
   href: angebot.href,
 };

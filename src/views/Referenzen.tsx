@@ -32,7 +32,7 @@ export default function Referenzen() {
         data={[
           getWebPageSchema(
             "Referenzen",
-            "Sechs Kundenfälle mit Zahlen: was gebaut wurde und was es dem Unternehmen gebracht hat.",
+            "Kundenfälle mit Zahlen: was gebaut wurde und was es dem Unternehmen gebracht hat.",
             "https://kitech-software.de/referenzen"
           ),
           getBreadcrumbSchema([
@@ -44,30 +44,19 @@ export default function Referenzen() {
 
       <section className={`${SITE_CONTAINER} pb-4 pt-14 sm:pt-20`}>
         <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[36px] leading-[1.1] text-foreground sm:text-[48px]">
-          Sechs Fälle, bei denen die Zahl für sich spricht.
+          Fälle, bei denen die Zahl für sich spricht.
         </h1>
 
-        {/* Zwei harte Kacheln statt eines Erklärabsatzes: 50+ gegen die Anzahl der
-            Detailfälle sagt "Auswahl, nicht Gesamtwerk" ohne einen Satz Fließtext.
-            Die zweite Zahl kommt direkt aus der Datendatei und kann deshalb nicht
-            auseinanderlaufen, wenn Fälle dazukommen. */}
-        <div className="mt-9 grid max-w-[520px] grid-cols-2 gap-5">
-          <div className="flex min-h-[150px] flex-col items-center justify-center bg-primary px-5 text-center text-primary-foreground">
-            <p className="kinetic-data text-[38px] font-light leading-none">50+</p>
-            <p className="mt-3 max-w-[170px] text-fliess font-semibold leading-[1.25]">
-              Projekte abgeschlossen
-            </p>
-          </div>
-          <div className="flex min-h-[150px] flex-col items-center justify-center border border-border px-5 text-center">
-            <p className="kinetic-data text-[38px] font-light leading-none text-foreground">
-              {clientResults.length}
-            </p>
-            {/* "davon" statt "Fälle im Detail": stellt den Bezug zur 50+-Kachel
-                daneben her — das war vorher die Aussage des gestrichenen Absatzes. */}
-            <p className="mt-3 max-w-[170px] text-fliess font-semibold leading-[1.25] text-foreground">
-              davon hier im Detail
-            </p>
-          </div>
+        {/* Eine Kachel, nicht zwei. Die zweite trug die Anzahl der Detailfälle
+            ("5 davon hier im Detail") und ist auf Ansage entfallen (12.08.2026):
+            Sie zählt herunter, was die 50+ daneben gerade aufgebaut hat. Die
+            Fälle stehen ohnehin direkt darunter — wer sie zählen will, sieht
+            sie. */}
+        <div className="mt-9 flex min-h-[150px] max-w-[250px] flex-col items-center justify-center bg-primary px-5 text-center text-primary-foreground">
+          <p className="kinetic-data text-[38px] font-light leading-none">50+</p>
+          <p className="mt-3 max-w-[170px] text-fliess font-semibold leading-[1.25]">
+            Projekte abgeschlossen
+          </p>
         </div>
       </section>
 

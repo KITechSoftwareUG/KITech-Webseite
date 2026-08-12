@@ -13,6 +13,18 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
+**Stand 12.08.2026 — was zuletzt geändert wurde:** Das kostenlose Angebot heißt
+jetzt **1:1-KI-Check** (`src/config/angebot.ts`, eine Quelle für Balken, Knöpfe
+und Terminseite) und läuft **jeden Donnerstag mit fünf Plätzen** — der Wochentag
+steht in `CHECK_TAG` und **muss zum Calendly-Kalender passen**. `/lass-uns-reden`
+ist neu gebaut (Termin, dann Anrufen/WhatsApp/E-Mail, sonst nichts) und trug bis
+dahin als einzige Seite noch die ROI-Garantie „Erreichen wir das Ziel nicht,
+zahlen Sie nicht" — sie ist dort jetzt ebenfalls raus. Der Menüpunkt „Warum?" ist
+aus der Kopfzeile genommen (Seiten bleiben erreichbar), an seiner Stelle steht
+**/gratis-wissen**. Die Leistungen sind von sechs auf vier Schritte gekürzt, mit
+Enterprise-Betrieb (AWS/Azure/eigenes Haus) als eigenem Punkt. Der Referenzfall
+„Lead-Pipeline" (Felix Bechtoldt) ist entfernt.
+
 **Aktueller Status:** Die Website wurde am 30.07.2026 von **Vite + React Router auf Next.js (App Router) migriert** — Grund: die Funnel-Seiten sollen organisch ranken, was mit einer Client-Side-SPA nicht geht.
 
 **Am 05.08.2026 ist der Relaunch live gegangen** (Commit `82bf44e`, deployt und gegen die Live-Domain geprüft). Bis dahin lag der komplette Migrationsstand unversioniert im Arbeitsverzeichnis; er steckt jetzt in `main` und ist deployt. Im selben Zug wurde die **Startseite überarbeitet**: der Hero auf eine einzige Aussage reduziert, die Kundenkarten mit Beleglinks auf die gebauten Produkte versehen und das Team um Rollen, Kurzbeschreibungen und LinkedIn ergänzt — siehe [Startseite](#startseite-hero-und-team) und [Kundenkarten](#kundenkarten-ergebnis-beleglinks-fotos-sterne). Die alte Baustellen-Weiche (`src/App.tsx` → `UnderConstruction.tsx` für fast jeden Pfad) gibt es nicht mehr. Gleichzeitig wurde Coolify von `nixpacks` auf **`dockerfile`** umgestellt — ohne das läuft Next.js dort nicht. Siehe [Seiten & Routing](#seiten--routing) und [Hosting](#hosting).
@@ -151,7 +163,8 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 | `/leistungen` | `Leistungen.tsx` | ja | Sechs Schritte + Zielgruppen-Weiche. Inhalt: `src/data/services.ts`. |
 | `/solo`, `/enterprise` | `Segment.tsx` über `Solo.tsx`/`Enterprise.tsx` | ja | Eine Vorlage, zwei Zielgruppen. Inhalt: `src/data/segments.ts`. |
 | `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Übersicht ja, Details **nein** | Details auf `noindex`, solange `openPoints` offen sind. |
-| `/haltung` | `Haltung.tsx` | ja | Werte + Gründerzitat. Inhalt: `src/data/principles.ts`. |
+| `/gratis-wissen`, `/gratis-wissen/[slug]` | `GratisWissen.tsx`, `WissenArtikel.tsx` | ja | Content-Bereich (Artikel, Tipps, Ratgeber). Inhalt: `src/data/wissen.ts`. Steht seit 12.08.2026 in der Kopfzeile an der Stelle von „Warum?". |
+| `/haltung` | `Haltung.tsx` | ja | Kopf wie ein Hero („Wer KI falsch einsetzt … verbrennt Geld", wörtliche Vorgabe), darunter Werte + Gründerzitat. Inhalt: `src/data/principles.ts`. |
 | `/karriere`, `/karriere/[slug]` | `Karriere.tsx`, `KarriereJob.tsx` | **nein** | Stellen sind Platzhalter — siehe [Stellenportal](#stellenportal). |
 | `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
 | `/glossar`, `/glossar/[slug]` | `Glossar.tsx`, `GlossarTerm.tsx` | ja | Sechs Begriffe aus `src/data/glossary.ts`, seit der Migration erstmals wieder erreichbar. |

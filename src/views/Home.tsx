@@ -5,7 +5,7 @@ import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredDat
 import { PageShell } from "@/components/layout/PageShell";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { teamRoster } from "@/data/team";
-import { angebot, verfuegbarkeit } from "@/config/angebot";
+import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -123,7 +123,7 @@ export default function Home({
           {/* Dauer und Platzangabe direkt unter dem Knopf: die Begrenzung ist
               echt (fuenf Stunden pro Woche) und traegt sich deshalb selbst. */}
           <p className="mt-3 text-mini font-normal text-muted-foreground">
-            Kostenlos · {angebot.dauer} · {verfuegbarkeit()}
+            Kostenlos · {angebot.dauer} · {verfuegbarkeitKurz()}
           </p>
 
           {/*

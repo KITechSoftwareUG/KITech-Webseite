@@ -27,6 +27,20 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
  * Quelle waren die SVG-Freisteller von Ayham. Firmenlogos liegen dagegen als
  * Asset-Import in src/assets.
  *
+ * ENTFERNT am 12.08.2026 — Lead-Pipeline (Felix Bechtoldt):
+ * Auf Ansage herausgenommen, weil kein Foto vorliegt ("Felix bitte herausnehmen,
+ * weil er kein Bild hat"). Der Fall trug die Kennzahl "100+ qualifizierte Leads,
+ * jeden Morgen um 8" und den Prozessvergleich "3 Stunden Recherche → 2 Minuten".
+ * Vollständig im Commit davor; zurückholen mit
+ * `git show <commit>:src/data/client-results.ts`.
+ *
+ * WARTET AUF INHALT — Thomas / Grynia:
+ * Soll den Recherche-Fall ersetzen (Vermittlung von Arbeitskräften,
+ * automatisierte Kette, Kundenrecherche in 10 Minuten). Das Foto liegt unter
+ * `public/images/kunden/grynia.webp`. Es fehlen: Nachname, die genaue
+ * Firmenschreibweise und die Kennzahl in der Form, in der sie auf der Karte
+ * stehen soll.
+ *
  * WARTET AUF INHALT — Grynia:
  * `public/images/kunden/grynia.webp` liegt bereits bereit, aber es gibt noch keinen
  * Eintrag dafür. Ayham liefert die Angaben nach (04.08.2026). Solange Name, Firma
@@ -118,10 +132,19 @@ export interface ClientResult {
    * aus `summary` oder `headline` umformulieren — das wäre eine Bewertung, die
    * dem Kunden in den Mund gelegt wird (§ 5b Abs. 3 UWG).
    *
-   * TODO (Ayham): Sätze für Benjamin Ronneburg, Leon Battel, Jan Uwe Pane,
-   * Felix Bechtoldt und Mike Letzgus nachliefern.
+   * TODO (Ayham): Sätze für Benjamin Ronneburg, Leon Battel, Jan Uwe Pane
+   * und Mike Letzgus nachliefern.
    */
   review: string | null;
+  /**
+   * Was für ein Projekt das war, in zwei bis drei Wörtern — "Claude-Code-Setup",
+   * "Kundenportal", "SaaS-Entwicklung". Steht als Pille auf der Karte.
+   *
+   * Auf Ansage ergänzt (12.08.2026): "sowas wie Claude Code Setup oder KI Setup
+   * deutlicher darstellen". Vorher musste man aus der Kennzahl erraten, was
+   * überhaupt gebaut wurde — "4 Wochen" allein sagt nichts über die Leistung.
+   */
+  kategorie: string;
   /** Die eine radikale Zahl, groß gesetzt. */
   headline: {
     value: string;
@@ -197,6 +220,7 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
+    kategorie: "Claude-Code-Setup",
     headline: { value: "4 Wochen", label: "bis Claude Code einsatzbereit war" },
     summary:
       "Bei Pflegexperts steht Claude Code mit eingerichteter Arbeitsumgebung, klaren Regeln und Automatisierungen für die tägliche Arbeit.",
@@ -261,6 +285,7 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
+    kategorie: "SaaS-Entwicklung",
     headline: { value: "2 Monate", label: "von der ersten Zeile bis zum Livegang" },
     summary:
       "SaaS zur EU-Entgelttransparenzrichtlinie gebaut — Bezahlsystem und Abrechnung inklusive.",
@@ -330,6 +355,7 @@ export const clientResults: ClientResult[] = [
     rating: 5,
     // Belegt: identischer Wortlaut wie in src/data/testimonials.ts.
     review: "Hier versteht jemand die Nutzung von KI.",
+    kategorie: "Kundenportal",
     headline: { value: "1,5", label: "Vollzeitstellen an eingespartem Aufwand" },
     summary:
       "Nach 40 Tagen lief die gesamte Objekt- und Kundenverwaltung in einem Portal.",
@@ -395,6 +421,7 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
+    kategorie: "Prozess-Portal",
     headline: { value: "1,2", label: "Vollzeitkräfte an eingespartem Aufwand" },
     summary:
       "Antrag rein, Zertifikat raus — der ganze Weg dazwischen steckt in einem Portal.",
@@ -445,79 +472,6 @@ export const clientResults: ClientResult[] = [
     },
   },
   {
-    slug: "lead-pipeline",
-    company: "4 Unternehmen, 9 Zielgruppen",
-    logo: null,
-    liveUrl: null,
-    companyUrl: null,
-    person: {
-      name: "Felix Bechtoldt",
-      role: null,
-      photo: null,
-    },
-    rating: 5,
-    review: null,
-    headline: { value: "100+", label: "qualifizierte Leads, jeden Morgen um 8" },
-    summary:
-      "Eine Vertriebs-Pipeline über vier Unternehmen und neun Zielgruppen bringt die Recherche von drei Stunden auf zwei Minuten.",
-    duration: null,
-    before: "3 Stunden Recherche",
-    after: "2 Minuten",
-    extra: null,
-    openPoints: [
-      "Qualifizierungskriterien und Quellen nicht dokumentiert",
-      "Eingesetzte Technik nicht dokumentiert",
-      "Kein freigegebenes Zitat",
-    ],
-    detail: {
-      intro:
-        "Eine komplette Vertriebs-Pipeline über vier Unternehmen und neun Zielgruppen " +
-        "hinweg — 100+ qualifizierte Leads liegen jeden Morgen um 8 Uhr bereit.",
-      sections: [
-        {
-          heading: "Ausgangslage",
-          paragraphs: [
-            "Vor dem Projekt kostete die Recherche drei Stunden — täglich, bevor das " +
-              "erste Gespräch überhaupt stattfinden konnte.",
-            "Das ist die Sorte Aufwand, die in keiner Auswertung auftaucht: Sie " +
-              "verschwindet nicht, sie wird nur nicht gezählt. Bezahlt wird ein Vertrieb " +
-              "für Gespräche, nicht für das Zusammensuchen von Adressen.",
-          ],
-        },
-        {
-          heading: "Was wir gebaut haben",
-          paragraphs: [
-            "Gebaut wurde eine komplette Vertriebs-Pipeline mit täglicher " +
-              "Lead-Generierung — über vier Unternehmen und neun Zielgruppen hinweg.",
-            "Neun Zielgruppen heißt neun verschiedene Vorstellungen davon, was ein " +
-              "brauchbarer Kontakt ist. Die Pipeline hält diese Unterscheidung aus: Sie " +
-              "recherchiert nicht einfach breiter, sondern sortiert vor, sodass am Ende " +
-              "eine Liste steht, mit der sofort gearbeitet werden kann.",
-          ],
-        },
-        {
-          heading: "Wie es heute läuft",
-          paragraphs: [
-            "Jeden Morgen um 8 Uhr liegen über 100 qualifizierte Leads bereit. Der " +
-              "Schritt, der vorher drei Stunden gedauert hat, dauert heute zwei Minuten.",
-            "Der eigentliche Gewinn ist dabei nicht die gesparte Zeit, sondern der " +
-              "Zeitpunkt: Der Arbeitstag beginnt mit dem ersten Gespräch statt mit " +
-              "Vorbereitung.",
-          ],
-        },
-      ],
-      phases: [],
-      metrics: [
-        { value: "100+", label: "qualifizierte Leads, täglich um 8 Uhr" },
-        { value: "2 Minuten", label: "statt 3 Stunden Recherche" },
-        { value: "4", label: "Unternehmen" },
-        { value: "9", label: "Zielgruppen" },
-      ],
-      stack: [],
-      quote: null,
-    },
-  },
-  {
     slug: "nereo-claude-code",
     company: "Nereo",
     logo: nereoLogo.src,
@@ -530,6 +484,7 @@ export const clientResults: ClientResult[] = [
     },
     rating: 5,
     review: null,
+    kategorie: "Claude-Code-Setup",
     headline: { value: "3 Wochen", label: "Setup bei Nereo, fertig zum Arbeiten" },
     summary:
       "Für Nereo eine Arbeitsumgebung aufgesetzt, feste Regeln hinterlegt und Automatisierungen für den Alltag gebaut.",

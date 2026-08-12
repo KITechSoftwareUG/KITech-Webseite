@@ -47,18 +47,27 @@ export default function Haltung() {
         ]}
       />
 
-      <PageHeading
-        title={
-          <>
-            KI wird überall reingequetscht.{" "}
-            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
-              Ohne klaren Nutzen
-            </span>
-            .
-          </>
-        }
-        lead="Wir machen es anders — und sagen ab, wenn wir den Nutzen nicht sehen."
-      />
+      {/*
+        Kopf wie ein Hero, nicht wie eine Unterseitenüberschrift (Vorgabe
+        12.08.2026: "Die Haltung muss richtig fett sein, quasi ein bisschen wie
+        die Hero Section"). Deshalb steht hier kein `PageHeading` mehr, sondern
+        dieselbe Typografie wie auf der Startseite: 50 px, Versalien, extrafett,
+        auf hellgrauem Grund.
+
+        Der Wortlaut ist von Ayham vorgegeben und bewusst nicht umformuliert.
+      */}
+      <section className="bg-surface-strong">
+        <div className={`${SITE_CONTAINER} py-16 text-center sm:py-24`}>
+          <h1 className="kinetic-morph-in mx-auto max-w-[820px] text-balance text-[38px] font-extrabold uppercase leading-[1.08] tracking-tight text-foreground sm:text-[50px] sm:leading-[57.5px]">
+            Wer KI falsch einsetzt oder ohne Expertise arbeitet, verbrennt Geld.
+          </h1>
+
+          <p className="mx-auto mt-7 max-w-[680px] text-pretty text-[18px] font-normal leading-[27px] text-foreground dt:text-subline">
+            Die KI wird dir immer einreden, dass das, was du machst, richtig ist. Aber du
+            brauchst eine 1:1-Betreuung, damit du wirklich das Beste rausholst.
+          </p>
+        </div>
+      </section>
 
       {/* Gründer: Portrait und Aussage nebeneinander. Kein Erklärabsatz über der
           Person, kein Icon — das Gesicht und der Satz reichen. */}

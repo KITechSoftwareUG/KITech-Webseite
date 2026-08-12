@@ -51,8 +51,8 @@ export default function Leistungen() {
       />
 
       <PageHeading
-        title="Sechs Schritte. Der fünfte trägt die anderen fünf."
-        lead="Ohne saubere Daten ist jeder Agent darüber ein Demo-Effekt."
+        title="Vier Schritte. In dieser Reihenfolge."
+        lead="Erst rechnen, dann bauen, dann betreiben — und nur da, wo es sich trägt."
       />
 
       {/* Leistungen als durchlaufende Liste: Nummer links, Inhalt rechts.
@@ -83,7 +83,10 @@ export default function Leistungen() {
                 </p>
               </div>
 
-              <ul className="space-y-2.5">
+              {/* Die Stichpunktspalte entfällt, wenn keine da sind — seit der
+                  Kürzung am 12.08.2026 ist das der Normalfall. Ohne diese
+                  Prüfung bliebe rechts eine leere Rasterspalte stehen. */}
+              <ul className={`space-y-2.5 ${service.bullets.length === 0 ? "hidden" : ""}`}>
                 {service.bullets.map((bullet) => (
                   <li
                     key={bullet}
@@ -142,7 +145,7 @@ export default function Leistungen() {
 
       <CtaBanner
         heading="Welcher Prozess bei euch zuerst?"
-        text="In der KI-Bewertung nehmen wir einen konkreten Ablauf auseinander und rechnen ihn durch."
+        text="Im 1:1-KI-Check nehmen wir einen konkreten Ablauf auseinander und rechnen ihn durch."
         position="leistungen-abschluss"
       />
     </PageShell>

@@ -6,6 +6,20 @@
  * Relaunch am 05.08.2026 übernommen worden — der Auftrag lautete, dass alles,
  * was vorher da war, wieder erreichbar sein muss.
  *
+ * GEKÜRZT am 12.08.2026 auf Ansage ("die Leistungen kannst du dramatisch
+ * verkürzen, das ist ein bisschen random"). Vorher standen hier sechs
+ * Leistungen mit je vier Stichpunkten — 24 Zeilen, die niemand liest, und in
+ * denen Vision-Agenten neben Kommunikations-Agenten und Data-Warehouse
+ * standen, als wären das gleichwertige Angebote.
+ *
+ * Jetzt vier Schritte in der Reihenfolge, in der sie stattfinden, je ein Satz.
+ * Neu darin und ebenfalls auf Ansage: der Enterprise-Betrieb (AWS, Azure oder
+ * eigene Hardware) als eigener Punkt — "dass es halt für Unternehmen auch
+ * vernünftig gemacht werden muss".
+ *
+ * `bullets` bleibt im Typ, wird aber nicht mehr befüllt: die Komponente
+ * rendert die Liste nur, wenn etwas drinsteht.
+ *
  * OFFEN: Die Formulierungen sind Altbestand, nicht Ayhams aktueller Wortlaut.
  * Ersetzt wird ausschließlich in dieser Datei; `Leistungen.tsx` bleibt dabei
  * unberührt. Zwei Dinge sind beim Übernehmen bewusst geändert worden:
@@ -28,75 +42,31 @@ export interface Service {
 export const services: Service[] = [
   {
     step: "01",
-    title: "Prozess-Audit und Potenzialanalyse",
+    title: "Prozess-Audit",
     description:
-      "Wir sehen uns eure Abläufe an und sagen, an welcher Stelle Automatisierung tatsächlich etwas bringt — und an welcher nicht.",
-    bullets: [
-      "Prozess-Aufnahme im Tagesgeschäft",
-      "Automatisierungspotenzial pro Schritt",
-      "Architektur-Entwurf",
-      "Rechnung, was es bringt, vor dem Bauen",
-    ],
+      "Wir sehen uns eure Abläufe an und sagen, an welcher Stelle Automatisierung etwas bringt — und an welcher nicht. Was sich nicht rechnet, sagen wir vorher.",
+    bullets: [],
   },
   {
     step: "02",
-    title: "Individuelle Agenten und LLM-Orchestrierung",
+    title: "KI-Agenten, die an euren Daten arbeiten",
     description:
-      "Maßgeschneiderte KI-Agenten, die zusammenarbeiten statt nebeneinander zu laufen — in eurer Infrastruktur, nicht in fremder.",
-    bullets: [
-      "Multi-Agent-Systeme",
-      "RAG auf euren eigenen Daten",
-      "Betrieb lokal oder in der EU",
-      "Anbindung an bestehende Systeme",
-    ],
+      "Agenten, die an eure Systeme angeschlossen sind statt danebenzustehen: Dokumente, Datenbanken, Fachanwendungen. Ohne diesen Anschluss bleibt jedes Sprachmodell ein besserer Chat.",
+    bullets: [],
   },
   {
     step: "03",
-    title: "Vision-Agenten",
+    title: "Enterprise-Betrieb: AWS, Azure oder im eigenen Haus",
     description:
-      "Bilderkennung und visuelle Prüfung — von der Qualitätskontrolle bis zur Dokumentenverarbeitung.",
-    bullets: [
-      "Qualitätskontrolle",
-      "Dokumentenerfassung (OCR)",
-      "Objekterkennung",
-      "Betrieb direkt an der Maschine",
-    ],
+      "Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über AWS oder Azure, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.",
+    bullets: [],
   },
   {
     step: "04",
-    title: "Kommunikations-Agenten",
-    description:
-      "Agenten für Kundenkommunikation und internes Wissen — über alle Kanäle hinweg, mit einem gemeinsamen Stand.",
-    bullets: [
-      "Kundenservice",
-      "Wissensdatenbank, die Antworten gibt",
-      "Vorgangsbearbeitung",
-      "Mehrere Kanäle, ein System",
-    ],
-  },
-  {
-    step: "05",
-    title: "Daten-Agenten und Plattform",
-    description:
-      "Das Fundament: Agenten, die eure Daten aufbereiten und zusammenführen. Ohne das trägt der Rest nicht.",
-    bullets: [
-      "Datenübernahme und -transformation",
-      "Prüfung der Datenqualität",
-      "Auswertungen und Dashboards",
-      "Aufbau eines Data Warehouse",
-    ],
-  },
-  {
-    step: "06",
     title: "Betrieb und Wartung",
     description:
-      "Was gebaut ist, muss laufen. Überwachung, Nachjustieren und Weiterentwicklung im laufenden Betrieb.",
-    bullets: [
-      "Überwachung im Betrieb",
-      "Regelmäßiges Nachtrainieren",
-      "Optimierung nach Messwerten",
-      "Fester Ansprechpartner",
-    ],
+      "Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — und ein fester Ansprechpartner statt einer Ticketschlange.",
+    bullets: [],
   },
 ];
 

@@ -43,36 +43,54 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
     <Link
       href={`/referenzen/${result.slug}`}
       onClick={() => trackEvent("CTA_Klick", { position: `laufband-${result.slug}` })}
-      className="flex w-[260px] shrink-0 flex-col items-center border border-border px-5 pb-6 pt-5 text-center transition-colors hover:border-primary sm:w-[290px]"
+      className="flex w-[260px] shrink-0 flex-col items-center border border-border px-5 pb-6 pt-6 text-center transition-colors hover:border-primary sm:w-[290px]"
     >
+      {/*
+        ERGEBNIS ZUERST (Vorgabe 12.08.2026): "Das Ergebnis muss deutlicher
+        sein, es muss oben sein." Vorher stand die Kennzahl ganz unten, unter
+        Bild, Name, Firma und Sternen — wer am Band vorbeischaut, las zuerst
+        einen ihm unbekannten Namen und erst zuletzt, was dabei herauskam.
+
+        Reihenfolge jetzt: Zahl, was es war, wer es war.
+      */}
+      <p className="kinetic-data text-[40px] font-light leading-none text-primary">
+        {result.headline.value}
+      </p>
+      <p className="mt-2 text-fliess font-bold leading-snug text-foreground">
+        {result.headline.label}
+      </p>
+
+      {/* Was gebaut wurde — ohne diese Zeile sagt "4 Wochen" nichts. */}
+      <span className="mt-4 inline-block bg-primary px-3 py-1 text-mini font-bold uppercase tracking-wide text-primary-foreground">
+        {result.kategorie}
+      </span>
+
       {/*
         Feste Bildhoehe, damit alle Karten gleich aufgebaut sind. Ohne festen
         Platz saessen Name und Zahl in jeder Karte auf einer anderen Hoehe, und
         beim Durchlaufen wirkt das wie ein Wackeln.
 
-        Reihenfolge: Portrait, sonst Firmenlogo, sonst leer. Die Kennzahl stand
-        hier zuerst als blasser Platzhalter — sie erscheint aber weiter unten
-        ohnehin und sah dadurch aus wie ein Darstellungsfehler.
+        Reihenfolge: Portrait, sonst Firmenlogo, sonst leer.
       */}
-      <div className="flex h-[120px] items-center justify-center">
+      <div className="mt-5 flex h-[104px] items-center justify-center">
         {result.person.photo ? (
           <ReferencePortrait
             person={result.person}
-            className="w-[104px]"
-            imageClassName="h-[120px]"
+            className="w-[90px]"
+            imageClassName="h-[104px]"
           />
         ) : result.logo ? (
           <img
             src={result.logo}
             alt=""
             aria-hidden="true"
-            className="max-h-[64px] w-auto max-w-[150px] object-contain"
+            className="max-h-[56px] w-auto max-w-[150px] object-contain"
             loading="lazy"
           />
         ) : null}
       </div>
 
-      <p className="mt-4 text-fliess font-bold leading-tight text-foreground">
+      <p className="mt-3 text-fliess font-bold leading-tight text-foreground">
         {result.person.name}
       </p>
       <p className="mt-1 text-mini font-normal text-muted-foreground">{result.company}</p>
@@ -80,13 +98,6 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
       <div className="mt-2.5">
         <StarRating value={result.rating} />
       </div>
-
-      <p className="kinetic-data mt-4 text-[28px] leading-none text-primary">
-        {result.headline.value}
-      </p>
-      <p className="mt-1.5 text-mini font-semibold leading-snug text-foreground">
-        {result.headline.label}
-      </p>
     </Link>
   );
 }
@@ -106,7 +117,15 @@ export function KundenLaufband() {
           eine Bewegung, die an einer Containerkante beginnt und endet, sieht aus
           wie ein Fehler. Der Container gilt erst wieder fuer den Link darunter. */}
       <div className="group relative">
-        <div className="flex w-max animate-marquee gap-6 group-hover:[animation-play-state:paused]">
+        {/*
+          Die Pause beim Überfahren gilt nur für echte Zeigergeräte
+          (`hover:hover`). Auf dem Handy löst eine Berührung beim Scrollen
+          ebenfalls `:hover` aus — und der Zustand bleibt danach hängen, weil es
+          kein "Wegbewegen" gibt. Das Band stand dort also nach dem ersten
+          Antippen still, bis die Seite neu geladen wurde. Vorgabe 12.08.2026:
+          "auf dem Handy nicht stoppen, auch wenn ich da langscrolle".
+        */}
+        <div className="flex w-max animate-marquee gap-6 [@media(hover:hover)]:group-hover:[animation-play-state:paused]">
           {[0, 1, 2].map((durchlauf) => (
             <div
               key={durchlauf}

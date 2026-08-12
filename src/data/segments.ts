@@ -97,7 +97,7 @@ export const soloSegment: SegmentContent = {
       number: "01",
       title: "Standortbestimmung",
       description:
-        "In der kostenlosen KI-Bewertung schauen wir auf deinen echten Alltag: Wo bremst dich das gerade konkret aus?",
+        "Im kostenlosen 1:1-KI-Check schauen wir auf deinen echten Alltag: Wo bremst dich das gerade konkret aus?",
     },
     {
       number: "02",

@@ -153,7 +153,7 @@ export const soloLetter: SalesLetterContent = {
   closing: {
     heading: "Eine Stunde, und du weißt, woran es liegt.",
     paragraph:
-      "In der kostenlosen KI-Bewertung gehen wir deine Aufstellung durch: was du schon nutzt, was davon trägt, wo es hakt und was sich zuerst lohnt. Am Ende hast du eine Einschätzung, mit der du auch allein weiterarbeiten kannst — Zusammenarbeit ist möglich, aber nicht der Zweck des Termins.",
+      "Im kostenlosen 1:1-KI-Check gehen wir deine Aufstellung durch: was du schon nutzt, was davon trägt, wo es hakt und was sich zuerst lohnt. Am Ende hast du eine Einschätzung, mit der du auch allein weiterarbeiten kannst — Zusammenarbeit ist möglich, aber nicht der Zweck des Termins.",
     ctaLabel: angebot.cta,
     ctaHint,
   },
@@ -230,7 +230,7 @@ export const unternehmenLetter: SalesLetterContent = {
   closing: {
     heading: "Rechnen wir es gemeinsam durch.",
     paragraph:
-      "In der kostenlosen KI-Bewertung sehen wir uns eure Aufstellung an: was läuft, was im Pilotstadium hängt, welcher Vorgang sich zuerst rechnet. Sie dauert eine Stunde und endet mit einer Einschätzung, nicht mit einem Angebot.",
+      "Im kostenlosen 1:1-KI-Check sehen wir uns eure Aufstellung an: was läuft, was im Pilotstadium hängt, welcher Vorgang sich zuerst rechnet. Sie dauert eine Stunde und endet mit einer Einschätzung, nicht mit einem Angebot.",
     ctaLabel: angebot.cta,
     ctaHint,
   },

@@ -73,11 +73,31 @@ export const leistungenEntry: NavEntry = {
   ],
 };
 
-/** Kopfzeile. Reihenfolge = Reihenfolge in der Leiste. */
+/**
+ * Der Content-Bereich: Artikel, Tipps, Ratgeber. Auf Ansage angelegt
+ * (12.08.2026) — "ein Ort, wo ich ganz viel Content raushaue", Name ebenfalls
+ * vorgegeben ("Gratis-Wissen").
+ *
+ * Er steht in der Kopfzeile an der Stelle, an der bis heute "Warum?" stand.
+ */
+export const wissenEntry: NavEntry = {
+  label: "Gratis-Wissen",
+  href: "/gratis-wissen",
+  description: "Tipps, Ratgeber und die Fehler, die fast jeder mit KI macht.",
+};
+
+/**
+ * Kopfzeile. Reihenfolge = Reihenfolge in der Leiste.
+ *
+ * "Warum?" ist am 12.08.2026 auf Ansage aus der Kopfzeile genommen worden
+ * ("das ist noch schlecht, ich würde das erstmal auslassen"). Die Seiten
+ * bleiben unter ihrer Adresse erreichbar und stehen weiter in der Fußzeile —
+ * `warumEntry` wird deshalb weiter exportiert und ist nicht gelöscht.
+ */
 export const mainNavigation: NavEntry[] = [
-  warumEntry,
   leistungenEntry,
   { label: "Referenzen", href: "/referenzen", description: "Kundenfälle mit Zahlen." },
+  wissenEntry,
   { label: "Haltung", href: "/haltung", description: "Wonach wir entscheiden." },
   { label: "Karriere", href: "/karriere", description: "Offene Stellen bei KITech." },
   { label: "Kontakt", href: "/kontakt", description: "Direkter Draht, ohne Formularschleife." },
@@ -95,7 +115,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
       { label: "Leistungen", href: "/leistungen" },
       { label: "Für Selbstständige", href: "/solo" },
       { label: "Für Unternehmen", href: "/enterprise" },
-      { label: "KI-Bewertung sichern", href: "/lass-uns-reden" },
+      { label: "1:1-KI-Check sichern", href: "/lass-uns-reden" },
     ],
   },
   {
@@ -110,6 +130,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
   {
     title: "Wissen",
     links: [
+      { label: "Gratis-Wissen", href: "/gratis-wissen" },
       { label: "Warum?", href: "/warum" },
       { label: "Warum du mit KI kein Geld verdienst", href: "/warum-du-mit-ki-kein-geld-verdienst" },
       {
@@ -189,6 +210,13 @@ export const siteRoutes: RouteDefinition[] = [
   { path: "/enterprise", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
 
   { path: "/referenzen", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
+  {
+    path: "/gratis-wissen",
+    indexable: true,
+    lastModified: "2026-08-12",
+    changeFrequency: "weekly",
+    priority: 0.8,
+  },
   { path: "/haltung", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.7 },
   { path: "/glossar", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.6 },
   { path: "/kontakt", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },

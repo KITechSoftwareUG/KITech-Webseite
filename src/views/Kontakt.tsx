@@ -68,7 +68,7 @@ export default function Kontakt() {
         data={[
           getWebPageSchema(
             "Kontakt",
-            "Kostenlose KI-Bewertung sichern oder direkt schreiben — KITech Software aus Hannover.",
+            "Kostenlosen 1:1-KI-Check sichern oder direkt schreiben — KITech Software aus Hannover.",
             `${BASE_URL}/kontakt`
           ),
           getBreadcrumbSchema([
@@ -131,7 +131,7 @@ export default function Kontakt() {
               verschwindet. */}
           <div className="border border-border bg-background/40 p-7 sm:p-8">
             <h3 className="kinetic-display text-balance text-h4 leading-[1.15] text-foreground sm:text-h3">
-              Kostenlose KI-Bewertung
+              Kostenloser 1:1-KI-Check
             </h3>
             <p className="mt-4 text-pretty text-fliess leading-[1.6] text-muted-foreground">
               Wir sehen uns einen eurer Prozesse an und rechnen durch, was Automatisierung
