@@ -40,13 +40,15 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
  * (automatisierte Kette) und die Kennzahl (Kundenrecherche in 10 Minuten). Das
  * Foto lag seit dem 05.08.2026 bereit.
  *
- * ⚠️ ZWEI ANGABEN SIND UNGEPRÜFT und stehen deshalb in `openPoints`:
- *   - Der **Nachname** fehlt. Auf der Karte steht bisher nur "Thomas".
- *   - Die **Firmenschreibweise** ist aus dem Dateinamen der Bildlieferung
- *     übernommen (`portrait_referenz_grynia.svg`). In der Ansage klang sie wie
- *     "Grüner Consulting" — das war mutmaßlich die Spracherkennung. Ein falsch
- *     geschriebener Kundenname auf einer Referenzkarte ist genau die Sorte
- *     Fehler, die beim Kunden auffällt; bitte bestätigen.
+ * Der Name ist bestätigt: **Thomas Grynia**. "Grynia" ist damit der Nachname,
+ * nicht die Firma — der Dateiname der Bildlieferung hatte anderes nahegelegt.
+ *
+ * ⚠️ OFFEN ist der **Firmenname**. Auf der Karte steht solange die Branche
+ * ("Vermittlung von Arbeitskräften"), was das Datenmodell für genau diesen Fall
+ * vorsieht. In der Ansage klang die Firma wie "Grüner Consulting"; mit dem
+ * Nachnamen zusammen ist "Grynia Consulting" die wahrscheinliche Auflösung —
+ * eingetragen wird sie erst, wenn sie bestätigt ist. Ein falsch geschriebener
+ * Firmenname auf einer Referenzkarte fällt beim Kunden auf.
  *
  * ACHTUNG — was in den Detailtexten stehen darf:
  * Belegt sind die Angaben aus dem Briefing (Name, Firma, was gebaut wurde,
@@ -473,12 +475,18 @@ export const clientResults: ClientResult[] = [
   },
   {
     slug: "grynia-kundenrecherche",
-    company: "Grynia",
+    /* Der Firmenname ist noch nicht bestätigt — hier steht deshalb die Branche.
+       Das Datenmodell sieht das ausdrücklich vor (siehe `company` oben): lieber
+       eine wahre Umschreibung als ein geratener Firmenname auf der Karte eines
+       echten Kunden. In der Ansage klang es nach "Grüner Consulting"; da der
+       Kunde Grynia heißt, ist "Grynia Consulting" die wahrscheinliche
+       Auflösung — wahrscheinlich reicht hier aber nicht. */
+    company: "Vermittlung von Arbeitskräften",
     logo: null,
     liveUrl: null,
     companyUrl: null,
     person: {
-      name: "Thomas",
+      name: "Thomas Grynia",
       role: null,
       photo: "/images/kunden/grynia.webp",
     },
@@ -493,8 +501,7 @@ export const clientResults: ClientResult[] = [
     after: null,
     extra: null,
     openPoints: [
-      "Nachname fehlt — auf der Karte steht bisher nur der Vorname",
-      "Firmenschreibweise bestätigen (hier nach dem Dateinamen der Bildlieferung)",
+      "Firmenname fehlt — auf der Karte steht bisher die Branche",
       "Ausgangslage beim Kunden nicht dokumentiert",
       "Eingesetzte Technik nicht dokumentiert",
       "Kein freigegebenes Zitat",
