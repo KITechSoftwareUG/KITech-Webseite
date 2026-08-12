@@ -95,12 +95,11 @@ export default function Home({
             Vorlage ist die Überschrift zweizeilig, erste Zeile 607 px breit.
             `max-w-[13ch]` ergab drei Zeilen und damit 57,5 px Überlänge.
           */}
+          {/* Ohne Auszeichnung auf "mehr" (Vorgabe 12.08.2026): der blaue Marker
+              ist raus. Die Aussage trägt sich allein — das war schon der Grund,
+              warum im Hero sonst nichts steht. */}
           <h1 className="kinetic-morph-in max-w-[660px] text-balance text-[50px] font-extrabold uppercase leading-[57.5px] tracking-tight text-foreground">
-            Falsche KI kostet{" "}
-            <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
-              mehr
-            </span>{" "}
-            als keine KI.
+            Falsche KI kostet mehr als keine KI.
           </h1>
 
           {/* Mobil 18 px / 27, ab 1025 px 21 px / 30 — beides aus der Vorlage

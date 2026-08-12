@@ -1,4 +1,5 @@
 import certconsultingLogo from "@/assets/certconsulting-logo.png";
+import nereoLogo from "@/assets/Nereo_Logo_Black_ColorDot.svg";
 import pflegexpertsLogo from "@/assets/logo-pflegexperts.png";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 
@@ -519,7 +520,7 @@ export const clientResults: ClientResult[] = [
   {
     slug: "nereo-claude-code",
     company: "Nereo",
-    logo: null,
+    logo: nereoLogo.src,
     liveUrl: null,
     companyUrl: null,
     person: {
