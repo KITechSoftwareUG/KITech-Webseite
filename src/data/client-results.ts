@@ -1,5 +1,5 @@
-import certconsultingLogo from "@/assets/certconsulting-logo.png";
-import nereoLogo from "@/assets/Nereo_Logo_Black_ColorDot.svg";
+import certconsultingLogo from "@/assets/cert_logo.svg";
+import nereoLogo from "@/assets/nereo_logo.svg";
 import pflegexpertsLogo from "@/assets/logo-pflegexperts.png";
 import niimmoLogo from "@/assets/niimmo-logo.png";
 
