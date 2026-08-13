@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { PageShell } from "@/components/layout/PageShell";
+import { CallPopup } from "@/components/conversion/CallPopup";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
@@ -144,6 +145,10 @@ export default function Home({
 
       {/* Kundenkarten als durchlaufendes Band. Danach endet die Seite. */}
       <KundenLaufband />
+
+      {/* Geht kurz nach dem Laden ueber dem Hero auf — nur hier, nicht in der
+          PageShell. Zeiten und Text: src/data/call-popup.ts. */}
+      <CallPopup />
     </PageShell>
   );
 }

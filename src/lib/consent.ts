@@ -6,6 +6,17 @@
 
 export const CONSENT_STORAGE_KEY = "cookie-consent-v1";
 
+/**
+ * Wird gefeuert, sobald der Besucher im Cookie-Banner entschieden hat — egal
+ * wie. Gegenstück zu `cookie-consent:open`, mit dem die Fußzeile den Banner
+ * wieder aufmacht.
+ *
+ * Wer darauf hört: `CallPopup` auf der Startseite. Es wartet mit dem eigenen
+ * Dialog, bis der Banner weg ist, damit nicht zwei Overlays übereinander
+ * liegen und die Einwilligung unbedienbar wird.
+ */
+export const CONSENT_DECIDED_EVENT = "cookie-consent:entschieden";
+
 type StoredConsent = {
   version: 1;
   preferences: { analytics: boolean };

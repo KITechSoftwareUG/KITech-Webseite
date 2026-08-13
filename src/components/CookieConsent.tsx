@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Cookie } from "lucide-react";
 import { trackVisitor } from "@/lib/visitor-enrichment";
-import { CONSENT_STORAGE_KEY, loadStoredConsent } from "@/lib/consent";
+import { CONSENT_DECIDED_EVENT, CONSENT_STORAGE_KEY, loadStoredConsent } from "@/lib/consent";
 import type { PlausibleFn } from "@/lib/plausible";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
@@ -40,6 +40,9 @@ const persistConsent = (preferences: ConsentPreferences) => {
     updatedAt: new Date().toISOString(),
   };
   localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(payload));
+  // Sagt der Seite Bescheid, dass der Banner gleich verschwindet. Das
+  // Startseiten-Popup wartet darauf, siehe CONSENT_DECIDED_EVENT.
+  window.dispatchEvent(new Event(CONSENT_DECIDED_EVENT));
 };
 
 /**

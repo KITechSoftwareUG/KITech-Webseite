@@ -13,7 +13,11 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
-**Stand 12.08.2026 — was zuletzt geändert wurde:** Das kostenlose Angebot heißt
+**Stand 13.08.2026 — was zuletzt geändert wurde:** Die Startseite hat ein
+**Popup**, das kurz nach dem Laden aufgeht („Buch dir einen Call.") — siehe
+[Popup auf der Startseite](#popup-auf-der-startseite).
+
+**Stand 12.08.2026 — was davor geändert wurde:** Das kostenlose Angebot heißt
 jetzt **1:1-KI-Check** (`src/config/angebot.ts`, eine Quelle für Balken, Knöpfe
 und Terminseite) und läuft **jeden Donnerstag mit fünf Plätzen** — der Wochentag
 steht in `CHECK_TAG` und **muss zum Calendly-Kalender passen**. `/lass-uns-reden`
@@ -384,6 +388,32 @@ woertliche Vorgaben von Ayham — nicht umformulieren. Fehlt ein Foto (Joerg,
 Jennifer), zeigt die Kachel eine neutrale Silhouette statt einer leeren Flaeche.
 `linkedinUrl` ist bisher nur bei Ayham gefuellt; ohne URL rendert die Kachel
 keinen Link, statt auf ein fremdes Profil zu zeigen.
+
+### Popup auf der Startseite
+
+`src/components/conversion/CallPopup.tsx`, Inhalt und Zeiten in
+`src/data/call-popup.ts`. **Auf Ansage (13.08.2026):** „Fast ganz ungescrollt
+kommt sofort ein Pop-up: ‚Buch dir einen Call‘, so richtig direkt … so ganz
+radikal, so richtig stoppend."
+
+- **Nur die Startseite.** Hängt in `Home.tsx`, nicht in `PageShell` — auf
+  `/lass-uns-reden` wäre es sinnlos, über einem Rechtstext unpassend.
+- **Wann es aufgeht:** 3,5 s nach dem Laden oder ab 120 px Scroll, was zuerst
+  kommt. Erstbesucher sehen es erst, wenn der **Cookie-Banner entschieden** ist
+  (Event `CONSENT_DECIDED_EVENT` aus `src/lib/consent.ts`, gefeuert in
+  `CookieConsent.tsx`) — sonst läge ein Dialog über der Einwilligung und
+  machte sie unbedienbar. Danach nur noch 1,2 s.
+- **Wie oft:** einmal, dann 7 Tage Ruhe (weggeklickt) bzw. 90 Tage (Knopf
+  geklickt). Zeitstempel im `localStorage` unter `call-popup-v1`.
+- **Aufbau:** Radix-Dialog aus `components/ui/dialog` — Escape, Fokus-Falle und
+  Scroll-Sperre kommen von dort. Der Fokus geht auf den Kasten, nicht auf das
+  Schließen-Kreuz. Scharfe Kanten, Pill-Knopf mit denselben Maßen wie im Hero.
+
+⚠️ **Bekannt und bewusst in Kauf genommen:** Google wertet Overlays, die auf dem
+Handy direkt nach dem Laden den Inhalt verdecken, als „intrusive interstitial" —
+das kann die Startseite in der mobilen Suche zurückstufen. Wer das nicht will,
+dreht an `CALL_POPUP_VERZOEGERUNG_MS`/`CALL_POPUP_SCROLL_PX`; die Komponente
+muss dafür nicht angefasst werden.
 
 ### Kundenkarten: Ergebnis, Beleglinks, Fotos, Sterne
 
