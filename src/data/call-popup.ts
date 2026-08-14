@@ -14,13 +14,25 @@
  * Der Knopf führt wie jeder andere CTA der Website auf `angebot.href`
  * (`/lass-uns-reden`) — nie direkt zu Calendly.
  *
- * ⚠️ **Zu wissen, solange das Popup so früh aufgeht:** Google wertet Overlays,
- * die auf dem Handy direkt nach dem Laden den Inhalt verdecken, als
- * „intrusive interstitial" und kann die Seite in der mobilen Suche
- * zurückstufen. Das betrifft genau die Startseite. Wer das Risiko nicht
- * tragen will, setzt `CALL_POPUP_VERZOEGERUNG_MS` hoch oder lässt das Popup
- * erst ab einer Scrolltiefe aufgehen — beides sind Zahlen in dieser Datei, die
- * Komponente muss dafür nicht angefasst werden.
+ * **Es wartet auf Ruhe (Vorgabe 14.08.2026).** Bis dahin ging es 3,5 s nach
+ * dem Laden auf, oder sofort bei der ersten Scrollbewegung. Beides ist
+ * zurückgenommen: „Bitte ein bisschen verzögert anzeigen — es soll kommen,
+ * wenn quasi nichts passiert. Ranking ist schon sehr wichtig."
+ *
+ * Der Grund ist nicht Höflichkeit, sondern Google: Overlays, die auf dem Handy
+ * **unmittelbar nach dem Laden** den Inhalt verdecken, gelten als „intrusive
+ * interstitial" und können die Seite in der mobilen Suche zurückstufen — und
+ * die Startseite ist die Seite, die ranken soll. Ein Dialog, der erst nach
+ * einer knappen halben Minute und nur in einer Lesepause kommt, fällt nicht
+ * darunter.
+ *
+ * Die Bedingung hat deshalb drei Teile, alle in dieser Datei einstellbar:
+ *
+ *   1. **Frühestens** nach `CALL_POPUP_MINDESTDAUER_MS` auf der Seite.
+ *   2. **Dann** erst, wenn `CALL_POPUP_RUHE_MS` lang nichts passiert —
+ *      kein Scrollen, keine Maus, keine Taste, keine Berührung.
+ *   3. **Spätestens** nach `CALL_POPUP_SPAETESTENS_MS`, damit es auch jemanden
+ *      erreicht, der ununterbrochen liest und scrollt.
  */
 
 export interface CallPopupInhalt {
@@ -42,33 +54,45 @@ export const callPopup: CallPopupInhalt = {
 };
 
 /**
- * Wie lange nach dem Laden das Popup aufgeht — „fast ganz ungescrollt".
+ * Wie lange jemand mindestens auf der Seite gewesen sein muss.
  *
- * Kurz genug, dass es die Aussage im Hero unterbricht, lang genug, dass sie
- * vorher einmal gelesen werden kann.
+ * 25 Sekunden sind deutlich mehr als die Zeitspanne, in der Google ein Overlay
+ * noch der Landung zurechnet, und ungefähr die Zeit, die man braucht, um Hero
+ * und die ersten Kundenkarten anzusehen.
  */
-export const CALL_POPUP_VERZOEGERUNG_MS = 3500;
+export const CALL_POPUP_MINDESTDAUER_MS = 25_000;
 
 /**
- * Dieselbe Verzögerung für Erstbesucher, gemessen ab dem Moment, in dem der
- * Cookie-Banner weggeklickt wurde.
+ * Wie lange nichts passiert sein muss, bevor das Popup aufgeht.
+ *
+ * Das ist der Kern der Vorgabe: nicht mitten in die Bewegung hinein, sondern
+ * in die Pause danach. Sechs Sekunden ohne Scrollen, Maus, Taste oder
+ * Berührung sind auf einer Seite dieser Länge eine echte Pause und nicht bloß
+ * der Moment, in dem jemand einen Satz zu Ende liest.
+ */
+export const CALL_POPUP_RUHE_MS = 6_000;
+
+/**
+ * Notbremse: Wer ununterbrochen scrollt, hätte sonst nie eine Pause — und
+ * bekäme das Popup nie zu sehen. Nach dieser Zeit geht es auch ohne Ruhe auf.
+ */
+export const CALL_POPUP_SPAETESTENS_MS = 75_000;
+
+/**
+ * Vorlauf für Erstbesucher, gemessen ab dem Moment, in dem der Cookie-Banner
+ * weggeklickt wurde. Erst danach beginnt die Mindestdauer zu laufen.
  *
  * **Warum überhaupt gewartet wird:** Der Banner erscheint nach 500 ms unten am
  * Rand. Ein Dialog darüber sperrt die Seite (Radix legt einen Overlay über
  * alles) — die Einwilligung wäre dann nicht mehr bedienbar. Zwei Overlays
  * gleichzeitig sind in beide Richtungen schlecht: rechtlich, weil die
  * Einwilligung frei zugänglich sein muss, und praktisch, weil niemand zwei
- * Kästen gleichzeitig liest. Deshalb erst der Banner, dann das Popup — und
- * dann schneller, weil zu dem Zeitpunkt schon Zeit auf der Seite vergangen ist.
- */
-export const CALL_POPUP_VERZOEGERUNG_NACH_CONSENT_MS = 1200;
-
-/**
- * Scrollt jemand vorher schon los, geht das Popup sofort auf.
+ * Kästen gleichzeitig liest.
  *
- * 120 px sind rund eine Handbewegung auf dem Handy — „fast ganz ungescrollt".
+ * ⚠️ Wer den Banner **gar nicht** anfasst, sieht auch kein Popup. Das ist der
+ * Preis dafür, die Einwilligung nicht zu verdecken.
  */
-export const CALL_POPUP_SCROLL_PX = 120;
+export const CALL_POPUP_VORLAUF_NACH_CONSENT_MS = 2_000;
 
 /** Wie lange Ruhe ist, wenn jemand das Popup wegklickt. */
 export const CALL_POPUP_PAUSE_TAGE = 7;

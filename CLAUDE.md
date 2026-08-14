@@ -400,22 +400,32 @@ radikal, so richtig stoppend."
 
 - **Nur die Startseite.** Hängt in `Home.tsx`, nicht in `PageShell` — auf
   `/lass-uns-reden` wäre es sinnlos, über einem Rechtstext unpassend.
-- **Wann es aufgeht:** 3,5 s nach dem Laden oder ab 120 px Scroll, was zuerst
-  kommt. Erstbesucher sehen es erst, wenn der **Cookie-Banner entschieden** ist
-  (Event `CONSENT_DECIDED_EVENT` aus `src/lib/consent.ts`, gefeuert in
-  `CookieConsent.tsx`) — sonst läge ein Dialog über der Einwilligung und
-  machte sie unbedienbar. Danach nur noch 1,2 s.
+- **Wann es aufgeht (geändert am 14.08.2026):** frühestens nach **25 s** auf der
+  Seite, und dann erst, wenn **6 s lang nichts passiert** — kein Scrollen, keine
+  Taste, kein Klick, kein Wischen. Spätestens nach 75 s kommt es auch bei
+  Dauerbetrieb. Erstbesucher sehen es erst, wenn der **Cookie-Banner
+  entschieden** ist (Event `CONSENT_DECIDED_EVENT` aus `src/lib/consent.ts`,
+  gefeuert in `CookieConsent.tsx`) — sonst läge ein Dialog über der
+  Einwilligung und machte sie unbedienbar; danach kommen 2 s Vorlauf dazu.
+  Wer den Banner gar nicht anfasst, sieht kein Popup.
+
+  Ursprünglich (13.08.2026) ging es 3,5 s nach dem Laden auf, oder sofort ab
+  120 px Scroll. Das ist auf Ansage zurückgenommen: „Bitte ein bisschen
+  verzögert anzeigen — es soll kommen, wenn quasi nichts passiert. Ranking ist
+  schon sehr wichtig."
 - **Wie oft:** einmal, dann 7 Tage Ruhe (weggeklickt) bzw. 90 Tage (Knopf
   geklickt). Zeitstempel im `localStorage` unter `call-popup-v1`.
 - **Aufbau:** Radix-Dialog aus `components/ui/dialog` — Escape, Fokus-Falle und
   Scroll-Sperre kommen von dort. Der Fokus geht auf den Kasten, nicht auf das
   Schließen-Kreuz. Scharfe Kanten, Pill-Knopf mit denselben Maßen wie im Hero.
 
-⚠️ **Bekannt und bewusst in Kauf genommen:** Google wertet Overlays, die auf dem
-Handy direkt nach dem Laden den Inhalt verdecken, als „intrusive interstitial" —
-das kann die Startseite in der mobilen Suche zurückstufen. Wer das nicht will,
-dreht an `CALL_POPUP_VERZOEGERUNG_MS`/`CALL_POPUP_SCROLL_PX`; die Komponente
-muss dafür nicht angefasst werden.
+**Warum die Wartezeit:** Google wertet Overlays, die auf dem Handy unmittelbar
+nach dem Laden den Inhalt verdecken, als „intrusive interstitial" und kann die
+Seite in der mobilen Suche zurückstufen — und die Startseite ist die Seite, die
+ranken soll. Mit der Verzögerung fällt das Popup nicht mehr darunter. Wer an
+der Taktung dreht, ändert `CALL_POPUP_MINDESTDAUER_MS`, `CALL_POPUP_RUHE_MS`
+oder `CALL_POPUP_SPAETESTENS_MS` — die Komponente muss dafür nicht angefasst
+werden. **Je kürzer die Mindestdauer, desto größer das Ranking-Risiko.**
 
 ### Kundenkarten: Ergebnis, Beleglinks, Fotos, Sterne
 

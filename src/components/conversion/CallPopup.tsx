@@ -13,19 +13,21 @@ import {
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import {
   callPopup,
+  CALL_POPUP_MINDESTDAUER_MS,
   CALL_POPUP_PAUSE_NACH_KLICK_TAGE,
   CALL_POPUP_PAUSE_TAGE,
-  CALL_POPUP_SCROLL_PX,
-  CALL_POPUP_VERZOEGERUNG_MS,
-  CALL_POPUP_VERZOEGERUNG_NACH_CONSENT_MS,
+  CALL_POPUP_RUHE_MS,
+  CALL_POPUP_SPAETESTENS_MS,
+  CALL_POPUP_VORLAUF_NACH_CONSENT_MS,
 } from "@/data/call-popup";
 import { CONSENT_DECIDED_EVENT, loadStoredConsent } from "@/lib/consent";
 import { trackEvent } from "@/lib/plausible";
 
 /**
- * Das Popup der Startseite: geht kurz nach dem Laden auf und stellt genau eine
- * Frage. Inhalt, Zeiten und Pausen stehen in `src/data/call-popup.ts`, samt
- * der Begründung, warum es so früh kommt.
+ * Das Popup der Startseite: wartet, bis jemand eine Weile da war und gerade
+ * nichts tut, und stellt dann genau eine Frage. Zeiten, Text und Pausen stehen
+ * in `src/data/call-popup.ts`, samt der Begründung für jede der drei
+ * Bedingungen.
  *
  * **Nur auf der Startseite.** Es hängt bewusst nicht in `PageShell`, sondern in
  * `Home.tsx` — auf `/lass-uns-reden` wäre ein Kasten, der zum Termin auffordert,
@@ -77,13 +79,24 @@ export function CallPopup() {
   useEffect(() => {
     if (sperreAktiv()) return;
 
-    let timer = 0;
-    let aufScroll: (() => void) | null = null;
+    /**
+     * Was als „hier passiert gerade etwas" zählt. Bewusst **ohne**
+     * Mausbewegung: eine zitternde Hand auf dem Trackpad ist keine
+     * Beschäftigung mit der Seite, und der Dialog käme sonst bei manchen nie.
+     */
+    const AKTIVITAET = ["scroll", "wheel", "keydown", "pointerdown", "touchmove"] as const;
+
+    let ruhe = 0;
+    let notbremse = 0;
+    /** Zeitpunkt, ab dem geöffnet werden darf (Mindestdauer auf der Seite). */
+    let fruehestens = 0;
     let aufConsent: (() => void) | null = null;
 
     const stoppen = () => {
-      window.clearTimeout(timer);
-      if (aufScroll) window.removeEventListener("scroll", aufScroll);
+      window.clearTimeout(ruhe);
+      window.clearTimeout(notbremse);
+      AKTIVITAET.forEach((e) => window.removeEventListener(e, aktivitaet));
+      document.removeEventListener("visibilitychange", aktivitaet);
       if (aufConsent) window.removeEventListener(CONSENT_DECIDED_EVENT, aufConsent);
     };
 
@@ -93,21 +106,41 @@ export function CallPopup() {
       trackEvent("CTA_Klick", { position: "startseite-popup", label: "angezeigt" });
     };
 
-    /** Zeit ODER erste Scrollbewegung — was zuerst kommt. */
-    const wecker = (verzoegerung: number) => {
-      timer = window.setTimeout(oeffnen, verzoegerung);
-      aufScroll = () => {
-        if (window.scrollY > CALL_POPUP_SCROLL_PX) oeffnen();
-      };
-      window.addEventListener("scroll", aufScroll, { passive: true });
+    /**
+     * Die Ruhephase ist vorbei. Öffnen darf aber nur, wer lange genug da ist —
+     * sonst wird auf die Restzeit vertagt. Kommt in der Zwischenzeit wieder
+     * Bewegung, setzt `aktivitaet()` die Uhr ohnehin zurück.
+     */
+    const pruefen = () => {
+      const rest = fruehestens - Date.now();
+      if (rest > 0) {
+        ruhe = window.setTimeout(pruefen, rest);
+        return;
+      }
+      oeffnen();
+    };
+
+    /** Jede Regung stellt die Ruhe-Uhr zurück. Im Hintergrund läuft sie nicht. */
+    function aktivitaet() {
+      window.clearTimeout(ruhe);
+      if (document.hidden) return;
+      ruhe = window.setTimeout(pruefen, CALL_POPUP_RUHE_MS);
+    }
+
+    const starten = (vorlauf: number) => {
+      fruehestens = Date.now() + vorlauf + CALL_POPUP_MINDESTDAUER_MS;
+      notbremse = window.setTimeout(oeffnen, vorlauf + CALL_POPUP_SPAETESTENS_MS);
+      AKTIVITAET.forEach((e) => window.addEventListener(e, aktivitaet, { passive: true }));
+      document.addEventListener("visibilitychange", aktivitaet);
+      aktivitaet();
     };
 
     if (loadStoredConsent()) {
       // Wiederkehrer: der Cookie-Banner erscheint gar nicht erst.
-      wecker(CALL_POPUP_VERZOEGERUNG_MS);
+      starten(0);
     } else {
-      // Erstbesuch: warten, bis der Banner weg ist (siehe CONSENT_DECIDED_EVENT).
-      aufConsent = () => wecker(CALL_POPUP_VERZOEGERUNG_NACH_CONSENT_MS);
+      // Erstbesuch: erst läuft der Banner, dann beginnt die Uhr.
+      aufConsent = () => starten(CALL_POPUP_VORLAUF_NACH_CONSENT_MS);
       window.addEventListener(CONSENT_DECIDED_EVENT, aufConsent);
     }
 
