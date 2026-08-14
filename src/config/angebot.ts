@@ -7,10 +7,20 @@
  * musste sie alle finden. Ab jetzt steht hier, was angeboten wird, und die
  * Seiten holen es sich.
  *
- * Stand 12.08.2026: aus dem 30-minütigen Erstgespräch ist der einstündige
- * **1:1-KI-Check** geworden, begrenzt auf fünf Plätze pro Woche. Der Name ist
- * auf Ansage gewählt worden — "1:1" gehört hinein, weil genau das den
- * Unterschied zu einem Webinar oder einer Sprechstunde ausmacht.
+ * Stand 12.08.2026: aus dem 30-minütigen Erstgespräch ist der **1:1-KI-Check**
+ * geworden, begrenzt auf fünf Plätze pro Woche. Der Name ist auf Ansage
+ * gewählt worden — "1:1" gehört hinein, weil genau das den Unterschied zu
+ * einem Webinar oder einer Sprechstunde ausmacht.
+ *
+ * **Stand 14.08.2026: wieder eine halbe Stunde** ("die Meetings bei
+ * /lass-uns-reden auf halbe Stunde begrenzen"). Die Dauer steht an *einer*
+ * Stelle — `dauer` — und wird von Hero, Popup, Terminseite und Selbstcheck
+ * gelesen.
+ *
+ * ⚠️ **Calendly muss dazu passen.** Der Termintyp unter
+ * `calendly.com/kitech-software/roi-analyse` ist in Calendly selbst auf 30
+ * Minuten zu stellen; das kann diese Datei nicht. Steht dort weiter eine
+ * Stunde, widerspricht die Buchungsstrecke der Angabe auf der Seite.
  */
 
 export interface Angebot {
@@ -33,9 +43,11 @@ export interface Angebot {
 /**
  * Wie viele Plätze pro Woche vergeben werden.
  *
- * Die Zahl ist **echt**: eine Stunde je Termin, fünf Termine — mehr gibt der
+ * Die Zahl ist **echt**: fünf Termine an einem Tag in der Woche — mehr gibt der
  * Kalender neben der Projektarbeit nicht her. Genau deshalb darf sie auch
- * ausgesprochen werden.
+ * ausgesprochen werden. (Sie stammt aus der Zeit der einstündigen Termine und
+ * ist bei einer halben Stunde eher konservativ; geändert wird sie nur auf
+ * Ansage, weil sie eine Zusage über die Verfügbarkeit ist.)
  */
 export const PLAETZE_PRO_WOCHE = 5;
 
@@ -80,8 +92,8 @@ export const angebot: Angebot = {
   kurz: "1:1-KI-Check",
   name: "Dein 1:1-KI-Check",
   beschreibung:
-    "Eine Stunde mit mir, allein auf dein Unternehmen: Wir gehen deine KI- und Automatisierungsaufstellung durch — was läuft, was fehlt, was sich zuerst lohnt.",
-  dauer: "60 Minuten",
+    "Eine halbe Stunde mit mir, allein auf dein Unternehmen: Wir gehen deine KI- und Automatisierungsaufstellung durch — was läuft, was fehlt, was sich zuerst lohnt.",
+  dauer: "30 Minuten",
   cta: "Kostenlosen 1:1-KI-Check sichern",
   ctaZusatz: `${PLAETZE_PRO_WOCHE} Plätze pro Woche`,
   href: "/lass-uns-reden",

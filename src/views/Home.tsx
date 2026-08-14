@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
+import { StructuredData, getFAQSchema, getWebPageSchema } from "@/components/seo/StructuredData";
 import { PageShell } from "@/components/layout/PageShell";
 import { CallPopup } from "@/components/conversion/CallPopup";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
+import { Gruenderwort } from "@/components/sections/Gruenderwort";
+import { FaqBlock } from "@/components/sections/FaqBlock";
+import { faq } from "@/data/faq";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
@@ -60,11 +63,16 @@ export default function Home({
   return (
     <PageShell backdrop="none">
       <StructuredData
-        data={getWebPageSchema(
-          "KITech Software",
-          "Anwendungspartner für KI im deutschen Mittelstand",
-          "https://kitech-software.de/"
-        )}
+        data={[
+          getWebPageSchema(
+            "KITech Software",
+            "Anwendungspartner für KI im deutschen Mittelstand",
+            "https://kitech-software.de/"
+          ),
+          /* Aus derselben Quelle wie der sichtbare FAQ-Block weiter unten —
+             Google verlangt, dass ausgezeichneter Text auf der Seite steht. */
+          getFAQSchema(faq.map((f) => ({ question: f.frage, answer: f.antwort }))),
+        ]}
       />
 
       <section className="relative isolate overflow-hidden bg-surface-strong">
@@ -143,8 +151,15 @@ export default function Home({
         </div>
       </section>
 
-      {/* Kundenkarten als durchlaufendes Band. Danach endet die Seite. */}
+      {/* Kundenkarten als durchlaufendes Band. */}
       <KundenLaufband />
+
+      {/* Seit dem 14.08.2026 steht darunter wieder etwas — auf Ansage, nachdem
+          die Seite seit dem 11.08. bewusst nach dem Laufband endete: erst die
+          Person hinter der Firma, dann die Fragen, die im Gespräch immer
+          kommen. Inhalte in src/data/gruenderwort.ts bzw. src/data/faq.ts. */}
+      <Gruenderwort />
+      <FaqBlock />
 
       {/* Geht kurz nach dem Laden ueber dem Hero auf — nur hier, nicht in der
           PageShell. Zeiten und Text: src/data/call-popup.ts. */}

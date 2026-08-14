@@ -139,13 +139,11 @@ export function SalesLetter({ content }: { content: SalesLetterContent }) {
           </span>
 
           {/* Hero-Überschrift in Versalien — prägendster Zug der Vorlage. Der
-              hervorgehobene Teil steht jetzt im dunkelblauen Marker statt im
-              dunklen; weißer Text gehört im hellen Layout nur auf Dunkelblau. */}
+              blaue Marker hinter dem zweiten Teil ist am 14.08.2026 entfallen
+              (Vorgabe: auf allen Unterseiten weg). `headlineHighlight` bleibt
+              als eigenes Feld in den Daten und hängt jetzt einfach an. */}
           <h1 className="kinetic-display kinetic-morph-in max-w-[820px] text-balance text-[36px] uppercase leading-[1.08] text-foreground sm:text-[54px]">
-            {content.hero.headline}{" "}
-            <span className="box-decoration-clone rounded-lg bg-primary px-2.5 pb-1 text-primary-foreground">
-              {content.hero.headlineHighlight}
-            </span>
+            {content.hero.headline} {content.hero.headlineHighlight}
           </h1>
 
           <p className="mt-8 max-w-[620px] text-pretty text-[15px] font-normal leading-[1.65] text-muted-foreground sm:text-base">

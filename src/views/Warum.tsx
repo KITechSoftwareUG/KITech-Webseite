@@ -59,15 +59,10 @@ export default function Warum() {
       />
 
       <PageHeading
-        title={
-          <>
-            Die Technik war noch nie{" "}
-            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
-              das Problem
-            </span>
-            .
-          </>
-        }
+        /* Ohne blauen Marker auf "das Problem" (Vorgabe 14.08.2026): die
+           Auszeichnung ist auf allen Unterseiten raus, wie zuvor schon im Hero
+           der Startseite. Die Aussage trägt sich selbst. */
+        title="Die Technik war noch nie das Problem." 
         lead="Zwei Wege zur selben Ursache. Nimm den, der auf dich passt."
       />
 

@@ -48,14 +48,10 @@ export function Segment({ content }: { content: SegmentContent }) {
       />
 
       <PageHeading
-        title={
-          <>
-            {content.headline}{" "}
-            <span className="box-decoration-clone bg-primary px-2.5 pb-1 text-primary-foreground">
-              {content.headlineHighlight}
-            </span>
-          </>
-        }
+        /* Überschrift und Hervorhebung stehen in `segments.ts` getrennt, weil
+           der zweite Teil früher im blauen Marker stand. Der ist seit dem
+           14.08.2026 überall raus — jetzt bilden beide einen Satz. */
+        title={`${content.headline} ${content.headlineHighlight}`}
         lead={content.lead}
       >
         <Link
