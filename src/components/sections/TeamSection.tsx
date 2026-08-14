@@ -48,7 +48,12 @@ const PHOTO_GROUND_HIGHLIGHT = "bg-surface";
  */
 const EMPTY_GROUND = "bg-surface-strong";
 
-function TeamTile({ member }: { member: TeamMember }) {
+/**
+ * Eine Personenkachel. Exportiert, weil die Startseite dieselbe Kachel unter
+ * dem Gründerwort verwendet (`Gruenderwort.tsx`) — zwei Bauweisen für dieselbe
+ * Sache wären zwei Stellen, an denen ein Foto oder eine Rolle falsch aussieht.
+ */
+export function TeamTile({ member }: { member: TeamMember }) {
   const ground = member.photo
     ? member.highlight
       ? PHOTO_GROUND_HIGHLIGHT

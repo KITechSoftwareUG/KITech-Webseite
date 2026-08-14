@@ -33,17 +33,24 @@ export interface Gruenderwort {
   absaetze: string[];
   /** Was unter dem Namen steht, statt eines weiteren Knopfes. */
   abschluss: string;
-  /** Überschrift über den beiden Kollegen. Sichtbar, aber klein. */
+  /** Überschrift über den Kacheln. Sichtbar, aber klein. */
   teamUeberschrift: string;
   /**
-   * Wer neben Ayham gezeigt wird — Namen aus `src/data/team.ts`.
+   * Wer gezeigt wird — Namen wie in `src/data/team.ts`, in dieser Reihenfolge.
    *
    * **Auf Ansage (14.08.2026):** „Da, wo mein Bild auftaucht, gerne auch mein
-   * Team anzeigen. Ich geb dir zwei Leute: Jörg und Leon."
+   * Team anzeigen. Ich geb dir zwei Leute: Jörg und Leon." Und kurz darauf:
+   * „Leon und Jörg Kratzat mit Bildern! Alle nebeneinander auch — nicht nur
+   * mich so prominent darstellen!"
    *
-   * Bewusst nur zwei von vier: Jennifer (Werkstudentin Backoffice) ist auf der
-   * Startseite nicht genannt worden. Wer sie ergänzen will, trägt hier den
-   * Namen ein — Rolle und Satz kommen dann automatisch aus `team.ts`.
+   * Deshalb steht Ayham **in derselben Reihe** und nicht mehr als großes
+   * Portrait daneben: drei gleich breite Kacheln, gleiche Bildhöhe, keine
+   * Auszeichnung für den Gründer.
+   *
+   * Jennifer (Werkstudentin Backoffice) ist bewusst nicht dabei. Wer sie
+   * ergänzen will, trägt hier den Namen ein — Foto, Rolle und Satz kommen
+   * automatisch aus `team.ts`. Ab vier Namen bricht das Raster auf zwei
+   * Zeilen um, das trägt es.
    */
   teamNamen: string[];
 }
@@ -61,6 +68,6 @@ export const gruenderwort: Gruenderwort = {
 
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",
 
-  teamUeberschrift: "Wer sonst noch dabei ist",
-  teamNamen: ["Leon", "Jörg"],
+  teamUeberschrift: "Das Team",
+  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat"],
 };

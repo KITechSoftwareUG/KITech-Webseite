@@ -17,8 +17,7 @@
  */
 
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
-/* `leon-portrait.webp` wird hier bewusst nicht mehr importiert — siehe den
-   Kommentar bei Leon weiter unten. Die Datei bleibt im Repo. */
+import leonPortrait from "@/assets/leon-portrait.webp";
 
 export interface TeamMember {
   name: string;
@@ -46,26 +45,39 @@ export const teamRoster: TeamMember[] = [
     bio: "Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung von Software- und KI-Lösungen für Unternehmen und Großkonzerne.",
     photo: ayhamPortrait.src,
     linkedinUrl: "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
-    highlight: true,
+    /**
+     * **Keine Hervorhebung mehr (14.08.2026, auf Ansage:** „alle nebeneinander
+     * auch — nicht nur mich so prominent darstellen!"). Vorher trug Ayhams
+     * Kachel eine Akzentkante und einen helleren Bildgrund. Dass er der
+     * Geschäftsführer ist, sagt die Rolle unter dem Namen; dafür braucht es
+     * keine zweite Auszeichnung.
+     */
+    highlight: false,
   },
   {
     name: "Leon",
-    /**
-     * **Ohne Foto seit dem 14.08.2026, auf Ansage.** Leon steht auf der
-     * Startseite bereits als Kunde im Kundenlaufband (klargehalt.de). Dasselbe
-     * Gesicht ein zweites Mal, ein paar Bildschirmhöhen tiefer als Teammitglied,
-     * liest sich wie ein gestellter Beleg — genau das war die Begründung.
-     * `src/assets/leon-portrait.webp` bleibt im Repo liegen.
-     */
     role: "Entwickler",
     bio: "Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen.",
-    photo: null,
+    /**
+     * Am 14.08.2026 kurzzeitig auf `null` gesetzt und noch am selben Tag
+     * zurückgeholt („Leon und Jörg Kratzat mit Bildern!"). Zu wissen: Leon ist
+     * auf der Startseite auch im Kundenlaufband zu sehen (klargehalt.de) —
+     * sein Gesicht steht dort damit ein zweites Mal.
+     */
+    photo: leonPortrait.src,
     linkedinUrl: null,
   },
   {
-    name: "Jörg",
+    /** Nachname am 14.08.2026 auf Ansage ergänzt. */
+    name: "Jörg Kratzat",
     role: "Vertrieb",
     bio: "Vertriebsprofi mit über 30 Jahren Erfahrung im Verkauf und in der persönlichen Kundenbetreuung.",
+    /**
+     * ⚠️ **Foto fehlt.** Gewünscht ist eines („mit Bildern!"), im Repo liegt
+     * keines. Bis dahin zeigt die Kachel die neutrale Silhouette. Sobald das
+     * Bild da ist: freigestellt als WebP unter `public/images/team/` ablegen
+     * und den Pfad hier eintragen — sonst ist nichts zu tun.
+     */
     photo: null,
     linkedinUrl: null,
   },
