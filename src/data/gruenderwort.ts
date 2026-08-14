@@ -33,6 +33,19 @@ export interface Gruenderwort {
   absaetze: string[];
   /** Was unter dem Namen steht, statt eines weiteren Knopfes. */
   abschluss: string;
+  /** Überschrift über den beiden Kollegen. Sichtbar, aber klein. */
+  teamUeberschrift: string;
+  /**
+   * Wer neben Ayham gezeigt wird — Namen aus `src/data/team.ts`.
+   *
+   * **Auf Ansage (14.08.2026):** „Da, wo mein Bild auftaucht, gerne auch mein
+   * Team anzeigen. Ich geb dir zwei Leute: Jörg und Leon."
+   *
+   * Bewusst nur zwei von vier: Jennifer (Werkstudentin Backoffice) ist auf der
+   * Startseite nicht genannt worden. Wer sie ergänzen will, trägt hier den
+   * Namen ein — Rolle und Satz kommen dann automatisch aus `team.ts`.
+   */
+  teamNamen: string[];
 }
 
 export const gruenderwort: Gruenderwort = {
@@ -47,4 +60,7 @@ export const gruenderwort: Gruenderwort = {
   ],
 
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",
+
+  teamUeberschrift: "Wer sonst noch dabei ist",
+  teamNamen: ["Leon", "Jörg"],
 };

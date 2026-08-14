@@ -17,7 +17,8 @@
  */
 
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
-import leonPortrait from "@/assets/leon-portrait.webp";
+/* `leon-portrait.webp` wird hier bewusst nicht mehr importiert — siehe den
+   Kommentar bei Leon weiter unten. Die Datei bleibt im Repo. */
 
 export interface TeamMember {
   name: string;
@@ -49,9 +50,16 @@ export const teamRoster: TeamMember[] = [
   },
   {
     name: "Leon",
+    /**
+     * **Ohne Foto seit dem 14.08.2026, auf Ansage.** Leon steht auf der
+     * Startseite bereits als Kunde im Kundenlaufband (klargehalt.de). Dasselbe
+     * Gesicht ein zweites Mal, ein paar Bildschirmhöhen tiefer als Teammitglied,
+     * liest sich wie ein gestellter Beleg — genau das war die Begründung.
+     * `src/assets/leon-portrait.webp` bleibt im Repo liegen.
+     */
     role: "Entwickler",
     bio: "Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen.",
-    photo: leonPortrait.src,
+    photo: null,
     linkedinUrl: null,
   },
   {

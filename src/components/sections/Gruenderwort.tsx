@@ -3,9 +3,18 @@ import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { founderInfo } from "@/components/sections/FounderPortrait";
 import { company } from "@/config/company";
 import { gruenderwort } from "@/data/gruenderwort";
+import { teamRoster } from "@/data/team";
 
 /**
- * Der Abschnitt unter dem Kundenlaufband: Portrait, Zitat, zwei Absätze.
+ * Die Kollegen, in der Reihenfolge aus `gruenderwort.ts`. Ein Name ohne Eintrag
+ * in `team.ts` fällt still weg, statt eine leere Zeile zu erzeugen.
+ */
+const team = gruenderwort.teamNamen
+  .map((name) => teamRoster.find((person) => person.name === name))
+  .filter((person): person is (typeof teamRoster)[number] => Boolean(person));
+
+/**
+ * Der Abschnitt unter dem Kundenlaufband: Portrait, Zitat, zwei Absätze, Team.
  *
  * Aufbau bewusst identisch zum Gründerblock auf `/haltung` — Portrait links,
  * unsichtbare Überschrift, Zitat als tragendes Element, darunter Name, Rolle
@@ -68,6 +77,39 @@ export function Gruenderwort() {
                 LinkedIn
               </a>
             </div>
+
+            {/*
+              Das Team steht dort, wo Ayham steht — auf Ansage (14.08.2026).
+              Bewusst ohne Fotos: für Jörg liegt keins vor, und Leons Gesicht
+              ist auf derselben Seite schon einmal zu sehen (als Kunde im
+              Kundenlaufband). Zwei graue Silhouetten neben einem echten
+              Portrait wären der schlechtere Eindruck als gar keins. Name,
+              Rolle und ein Satz reichen — Trennlinien statt Kacheln, wie
+              überall sonst auf der Seite.
+            */}
+            {team.length > 0 && (
+              <div className="mt-12 border-t border-border pt-8">
+                <h3 className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  {gruenderwort.teamUeberschrift}
+                </h3>
+
+                <dl className="mt-5 grid gap-6 sm:grid-cols-2 sm:gap-8">
+                  {team.map((person) => (
+                    <div key={person.name}>
+                      <dt className="text-[15px] font-semibold leading-tight text-foreground">
+                        {/* Echtes Leerzeichen statt `ml-2`: sonst liest ein
+                            Screenreader „LeonEntwickler" am Stück vor. */}
+                        {person.name}{" "}
+                        <span className="font-normal text-muted-foreground">{person.role}</span>
+                      </dt>
+                      <dd className="mt-2 text-pretty text-fliess text-muted-foreground">
+                        {person.bio}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
           </div>
         </div>
       </div>
