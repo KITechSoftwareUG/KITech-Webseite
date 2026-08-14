@@ -1,0 +1,82 @@
+{
+  "name": "KITech Website — Benachrichtigungen",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kitech-website",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-eingang",
+      "name": "Meldung von der Website",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "kitech-website"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Baut aus der Meldung eine lesbare Zeile.\n//\n// Die Website schickt zwei Formen an denselben Webhook:\n//   1. Ereignisse  (src/app/api/ereignis/route.ts)      -> ereignis, seite, referrer, firma, ort, ...\n//   2. Tagesbericht (src/app/api/tagesbericht/route.ts)  -> bringt ein fertiges Feld `text` mit\n//\n// Wer weitere Ereignisse ergaenzt, traegt sie unten in TITEL ein — fehlt ein\n// Eintrag, wird der technische Name angezeigt statt gar nichts.\n\nconst TITEL = {\n  besuch: '👀 Besuch auf der Website',\n  termin_geoeffnet: '📅 Terminseite geoeffnet',\n  popup_geklickt: '🔵 Popup geklickt — will einen Call',\n  telefon_geklickt: '📞 Telefonnummer geklickt',\n  email_geklickt: '✉️ E-Mail-Adresse geklickt',\n  selbstcheck_fertig: '✅ Selbstcheck abgeschlossen',\n  tagesbericht: '📊 Tagesbericht',\n};\n\nconst d = $input.first().json;\n\n// Der Tagesbericht bringt seinen Text schon mit.\nif (d.text) {\n  return [{ json: { nachricht: d.text, ereignis: d.ereignis ?? 'tagesbericht', roh: d } }];\n}\n\nconst zeilen = [TITEL[d.ereignis] ?? d.ereignis];\n\nif (d.seite) zeilen.push(`Seite: ${d.seite}`);\n\n// Firma und Ort kommen nur bei Besuchern mit Einwilligung an.\nif (d.firma) zeilen.push(`Firma: ${d.firma}${d.ort ? ` (${d.ort})` : ''}`);\nelse if (d.ort) zeilen.push(`Ort: ${d.ort}`);\n\nif (d.referrer) zeilen.push(`Kam von: ${d.referrer}`);\n\nconst kampagne = [d.utm_source, d.utm_medium, d.utm_campaign].filter(Boolean).join(' / ');\nif (kampagne) zeilen.push(`Kampagne: ${kampagne}`);\n\nif (d.zeitpunkt) {\n  zeilen.push(\n    new Date(d.zeitpunkt).toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })\n  );\n}\n\nreturn [{ json: { nachricht: zeilen.join('\\n'), ereignis: d.ereignis, roh: d } }];"
+      },
+      "id": "nachricht-bauen",
+      "name": "Nachricht bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "version": 2 },
+          "conditions": [
+            {
+              "id": "nur-wichtige",
+              "leftValue": "={{ $json.ereignis }}",
+              "rightValue": "besuch",
+              "operator": { "type": "string", "operation": "notEquals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "filter-lautstaerke",
+      "name": "Nur wichtige melden?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "notes": "Trennt reine Besuche von den Momenten, aus denen ein Gespraech werden kann. Wer JEDEN Besuch sofort wissen will, verbindet den unteren Ausgang ebenfalls mit dem Versand."
+    },
+    {
+      "parameters": {
+        "chatId": "HIER_DEINE_CHAT_ID",
+        "text": "={{ $json.nachricht }}",
+        "additionalFields": { "appendAttribution": false }
+      },
+      "id": "telegram-versand",
+      "name": "Telegram (Zugang eintragen)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [700, -100],
+      "disabled": true,
+      "notes": "Deaktiviert, bis ein Telegram-Zugang hinterlegt ist. Bot bei @BotFather anlegen, Token als Credential speichern, Chat-ID eintragen, Node aktivieren. Statt Telegram geht hier genauso E-Mail, Slack oder ein Eintrag ins CRM."
+    }
+  ],
+  "connections": {
+    "Meldung von der Website": {
+      "main": [[{ "node": "Nachricht bauen", "type": "main", "index": 0 }]]
+    },
+    "Nachricht bauen": {
+      "main": [[{ "node": "Nur wichtige melden?", "type": "main", "index": 0 }]]
+    },
+    "Nur wichtige melden?": {
+      "main": [
+        [{ "node": "Telegram (Zugang eintragen)", "type": "main", "index": 0 }],
+        []
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

@@ -678,6 +678,14 @@ Domain.
 `.env.example`; ohne `EREIGNIS_WEBHOOK_URL` bestätigt die Route still mit 204,
 ohne `PLAUSIBLE_API_KEY`/`TAGESBERICHT_SECRET` antwortet der Bericht mit 404.
 
+**Einrichtung Schritt für Schritt:** `deploy/BENACHRICHTIGUNGEN.md` — dort steht
+auch, was schon gesetzt ist und was noch fehlt. Der fertige n8n-Workflow liegt
+als `deploy/n8n-benachrichtigung.json` daneben und wird importiert, nicht
+nachgebaut. **n8n** läuft seit dem 14.08.2026 als eigener Coolify-Service
+(`n8n-automation`, Projekt „KITech Website") und ist der einzige Empfänger:
+wohin die Nachricht am Ende geht — Telegram, E-Mail, CRM — entscheidet der
+Workflow, nicht die Website.
+
 ## Analytics (Plausible)
 
 Self-hosted auf `stats.kitech-software.de`. **Konfiguration ist seit dem Umzug auf Coolify hardcoded** in `src/lib/plausible.ts` und `CookieConsent.tsx` (Domain/Script-URL/API-Endpoint direkt im Code) — **nicht** mehr ueber `VITE_PLAUSIBLE_*`-Env-Vars (diese stehen als toter Verweis/Referenz noch in `.env.example`, werden aber nicht gelesen).
