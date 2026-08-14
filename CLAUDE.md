@@ -319,7 +319,9 @@ Zitate), eine Sammelbewertung und ein durchgestrichener Vorher-Preis.
 
 | Was | Wo |
 |---|---|
-| Rahmen ohne Ausgänge | `src/components/layout/FunnelShell.tsx` — Logo (ohne Link) + Rechtstexte, sonst nichts. **Nicht `PageShell`**: volle Navigation gibt kaltem Traffic ein Dutzend Ausgänge vor dem einen Knopf. |
+| Rahmen ohne Ausgänge | `src/components/layout/FunnelShell.tsx` — **keine Kopfleiste**, nur Rechtstexte unten. **Nicht `PageShell`**: volle Navigation gibt kaltem Traffic ein Dutzend Ausgänge vor dem einen Knopf. |
+| Logo | `FunnelLogo` aus derselben Datei — steht *in* der ersten Sektion der Seite, auf deren Grund, damit keine Leiste entsteht. Dunkle Datei `public/logo.png`; `logo-weiss.svg` wäre auf hellem Grund unsichtbar. Bewusst ohne Link. |
+| Besuchsmeldung | `src/app/api/funnel-besuch/route.ts` + `src/lib/funnel-besuch.ts` — meldet **jeden** Aufruf an `FUNNEL_BESUCH_WEBHOOK_URL`, unabhängig vom Cookie-Banner. Ohne Cookie, ohne IP-Weitergabe, ohne Drittdienst; deshalb einwilligungsfrei. Ohne gesetzte Variable passiert nichts. |
 | Inhalt | `src/data/funnel.ts` |
 | Termin + Countdown | `src/components/sections/WorkshopTermin.tsx` — rendert **nur mit echtem Datum**. `termin: null` ⇒ der ganze Block entfällt. |
 

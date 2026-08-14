@@ -1,7 +1,9 @@
 "use client";
 
-import { FunnelShell } from "@/components/layout/FunnelShell";
+import { useEffect } from "react";
+import { FunnelLogo, FunnelShell } from "@/components/layout/FunnelShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
+import { meldeFunnelBesuch } from "@/lib/funnel-besuch";
 
 /**
  * Landingpage `/fokus` (Domain `fokus.kitech-software.de`) — **bewusst leer**.
@@ -27,10 +29,18 @@ import { SITE_CONTAINER } from "@/components/layout/site-container";
  * für den Aufbau einer Kampagnenseite (Struktur, Rahmen, wiederholter CTA).
  */
 export function Fokus() {
+  /* Auch die leere Seite meldet Aufrufe — sonst bliebe unsichtbar, ob die
+     Domain überhaupt noch angesteuert wird. */
+  useEffect(() => {
+    meldeFunnelBesuch("/fokus");
+  }, []);
+
   return (
     <FunnelShell>
-      <section className={`${SITE_CONTAINER} py-24 sm:py-32`}>
-        <h1 className="kinetic-display max-w-[640px] text-balance text-[28px] leading-[1.16] text-foreground sm:text-h2">
+      <section className={`${SITE_CONTAINER} pb-24 pt-7 sm:pb-32 sm:pt-9`}>
+        <FunnelLogo />
+
+        <h1 className="kinetic-display mt-20 max-w-[640px] text-balance text-[28px] leading-[1.16] text-foreground sm:mt-28 sm:text-h2">
           Hier entsteht gerade etwas.
         </h1>
         <p className="mt-5 max-w-[520px] text-pretty text-lead font-normal text-muted-foreground">

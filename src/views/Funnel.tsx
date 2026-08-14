@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { Check, ChevronDown, X } from "lucide-react";
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
-import { FunnelShell } from "@/components/layout/FunnelShell";
+import { FunnelLogo, FunnelShell } from "@/components/layout/FunnelShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { StarRating } from "@/components/sections/StarRating";
@@ -17,6 +18,7 @@ import {
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { testimonials } from "@/data/testimonials";
 import { funnelContent as c } from "@/data/funnel";
+import { meldeFunnelBesuch } from "@/lib/funnel-besuch";
 import { trackEvent } from "@/lib/plausible";
 import { BASE_URL } from "@/lib/metadata";
 
@@ -152,6 +154,12 @@ function ZeichenListe({
 /* -------------------------------------------------------------------------- */
 
 export function Funnel() {
+  /* Jeder Aufruf wird gemeldet — unabhängig vom Cookie-Banner und ohne
+     personenbezogene Daten. Begründung in src/app/api/funnel-besuch/route.ts. */
+  useEffect(() => {
+    meldeFunnelBesuch("/funnel");
+  }, []);
+
   return (
     <FunnelShell>
       <StructuredData
@@ -167,9 +175,13 @@ export function Funnel() {
       {/* ------------------------------------------------------------ Hero -- */}
       {/* Linksbündig wie in der Vorlage — nicht zentriert wie der Hero der
           Startseite. Auf `surface-strong`, dem grauen Grund des Designsystems. */}
-      <section className="bg-surface-strong pb-14 pt-[44px] sm:pt-[64px]">
+      <section className="bg-surface-strong pb-14 pt-7 sm:pt-9">
         <div className={SITE_CONTAINER}>
-          <h1 className="kinetic-display kinetic-morph-in max-w-[860px] text-balance text-[36px] leading-[41.4px] text-foreground sm:text-h1">
+          {/* Absender, keine Navigation — steht auf demselben grauen Grund wie
+              der Hero, damit über der Aussage keine eigene Leiste liegt. */}
+          <FunnelLogo />
+
+          <h1 className="kinetic-display kinetic-morph-in mt-10 max-w-[860px] text-balance text-[36px] leading-[41.4px] text-foreground sm:mt-14 sm:text-h1">
             {c.headline}{" "}
             <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
               {c.headlineHighlight}

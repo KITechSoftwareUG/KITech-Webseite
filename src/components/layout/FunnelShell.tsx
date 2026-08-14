@@ -17,11 +17,18 @@ import { SITE_CONTAINER } from "./site-container";
  * ist. `funnel-narrativ/reference/bans.md` verbietet aus demselben Grund ein
  * zweites CTA-Ziel — eine volle Navigation ist nichts anderes, nur in groß.
  *
+ * **Keine Kopfleiste** (Vorgabe 12.08.2026): „Die Leiste oben braucht man
+ * nicht, das Logo funktioniert sowieso nicht." Hier stand bis dahin das
+ * dunkelblaue Band der Hauptseite mit dem weißen Logo darin. Es sah aus wie
+ * eine Navigation, war aber keine — das Logo verlinkte bewusst nirgendwohin,
+ * damit die Seite keinen Ausgang bekommt. Ein Balken, der wie ein Menü
+ * aussieht und sich nicht wie eins verhält, kostet nur Bauhöhe über der
+ * Aussage. Das Logo steht jetzt als reines Absenderzeichen im Seitenkopf, den
+ * die jeweilige Seite selbst setzt (`FunnelLogo`), auf demselben Grund wie ihr
+ * Hero — dadurch gibt es keine Kante mehr zwischen Leiste und Inhalt.
+ *
  * Was bleibt, bleibt aus einem Grund:
  *
- *   - **Das Logo** oben links, wie in der Vorlage. Es verweist bewusst *nicht*
- *     auf die Startseite: ein Link dorthin wäre genau der Ausgang, den diese
- *     Hülle vermeidet. Es steht als Absender da, nicht als Navigation.
  *   - **Impressum, Datenschutz, AGB.** Die Anbieterkennzeichnung ist nach § 5
  *     DDG Pflicht und muss von jeder öffentlich erreichbaren Seite ohne Umweg
  *     erreichbar sein.
@@ -31,24 +38,26 @@ import { SITE_CONTAINER } from "./site-container";
  * Dieselbe Bauart wie `CheckShell` — nur trägt der Funnel im Gegensatz zum
  * Selbstcheck die Marke, weil er sie verkauft.
  */
+/**
+ * Absenderzeichen im Seitenkopf — ohne Balken, ohne Link.
+ *
+ * Steht innerhalb der ersten Sektion der Seite, damit es auf deren Grund sitzt
+ * und keine sichtbare Kante entsteht. Dunkle Logodatei (`logo.png`), weil der
+ * Grund hier hell ist; `logo-weiss.svg` wäre unsichtbar.
+ */
+export function FunnelLogo() {
+  return (
+    <img
+      src="/logo.png"
+      alt="KITech Software"
+      className="h-7 w-auto select-none sm:h-8"
+    />
+  );
+}
+
 export function FunnelShell({ children }: { children: ReactNode }) {
   return (
     <div className="relative flex min-h-screen flex-col bg-background text-foreground">
-      {/* Gleiche Höhe und Innenbreite wie die Navigationsleiste der Hauptseite,
-          damit die Seite nicht wie ein fremdes Werkzeug wirkt — nur ohne Menü. */}
-      <header className="relative z-40 w-full bg-navbar text-navbar-foreground">
-        <div className={SITE_CONTAINER}>
-          <div className="flex h-[65px] items-center">
-            {/* Kein `<Link>`: siehe Kopfkommentar. Das Logo ist Absender, kein Weg. */}
-            <img
-              src="/logo-weiss.svg"
-              alt="KITech Software"
-              className="h-8 w-auto dt:h-6"
-            />
-          </div>
-        </div>
-      </header>
-
       <main className="relative flex-1">{children}</main>
 
       <footer className="border-t border-border bg-surface">
