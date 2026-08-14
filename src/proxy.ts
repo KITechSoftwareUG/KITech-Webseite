@@ -50,6 +50,20 @@ export function proxy(request: NextRequest) {
 
   const { pathname, search } = request.nextUrl;
 
+  /*
+   * API-Routen liegen global unter `/api` und gehören zu keiner Domain. Ohne
+   * diese Ausnahme würde `funnel.kitech-software.de/api/funnel-besuch` auf
+   * `/funnel/api/funnel-besuch` umgeschrieben — eine Route, die es nicht gibt,
+   * also eine 404. Genau das ist beim ersten Deploy der Besuchsmeldung
+   * passiert: über die Hauptdomain kam sie an, über die Funnel-Domain nie.
+   *
+   * Der eingeloggte Bereich ist davon nicht betroffen: seine Route Handler
+   * liegen unter `/app/auth/*`, nicht unter `/api/*`.
+   */
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.next();
+  }
+
   // Bereits im richtigen Segment (z. B. interner Aufruf) — nicht doppelt mappen.
   if (pathname === `/${segment}` || pathname.startsWith(`/${segment}/`)) {
     return NextResponse.next();
