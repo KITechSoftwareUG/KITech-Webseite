@@ -8,6 +8,7 @@ import { company } from "@/config/company";
 import { StructuredData, getWebPageSchema } from "@/components/seo/StructuredData";
 import { ArrowRight, CalendarClock, Check, Loader2, Mail, MessageCircle, Phone } from "lucide-react";
 import { trackEvent } from "@/lib/plausible";
+import { meldeEreignis, type Ereignis } from "@/lib/ereignis";
 import { hasAnalyticsConsent } from "@/lib/consent";
 
 /**
@@ -88,6 +89,7 @@ function Direktweg({
   label,
   wert,
   event,
+  meldung,
   extern,
 }: {
   href: string;
@@ -95,13 +97,18 @@ function Direktweg({
   label: string;
   wert: string;
   event: "Telefon_Klick" | "Email_Klick" | "CTA_Klick";
+  /** Zusätzlich zur Statistik eine Sofortmeldung — siehe `src/lib/ereignis.ts`. */
+  meldung?: Ereignis;
   extern?: boolean;
 }) {
   return (
     <a
       href={href}
       {...(extern ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      onClick={() => trackEvent(event, { position: "lass-uns-reden-direkt" })}
+      onClick={() => {
+        trackEvent(event, { position: "lass-uns-reden-direkt" });
+        if (meldung) meldeEreignis(meldung);
+      }}
       className="group flex items-center gap-4 border border-border bg-background p-5 transition-colors hover:border-primary sm:p-6"
     >
       <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-primary text-primary-foreground transition-transform group-hover:scale-105">
@@ -134,6 +141,12 @@ export default function LassUnsReden() {
 
   useEffect(() => {
     setWidgetEnabled(hasAnalyticsConsent());
+  }, []);
+
+  /* Wer diese Seite öffnet, hat den Knopf schon gedrückt — das ist der Moment,
+     der eine Nachricht wert ist, unabhängig davon, ob danach gebucht wird. */
+  useEffect(() => {
+    meldeEreignis("termin_geoeffnet");
   }, []);
 
   useEffect(() => {
@@ -265,6 +278,7 @@ export default function LassUnsReden() {
               label="Anrufen"
               wert={company.mobile.display}
               event="Telefon_Klick"
+              meldung="telefon_geklickt"
             />
             <Direktweg
               href={WHATSAPP_URL}
@@ -280,6 +294,7 @@ export default function LassUnsReden() {
               label="E-Mail"
               wert={company.email.general}
               event="Email_Klick"
+              meldung="email_geklickt"
             />
           </div>
 

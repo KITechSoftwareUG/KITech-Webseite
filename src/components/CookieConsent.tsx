@@ -119,22 +119,24 @@ export function CookieConsent() {
     return () => window.removeEventListener("cookie-consent:open", handleOpen);
   }, []);
 
+  /* Bewusst knapp: der Banner stand auf dem Handy schon bei 70 % der
+     Bildschirmhöhe. Was hier fehlt, steht vollständig unter /datenschutz —
+     genannt sein muss beides, ausgeführt nicht. */
   const complianceText = useMemo(
     () => (
       <>
-        Wir verwenden notwendige Cookies, um die Website sicher und stabil zu
-        betreiben. Mit Ihrer Einwilligung nutzen wir zusätzlich{" "}
-        <strong>anonyme Reichweitenmessung</strong> via Plausible Analytics
-        (self-hosted in Deutschland). Es werden keine personenbezogenen Profile
-        erstellt, kein Dritt‑Tracking und keine Werbung ausgeliefert. Sie können
-        Ihre Auswahl jederzeit in der{" "}
+        Notwendige Cookies für den Betrieb. Mit Ihrer Einwilligung messen wir
+        zusätzlich <strong>anonym die Reichweite</strong> (Plausible,
+        self-hosted in Deutschland) und ermitteln über <strong>ipinfo.io</strong>{" "}
+        das Unternehmen hinter Ihrer IP-Adresse — keine Personenprofile, keine
+        Werbung. Einzelheiten und Widerruf in der{" "}
         <Link
           href="/datenschutz"
           className="text-primary hover:underline font-medium"
         >
           Datenschutzerklärung
-        </Link>{" "}
-        ändern.
+        </Link>
+        .
       </>
     ),
     [],
@@ -219,11 +221,14 @@ export function CookieConsent() {
                       <div className="flex items-center justify-between rounded-lg border border-border/60 bg-background/80 px-4 py-3">
                         <div>
                           <p className="font-medium text-foreground">
-                            Statistik (Plausible · self-hosted)
+                            Statistik & Firmenerkennung
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            Hilft uns zu verstehen, welche Inhalte nützlich
-                            sind. Keine personenbezogenen Daten. Hosted in Deutschland.
+                            Plausible (self-hosted in Deutschland) zeigt uns,
+                            welche Inhalte nützlich sind. Zusätzlich ermitteln
+                            wir über ipinfo.io das Unternehmen hinter Ihrem
+                            Anschluss — nicht Ihre Person. Einzelheiten in der
+                            Datenschutzerklärung.
                           </p>
                         </div>
                         <label className="inline-flex items-center gap-2 cursor-pointer">

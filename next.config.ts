@@ -24,11 +24,14 @@ const logto = logtoOrigin();
  * Content-Security-Policy. Ausnahmen:
  *   - stats.kitech-software.de  -> selbst gehostetes Plausible
  *   - assets.calendly.com / calendly.com -> Terminbuchungs-Embed auf /lass-uns-reden
- *   - ipinfo.io                 -> Besucher-Anreicherung (visitor-enrichment.ts)
- *   - os.kitech-software.de     -> Tracking-Webhook aus visitor-enrichment.ts
- *                                  (die alte Config zeigte noch auf die frühere
- *                                  elestio-Adresse und hätte das blockiert)
  *   - LOGTO_ENDPOINT            -> Anmeldung im App-Bereich, siehe logtoOrigin()
+ *
+ * **Am 14.08.2026 gestrichen: ipinfo.io und os.kitech-software.de.** Beide
+ * standen hier, weil `visitor-enrichment.ts` aus dem Browser des Besuchers
+ * direkt dorthin gefunkt hat. Das läuft jetzt serverseitig über
+ * `/api/ereignis` — der Browser spricht nur noch mit der eigenen Domain, und
+ * die CSP muss keine fremden Ziele mehr erlauben. Wer die Einträge zurückholt,
+ * öffnet den Weg wieder, den der Umbau geschlossen hat.
  *
  * 'unsafe-inline' bei script-src ist nötig, weil Next.js seine Hydrations-Daten
  * per Inline-Script ausliefert. Im Dev-Modus kommt 'unsafe-eval' für Fast Refresh
@@ -40,7 +43,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "font-src 'self' data:",
   "img-src 'self' data: https: blob:",
-  `connect-src 'self' https://stats.kitech-software.de https://os.kitech-software.de https://ipinfo.io https://calendly.com https://api.calendly.com${logto ? ` ${logto}` : ""}`,
+  `connect-src 'self' https://stats.kitech-software.de https://calendly.com https://api.calendly.com${logto ? ` ${logto}` : ""}`,
   "frame-src https://calendly.com",
   "object-src 'none'",
   "base-uri 'self'",

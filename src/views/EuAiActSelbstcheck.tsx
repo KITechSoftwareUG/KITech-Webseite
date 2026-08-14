@@ -7,6 +7,7 @@ import { ArrowRight, ArrowLeft, Mail, Check, Minus, X } from "lucide-react";
 import { CheckShell } from "@/components/layout/CheckShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
+import { meldeEreignis } from "@/lib/ereignis";
 
 type AnswerValue = "yes" | "no" | "unsure";
 type Stage = "intro" | "check" | "result";
@@ -169,6 +170,10 @@ export default function EuAiActSelbstcheck() {
     trackEvent("Lead_Qualifier_abgeschlossen", {
       ergebnis: Math.round((score / MAX_SCORE) * 100),
     });
+    /* Wer den Check zu Ende macht, beschäftigt sich ernsthaft mit dem Thema —
+       das ist eine Sofortmeldung wert. Ohne Antworten, ohne Ergebniswert: was
+       jemand angekreuzt hat, geht niemanden außer ihn selbst etwas an. */
+    meldeEreignis("selbstcheck_fertig");
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   }
 
@@ -238,10 +243,10 @@ function Intro({ onStart }: { onStart: () => void }) {
               EU AI Act · Selbstcheck
             </span>
 
+            {/* Ohne blauen Marker (Vorgabe 14.08.2026) — dieselbe Änderung
+                wie auf allen anderen Seiten. */}
             <h1 className="kinetic-display kinetic-morph-in max-w-2xl text-balance text-4xl leading-[1.35] text-foreground sm:text-5xl sm:leading-[1.25] lg:text-6xl">
-              <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
-                Acht Fragen. Danach wissen Sie, wo Sie stehen.
-              </span>
+              Acht Fragen. Danach wissen Sie, wo Sie stehen.
             </h1>
 
             <p className="mt-8 max-w-xl text-balance text-base font-light leading-relaxed text-foreground/85 sm:text-lg">
@@ -599,7 +604,7 @@ function Result({
                 {todo.length > 0 ? "Offene Punkte besprechen" : "Nachweise prüfen lassen"}
               </span>
               <span className="mt-1 block text-xs font-light text-primary-foreground/70 sm:text-sm">
-                Kostenloser 1:1-KI-Check, 60 Minuten, ohne Verpflichtung
+                Kostenloser 1:1-KI-Check, 30 Minuten, ohne Verpflichtung
               </span>
             </span>
             <ArrowRight

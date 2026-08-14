@@ -13,9 +13,23 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
-**Stand 13.08.2026 — was zuletzt geändert wurde:** Die Startseite hat ein
-**Popup**, das kurz nach dem Laden aufgeht („Buch dir einen Call.") — siehe
-[Popup auf der Startseite](#popup-auf-der-startseite).
+**Stand 14.08.2026 — was zuletzt geändert wurde:** Vier Dinge. Das
+**Startseiten-Popup wartet jetzt auf eine Lesepause** statt sofort
+aufzugehen (Ranking, siehe [Popup](#popup-auf-der-startseite)). Unter dem
+Kundenlaufband stehen wieder Inhalte: **Gründerwort und FAQ**
+(`src/data/gruenderwort.ts`, `src/data/faq.ts`). Der **1:1-KI-Check dauert
+wieder 30 Minuten** statt 60 — eine Zahl in `src/config/angebot.ts`, **der
+Calendly-Termintyp muss nachgezogen werden**. Und der **blaue Marker hinter
+Überschriften ist auf allen Seiten raus** (`/warum`, `/solo`, `/enterprise`,
+Sales Letter, Selbstcheck) — Ausnahme `/funnel`, wo parallel gearbeitet wurde.
+
+Dazu ist das **Besuchertracking neu gebaut** worden, siehe
+[Benachrichtigungen](#benachrichtigungen-ereignisse-und-tagesbericht): der alte
+Weg meldete seit dem Umzug an eine Adresse, die es nicht mehr gibt, und trug
+Token und Secret im Client-Bundle spazieren.
+
+**Stand 13.08.2026 — was davor geändert wurde:** Die Startseite hat ein
+**Popup** („Buch dir einen Call.").
 
 **Stand 12.08.2026 — was davor geändert wurde:** Das kostenlose Angebot heißt
 jetzt **1:1-KI-Check** (`src/config/angebot.ts`, eine Quelle für Balken, Knöpfe
@@ -619,6 +633,50 @@ einbaut, muss sie dort eintragen — sonst blockiert der Browser sie stillschwei
 - Datenschutzerklaerung unter `/datenschutz` — **erwaehnt Calendly als Auftragsverarbeiter aktuell noch nicht explizit**, sollte vor naechster grosser Privacy-Review ergaenzt werden.
 
 ---
+
+## Benachrichtigungen: Ereignisse und Tagesbericht
+
+**Auf Ansage (14.08.2026):** „Ich möchte eine Benachrichtigung kriegen … sodass
+ich dann auch genau weiß, wer das war."
+
+**Was vorher da war und warum es nichts tat:** `src/lib/visitor-enrichment.ts`
+schickte bei jedem zustimmenden Besucher IP, Firma und Ort an
+`os.kitech-software.de/api/webhook/tracking`. Unter der Domain läuft seit dem
+Umzug eine andere Anwendung — der Pfad antwortet mit **404**, es kam also nie
+etwas an. Zusätzlich standen das ipinfo.io-Token und ein Webhook-Secret im
+Quelltext und damit im Client-Bundle, und die IP ging aus dem Browser des
+Besuchers direkt an einen US-Dienst.
+
+| Weg | Wofür |
+|---|---|
+| `src/app/api/ereignis/route.ts` | Sofortmeldung. Nimmt `besuch`, `termin_geoeffnet`, `popup_geklickt`, `telefon_geklickt`, `email_geklickt`, `selbstcheck_fertig` und schickt sie an `EREIGNIS_WEBHOOK_URL`. |
+| `src/lib/ereignis.ts` | `meldeEreignis()` — die Client-Seite dazu. Nicht zu verwechseln mit `trackEvent()` (Plausible): das eine zählt, das andere klingelt. |
+| `src/app/api/tagesbericht/route.ts` | Zahlen des Vortags aus der Plausible-**Query-API v2**, fertig als Text. Wird von außen ausgelöst (n8n/Cron) und ist mit `TAGESBERICHT_SECRET` geschützt. |
+| `src/lib/melde-sperre.ts` | Gemeinsame Sperre gegen Dauerfeuer (10 min/Fenster). |
+
+**Was ohne Einwilligung läuft:** das Ereignis selbst — Seite, Referrer, Kampagne.
+Kein Cookie, kein localStorage, keine IP im Webhook; deshalb greift § 25 TDDDG
+nicht. **Was Einwilligung braucht:** die Firmenerkennung über ipinfo.io. Sie
+läuft nur, wenn der Client `mitEinwilligung: true` meldet, und nur, wenn
+`IPINFO_TOKEN` gesetzt ist — der Aufruf passiert serverseitig.
+
+⚠️ **Cookie-Banner und `/datenschutz` benennen die Firmenerkennung.** Der Banner
+sagte bis dahin „kein Dritt-Tracking", während die Datenschutzerklärung
+ipinfo.io bereits vollständig beschrieb — dieser Widerspruch ist aufgelöst.
+Wer die Firmenerkennung dauerhaft nicht will, nimmt beide Textstellen mit
+heraus. `/datenschutz` hat im selben Zug einen **Calendly-Abschnitt** bekommen
+(vorher offen).
+
+Die CSP in `next.config.ts` erlaubt seit dem Umbau **kein** `ipinfo.io` und kein
+`os.kitech-software.de` mehr: der Browser spricht nur noch mit der eigenen
+Domain.
+
+ℹ️ `/api/funnel-besuch` (Kampagnenseiten) macht dasselbe für `/funnel` und
+`/fokus` und ist älter. Die beiden gehören mittelfristig zusammengelegt.
+
+**Nicht eingerichtet = passiert nichts.** Alle Variablen stehen in
+`.env.example`; ohne `EREIGNIS_WEBHOOK_URL` bestätigt die Route still mit 204,
+ohne `PLAUSIBLE_API_KEY`/`TAGESBERICHT_SECRET` antwortet der Bericht mit 404.
 
 ## Analytics (Plausible)
 

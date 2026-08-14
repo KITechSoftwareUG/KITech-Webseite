@@ -1,48 +1,38 @@
-const IPINFO_TOKEN = "7df240b3cb05e7";
-const WEBHOOK_URL = "https://os.kitech-software.de/api/webhook/tracking";
-const WEBHOOK_SECRET = "e65eab0e64f35a1e07859730c4ddd95119f22941dc983c5b40d08aeb78d911c4";
+import { meldeEreignis } from "@/lib/ereignis";
+
+/**
+ * Meldet einmal je Sitzung, dass jemand auf der Website ist.
+ *
+ * **Am 14.08.2026 vollständig neu gebaut.** Was vorher hier stand, war seit dem
+ * Umzug wirkungslos und dabei riskant:
+ *
+ *   - Der Ziel-Webhook `os.kitech-software.de/api/webhook/tracking` **existiert
+ *     nicht mehr** — unter der Adresse läuft inzwischen eine andere Anwendung,
+ *     der Pfad antwortet mit 404. Jeder zustimmende Besucher löste also eine
+ *     Meldung aus, die nirgends ankam.
+ *   - Das `ipinfo.io`-Token und ein Webhook-Secret standen **im Quelltext** und
+ *     damit im Client-Bundle: für jeden Besucher lesbar, der die Seite ansieht.
+ *   - Die IP ging **aus dem Browser des Besuchers direkt** an einen US-Dienst.
+ *
+ * Jetzt geht die Meldung an die eigene Route `/api/ereignis`. Die Firma wird
+ * dort serverseitig nachgeschlagen, mit einem Token, das den Server nie
+ * verlässt. Was genau übertragen wird, steht im Kopfkommentar der Route.
+ *
+ * **Aufgerufen wird das weiterhin nur nach Zustimmung** zur Reichweitenmessung
+ * (`CookieConsent.tsx`) — deshalb darf hier `sessionStorage` verwendet werden.
+ */
+
 const SESSION_KEY = "visitor-tracked";
 
-export async function trackVisitor(): Promise<void> {
+export function trackVisitor(): void {
   if (typeof window === "undefined") return;
-  if (sessionStorage.getItem(SESSION_KEY)) return;
-  sessionStorage.setItem(SESSION_KEY, "1");
-
-  const params = new URLSearchParams(window.location.search);
-
-  let ipData: Record<string, string> = {};
-  try {
-    const res = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
-    ipData = await res.json();
-  } catch {
-    // kein Enrichment, trotzdem tracken
-  }
-
-  const payload = {
-    page: window.location.pathname,
-    referrer: document.referrer || null,
-    utm_source: params.get("utm_source"),
-    utm_medium: params.get("utm_medium"),
-    utm_campaign: params.get("utm_campaign"),
-    ip: ipData.ip ?? null,
-    org: ipData.org ?? null,
-    city: ipData.city ?? null,
-    region: ipData.region ?? null,
-    country: ipData.country ?? null,
-    hostname: ipData.hostname ?? null,
-  };
 
   try {
-    await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(WEBHOOK_SECRET ? { "x-tracking-secret": WEBHOOK_SECRET } : {}),
-      },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    });
+    if (sessionStorage.getItem(SESSION_KEY)) return;
+    sessionStorage.setItem(SESSION_KEY, "1");
   } catch {
-    // silent fail
+    /* Kein Speicher (privater Modus): dann eben einmal je Seitenaufruf. */
   }
+
+  meldeEreignis("besuch");
 }

@@ -128,7 +128,39 @@ export default function Datenschutz() {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-3">5. Ihre Rechte</h2>
+              <h2 className="text-xl font-semibold mb-3">5. Terminbuchung (Calendly)</h2>
+              <p className="text-muted-foreground mb-4">
+                Auf der Seite „Lass uns reden" binden wir den Terminplaner{" "}
+                <strong>Calendly</strong> (Calendly LLC, 271 17th St NW, Atlanta, GA 30363, USA)
+                ein. Der Kalender wird <strong>erst nach Ihrer Einwilligung</strong> geladen —
+                ohne Einwilligung sehen Sie stattdessen eine Schaltfläche „Kalender laden". Bis
+                dahin wird keine Verbindung zu Calendly aufgebaut.
+              </p>
+              <p className="text-muted-foreground mb-4">
+                Beim Laden übermittelt Ihr Browser IP-Adresse, Gerätedaten und Zeitzone an
+                Calendly; Calendly setzt eigene Cookies. Buchen Sie einen Termin, verarbeitet
+                Calendly zusätzlich die von Ihnen eingegebenen Angaben (Name, E-Mail-Adresse,
+                Nachricht) und leitet sie an uns weiter. Die Übermittlung in die USA erfolgt auf
+                Grundlage der Standardvertragsklauseln gemäß Art. 46 Abs. 2 lit. c DSGVO. Näheres:{" "}
+                <a
+                  href="https://calendly.com/de/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  calendly.com/de/privacy
+                </a>
+                .
+              </p>
+              <p className="text-muted-foreground">
+                Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) für das Laden des
+                Widgets, Art. 6 Abs. 1 lit. b DSGVO für die Durchführung des vereinbarten
+                Termins.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-semibold mb-3">6. Ihre Rechte</h2>
               <p className="text-muted-foreground">
                 Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer
                 gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder
@@ -138,7 +170,7 @@ export default function Datenschutz() {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-3">6. SSL-Verschlüsselung</h2>
+              <h2 className="text-xl font-semibold mb-3">7. SSL-Verschlüsselung</h2>
               <p className="text-muted-foreground">
                 Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine
                 SSL-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des

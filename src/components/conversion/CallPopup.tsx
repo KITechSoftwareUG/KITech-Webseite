@@ -21,6 +21,7 @@ import {
   CALL_POPUP_VORLAUF_NACH_CONSENT_MS,
 } from "@/data/call-popup";
 import { CONSENT_DECIDED_EVENT, loadStoredConsent } from "@/lib/consent";
+import { meldeEreignis } from "@/lib/ereignis";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -156,6 +157,7 @@ export function CallPopup() {
     setOffen(false);
     sperreSetzen(CALL_POPUP_PAUSE_NACH_KLICK_TAGE);
     trackEvent("Calendly_Klick", { position: "startseite-popup" });
+    meldeEreignis("popup_geklickt");
   };
 
   return (
