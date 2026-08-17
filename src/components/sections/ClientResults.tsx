@@ -41,7 +41,7 @@ function ReferenzKarte({ result }: { result: ClientResult }) {
           Freisteller vor — mit Bild standen Sterne und Kennzahl in den drei
           Karten auf verschiedener Hoehe und die Reihe wirkte verrutscht. Die
           Gesichter stehen im Hero und auf /referenzen. */}
-      <StarRating value={result.rating} />
+      {result.rating !== null && <StarRating value={result.rating} />}
 
       {/* Die eine Zahl — sie traegt die Karte. In der Vorlage steht an dieser
           Stelle der Kurstitel in 20 px / 800; die Zahl darf groesser sein, weil
@@ -54,8 +54,8 @@ function ReferenzKarte({ result }: { result: ClientResult }) {
       </p>
 
       <p className="mt-3 text-[15px] font-normal leading-[19.5px] text-muted-foreground">
-        {result.person.name}
-        {result.company ? ` · ${result.company}` : ""}
+        {result.person ? result.person.name : result.company}
+        {result.person && result.company ? ` · ${result.company}` : ""}
       </p>
 
       {/* Der Bewertungssatz, wo einer belegt ist. Sonst faellt die Zeile weg —

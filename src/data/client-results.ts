@@ -1,4 +1,5 @@
 import certconsultingLogo from "@/assets/cert_logo.svg";
+import klargehaltLogo from "@/assets/klargehalt-logo.png";
 import nereoLogo from "@/assets/nereo_logo.svg";
 import pflegexpertsLogo from "@/assets/logo-pflegexperts.png";
 import niimmoLogo from "@/assets/niimmo-logo.png";
@@ -101,13 +102,22 @@ export interface ClientResult {
    * entfernen.
    */
   hideOnHome?: boolean;
+  /**
+   * Die Person, die für den Fall steht.
+   *
+   * `null`, wenn der Fall ohne Gesicht auskommt — dann trägt ihn allein das
+   * Firmenlogo. Bei `klargehalt.de` ist das so gewollt (Ansage 14.08.2026,
+   * siehe dort): Leon Battel steht auf derselben Startseite bereits im Team,
+   * und der eigene Entwickler als Kundenreferenz liest sich wie ein
+   * gestellter Beleg.
+   */
   person: {
     name: string;
     /** Rolle beim Kunden, optional. */
     role: string | null;
     /** Pfad unter /public. null => Initialen-Platzhalter. */
     photo: string | null;
-  };
+  } | null;
   /**
    * Sterne-Bewertung dieses Kunden, 1–5. Erscheint auf der Bewertungskarte.
    *
@@ -122,7 +132,7 @@ export interface ClientResult {
    * braucht es vor dem Livegang eine echte, dokumentierte Bewertung —
    * erfundene Bewertungen sind nach § 5b Abs. 3 UWG abmahnbar.
    */
-  rating: number;
+  rating: number | null;
   /**
    * Der kurze Bewertungssatz auf der Karte, wörtlich so abgegeben. Genau ein
    * Satz — keine mehrzeiligen Testimonials, das ist Vorgabe.
@@ -274,16 +284,24 @@ export const clientResults: ClientResult[] = [
   {
     slug: "klargehalt-saas",
     company: "klargehalt.de",
-    logo: null,
+    /* Wortmarke von klargehalt.de, freigestellt aus deren og-image. */
+    logo: klargehaltLogo.src,
     liveUrl: "https://klargehalt.de",
     companyUrl: null,
     hideOnHome: true,
-    person: {
-      name: "Leon Battel",
-      role: null,
-      photo: "/images/kunden/leon-battel.webp",
-    },
-    rating: 5,
+    /*
+     * **Ohne Person, auf Ansage (14.08.2026):** "Du musst Leon rausnehmen aus
+     * den Referenzen — mach nur klargehalt.de und das Logo von klargehalt.de
+     * und fertig." Leon steht auf der Startseite bereits im Team; derselbe
+     * Mensch ein paar Bildschirme tiefer als Kunde ist kein Beleg, sondern
+     * eine Selbstauskunft.
+     *
+     * `rating` faellt damit weg: eine Bewertung braucht jemanden, der sie
+     * abgibt. Fuenf Sterne ohne Absender waeren eine Behauptung ueber eine
+     * Kundenzufriedenheit, die hier niemand geaeussert hat.
+     */
+    person: null,
+    rating: null,
     review: null,
     kategorie: "SaaS-Entwicklung",
     headline: { value: "2 Monate", label: "von der ersten Zeile bis zum Livegang" },

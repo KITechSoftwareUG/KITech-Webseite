@@ -32,7 +32,9 @@ export function ReferencePortrait({
    */
   imageClassName?: string;
 }) {
-  if (!person.photo) return null;
+  /* Kein Bild oder gar keine Person (Fall ohne Gesicht, siehe
+     client-results.ts) — dann rendert die Komponente nichts. */
+  if (!person?.photo) return null;
 
   return (
     <div className={className}>

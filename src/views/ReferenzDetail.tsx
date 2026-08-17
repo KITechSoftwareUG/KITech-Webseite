@@ -117,17 +117,26 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                   imageClassName="h-[128px] sm:h-[156px]"
                 />
                 <div className="min-w-0 pt-1">
-                  <p className="text-base font-semibold leading-tight text-foreground sm:text-lg">
-                    {result.person.name}
-                  </p>
-                  {result.person.role && (
-                    <p className="mt-1 text-fliess leading-tight text-muted-foreground">
-                      {result.person.role}
+                  {/* Ohne Person traegt die Firma den Kopf allein. */}
+                  {result.person ? (
+                    <>
+                      <p className="text-base font-semibold leading-tight text-foreground sm:text-lg">
+                        {result.person.name}
+                      </p>
+                      {result.person.role && (
+                        <p className="mt-1 text-fliess leading-tight text-muted-foreground">
+                          {result.person.role}
+                        </p>
+                      )}
+                      <p className="mt-2 text-fliess leading-tight text-muted-foreground">
+                        {result.company}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-base font-semibold leading-tight text-foreground sm:text-lg">
+                      {result.company}
                     </p>
                   )}
-                  <p className="mt-2 text-fliess leading-tight text-muted-foreground">
-                    {result.company}
-                  </p>
                   {result.logo && (
                     <span className="mt-3 inline-flex h-12 items-center bg-white px-2.5">
                       <img
@@ -353,8 +362,8 @@ export default function ReferenzDetail({ result, nextResult }: ReferenzDetailPro
                 <p className="mt-5 text-pretty text-[15px] leading-[1.65] text-muted-foreground">
                   Was oben steht, ist belegt: die Zahl und das gebaute System.
                   Die Langfassung — Ausgangslage, Projektverlauf, Kennzahlen und das Zitat —
-                  veröffentlichen wir erst, wenn sie mit {result.person.name} abgestimmt und
-                  schriftlich freigegeben ist.
+                  veröffentlichen wir erst, wenn sie mit {result.person?.name ?? result.company}
+                  abgestimmt und schriftlich freigegeben ist.
                 </p>
                 <Link
                   href="/referenzen"

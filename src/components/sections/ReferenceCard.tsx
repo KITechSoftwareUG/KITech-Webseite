@@ -61,17 +61,27 @@ export function ReferenceCard({
         />
 
         <div className="min-w-0 pt-1">
-          <p className="text-[15px] font-bold leading-tight text-foreground sm:text-base">
-            {result.person.name}
-          </p>
-          {result.person.role && (
-            <p className="mt-1 text-[12px] font-normal leading-tight text-muted-foreground">
-              {result.person.role}
+          {/* Ohne Person steht die Firma oben — sonst begaenne die Karte mit
+              einer leeren Zeile, wo sonst der Name steht. */}
+          {result.person ? (
+            <>
+              <p className="text-[15px] font-bold leading-tight text-foreground sm:text-base">
+                {result.person.name}
+              </p>
+              {result.person.role && (
+                <p className="mt-1 text-[12px] font-normal leading-tight text-muted-foreground">
+                  {result.person.role}
+                </p>
+              )}
+              <p className="mt-1.5 text-[12px] font-normal leading-tight text-muted-foreground">
+                {result.company}
+              </p>
+            </>
+          ) : (
+            <p className="text-[15px] font-bold leading-tight text-foreground sm:text-base">
+              {result.company}
             </p>
           )}
-          <p className="mt-1.5 text-[12px] font-normal leading-tight text-muted-foreground">
-            {result.company}
-          </p>
 
           {/* Bewertung und Logo teilen sich eine Zeile — untereinander wuerden sie
               den Kartenkopf unnoetig in die Hoehe ziehen.
@@ -79,7 +89,7 @@ export function ReferenceCard({
               Karte ist jetzt selbst weiss, und alle hinterlegten Kundenlogos sind
               dunkel auf transparent — auf Weiss stehen sie ohne Hilfsflaeche. */}
           <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <StarRating value={result.rating} />
+            {result.rating !== null && <StarRating value={result.rating} />}
             {result.logo && (
               <span className="inline-flex h-10 items-center">
                 <img

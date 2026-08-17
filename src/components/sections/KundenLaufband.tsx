@@ -34,7 +34,7 @@ import { trackEvent } from "@/lib/plausible";
 
 /** Faelle mit Foto zuerst, danach der Rest in Datenreihenfolge. */
 const sortiert = [...clientResults].sort((a, b) => {
-  const foto = (r: ClientResult) => (r.person.photo ? 0 : 1);
+  const foto = (r: ClientResult) => (r.person?.photo ? 0 : 1);
   return foto(a) - foto(b);
 });
 
@@ -73,7 +73,7 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
         Reihenfolge: Portrait, sonst Firmenlogo, sonst leer.
       */}
       <div className="mt-5 flex h-[104px] items-center justify-center">
-        {result.person.photo ? (
+        {result.person?.photo ? (
           <ReferencePortrait
             person={result.person}
             className="w-[90px]"
@@ -90,14 +90,26 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
         ) : null}
       </div>
 
-      <p className="mt-3 text-fliess font-bold leading-tight text-foreground">
-        {result.person.name}
-      </p>
-      <p className="mt-1 text-mini font-normal text-muted-foreground">{result.company}</p>
+      {/* Ohne Person traegt die Firma die Karte allein — dann steht sie in der
+          Zeile, in der sonst der Name steht, und nicht klein darunter. */}
+      {result.person ? (
+        <>
+          <p className="mt-3 text-fliess font-bold leading-tight text-foreground">
+            {result.person.name}
+          </p>
+          <p className="mt-1 text-mini font-normal text-muted-foreground">{result.company}</p>
+        </>
+      ) : (
+        <p className="mt-3 text-fliess font-bold leading-tight text-foreground">
+          {result.company}
+        </p>
+      )}
 
-      <div className="mt-2.5">
-        <StarRating value={result.rating} />
-      </div>
+      {result.rating !== null && (
+        <div className="mt-2.5">
+          <StarRating value={result.rating} />
+        </div>
+      )}
     </Link>
   );
 }
