@@ -2,9 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
-import portraitAsset from "@/assets/ayham-portrait.webp";
 
-const PORTRAIT_URL = portraitAsset.src;
+const PORTRAIT_URL = "/images/team/ayham.webp";
 const NAME = "Ayham Alkhalil";
 const ROLE = "Gründer & Geschäftsführer";
 const QUOTE_SHORT = "KI wird überall reingequetscht – ohne klaren ROI. Ich mache es anders.";

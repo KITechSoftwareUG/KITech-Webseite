@@ -13,7 +13,18 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
-**Stand 14.08.2026 — was zuletzt geändert wurde:** Vier Dinge. Das
+**Stand 17.08.2026 — was zuletzt geändert wurde:** Die **Bilder sind neu
+geordnet**: alle inhaltlichen Bilder liegen unter `public/images/`
+(`team/`, `referenzen/portraits/`, `referenzen/logos/`), Wegweiser in
+[`public/images/README.md`](public/images/README.md). Ein neues Foto braucht
+damit keine Import-Zeile mehr — Datei ablegen, Pfad eintragen. Die Referenz
+**klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: Leon steht
+im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
+seitlich neben dem Gründerwort** statt in großen Kacheln, mit **York** als
+viertem Namen und der Einladung „Du willst dabei sein?" auf `/karriere`.
+Leon heißt jetzt **Technical Accountant**.
+
+**Stand 14.08.2026 — was davor geändert wurde:** Vier Dinge. Das
 **Startseiten-Popup wartet jetzt auf eine Lesepause** statt sofort
 aufzugehen (Ranking, siehe [Popup](#popup-auf-der-startseite)). Unter dem
 Kundenlaufband stehen wieder Inhalte: **Gründerwort und FAQ**
@@ -117,7 +128,11 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   ├── robots.txt             # SEO + KI-Crawler-Freigaben
 │   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (liegt hinter dem aktuellen Stand)
 │   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (liegt hinter dem aktuellen Stand)
-│   ├── images/kunden/           # Kundenfotos fuer die Ergebniskarten
+│   ├── images/                  # ★ ALLE inhaltlichen Bilder (siehe images/README.md)
+│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, leon, york)
+│   │   ├── referenzen/portraits/ #   Kundengesichter
+│   │   ├── referenzen/logos/    #   Kundenlogos
+│   │   └── og/                  #   Social-Vorschaubilder
 │   └── logo.png                 # Echtes, lokal gebuendeltes Logo
 ├── deploy/
 │   └── COOLIFY.md               # Deployment-Anleitung (nginx.conf/security-headers.conf entfallen)

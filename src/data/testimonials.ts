@@ -1,5 +1,3 @@
-import kremaLogo from "@/assets/krema-logo.png";
-import niimmoLogo from "@/assets/niimmo-logo.png";
 
 /**
  * Echte Kundenstimmen. Gemeinsame Quelle für Startseite und Terminseite —
@@ -28,14 +26,14 @@ export const testimonials: Testimonial[] = [
     quote: "Sehr tolle Zusammenarbeit",
     author: "Eugen Kretschmann",
     role: "Geschäftsführer KREMA Group",
-    logo: kremaLogo.src,
+    logo: "/images/referenzen/logos/krema.png",
     rating: 5,
   },
   {
     quote: "Hier versteht jemand die Nutzung von KI",
     author: "Dennis Mikyas",
     role: "Geschäftsführer NiImmo Holding GmbH",
-    logo: niimmoLogo.src,
+    logo: "/images/referenzen/logos/niimmo.png",
     rating: 5,
   },
 ];

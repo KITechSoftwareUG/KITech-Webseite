@@ -132,7 +132,7 @@ export const soloLetter: SalesLetterContent = {
         "Das ist der Satz hinter allem, was wir hier machen: Falsche KI kostet mehr als keine KI. Sie kostet dich das Geld, das Abo, die Einarbeitung — und die Überzeugung, dass es bei dir eben nicht funktioniert.",
       ],
       image: {
-        src: "/images/ayham-hero.webp",
+        src: "/images/team/ayham-hero.webp",
         alt: "Ayham Alkhalil, Geschäftsführer von KITech Software",
         align: "right",
       },
@@ -207,7 +207,7 @@ export const unternehmenLetter: SalesLetterContent = {
         "Deshalb kostet falsch eingesetzte KI mehr als gar keine: Sie bindet Budget, bindet die besten Leute und hinterlässt im Haus die Überzeugung, dass das Thema nichts bringt.",
       ],
       image: {
-        src: "/images/ayham-hero.webp",
+        src: "/images/team/ayham-hero.webp",
         alt: "Ayham Alkhalil, Geschäftsführer von KITech Software",
         align: "right",
       },

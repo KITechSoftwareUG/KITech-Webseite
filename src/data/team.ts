@@ -16,8 +16,6 @@
  * siehe client-results.ts) und den Pfad hier eintragen.
  */
 
-import ayhamPortrait from "@/assets/ayham-portrait.webp";
-import leonPortrait from "@/assets/leon-portrait.webp";
 
 export interface TeamMember {
   name: string;
@@ -43,7 +41,7 @@ export const teamRoster: TeamMember[] = [
     name: "Ayham Alkhalil",
     role: "Geschäftsführer & Entwickler",
     bio: "Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung von Software- und KI-Lösungen für Unternehmen und Großkonzerne.",
-    photo: ayhamPortrait.src,
+    photo: "/images/team/ayham.webp",
     linkedinUrl: "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
     /**
      * **Keine Hervorhebung mehr (14.08.2026, auf Ansage:** „alle nebeneinander
@@ -56,15 +54,17 @@ export const teamRoster: TeamMember[] = [
   },
   {
     name: "Leon",
-    role: "Entwickler",
+    /** Rolle am 17.08.2026 auf Ansage geändert — vorher „Entwickler". */
+    role: "Technical Accountant",
     bio: "Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen.",
     /**
-     * Am 14.08.2026 kurzzeitig auf `null` gesetzt und noch am selben Tag
-     * zurückgeholt („Leon und Jörg Kratzat mit Bildern!"). Zu wissen: Leon ist
-     * auf der Startseite auch im Kundenlaufband zu sehen (klargehalt.de) —
-     * sein Gesicht steht dort damit ein zweites Mal.
+     * Das Foto war am 14.08.2026 kurz draußen, weil Leon damals zusätzlich als
+     * Kunde im Kundenlaufband stand und sein Gesicht dadurch zweimal auf
+     * derselben Seite war. Seit dem 17.08.2026 ist die Referenz `klargehalt.de`
+     * ohne Person (siehe `client-results.ts`) — der Grund ist damit weg, das
+     * Foto bleibt.
      */
-    photo: leonPortrait.src,
+    photo: "/images/team/leon.webp",
     linkedinUrl: null,
   },
   {
@@ -79,6 +79,20 @@ export const teamRoster: TeamMember[] = [
      * und den Pfad hier eintragen — sonst ist nichts zu tun.
      */
     photo: null,
+    linkedinUrl: null,
+  },
+  {
+    /** Am 17.08.2026 auf Ansage aufgenommen, Foto vom selben Tag. */
+    name: "York",
+    role: "Vertrieb IT & SaaS",
+    /**
+     * ⚠️ Formulierung auf Ansage („absoluter Vertriebsprofi im Bereich IT und
+     * SaaS, also auch wirklich spezialisiert"), aber **ohne belegte Zahlen**:
+     * weder Jahre noch Stationen liegen vor. Wer sie hat, trägt sie hier ein —
+     * eine Zahl wirkt mehr als jedes Adjektiv.
+     */
+    bio: "Vertrieb ausschließlich in IT und SaaS: kennt Software-Verkaufszyklen, technische Entscheider und den Unterschied zwischen einer Demo und einem Projekt.",
+    photo: "/images/team/york.webp",
     linkedinUrl: null,
   },
   {

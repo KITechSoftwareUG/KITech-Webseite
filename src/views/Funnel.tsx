@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Check, ChevronDown, X } from "lucide-react";
-import ayhamPortrait from "@/assets/ayham-portrait.webp";
 import { FunnelLogo, FunnelShell } from "@/components/layout/FunnelShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
@@ -384,7 +383,7 @@ export function Funnel() {
             stand das freigestellte Portrait mittig in einer leeren Fläche. */}
         <div className="mt-10 flex max-w-[660px] items-end justify-center overflow-hidden bg-surface-strong">
           <img
-            src={ayhamPortrait.src}
+            src={"/images/team/ayham.webp"}
             alt="Ayham Alkhalil, Gründer von KITech Software"
             className="h-[360px] w-auto select-none object-contain object-bottom sm:h-[460px]"
           />

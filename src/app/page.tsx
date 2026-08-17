@@ -21,7 +21,7 @@ export const metadata = buildMetadata({
  * nicht geleistet — es wählt nach Dateityp, nicht danach, ob die Datei
  * existiert, und hätte bei fehlender Datei ein kaputtes Bild gezeigt.
  */
-const HERO_PORTRAIT = "/images/ayham-hero.webp";
+const HERO_PORTRAIT = "/images/team/ayham-hero.webp";
 const heroPortrait = existsSync(path.join(process.cwd(), "public", HERO_PORTRAIT))
   ? HERO_PORTRAIT
   : null;

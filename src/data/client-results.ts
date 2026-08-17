@@ -1,8 +1,3 @@
-import certconsultingLogo from "@/assets/cert_logo.svg";
-import klargehaltLogo from "@/assets/klargehalt-logo.png";
-import nereoLogo from "@/assets/nereo_logo.svg";
-import pflegexpertsLogo from "@/assets/logo-pflegexperts.png";
-import niimmoLogo from "@/assets/niimmo-logo.png";
 
 /**
  * Kundendaten für das Ergebnisraster auf der Startseite (`ClientResults.tsx`)
@@ -23,7 +18,7 @@ import niimmoLogo from "@/assets/niimmo-logo.png";
  * Vor dem Livegang: jede Karte braucht die schriftliche Freigabe des Kunden für
  * Name, Foto und Zahlen.
  *
- * Fotos der Personen liegen unter `public/images/kunden/` als freigestellte WebPs
+ * Fotos der Personen liegen unter `public/images/referenzen/portraits/` als freigestellte WebPs
  * mit transparentem Hintergrund, auf die Person zugeschnitten, 520 px hoch.
  * Quelle waren die SVG-Freisteller von Ayham. Firmenlogos liegen dagegen als
  * Asset-Import in src/assets.
@@ -220,13 +215,13 @@ export const clientResults: ClientResult[] = [
   {
     slug: "pflegexperts-claude-code",
     company: "Pflegexperts",
-    logo: pflegexpertsLogo.src,
+    logo: "/images/referenzen/logos/pflegexperts.png",
     liveUrl: null,
     companyUrl: "https://pflegexperts.de",
     person: {
       name: "Benjamin Ronneburg",
       role: null,
-      photo: "/images/kunden/benjamin-ronneburg.webp",
+      photo: "/images/referenzen/portraits/benjamin-ronneburg.webp",
     },
     rating: 5,
     review: null,
@@ -285,7 +280,7 @@ export const clientResults: ClientResult[] = [
     slug: "klargehalt-saas",
     company: "klargehalt.de",
     /* Wortmarke von klargehalt.de, freigestellt aus deren og-image. */
-    logo: klargehaltLogo.src,
+    logo: "/images/referenzen/logos/klargehalt.png",
     liveUrl: "https://klargehalt.de",
     companyUrl: null,
     hideOnHome: true,
@@ -362,7 +357,7 @@ export const clientResults: ClientResult[] = [
   {
     slug: "niimmo-portal",
     company: "NiImmo Wohnungsbaugesellschaft",
-    logo: niimmoLogo.src,
+    logo: "/images/referenzen/logos/niimmo.png",
     liveUrl: "https://dashboard.niimmo.de",
     companyUrl: "https://niimmo.de",
     person: {
@@ -429,7 +424,7 @@ export const clientResults: ClientResult[] = [
   {
     slug: "zertifizierungsmanagement-portal",
     company: "cert consulting Pane",
-    logo: certconsultingLogo.src,
+    logo: "/images/referenzen/logos/cert-consulting.svg",
     liveUrl: "https://ccp-portal.de",
     companyUrl: null,
     person: {
@@ -498,7 +493,7 @@ export const clientResults: ClientResult[] = [
     person: {
       name: "Thomas Grynia",
       role: null,
-      photo: "/images/kunden/grynia.webp",
+      photo: "/images/referenzen/portraits/grynia.webp",
     },
     rating: 5,
     review: null,
@@ -554,7 +549,7 @@ export const clientResults: ClientResult[] = [
   {
     slug: "nereo-claude-code",
     company: "Nereo",
-    logo: nereoLogo.src,
+    logo: "/images/referenzen/logos/nereo.svg",
     liveUrl: null,
     companyUrl: null,
     person: {

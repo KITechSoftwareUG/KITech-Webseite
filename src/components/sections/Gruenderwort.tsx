@@ -1,39 +1,71 @@
-import { Linkedin } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Linkedin, UserRound } from "lucide-react";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { founderInfo } from "@/components/sections/FounderPortrait";
-import { TeamTile } from "@/components/sections/TeamSection";
 import { company } from "@/config/company";
 import { gruenderwort } from "@/data/gruenderwort";
-import { teamRoster } from "@/data/team";
+import { teamRoster, type TeamMember } from "@/data/team";
 
 /**
- * Der Abschnitt unter dem Kundenlaufband: das Gründerwort, darunter das Team.
+ * Der Abschnitt unter dem Kundenlaufband: das Gründerwort, daneben das Team.
  *
- * **Am 14.08.2026 umgebaut, auf Ansage:** „Alle nebeneinander auch — nicht nur
- * mich so prominent darstellen!" Vorher stand hier Ayhams Portrait 300 px breit
- * links neben dem Zitat, und die Kollegen kamen als Textzeilen darunter. Jetzt
- * trägt der Text allein — und alle drei stehen in gleich breiten Kacheln
- * nebeneinander, mit gleich hohem Bildfeld und ohne Auszeichnung für den
- * Gründer.
+ * **Am 17.08.2026 umgebaut, auf Ansage:** „Ich fand, wie du das Team darstellst,
+ * zu groß und zu hässlich. Mach das seitlich." Vorher standen hier die großen
+ * `TeamTile`-Kacheln aus der Teamsektion — 260 px hohe Bildfelder, die dem
+ * Gründerwort die Aufmerksamkeit nahmen und auf dem Handy eine halbe Seite
+ * füllten. Jetzt trägt der Text die Breite, und das Team steht rechts daneben
+ * als schmale Liste: 56 px Portrait, Name, Rolle. Die großen Kacheln gibt es
+ * unverändert weiter in `TeamSection` für eine eigene Teamseite.
  *
- * Die Kacheln kommen aus `TeamSection` (`TeamTile`) und sind damit dieselben
- * wie überall sonst: ein Foto oder, solange keines vorliegt, eine neutrale
- * Silhouette.
+ * Unter der Liste steht die Einladung, sich zu bewerben (ebenfalls Ansage) —
+ * sie führt auf `/karriere`.
  *
- * Das Zitat braucht trotzdem eine Zuschreibung — ohne Namen darunter weiß
- * niemand, wer da spricht. Sie steht klein, nicht als zweite Überschrift.
- *
- * Kein Label über der Überschrift, keine Icon-Kacheln, kein zweiter Knopf: der
- * Aufruf steht im Hero und im Popup, hier steht der Grund, ihm zu folgen.
+ * Kein Label über der Überschrift, keine Icon-Kacheln, kein zweiter CTA auf den
+ * Termin: der Aufruf steht im Hero und im Popup, hier steht der Grund dafür.
  */
 
 /**
  * Die Personen in der Reihenfolge aus `gruenderwort.ts`. Ein Name ohne Eintrag
- * in `team.ts` fällt still weg, statt eine leere Kachel zu erzeugen.
+ * in `team.ts` fällt still weg, statt eine leere Zeile zu erzeugen.
  */
 const team = gruenderwort.teamNamen
   .map((name) => teamRoster.find((person) => person.name === name))
-  .filter((person): person is (typeof teamRoster)[number] => Boolean(person));
+  .filter((person): person is TeamMember => Boolean(person));
+
+/** Eine Zeile der Seitenliste: Portrait, Name, Rolle. */
+function TeamZeile({ member }: { member: TeamMember }) {
+  return (
+    <li className="flex items-center gap-3.5 py-3">
+      {/*
+        Feste 56 px, quadratisch und beschnitten (`object-cover object-top`):
+        die Portraits sind unterschiedlich hoch — freigestellt, mit Studiogrund,
+        hoch- und querformatig. Ohne festen Rahmen säße jeder Name auf einer
+        anderen Linie.
+      */}
+      <div className="h-14 w-14 shrink-0 overflow-hidden border border-border bg-background">
+        {member.photo ? (
+          <img
+            src={member.photo}
+            alt={`${member.name}, ${member.role}`}
+            className="h-full w-full object-cover object-top"
+            loading="lazy"
+          />
+        ) : (
+          /* Silhouette in niedrigem Kontrast, solange kein Foto vorliegt —
+             dasselbe Muster wie in `TeamSection`. Kein „Foto folgt"-Text. */
+          <div className="flex h-full w-full items-center justify-center" aria-hidden="true">
+            <UserRound className="h-7 w-7 text-muted-foreground/35" strokeWidth={1.25} />
+          </div>
+        )}
+      </div>
+
+      <div className="min-w-0">
+        <p className="text-[14px] font-semibold leading-tight text-foreground">{member.name}</p>
+        <p className="mt-0.5 text-[12px] leading-tight text-muted-foreground">{member.role}</p>
+      </div>
+    </li>
+  );
+}
 
 export function Gruenderwort() {
   return (
@@ -43,62 +75,75 @@ export function Gruenderwort() {
           {gruenderwort.ueberschrift}
         </h2>
 
-        {/* Textbreite begrenzt: 1180 px sind für einen Absatz unlesbar, und das
-            Zitat soll umbrechen wie ein Satz, nicht wie eine Zeile. */}
-        <div className="max-w-[860px]">
-          <blockquote className="text-balance text-h3 leading-[1.25] text-foreground sm:text-[32px]">
-            „{gruenderwort.zitat}“
-          </blockquote>
+        {/* Zwei Spalten ab `lg`: links der Text in lesbarer Breite, rechts die
+            schmale Teamspalte. Darunter stapelt es sich in derselben Reihenfolge. */}
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-16">
+          <div className="max-w-[720px]">
+            <blockquote className="text-balance text-h3 leading-[1.25] text-foreground sm:text-[32px]">
+              „{gruenderwort.zitat}“
+            </blockquote>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <p className="text-[13px] leading-tight text-muted-foreground">
-              <span className="font-semibold text-foreground">{founderInfo.name}</span>
-              {" — "}
-              {founderInfo.role}, {company.legalName}
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <p className="text-[13px] leading-tight text-muted-foreground">
+                <span className="font-semibold text-foreground">{founderInfo.name}</span>
+                {" — "}
+                {founderInfo.role}, {company.legalName}
+              </p>
+
+              <a
+                href={founderInfo.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[13px] text-primary transition-opacity hover:opacity-80"
+              >
+                <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
+                LinkedIn
+                <span className="sr-only">-Profil von {founderInfo.name} (öffnet in neuem Tab)</span>
+              </a>
+            </div>
+
+            {gruenderwort.absaetze.map((absatz) => (
+              <p key={absatz.slice(0, 40)} className="mt-6 text-pretty text-lead text-foreground">
+                {absatz}
+              </p>
+            ))}
+
+            <p className="mt-6 text-pretty text-lead font-semibold text-foreground">
+              {gruenderwort.abschluss}
             </p>
-
-            <a
-              href={founderInfo.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[13px] text-primary transition-opacity hover:opacity-80"
-            >
-              <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
-              LinkedIn
-              <span className="sr-only">-Profil von {founderInfo.name} (öffnet in neuem Tab)</span>
-            </a>
           </div>
 
-          {gruenderwort.absaetze.map((absatz) => (
-            <p key={absatz.slice(0, 40)} className="mt-6 text-pretty text-lead text-foreground">
-              {absatz}
-            </p>
-          ))}
+          {team.length > 0 && (
+            <div className="lg:pt-1">
+              <h3 className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">
+                {gruenderwort.teamUeberschrift}
+              </h3>
 
-          <p className="mt-6 text-pretty text-lead font-semibold text-foreground">
-            {gruenderwort.abschluss}
-          </p>
+              <ul className="mt-3 divide-y divide-border border-y border-border">
+                {team.map((person) => (
+                  <TeamZeile key={person.name} member={person} />
+                ))}
+              </ul>
+
+              {/*
+                Einladung statt Stellenanzeige (Ansage 17.08.2026). Bewusst als
+                Textlink mit Pfeil und nicht als gefüllter Knopf: der einzige
+                gefüllte Knopf auf dieser Seite gehört dem Termin. Ziel ist
+                `/karriere` — dort stehen die Stellen und der Bewerbungsweg.
+              */}
+              <Link
+                href="/karriere"
+                className="group mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-foreground transition-colors hover:text-primary"
+              >
+                {gruenderwort.teamEinladung}
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+          )}
         </div>
-
-        {team.length > 0 && (
-          <div className="mt-12">
-            <h3 className="text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {gruenderwort.teamUeberschrift}
-            </h3>
-
-            {/*
-              Auf dem Handy zwei Spalten, ab `lg` alle nebeneinander. `lg:grid-cols-3`
-              ist fest und nicht aus `team.length` gerechnet: Tailwind erzeugt seine
-              Klassen beim Build und kennt zur Laufzeit zusammengesetzte Namen nicht.
-              Kommt eine vierte Person dazu, bricht das Raster in eine zweite Zeile um.
-            */}
-            <ul className="mt-5 grid grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-6">
-              {team.map((person) => (
-                <TeamTile key={person.name} member={person} />
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </section>
   );

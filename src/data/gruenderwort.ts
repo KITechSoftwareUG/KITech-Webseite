@@ -53,6 +53,18 @@ export interface Gruenderwort {
    * Zeilen um, das trägt es.
    */
   teamNamen: string[];
+  /**
+   * Die Einladung unter der Teamliste — führt auf `/karriere`.
+   *
+   * **Auf Ansage (17.08.2026):** „mach auch gerne so einen Button, ob jemand
+   * dabei sein möchte, also Einladung zur Bewerbung." Eine Frage statt einer
+   * Stellenausschreibung: die offenen Stellen stehen auf der Zielseite.
+   *
+   * ⚠️ `/karriere` steht auf `noindex`, solange die vier Stellen Platzhalter
+   * sind (`isPlaceholder` in `src/data/jobs.ts`). Wer hier klickt, landet
+   * derzeit also auf Beispielstellen — das ist der offene Punkt an diesem Weg.
+   */
+  teamEinladung: string;
 }
 
 export const gruenderwort: Gruenderwort = {
@@ -69,5 +81,7 @@ export const gruenderwort: Gruenderwort = {
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",
 
   teamUeberschrift: "Das Team",
-  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat"],
+  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat", "York"],
+
+  teamEinladung: "Du willst dabei sein?",
 };
