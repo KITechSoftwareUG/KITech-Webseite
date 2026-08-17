@@ -7,22 +7,30 @@ import { CallPopup } from "@/components/conversion/CallPopup";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { Gruenderwort } from "@/components/sections/Gruenderwort";
 import { FaqBlock } from "@/components/sections/FaqBlock";
+import { CheckEinladung } from "@/components/sections/CheckEinladung";
 import { faq } from "@/data/faq";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
 
 /**
- * Startseite. Zwei Abschnitte, mehr nicht:
+ * Startseite, von oben nach unten:
  *
  *   1. Hero — hellgrauer Grund, Aussage, ein Satz darunter, Pill-CTA.
  *      Rechts steht Ayham; auf dem Handy unter dem Knopf.
  *   2. Kundenkarten als durchlaufendes Laufband.
+ *   3. Gruenderwort mit Team an der Seite (14.08.2026).
+ *   4. FAQ (14.08.2026).
+ *   5. Abschluss: Ablauf des Checks und der letzte Knopf (17.08.2026).
  *
- * **Darunter kommt bewusst nichts.** Das ist ausdrueckliche Vorgabe (11.08.2026):
- * "Darunter KOMPLETT LEER LASSEN, ich gebe dir alles vor." Team-Abschnitt und
- * Abschluss-CTA sind deshalb von der Startseite genommen — die Komponenten
- * (`TeamSection`, `FinalCta`) liegen unveraendert im Repo.
+ * **Die Seite endete zwischenzeitlich nach dem Laufband** — ausdrueckliche
+ * Vorgabe vom 11.08.2026 ("Darunter KOMPLETT LEER LASSEN, ich gebe dir alles
+ * vor."). Seither ist sie auf Ansage in drei Schritten wieder gefuellt worden;
+ * jeder Block hat seine eigene Datendatei unter `src/data/`.
+ *
+ * Der alte Abschluss-CTA (`FinalCta`) kommt hier bewusst NICHT zurueck: an
+ * seiner Stelle steht `CheckEinladung`, die erst den Ablauf zeigt und dann
+ * fragt. `TeamSection` (die grossen Kacheln) liegt weiter unbenutzt im Repo.
  *
  * **Nur eine Person im Hero** (Vorgabe 12.08.2026): "Ich moechte, dass in beiden
  * Versionen nur ich als erstes Foto auftauche." Leons Portrait ist deshalb aus
@@ -163,6 +171,13 @@ export default function Home({
           kommen. Inhalte in src/data/gruenderwort.ts bzw. src/data/faq.ts. */}
       <Gruenderwort />
       <FaqBlock />
+
+      {/* Der Schluss (17.08.2026, auf Ansage): was in der halben Stunde passiert
+          und der Knopf dazu. Bis dahin endete die Seite nach der letzten Frage
+          und ging direkt in die Fusszeile — der am besten vorbereitete Besucher
+          der ganzen Seite wurde also nie gefragt. Inhalt:
+          src/data/check-einladung.ts. */}
+      <CheckEinladung />
 
       {/* Geht kurz nach dem Laden ueber dem Hero auf — nur hier, nicht in der
           PageShell. Zeiten und Text: src/data/call-popup.ts. */}
