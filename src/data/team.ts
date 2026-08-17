@@ -68,31 +68,26 @@ export const teamRoster: TeamMember[] = [
     linkedinUrl: null,
   },
   {
-    /** Nachname am 14.08.2026 auf Ansage ergänzt. */
-    name: "Jörg Kratzat",
-    role: "Vertrieb",
-    bio: "Vertriebsprofi mit über 30 Jahren Erfahrung im Verkauf und in der persönlichen Kundenbetreuung.",
     /**
-     * ⚠️ **Foto fehlt.** Gewünscht ist eines („mit Bildern!"), im Repo liegt
-     * keines. Bis dahin zeigt die Kachel die neutrale Silhouette. Sobald das
-     * Bild da ist: freigestellt als WebP unter `public/images/team/` ablegen
-     * und den Pfad hier eintragen — sonst ist nichts zu tun.
+     * Nachname am 14.08.2026 auf Ansage ergänzt.
+     *
+     * ⚠️ **„York" ist derselbe Mensch.** Am 17.08.2026 stand hier kurzzeitig
+     * ein zweiter Eintrag unter diesem Namen — er stammt aus einer
+     * Sprachnachricht, in der „Jörg" als „York" verschriftlicht wurde. Beide
+     * sind zusammengeführt; wer die Schreibweise erneut irgendwo auftauchen
+     * sieht, meint diese Person hier.
      */
-    photo: null,
-    linkedinUrl: null,
-  },
-  {
-    /** Am 17.08.2026 auf Ansage aufgenommen, Foto vom selben Tag. */
-    name: "York",
+    name: "Jörg Kratzat",
+    /** Am 17.08.2026 geschärft: nicht Vertrieb allgemein, sondern IT und SaaS. */
     role: "Vertrieb IT & SaaS",
     /**
-     * ⚠️ Formulierung auf Ansage („absoluter Vertriebsprofi im Bereich IT und
-     * SaaS, also auch wirklich spezialisiert"), aber **ohne belegte Zahlen**:
-     * weder Jahre noch Stationen liegen vor. Wer sie hat, trägt sie hier ein —
-     * eine Zahl wirkt mehr als jedes Adjektiv.
+     * Erster Halbsatz wörtlich von Ayham (05.08.2026), der zweite auf Ansage
+     * vom 17.08.2026 ergänzt: „absoluter Vertriebsprofi im Bereich IT und SaaS
+     * … also auch wirklich spezialisiert".
      */
-    bio: "Vertrieb ausschließlich in IT und SaaS: kennt Software-Verkaufszyklen, technische Entscheider und den Unterschied zwischen einer Demo und einem Projekt.",
-    photo: "/images/team/york.webp",
+    bio: "Vertriebsprofi mit über 30 Jahren Erfahrung im Verkauf und in der persönlichen Kundenbetreuung — spezialisiert auf IT und SaaS: Software-Verkaufszyklen, technische Entscheider und der Unterschied zwischen einer Demo und einem Projekt.",
+    /** Foto vom 17.08.2026. */
+    photo: "/images/team/joerg.webp",
     linkedinUrl: null,
   },
   {

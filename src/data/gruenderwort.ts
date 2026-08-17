@@ -81,7 +81,7 @@ export const gruenderwort: Gruenderwort = {
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",
 
   teamUeberschrift: "Das Team",
-  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat", "York"],
+  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat"],
 
   teamEinladung: "Du willst dabei sein?",
 };

@@ -20,9 +20,11 @@ geordnet**: alle inhaltlichen Bilder liegen unter `public/images/`
 damit keine Import-Zeile mehr — Datei ablegen, Pfad eintragen. Die Referenz
 **klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: Leon steht
 im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
-seitlich neben dem Gründerwort** statt in großen Kacheln, mit **York** als
-viertem Namen und der Einladung „Du willst dabei sein?" auf `/karriere`.
-Leon heißt jetzt **Technical Accountant**.
+seitlich neben dem Gründerwort** statt in großen Kacheln, mit der Einladung
+„Du willst dabei sein?" auf `/karriere`. **Jörg Kratzat** hat ein Foto und
+steht jetzt als Vertrieb für IT und SaaS (er tauchte kurzzeitig als zweite
+Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt). Leon
+heißt jetzt **Technical Accountant**.
 
 **Stand 14.08.2026 — was davor geändert wurde:** Vier Dinge. Das
 **Startseiten-Popup wartet jetzt auf eine Lesepause** statt sofort
@@ -129,7 +131,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (liegt hinter dem aktuellen Stand)
 │   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (liegt hinter dem aktuellen Stand)
 │   ├── images/                  # ★ ALLE inhaltlichen Bilder (siehe images/README.md)
-│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, leon, york)
+│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, leon, joerg)
 │   │   ├── referenzen/portraits/ #   Kundengesichter
 │   │   ├── referenzen/logos/    #   Kundenlogos
 │   │   └── og/                  #   Social-Vorschaubilder

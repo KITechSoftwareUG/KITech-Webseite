@@ -22,7 +22,7 @@ public/images/
 |---|---|
 | `ayham.webp` | Portrait für Teamliste, `/haltung`, `/kontakt` |
 | `ayham-hero.webp` | Der große Freisteller im Hero der Startseite |
-| `leon.webp`, `york.webp` | Portrait für die Teamliste |
+| `leon.webp`, `joerg.webp` | Portrait für die Teamliste |
 
 **Neues Teammitglied:** Foto als `vorname.webp` hier ablegen, dann in
 [`src/data/team.ts`](../../src/data/team.ts) Name, Rolle, einen Satz und
