@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Clock, ExternalLink } from "lucide-react";
-import type { ClientResult } from "@/data/client-results";
+import { kartenLink, type ClientResult } from "@/data/client-results";
 import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
 import { trackEvent } from "@/lib/plausible";
@@ -43,6 +43,10 @@ export function ReferenceCard({
   withProofLinks?: boolean;
 }) {
   const hasFacts = Boolean(result.duration || (result.before && result.after) || result.extra);
+
+  /* Wohin die Karte fuehrt — Detailseite oder direkt zum Produkt. Steht in den
+     Daten (`klickZiel`), damit beide Einbaustellen dasselbe tun. */
+  const ziel = kartenLink(result);
 
   // Weisse Karte auf hellem Grund: sichtbar wird sie ueber den feinen Ring und
   // den Schatten, nicht ueber einen Eigengrund. Beim Ueberfahren hebt sie sich
@@ -158,21 +162,54 @@ export function ReferenceCard({
   // Uebersicht: ein einziges Klickziel ueber die ganze Karte. Ein 300 px hoher
   // Klickbereich trifft sich am Handy deutlich besser als eine Textzeile am Fuss.
   if (!withProofLinks) {
+    /* Die Pille sagt, wohin es geht. Bei einem Fall ohne Detailseite waere
+       "Fall ansehen" eine falsche Ankuendigung — dort steht die Adresse. */
+    const pille = (
+      <div className="mt-auto pt-7">
+        <span className="inline-flex h-[46px] w-fit items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors group-hover:bg-primary/90">
+          {ziel.extern ? (
+            <>
+              {hostLabel(ziel.href)} öffnen
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            </>
+          ) : (
+            <>
+              Fall ansehen
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </>
+          )}
+        </span>
+      </div>
+    );
+
+    // Nach draussen: kein `Link`, sondern ein echtes `<a>` mit `target="_blank"`
+    // — der Besucher soll die Referenzliste behalten, wenn er sich das Produkt
+    // ansieht.
+    if (ziel.extern) {
+      return (
+        <a
+          href={ziel.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent("CTA_Klick", { position: `referenz-karte-${result.slug}` })}
+          className={cardClass}
+        >
+          {inner}
+          {pille}
+        </a>
+      );
+    }
+
     return (
       <Link
-        href={`/referenzen/${result.slug}`}
+        href={ziel.href}
         onClick={() => trackEvent("CTA_Klick", { position: `referenz-karte-${result.slug}` })}
         className={cardClass}
       >
         {inner}
         {/* Der Abstand sitzt auf dem Wrapper, nicht auf der Pille: ein `pt-7`
             direkt auf der dunkelblauen Flaeche wuerde sie oben aufblaehen. */}
-        <div className="mt-auto pt-7">
-          <span className="inline-flex h-[46px] w-fit items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors group-hover:bg-primary/90">
-            Fall ansehen
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </span>
-        </div>
+        {pille}
       </Link>
     );
   }
@@ -220,14 +257,20 @@ export function ReferenceCard({
           <span />
         )}
 
-        <Link
-          href={`/referenzen/${result.slug}`}
-          onClick={() => trackEvent("CTA_Klick", { position: `kundenkarte-${result.slug}` })}
-          className="inline-flex h-[46px] items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          Fall ansehen
-          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-        </Link>
+        {/* Faelle ohne Detailseite (`klickZiel: "live"`) bekommen hier keine
+            zweite Pille: ihr Klickziel steht schon als „Live im Einsatz"-Block
+            weiter oben, und zweimal dieselbe Adresse in einer Karte ist eine
+            Wiederholung, kein zusaetzlicher Weg. */}
+        {!ziel.extern && (
+          <Link
+            href={ziel.href}
+            onClick={() => trackEvent("CTA_Klick", { position: `kundenkarte-${result.slug}` })}
+            className="inline-flex h-[46px] items-center gap-1.5 rounded-full bg-primary px-6 text-[15px] font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Fall ansehen
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        )}
       </div>
     </article>
   );

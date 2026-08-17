@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { clientResults, type ClientResult } from "@/data/client-results";
+import { clientResults, kartenLink, type ClientResult } from "@/data/client-results";
 import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
 import { trackEvent } from "@/lib/plausible";
@@ -39,12 +39,16 @@ const sortiert = [...clientResults].sort((a, b) => {
 });
 
 function LaufbandKarte({ result }: { result: ClientResult }) {
-  return (
-    <Link
-      href={`/referenzen/${result.slug}`}
-      onClick={() => trackEvent("CTA_Klick", { position: `laufband-${result.slug}` })}
-      className="flex w-[260px] shrink-0 flex-col items-center border border-border px-5 pb-6 pt-6 text-center transition-colors hover:border-primary sm:w-[290px]"
-    >
+  /* Ziel und Beschriftung kommen aus den Daten (`klickZiel`), damit dieselbe
+     Karte im Laufband und in der Uebersicht dasselbe tut. klargehalt fuehrt
+     zum Beispiel direkt auf klargehalt.de. */
+  const ziel = kartenLink(result);
+
+  const klasse =
+    "flex w-[260px] shrink-0 flex-col items-center border border-border px-5 pb-6 pt-6 text-center transition-colors hover:border-primary sm:w-[290px]";
+
+  const inhalt = (
+    <>
       {/*
         ERGEBNIS ZUERST (Vorgabe 12.08.2026): "Das Ergebnis muss deutlicher
         sein, es muss oben sein." Vorher stand die Kennzahl ganz unten, unter
@@ -110,6 +114,28 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
           <StarRating value={result.rating} />
         </div>
       )}
+    </>
+  );
+
+  const melden = () => trackEvent("CTA_Klick", { position: `laufband-${result.slug}` });
+
+  if (ziel.extern) {
+    return (
+      <a
+        href={ziel.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={melden}
+        className={klasse}
+      >
+        {inhalt}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={ziel.href} onClick={melden} className={klasse}>
+      {inhalt}
     </Link>
   );
 }

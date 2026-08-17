@@ -56,9 +56,11 @@ export function Segment({ content }: { content: SegmentContent }) {
       >
         <Link
           href="/lass-uns-reden"
-          className="mt-10 inline-flex h-[56px] w-full max-w-[320px] items-center justify-between gap-4 bg-primary px-6 text-primary-foreground transition-colors hover:bg-primary/90"
+          /* `min-h` statt fester Hoehe — dieselbe Stelle wie im `CtaBanner`:
+             die laengere Beschriftung aus `angebot.ts` bricht zweizeilig um. */
+          className="mt-10 inline-flex min-h-[60px] w-full max-w-[360px] items-center justify-between gap-4 bg-primary px-6 py-3 text-primary-foreground transition-colors hover:bg-primary/90"
         >
-          <span className="flex flex-col text-left">
+          <span className="flex min-w-0 flex-col text-left">
             <span className="text-fliess font-semibold leading-tight">
               {angebot.cta}
             </span>

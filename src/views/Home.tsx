@@ -121,7 +121,10 @@ export default function Home({
           <Link
             href={angebot.href}
             onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
-            className="mt-[39px] inline-flex h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 dt:h-[56px] dt:w-[420px]"
+            /* `min-h` statt `h`: die Beschriftung kommt aus `angebot.ts` und
+               kann laenger werden. Auf schmalen Handys bricht sie zweizeilig
+               um — mit fester Hoehe liefe sie aus der Pille heraus. */
+            className="mt-[39px] inline-flex min-h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] py-2 text-center text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 dt:min-h-[56px] dt:w-[420px]"
           >
             {angebot.cta}
           </Link>

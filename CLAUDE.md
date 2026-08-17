@@ -26,6 +26,12 @@ steht jetzt als Vertrieb für IT und SaaS (er tauchte kurzzeitig als zweite
 Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt). Leon
 heißt jetzt **Technical Accountant**.
 
+Zuletzt am selben Tag: die **klargehalt-Karte führt direkt auf klargehalt.de**
+statt auf ihre Detailseite (Feld `klickZiel` in `src/data/client-results.ts`),
+und der **Abschluss-Knopf ist repariert** — er hatte eine feste Höhe, aus der
+die längere Beschriftung oben und unten herauslief. Siehe
+[Knöpfe ohne feste Höhe](#knoepfe-ohne-feste-hoehe).
+
 **Stand 14.08.2026 — was davor geändert wurde:** Vier Dinge. Das
 **Startseiten-Popup wartet jetzt auf eine Lesepause** statt sofort
 aufzugehen (Ranking, siehe [Popup](#popup-auf-der-startseite)). Unter dem
@@ -470,6 +476,16 @@ ohne jede Zahl. Das ist auf Ansage zurueckgenommen worden ("ganz prominent die
 Ergebnisse zeigen"). Wer sie erneut entkernt, nimmt der Startseite ihren
 einzigen harten Beweis.
 
+- **Wohin ein Klick fuehrt** (`klickZiel`, seit 17.08.2026): normalerweise auf
+  die Detailseite `/referenzen/<slug>`. Mit `klickZiel: "live"` fuehrt die ganze
+  Karte stattdessen auf `liveUrl`, in einem neuen Tab — die Pille heisst dann
+  „<adresse> oeffnen" statt „Fall ansehen". Gilt fuer **klargehalt.de** (Ansage
+  17.08.2026): der Fall hat keine Person, kein Zitat und keine Bewertung, sein
+  einziger Beleg ist das Produkt. Die Entscheidung steht in den Daten und gilt
+  damit gleichzeitig fuer das Laufband (`KundenLaufband.tsx`) und die Uebersicht
+  (`ReferenceCard.tsx`) — beide lesen `kartenLink()`. Ohne `liveUrl` faellt es
+  still auf die Detailseite zurueck. Die Detailseite bleibt unter ihrer Adresse
+  erreichbar, sie wird nur nicht mehr verlinkt.
 - **Beleglinks** (seit 05.08.2026): `liveUrl` zeigt auf das tatsaechlich gebaute
   Produkt und wird als eigener "Live im Einsatz"-Block gerendert — ccp-portal.de
   (cert consulting Pane), dashboard.niimmo.de (NiImmo), klargehalt.de. `companyUrl`
@@ -573,6 +589,29 @@ abgerundeten Quadrat. Beides liest sich als Baukasten. Stattdessen: Aussage als
 - `hero` / `cta`: gefuellter Primary-Button mit Shadow
 - `heroOutline` / `ctaOutline`: Outline-Varianten
 - Alle Varianten nutzen `rounded-lg` als Basis — neuere Komponenten ueberschreiben das haeufig mit eigenen, eckigen Containern statt den Button direkt zu stylen.
+
+### Knoepfe ohne feste Hoehe
+
+**Regel (17.08.2026): `min-h-[…] py-…` statt `h-[…]`.** Die Beschriftung jedes
+Termin-Knopfes kommt aus `src/config/angebot.ts` und aendert sich mit dem
+Angebot. Solange dort „Kostenloses Erstgespraech" stand, passte alles in 56 px;
+mit „Kostenlosen 1:1-KI-Check sichern" brach der Text zweizeilig um und lief
+oben und unten aus der Pille heraus — der Knopf sah kaputt aus (gemeldet von
+Ayham mit Screenshot).
+
+Betroffen waren `CtaBanner.tsx` (Abschluss-CTA auf Referenzen, Leistungen,
+Haltung, Glossar, Warum, Wissen), der Hero-Knopf in `Home.tsx` und der Knopf im
+Seitenkopf von `Segment.tsx` (`/solo`, `/enterprise`). Alle drei stehen jetzt
+auf `min-h` mit eigener Innenhoehe.
+
+Im selben Zug traegt die Pille im `CtaBanner` die **kurze** Verfuegbarkeitszeile
+(`verfuegbarkeitKurz()`, „Donnerstags — noch 2 von 5 Plaetzen"). Die lange
+Fassung braucht in einer 360-px-Pille drei Zeilen; sie steht weiter dort, wo
+eine ganze Zeile Platz ist — Ankuendigungsbalken und `/lass-uns-reden`. Die
+Zahlen sind in beiden Fassungen dieselben.
+
+Geprueft wird das nicht automatisch: wer eine Beschriftung verlaengert, sieht
+sie sich bei **360 px** Fensterbreite an. Dort bricht zuerst etwas um.
 
 ### Container
 

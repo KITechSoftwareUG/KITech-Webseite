@@ -98,6 +98,21 @@ export interface ClientResult {
    */
   hideOnHome?: boolean;
   /**
+   * Wohin ein Klick auf die Karte führt.
+   *
+   *   - `"detail"` (Standard, auch ohne Angabe): auf `/referenzen/<slug>`.
+   *   - `"live"`: direkt auf `liveUrl`, in einem neuen Tab.
+   *
+   * **Auf Ansage (17.08.2026):** „Wenn man auf klargehalt-Referenz klickt, soll
+   * man dahin gebracht werden. Zu klargehalt.de." Der Fall hat weder Person noch
+   * Zitat noch Bewertung — sein einziger Beleg ist das Produkt selbst. Eine
+   * Detailseite schiebt genau dazwischen noch einen Klick.
+   *
+   * Ohne gesetzte `liveUrl` fällt der Wert auf die Detailseite zurück (siehe
+   * `kartenLink()`), statt einen toten Link zu erzeugen.
+   */
+  klickZiel?: "detail" | "live";
+  /**
    * Die Person, die für den Fall steht.
    *
    * `null`, wenn der Fall ohne Gesicht auskommt — dann trägt ihn allein das
@@ -284,6 +299,12 @@ export const clientResults: ClientResult[] = [
     liveUrl: "https://klargehalt.de",
     companyUrl: null,
     hideOnHome: true,
+    /*
+     * Klick fuehrt auf klargehalt.de, nicht auf die Detailseite (Ansage
+     * 17.08.2026, siehe `klickZiel` im Interface). Die Detailseite bleibt unter
+     * /referenzen/klargehalt-saas erreichbar, sie wird nur nicht mehr verlinkt.
+     */
+    klickZiel: "live",
     /*
      * **Ohne Person, auf Ansage (14.08.2026):** "Du musst Leon rausnehmen aus
      * den Referenzen — mach nur klargehalt.de und das Logo von klargehalt.de
@@ -607,6 +628,20 @@ export const clientResults: ClientResult[] = [
     },
   },
 ];
+
+/**
+ * Wohin der Klick auf eine Kundenkarte fuehrt — eine Entscheidung fuer alle
+ * Einbaustellen (Laufband auf der Startseite, Uebersicht unter /referenzen).
+ *
+ * Stuende sie zweimal im Code, koennte dieselbe Karte an der einen Stelle auf
+ * die Detailseite und an der anderen nach draussen fuehren.
+ */
+export function kartenLink(result: ClientResult): { href: string; extern: boolean } {
+  if (result.klickZiel === "live" && result.liveUrl) {
+    return { href: result.liveUrl, extern: true };
+  }
+  return { href: `/referenzen/${result.slug}`, extern: false };
+}
 
 /**
  * Die Faelle, die auf der STARTSEITE erscheinen — Reihenfolge = Reihenfolge im

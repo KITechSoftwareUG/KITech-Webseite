@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { angebot, verfuegbarkeit } from "@/config/angebot";
+import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { trackEvent } from "@/lib/plausible";
 
@@ -25,7 +25,16 @@ export function CtaBanner({
   /** Landet als `position` im Plausible-Event. Muss pro Einbaustelle eindeutig sein. */
   position,
   label = angebot.cta,
-  hint = verfuegbarkeit(),
+  /**
+   * Die zweite Zeile in der Pille — seit dem 17.08.2026 die **kurze** Fassung.
+   *
+   * Die lange ("Jeden Donnerstag 5 Plätze — diese Woche noch 2 Plätze frei")
+   * braucht in einer 360-px-Pille zwei bis drei Zeilen und blaeht den Knopf auf
+   * das Doppelte. Gekuerzt wird nur die Formulierung, nicht die Aussage: beide
+   * Zahlen stehen weiterhin drin. Die lange Fassung steht dort, wo eine ganze
+   * Zeile Platz ist — im Ankuendigungsbalken und auf /lass-uns-reden.
+   */
+  hint = verfuegbarkeitKurz(),
   href = angebot.href,
 }: {
   heading: string;
@@ -65,13 +74,21 @@ export function CtaBanner({
 
           {/* Der eine Knopf der Seite: Pille, dunkelblau gefuellt, fetter Text.
               Weisse Schrift steht hier auf `bg-primary` — der einzige Grund
-              im hellen Design, auf dem sie lesbar ist. */}
+              im hellen Design, auf dem sie lesbar ist.
+
+              **`min-h`, nicht `h` (17.08.2026).** Die Pille war auf 56 px
+              festgenagelt. Solange die Beschriftung "Kostenloses Erstgespraech"
+              hiess, passte das; mit "Kostenlosen 1:1-KI-Check sichern" brach der
+              Text zweizeilig um und lief oben und unten aus der Pille heraus —
+              der Knopf sah kaputt aus. Feste Hoehen vertragen keinen laengeren
+              Text: wer hier wieder `h-[…]` setzt, baut denselben Fehler ein.
+              Dieselbe Lehre wie im Hero der Startseite. */}
           <Link
             href={href}
             onClick={() => trackEvent("Calendly_Klick", { position })}
-            className="inline-flex h-[56px] w-full max-w-[320px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-7 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
+            className="inline-flex min-h-[60px] w-full max-w-[360px] shrink-0 items-center justify-between gap-4 rounded-full bg-primary px-6 py-3 text-primary-foreground shadow-soft transition-colors hover:bg-primary/90 sm:px-7"
           >
-            <span className="flex flex-col text-left">
+            <span className="flex min-w-0 flex-col text-left">
               <span className="text-fliess font-bold leading-tight">{label}</span>
               <span className="mt-1 text-mini font-normal leading-tight text-primary-foreground/75">
                 {hint}
