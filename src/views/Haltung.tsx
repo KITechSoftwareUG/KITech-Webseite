@@ -85,9 +85,11 @@ export default function Haltung() {
             </h2>
 
             <blockquote className="kinetic-display text-balance text-h3 leading-[1.25] text-foreground sm:text-[36px]">
-              „Ich habe zu oft gesehen, wie sechsstellige Beträge in Projekte gehen, die in
-              einer schicken Demo enden und nie in der Bilanz ankommen. Mittelstand kann
-              sich das nicht leisten.“
+              {/* Wortgleich mit `src/data/gruenderwort.ts` — am 17.08.2026 dort
+                  gekürzt und hier mitgezogen. Zwei Fassungen desselben Zitats
+                  lesen sich wie ein Werbetext, der je nach Seite angepasst wird. */}
+              „Ich habe zu oft gesehen, wie sechsstellige Beträge in einer schicken Demo
+              enden statt in der Bilanz. Mittelstand kann sich das nicht leisten.“
             </blockquote>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">

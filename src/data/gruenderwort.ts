@@ -6,17 +6,31 @@
  *
  * **Woher die Texte kommen:**
  *
- *   - `zitat` steht wörtlich so schon auf `/haltung` (`src/views/Haltung.tsx`)
- *     und ist von Ayham. Es ist hier bewusst dasselbe: eine Aussage, die auf
- *     zwei Seiten steht, wirkt wie eine Haltung; zwei verschiedene wirken wie
+ *   - `zitat` ist von Ayham und steht wortgleich auf `/haltung`
+ *     (`src/views/Haltung.tsx`). Das ist Absicht: eine Aussage, die auf zwei
+ *     Seiten steht, wirkt wie eine Haltung; zwei verschiedene wirken wie
  *     Werbetexte. Wer es hier ändert, ändert es dort mit.
  *   - `absaetze` ist ein **Entwurf** und der einzige Text auf dieser Seite, der
  *     nicht belegt ist. Er sagt nichts, was nicht anderswo im Repo steht
- *     (Prozess-Audit zuerst, „nicht jedes Problem braucht KI", Betrieb in der
- *     EU oder im Haus) — aber es sind nicht Ayhams Worte.
+ *     (Prozess-Audit zuerst, Betrieb im Tagesgeschäft, der Code gehört euch) —
+ *     aber es sind nicht Ayhams Worte.
+ *
+ * **Gekürzt am 17.08.2026, auf Ansage:** „Das ist mit meinem Zitat alles ein
+ * bisschen zu lang, das liest kein Mensch mehr. Die Texte wirklich einfach, so
+ * einfach wie es geht." Der ganze Block ist von rund 170 auf rund 55 Wörter
+ * heruntergegangen:
+ *
+ *   - Das Zitat behält Ayhams Bilder und seinen Satzbau, verliert aber den
+ *     Umweg („in Projekte gehen, die … und nie in der Bilanz ankommen" →
+ *     „enden statt in der Bilanz"). **Nicht neu formulieren** — kürzen heißt
+ *     hier streichen, nicht umschreiben.
+ *   - Aus zwei Absätzen von je vier Zeilen sind zwei Sätze geworden. Was
+ *     wegfiel (an welcher Stelle sich Automatisierung lohnt, wo die Daten
+ *     liegen), steht direkt darunter in der FAQ — es stand also zweimal da.
  *
  * ⚠️ **Offen:** `absaetze` durch Ayhams Wortlaut ersetzen. Nur diese Datei
- * anfassen, die Komponente bleibt unberührt.
+ * anfassen, die Komponente bleibt unberührt. Wer sie ersetzt, hält die Länge:
+ * ein Satz pro Absatz.
  */
 
 export interface Gruenderwort {
@@ -71,11 +85,11 @@ export const gruenderwort: Gruenderwort = {
   ueberschrift: "Wer dahintersteht",
 
   zitat:
-    "Ich habe zu oft gesehen, wie sechsstellige Beträge in Projekte gehen, die in einer schicken Demo enden und nie in der Bilanz ankommen. Mittelstand kann sich das nicht leisten.",
+    "Ich habe zu oft gesehen, wie sechsstellige Beträge in einer schicken Demo enden statt in der Bilanz. Mittelstand kann sich das nicht leisten.",
 
   absaetze: [
-    "Deshalb fängt bei uns kein Projekt mit einem Werkzeug an, sondern mit euren Abläufen. Wir sehen sie uns an und sagen, an welcher Stelle Automatisierung etwas bringt — und an welcher nicht. Wenn eine einfachere Lösung besser passt, sagen wir das auch dann, wenn wir daran weniger verdienen.",
-    "Was danach gebaut wird, läuft in eurem Tagesgeschäft und nicht in einer Demo: angeschlossen an eure Systeme, betrieben in europäischer Region oder auf eurer eigenen Hardware, dokumentiert und wartbar. Der Code gehört euch.",
+    "Deshalb fängt bei uns kein Projekt mit einem Werkzeug an, sondern mit euren Abläufen.",
+    "Was wir bauen, läuft im Tagesgeschäft — nicht in einer Demo. Der Code gehört euch.",
   ],
 
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",

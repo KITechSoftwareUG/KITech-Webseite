@@ -15,6 +15,17 @@
  *   | Daten      | `services[2]` (EU-Region über AWS/Azure mit AVV, eigene Hardware) |
  *   | Danach     | `services[3]`, `commitments` (Code gehört euch, Wartung)  |
  *
+ * **Gekürzt am 17.08.2026, auf Ansage:** „Auch die FAQs sind ein bisschen zu
+ * lang. Die Texte wirklich einfach, so einfach wie es geht." Jede Antwort steht
+ * jetzt in ein bis zwei Sätzen (vorher drei bis vier), zusammen rund 90 statt
+ * 190 Wörter. Gestrichen wurde nur Ausschmückung, kein Beleg: die Zahlen, die
+ * EU-Region samt Auftragsverarbeitungsvertrag und „der Code gehört euch" stehen
+ * unverändert drin. Zwei Fragen sind selbst kürzer geworden („Wie lange dauert
+ * es?" statt „… bis etwas läuft?").
+ *
+ * **Die Länge ist Teil der Sache.** Wer eine Antwort ergänzt, ergänzt einen
+ * Satz — keinen Absatz. Eine FAQ, die man lesen muss, beantwortet nichts.
+ *
  * ⚠️ **Keine Preise erfinden.** Zu Projektpreisen liegt im Repo keine Zahl vor,
  * deshalb steht in der Antwort auch keine. Wer hier einen Betrag einträgt, muss
  * ihn halten können — eine Preisangabe auf der Website ist eine Zusage.
@@ -35,26 +46,26 @@ export const faq: FaqEintrag[] = [
   {
     frage: "Was kostet das?",
     antwort:
-      "Der 1:1-KI-Check kostet nichts — eine halbe Stunde, ohne Bedingung dahinter. Für ein Projekt nennen wir den Preis, wenn wir wissen, was gebaut werden soll: nach dem Prozess-Audit. Vorher wäre jede Zahl geraten, und geraten habt ihr selbst genug.",
+      "Der 1:1-KI-Check kostet nichts. Den Preis fürs Projekt nennen wir nach dem Prozess-Audit — vorher wäre jede Zahl geraten.",
   },
   {
-    frage: "Wie lange dauert es, bis etwas läuft?",
+    frage: "Wie lange dauert es?",
     antwort:
-      "Wochen, keine Quartale. Das Kundenportal bei cert consulting war nach 60 Tagen live, das Portal der NiImmo-Gruppe nach 40, eine komplette SaaS-Anwendung nach zwei Monaten von der ersten Zeile bis zum Livegang.",
+      "Wochen, keine Quartale. Das NiImmo-Portal war nach 40 Tagen live, cert consulting nach 60, eine komplette SaaS-Anwendung nach zwei Monaten.",
   },
   {
-    frage: "Was, wenn sich KI bei uns gar nicht lohnt?",
+    frage: "Was, wenn sich KI bei uns nicht lohnt?",
     antwort:
-      "Dann sagen wir das. Wir sehen uns im ersten Schritt eure Abläufe an und benennen, an welcher Stelle Automatisierung etwas bringt — und an welcher nicht. Wenn eine einfachere Lösung besser passt, empfehlen wir sie, auch wenn wir daran weniger verdienen.",
+      "Dann sagen wir das. Passt eine einfachere Lösung besser, empfehlen wir sie — auch wenn wir daran weniger verdienen.",
   },
   {
     frage: "Was passiert mit unseren Daten?",
     antwort:
-      "Was ihr wollt. Betrieb in europäischer Region über AWS oder Azure mit Auftragsverarbeitungsvertrag — oder auf eurer eigenen Hardware, wenn die Daten das Haus nicht verlassen dürfen. Beides bauen wir regelmäßig; die Entscheidung trefft ihr, nicht der Anbieter.",
+      "Was ihr wollt: europäische Region mit Auftragsverarbeitungsvertrag oder eure eigene Hardware. Ihr entscheidet, nicht der Anbieter.",
   },
   {
     frage: "Und wenn das Projekt fertig ist?",
     antwort:
-      "Der Code gehört euch, dokumentiert und wartbar. Was gebaut ist, muss laufen: Überwachung, Nachjustieren, Weiterentwicklung — mit einem festen Ansprechpartner statt einer Ticketschlange. Wissenstransfer ist Teil des Projekts, kein Zusatzposten.",
+      "Der Code gehört euch, dokumentiert und wartbar. Betrieb und Weiterentwicklung laufen über einen festen Ansprechpartner.",
   },
 ];
