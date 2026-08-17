@@ -35,7 +35,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
     return (
       <img
         src={PORTRAIT_URL}
-        alt={`${NAME}, ${ROLE} der KITech Software UG`}
+        alt={`${NAME}, ${ROLE} von KITech Software`}
         loading="lazy"
         className={`h-12 w-12 rounded-full object-cover object-top grayscale ring-2 ring-primary/20 ${className}`}
       />
@@ -47,7 +47,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
       <div className={`flex items-center gap-4 ${className}`}>
         <img
           src={PORTRAIT_URL}
-          alt={`${NAME}, ${ROLE} der KITech Software UG`}
+          alt={`${NAME}, ${ROLE} von KITech Software`}
           loading="lazy"
           className="h-16 w-16 rounded-full object-cover object-top grayscale ring-2 ring-primary/20"
         />
@@ -85,7 +85,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
         <div className="absolute inset-x-8 bottom-0 h-2/3 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
         <img
           src={PORTRAIT_URL}
-          alt={`${NAME}, ${ROLE} der KITech Software UG`}
+          alt={`${NAME}, ${ROLE} von KITech Software`}
           loading="eager"
           className="relative w-full h-auto object-contain grayscale transition-all duration-500 hover:grayscale-0 drop-shadow-2xl"
         />
@@ -132,7 +132,7 @@ export function FounderPortrait({ variant, className = "" }: Props) {
       <div className="absolute inset-x-12 bottom-0 h-2/3 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
       <img
         src={PORTRAIT_URL}
-        alt={`${NAME}, ${ROLE} der KITech Software UG`}
+        alt={`${NAME}, ${ROLE} von KITech Software`}
         loading="lazy"
         className="relative w-full h-auto object-contain grayscale transition-all duration-500 hover:grayscale-0"
       />

@@ -6,7 +6,7 @@ export default function AGB() {
   return (
     <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[360px]">
       <StructuredData
-        data={getWebPageSchema("AGB", "Allgemeine Geschäftsbedingungen der KITech Software UG", "https://kitech-software.de/agb")}
+        data={getWebPageSchema("AGB", "Allgemeine Geschäftsbedingungen von KITech Software", "https://kitech-software.de/agb")}
       />
       <StructuredData
         data={getBreadcrumbSchema([

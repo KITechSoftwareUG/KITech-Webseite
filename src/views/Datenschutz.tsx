@@ -6,7 +6,7 @@ export default function Datenschutz() {
   return (
     <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[360px]">
       <StructuredData
-        data={getWebPageSchema("Datenschutz", "Datenschutzerklärung der KITech Software UG", "https://kitech-software.de/datenschutz")}
+        data={getWebPageSchema("Datenschutz", "Datenschutzerklärung von KITech Software", "https://kitech-software.de/datenschutz")}
       />
       <StructuredData
         data={getBreadcrumbSchema([

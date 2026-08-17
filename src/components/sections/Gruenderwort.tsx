@@ -87,7 +87,7 @@ export function Gruenderwort() {
               <p className="text-[13px] leading-tight text-muted-foreground">
                 <span className="font-semibold text-foreground">{founderInfo.name}</span>
                 {" — "}
-                {founderInfo.role}, {company.legalName}
+                {founderInfo.role}, {company.shortName}
               </p>
 
               <a

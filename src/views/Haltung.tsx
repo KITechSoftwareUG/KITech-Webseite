@@ -98,7 +98,7 @@ export default function Haltung() {
                   {founderInfo.name}
                 </p>
                 <p className="mt-1 text-[12px] leading-tight text-muted-foreground">
-                  {founderInfo.role}, {company.legalName}
+                  {founderInfo.role}, {company.shortName}
                 </p>
               </div>
 

@@ -817,6 +817,39 @@ verteilt — mit zwei verschiedenen Telefonnummern nebeneinander. Wer eine Numme
 aendert, aendert genau diese Datei. Ausgenommen sind die Rechtstexte
 (`Impressum.tsx`), wo die Angaben bewusst woertlich im Text stehen.
 
+### Die Firma heisst „KITech Software"
+
+**Ansage 17.08.2026:** „Mach ueberall aus ‚KITech Software UG
+(haftungsbeschraenkt)' nur: KITech Software — ausser im Impressum."
+
+| Wo | Was steht dort |
+|---|---|
+| Alles Sichtbare (Fusszeile, Gruenderwort, `/haltung`, Alt-Texte, Metadaten) | `company.shortName` → **KITech Software** |
+| JSON-LD | `name: "KITech Software"`, Firmierung im Feld `legalName` |
+| Impressum (Text + Metadaten) | vollstaendige Firmierung, unveraendert |
+| Datenschutz „Verantwortliche Stelle", AGB § 1 „Anbieter" | vollstaendige Firmierung — **stehen geblieben**, siehe unten |
+
+⚠️ **Zwei Stellen sind bewusst nicht mitgezogen:** In der Datenschutzerklaerung
+benennt der Block „Verantwortliche Stelle" den Verantwortlichen nach Art. 13
+DSGVO, in den AGB benennt § 1 den Vertragspartner. Beides ist keine Marke,
+sondern die Rechtsperson, mit der jemand einen Vertrag schliesst bzw. gegen die
+er Betroffenenrechte ausuebt. Die Kurzform waere dort eine Verschlechterung,
+nicht eine Vereinfachung. Wer sie trotzdem kuerzen will, entscheidet das
+ausdruecklich — es ist eine Rechtsfrage, keine Designfrage.
+
+Beim selben Durchgang aufgefallen und mitkorrigiert: **die ROI-Garantie stand
+noch im JSON-LD** (`getOrganizationSchema`, `getLocalBusinessSchema`:
+„wird das vereinbarte ROI-Ziel nicht erreicht, zahlt der Kunde nicht"),
+obwohl sie am 12.08.2026 von allen Seiten genommen wurde. Sie ging damit
+weiter als Zusage an Google und ist jetzt durch das ersetzt, was tatsaechlich
+angeboten wird.
+
+⚠️ **Offen:** Der Glossareintrag `/glossar/roi-garantie` (`src/data/glossary.ts`)
+schreibt KITech die Garantie weiterhin zu („wie KITech Software messbaren
+wirtschaftlichen Wertbeitrag vertraglich zusichert"). Die Seite ist indexiert.
+Entweder den Begriff neutral als Branchenbegriff erklaeren oder den Eintrag
+entfernen — beides ist eine inhaltliche Entscheidung.
+
 - **E-Mail:** info@kitech-software.de (allgemein), aalkh@kitech-software.de (Ayham, personalisierte CTAs)
 - **Telefon (Festnetz):** +49 (0) 511 89738590
 - **Telefon (Mobil, Ayham):** +49 151 64682544 — wird in neueren Komponenten (StickyMobileCTA, ExitIntentPopup) verwendet

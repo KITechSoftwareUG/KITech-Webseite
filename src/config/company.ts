@@ -12,6 +12,17 @@
  */
 
 export const company = {
+  /**
+   * Die vollständige Firmierung. **Sichtbar nur noch in den Rechtstexten**
+   * (Ansage 17.08.2026: „Mach überall aus ‚KITech Software UG
+   * (haftungsbeschränkt)' nur: KITech Software — außer im Impressum.").
+   *
+   * Im JSON-LD steht sie weiterhin, aber im dafür vorgesehenen Feld
+   * `legalName`, nicht als `name` — so heißt die Marke kurz und die
+   * Anbieterkennzeichnung bleibt maschinenlesbar hinterlegt.
+   *
+   * Für alles Sichtbare: `shortName`.
+   */
   legalName: "KITech Software UG (haftungsbeschränkt)",
   shortName: "KITech Software",
   /** Ein Satz, der die Firma beschreibt. Wird im Footer und in Schemas genutzt. */

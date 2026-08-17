@@ -4,7 +4,7 @@ import AGB from "@/views/AGB";
 export const metadata = buildMetadata({
   title: "AGB – KITech Software",
   description:
-    "Allgemeine Geschäftsbedingungen der KITech Software UG (haftungsbeschränkt).",
+    "Allgemeine Geschäftsbedingungen von KITech Software.",
   path: "/agb",
 });
 

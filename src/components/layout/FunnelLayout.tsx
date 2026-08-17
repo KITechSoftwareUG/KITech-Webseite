@@ -42,7 +42,7 @@ export function FunnelLayout({ children, pathLabel, accentClassName = "text-prim
 
       <footer className="border-t border-border/60 py-8">
         <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} KITech Software UG (haftungsbeschränkt)</p>
+          <p>© {new Date().getFullYear()} KITech Software</p>
           <div className="flex gap-6">
             <Link href="/impressum" className="hover:text-foreground transition-colors">Impressum</Link>
             <Link href="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz</Link>

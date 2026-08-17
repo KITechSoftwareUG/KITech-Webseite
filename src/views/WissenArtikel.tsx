@@ -45,12 +45,12 @@ export default function WissenArtikel({
             mainEntityOfPage: { "@type": "WebPage", "@id": url },
             author: {
               "@type": "Organization",
-              name: "KITech Software UG (haftungsbeschränkt)",
+              name: "KITech Software",
               url: BASE_URL,
             },
             publisher: {
               "@type": "Organization",
-              name: "KITech Software UG (haftungsbeschränkt)",
+              name: "KITech Software",
               url: BASE_URL,
             },
           },

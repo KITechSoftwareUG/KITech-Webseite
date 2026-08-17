@@ -35,13 +35,21 @@ export function getOrganizationSchema(): SchemaBase {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "KITech Software UG (haftungsbeschränkt)",
-    alternateName: "KITech Software",
+    name: "KITech Software",
+    /* Die Firmierung steht im dafür vorgesehenen Feld, nicht im Namen (Ansage
+       17.08.2026: überall „KITech Software", außer im Impressum). Google zeigt
+       `name`; `legalName` stützt die Anbieterkennzeichnung, die im Impressum
+       vollständig steht. */
+    legalName: "KITech Software UG (haftungsbeschränkt)",
     url: "https://kitech-software.de",
     logo: "https://kitech-software.de/logo.png",
     image: "https://kitech-software.de/logo.png",
+    /* Die ROI-Garantie („wird das Ziel nicht erreicht, zahlt der Kunde nicht")
+       stand hier noch, obwohl sie am 12.08.2026 von allen Seiten genommen
+       wurde — sie ging also weiter als Zusage an Google. Ersetzt durch das,
+       was tatsächlich angeboten wird. */
     description:
-      "KI mit ROI-Garantie für den deutschen Mittelstand. KITech Software baut maßgeschneiderte KI-Lösungen mit messbarem wirtschaftlichem Wertbeitrag – wird das vereinbarte ROI-Ziel nicht erreicht, zahlt der Kunde nicht. DSGVO-konform, Made in Germany.",
+      "KI-Beratung und Softwareentwicklung für den deutschen Mittelstand: Automatisierungen und individuelle Softwarelösungen, die im Tagesgeschäft laufen. Betrieb in europäischer Region oder auf eigener Hardware.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Wedekindstraße 14",
@@ -86,6 +94,8 @@ export function getLocalBusinessSchema(): SchemaBase {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "KITech Software",
+    /* Firmierung im eigenen Feld — siehe Kommentar in `getOrganizationSchema`. */
+    legalName: "KITech Software UG (haftungsbeschränkt)",
     logo: {
       "@type": "ImageObject",
       url: "https://kitech-software.de/logo.png",
@@ -94,8 +104,9 @@ export function getLocalBusinessSchema(): SchemaBase {
     url: "https://kitech-software.de",
     telephone: "+49-151-64682544",
     email: "info@kitech-software.de",
+    /* Auch hier stand die ROI-Garantie noch — siehe `getOrganizationSchema`. */
     description:
-      "KI mit ROI-Garantie für den deutschen Mittelstand. Festpreis, messbarer Wertbeitrag in Euro, DSGVO-konform.",
+      "KI-Beratung und Softwareentwicklung für den deutschen Mittelstand: Prozess-Audit, Automatisierungen und individuelle Software, betrieben in europäischer Region oder auf eigener Hardware.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Wedekindstraße 14",
@@ -137,7 +148,7 @@ export function getWebPageSchema(
     },
     publisher: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
     },
   };
 }
@@ -170,7 +181,7 @@ export function getServiceSchema(
     description,
     provider: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
       url: "https://kitech-software.de",
     },
     areaServed: {
@@ -240,7 +251,7 @@ export function getSoftwareAppSchema(
     },
     author: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
     },
   };
 }
@@ -254,7 +265,7 @@ export function getClientsItemListSchema(
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Ausgewählte Kunden der KITech Software UG",
+    name: "Ausgewählte Kunden von KITech Software",
     itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: clients.length,
     itemListElement: clients.map((c, i) => ({
@@ -278,10 +289,10 @@ export function getContactPageSchema(): SchemaBase {
     "@type": "ContactPage",
     name: "Kontakt – KITech Software",
     url: "https://kitech-software.de/kontakt",
-    description: "1:1-KI-Check und Kontaktdaten der KITech Software UG (haftungsbeschränkt).",
+    description: "1:1-KI-Check und Kontaktdaten der KITech Software.",
     mainEntity: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
       url: "https://kitech-software.de",
       contactPoint: {
         "@type": "ContactPoint",
@@ -309,17 +320,17 @@ export function getFounderPersonSchema(): SchemaBase {
     familyName: "Alkhalil",
     jobTitle: "Gründer & Geschäftsführer",
     description:
-      "Ayham Alkhalil ist Gründer und Geschäftsführer der KITech Software UG in Hannover. Er entwickelt KI-Lösungen mit ROI-Garantie für den deutschen Mittelstand.",
+      "Ayham Alkhalil ist Gründer und Geschäftsführer von KITech Software in Hannover. Er entwickelt KI- und Automatisierungslösungen für den deutschen Mittelstand.",
     image: "https://kitech-software.de/__l5e/assets-v1/b8d41e44-2f66-4470-a47a-43b8db6daa15/alkhalil-portrait.png",
     url: "https://kitech-software.de/haltung",
     worksFor: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
       url: "https://kitech-software.de",
     },
     founderOf: {
       "@type": "Organization",
-      name: "KITech Software UG (haftungsbeschränkt)",
+      name: "KITech Software",
       url: "https://kitech-software.de",
     },
     nationality: { "@type": "Country", name: "Deutschland" },
@@ -381,7 +392,7 @@ export function getEnterpriseCloudItemListSchema(
         serviceType: "KI-Agenten-Entwicklung auf Enterprise-Cloud-Plattformen",
         provider: {
           "@type": "Organization",
-          name: "KITech Software UG (haftungsbeschränkt)",
+          name: "KITech Software",
           url: "https://kitech-software.de",
         },
         brand: {

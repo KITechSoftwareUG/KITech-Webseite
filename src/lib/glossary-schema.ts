@@ -15,7 +15,7 @@ export const GLOSSARY_BASE_URL = "https://kitech-software.de";
 export const GLOSSARY_INDEX_URL = `${GLOSSARY_BASE_URL}/glossar`;
 export const GLOSSARY_PUBLISHER = {
   "@type": "Organization" as const,
-  name: "KITech Software UG (haftungsbeschränkt)",
+  name: "KITech Software",
   url: GLOSSARY_BASE_URL,
 };
 

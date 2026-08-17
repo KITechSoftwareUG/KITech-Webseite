@@ -97,7 +97,9 @@ export function SiteFooter() {
         {/* Zeile 3: Schlussblock. In der Vorlage steht hier ein langer, klein
             gesetzter Haftungstext; bei uns die Firmenangaben und das Copyright. */}
         <p className="mt-6 text-center text-mini leading-[1.6] text-white/75">
-          {company.legalName} · {addressLine} ·{" "}
+          {/* `shortName`, nicht `legalName` (Ansage 17.08.2026): die Rechtsform
+              steht im Impressum, das direkt darunter verlinkt ist. */}
+          {company.shortName} · {addressLine} ·{" "}
           <a href={company.phone.href} className="transition-opacity hover:opacity-75">
             {company.phone.display}
           </a>{" "}
