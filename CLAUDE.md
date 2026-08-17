@@ -32,6 +32,13 @@ und der **Abschluss-Knopf ist repariert** — er hatte eine feste Höhe, aus der
 die längere Beschriftung oben und unten herauslief. Siehe
 [Knöpfe ohne feste Höhe](#knoepfe-ohne-feste-hoehe).
 
+Ebenfalls am selben Tag: der **Ankündigungsbalken führt mit einer Frage statt
+mit dem Produktnamen** — „Find heraus, ob du KI richtig nutzt" statt
+„1:1-KI-Check 2026" (`src/config/announcement.ts`, auf Ansage). Der „NEU"-Badge
+ist dabei entfallen: er kündigte das Produkt an, und ohne ihn bleibt der Balken
+auf dem Handy zweizeilig statt dreizeilig. Die Verfügbarkeitszeile dahinter ist
+unverändert.
+
 **Stand 14.08.2026 — was davor geändert wurde:** Vier Dinge. Das
 **Startseiten-Popup wartet jetzt auf eine Lesepause** statt sofort
 aufzugehen (Ranking, siehe [Popup](#popup-auf-der-startseite)). Unter dem
