@@ -8,37 +8,55 @@
  * Geschäftsführer und Entscheider im Mittelstand, nicht Selbstständige.
  *
  * **Struktur folgt einer Vorlage**, die Ayham vorgegeben hat
- * (`src/assets/funnels.leadersmedia.de_scale_ (1).png`): Hero mit Termin →
- * Beweis → Problem → CTA → Mechanismus → Wiedererkennung → Vorher/Nachher →
- * Beweis → Qualifizierung → CTA → Gründer → Logos → FAQ → Abschluss-CTA. Der
- * gleiche CTA wiederholt sich vier Mal; das ist in der Vorlage so und Absicht.
- * Übernommen wurde die *Reihenfolge*, nicht das Aussehen — Farben, Typografie
- * und Knöpfe kommen aus dem Designsystem dieser Website.
+ * (`src/assets/funnels.leadersmedia.de_scale_ (1).png`): Hero → Beweis →
+ * Problem → CTA → Ablauf → Kosten → Ergebnis → Beweis → Qualifizierung → CTA →
+ * Gründer → FAQ → Abschluss-CTA. Der gleiche CTA wiederholt sich; das ist in der
+ * Vorlage so und Absicht. Übernommen wurde die *Reihenfolge*, nicht das
+ * Aussehen — Farben, Typografie und Knöpfe kommen aus dem Designsystem.
  *
- * Erzählerisch ist das weiter Schema A („Verbrannt-Funnel") aus dem
- * `funnel-narrativ`-Skill: Bold-Headline → Pattern-Interrupt → Problem →
- * Kundenstimmen → These → Mechanismus → CTA. Die Vorlage schiebt nur
- * Qualifizierung, Gründer und FAQ dazwischen.
+ * Erzählerisch ist das Schema A („Verbrannt-Funnel") aus dem
+ * `funnel-narrativ`-Skill.
  *
- * ⚠️ **Drei Dinge fehlen und sind bewusst als Platzhalter markiert.** Solange
- * sie offen sind, bleibt die Seite auf `noindex` (siehe `src/app/funnel/page.tsx`):
+ * ---------------------------------------------------------------------------
+ * **Überarbeitung 18.08.2026 — auf Ansage „bau den bestmöglichen Funnel".**
+ * Fünf Agenten haben die Seite unabhängig geprüft (Verkaufstext, Dramaturgie,
+ * visuelle Wirkung, Technik, Beweisführung). Was daraus umgesetzt wurde:
  *
- *   1. `termin` steht auf `null` — es gibt noch kein Datum. Der komplette
- *      Termin- und Countdown-Block erscheint erst, wenn hier eines steht. Ohne
- *      Datum einen Countdown zu zeigen wäre eine erfundene Frist; die verbietet
- *      `funnel-narrativ/reference/bans.md` ausdrücklich.
- *   2. `patternInterrupt.body` ist Platzhalter-Struktur, keine erfundene
- *      Biografie. Ayhams echter Wortlaut ersetzt den Text.
- *   3. `anmeldung.href` zeigt auf `/lass-uns-reden` — das ist der Kalender der
- *      kostenlosen KI-Bewertung, kein Workshop-Anmeldeformular. Wer sich für
- *      den Workshop anmeldet, landet damit in einem Einzelgespräch. Braucht
- *      entweder einen eigenen Anmeldeweg oder die Entscheidung, dass das reicht.
+ *   - **Jede Aussage, die ein Wettbewerber auch unterschreiben könnte, ist
+ *     ersetzt.** „Die meisten Betriebe …" war die häufigste Formulierung auf der
+ *     Seite und zugleich eine unbelegte Mengenangabe (`voice.md` Regel 4).
+ *   - **Die Doppelung ist raus.** `recognize` wiederholte vier der fünf
+ *     `painPoints` fast wortgleich — rund 1.100 px Seitenlänge für dieselbe
+ *     Diagnose. Der Abschnitt trägt jetzt die Kostenrechnung.
+ *   - **Der Ablauf ist neu.** Die Seite bat um zwei Stunden Lebenszeit, ohne zu
+ *     sagen, was darin passiert. Dieselben fünf Punkte, aber als Agenda gerahmt.
+ *   - **Der Beweis führt jetzt mit Zahlen.** Erster Beleg nach dem Hero waren
+ *     zwei zahlenlose Zitate; die harten Kennzahlen standen 4.000 px weiter
+ *     unten. `voice.md` Regel 1: ein Testimonial ohne Zahl ist Dekoration.
+ * ---------------------------------------------------------------------------
  *
- * Alle Zahlen auf dieser Seite müssen belegt sein. Die Kundenergebnisse kommen
- * über `KundenLaufband` aus `src/data/client-results.ts`, die Kundenstimmen aus
- * `src/data/testimonials.ts` — beide tragen nur, was tatsächlich abgegeben
- * wurde. Hier keine weiteren Zahlen eintragen, ohne sie belegen zu können
- * (§ 5b Abs. 3 UWG).
+ * ⚠️ **Was weiterhin fehlt** — solange es fehlt, bleibt die Seite auf `noindex`
+ * (siehe `src/app/funnel/page.tsx`):
+ *
+ *   1. `termin` steht auf `null` — es gibt noch kein Datum. Der Termin- und
+ *      Countdown-Block erscheint erst, wenn hier eines steht. Ohne Datum einen
+ *      Countdown zu zeigen wäre eine erfundene Frist; das verbietet
+ *      `funnel-narrativ/reference/bans.md` ausdrücklich. **Die Texte sind
+ *      deshalb so formuliert, dass sie auch ohne Datum stimmen** — es steht
+ *      nirgends „nächsten Dienstag" oder „nur noch heute".
+ *   2. `anmeldung.href` zeigt auf `/lass-uns-reden` — der Kalender des
+ *      1:1-KI-Checks, kein Workshop-Anmeldeformular. Wer sich für den Workshop
+ *      anmeldet, landet in einem Einzelgespräch. Die FAQ „Wie melde ich mich
+ *      an?" sagt das offen, damit das Versprechen beim Klick nicht bricht —
+ *      besser wäre ein eigener Weg.
+ *   3. Plattform und Teilnehmerzahl des Workshops sind unbekannt. Beides sind
+ *      Tatsachen, keine Formulierungen: Ayham muss sie liefern, dann gehören
+ *      sie in `ablaufLead` und in die FAQ.
+ *
+ * **Alle Zahlen auf dieser Seite müssen belegt sein.** Die Kennzahlen in
+ * `beweisZeilen` sind wörtlich aus `src/data/client-results.ts` übernommen, die
+ * Zitate kommen aus `src/data/testimonials.ts`. Hier nichts eintragen, was dort
+ * nicht steht (§ 5b Abs. 3 UWG).
  */
 
 /** Ein fester Workshop-Termin. `null`, solange keiner feststeht. */
@@ -59,19 +77,39 @@ export interface FunnelTermin {
 export const funnelContent = {
   /* ---------------------------------------------------------------- Hero -- */
 
-  headline: "Warum du mit KI",
-  /** Steht im blauen Marker — die Aussage, an der die Seite hängt. */
-  headlineHighlight: "keinen Umsatz",
-  headlineRest: "machst.",
-  lead: "Die meisten Betriebe im Mittelstand haben kein KI-Problem. Sie haben KI an einer Stelle, an der kein Umsatz entsteht.",
+  /**
+   * **Eine Behauptung, kein Thema.** Vorher stand hier „Warum du mit KI keinen
+   * Umsatz machst." — ein Nebensatz ohne Hauptsatz, der etwas ankündigt, statt
+   * etwas zu behaupten, und den jede KI-Beratung im Land über ihren Funnel
+   * schreiben könnte. Jetzt steht die Diagnose selbst da, und die Schuld liegt
+   * bei der Platzierung der Technik, nicht beim Leser (`voice.md` Regel 3).
+   */
+  headline: "Deine KI macht",
+  /** Steht im blauen Marker. Der Punkt gehört hinein — die View setzt danach ein Leerzeichen. */
+  headlineHighlight: "keinen Umsatz.",
+  headlineRest: "Sie macht nur Verwaltung.",
 
-  /** Die zwei Zeilen unter dem Lead. In der Vorlage stehen sie mit Emoji davor. */
+  /**
+   * Drei Tätigkeiten, die jeder Geschäftsführer im eigenen Haus wiedererkennt,
+   * dann der Verlustsatz. Keine Mengenangabe, keine dritte Person, kein
+   * „kann/oft/meistens". Geht als `description` in das JSON-LD der Seite.
+   */
+  lead: "Ihr schreibt Angebote schneller, fasst Protokolle zusammen, beantwortet Mails in der halben Zeit. Nichts davon steht am Monatsende auf einer Rechnung.",
+
   zielgruppe: "Kostenloser Live-Workshop für Geschäftsführer und Entscheider im Mittelstand.",
 
   /**
-   * ⚠️ Kein Termin eingetragen — Hero-Terminzeile, Anmeldeschluss und Countdown
-   * bleiben deshalb unsichtbar. Sobald hier ein Objekt steht, erscheinen alle
-   * drei von selbst. Beispiel:
+   * Die drei Angaben, die vor dem Klick entscheiden. Sie standen bis zum
+   * 18.08.2026 nur als 12-px-Zeile *unter* dem Knopf — also unterhalb der
+   * Stelle, an der jemand entscheidet, ob er überhaupt weiterliest. Keine neue
+   * Behauptung: alle drei stehen so auch in `zielgruppe` und `anmeldung`.
+   */
+  eckdaten: ["Kostenlos", "2 Stunden", "Live, ohne Aufzeichnung"],
+
+  /**
+   * ⚠️ Kein Termin eingetragen — Terminzeile, Anmeldeschluss und Countdown
+   * bleiben unsichtbar. Sobald hier ein Objekt steht, erscheinen alle drei von
+   * selbst. Beispiel:
    *
    *     termin: {
    *       start: "2026-09-16T10:00:00+02:00",
@@ -81,24 +119,53 @@ export const funnelContent = {
    */
   termin: null as FunnelTermin | null,
 
-  /** Der eine Knopf der Seite. Vier Mal eingebaut, überall gleich beschriftet. */
+  /**
+   * Der eine Knopf der Seite. Mehrfach eingebaut, überall gleich beschriftet.
+   *
+   * „kostenlos" statt „0 €": dasselbe Versprechen ohne den Beigeschmack eines
+   * Preisschilds, das gerade nicht gilt. Der Hinweis nennt den Gegenwert statt
+   * nur die Dauer — „zwei Stunden" allein ist für einen Geschäftsführer ein
+   * Kostenpunkt, kein Argument.
+   */
   anmeldung: {
-    label: "Platz sichern — 0 €",
-    /** Zweite Zeile im Knopf. Nennt die Dauer, damit der Aufwand vor dem Klick klar ist. */
-    hinweis: "2 Stunden, live, ohne Aufzeichnung",
-    /** ⚠️ Siehe Punkt 3 im Kopfkommentar — noch kein eigener Anmeldeweg. */
+    label: "Platz sichern — kostenlos",
+    hinweis: "2 Stunden live. Du gehst mit einer Entscheidung raus, nicht mit Notizen.",
+    /** ⚠️ Siehe Punkt 2 im Kopfkommentar — noch kein eigener Anmeldeweg. */
     href: "/lass-uns-reden",
   },
+
+  /* ------------------------------------------------------------- Beweis -- */
+
+  /**
+   * **Zahlen zuerst, Zitate danach.** Alle Angaben wörtlich aus
+   * `src/data/client-results.ts` — dort sind sie mit Firma, Person und Dauer
+   * hinterlegt. Hier keine Zeile ergänzen, für die es dort keinen Eintrag gibt.
+   *
+   * Formulierung „an eingespartem Aufwand" ist Absicht: „Vollzeitstellen
+   * weniger Verwaltungsarbeit" ist laut CLAUDE.md ausdrücklich raus — belegt ist
+   * eine Aufwands-Äquivalenz, kein Dauerzustand.
+   */
+  beweisHeading: "Was aus abgeschlossenen Projekten übrig bleibt",
+  beweisZeilen: [
+    "1,5 Vollzeitstellen an eingespartem Aufwand — NiImmo Wohnungsbaugesellschaft, 40 Tage bis live",
+    "1,2 Vollzeitkräfte an eingespartem Aufwand — cert consulting Pane, 60 Tage bis live",
+    "10 Minuten für eine Kundenrecherche, die vorher Handarbeit war — Grynia Consulting",
+    "2 Monate von der ersten Zeile bis zum Livegang — klargehalt.de",
+  ],
+  /**
+   * Der ungenutzte Beweis: keiner dieser Wege hat länger als zwei Monate
+   * gedauert. Das steht in keinem einzelnen Fall, ergibt sich aber aus allen —
+   * und ist für einen Geschäftsführer die Angst, die zuerst kommt.
+   */
+  beweisSchluss: "Kein Projekt davon hat länger als zwei Monate gebraucht.",
 
   /* ------------------------------------------------- Pattern-Interrupt ---- */
 
   /**
    * ⚠️ WORTLAUT PRÜFEN (Ayham): Der Absatz steht in der Ich-Form und gehört
-   * damit dir. Er ist am 12.08.2026 geschrieben worden, weil hier vorher eine
-   * Regieanweisung stand ("Platzhalter: eine kurze, persönliche Geschichte …"),
-   * die jeder Besucher lesen konnte. Er kommt bewusst ohne Jahreszahl, Kundenname
-   * oder Projektdetail aus — eine erfundene Episode gehört hier nicht hin. Die
-   * konkrete Geschichte ersetzt diesen Text.
+   * damit dir. Er kommt bewusst ohne Jahreszahl, Kundenname oder Projektdetail
+   * aus — eine erfundene Episode gehört hier nicht hin. Die konkrete Geschichte
+   * ersetzt diesen Text.
    */
   patternInterrupt: {
     heading: "Ich habe das selbst falsch gemacht.",
@@ -107,34 +174,55 @@ export const funnelContent = {
 
   /* ------------------------------------------------------------ Problem -- */
 
-  painHeading: "Warum die meisten trotz KI keinen Euro mehr verdienen.",
-  painIntro: "Die Betriebe, die bei uns anrufen, haben fast nie zu wenig KI im Haus.",
-  painLeadIn: "Sie haben:",
+  /**
+   * Die Erfahrung steht als Beobachtung da („wenn ein Geschäftsführer bei uns
+   * anruft"), nicht als Statistik, die niemand belegen kann. Vorher stand hier
+   * dreimal „die meisten" und einmal „fast nie".
+   */
+  painHeading: "KI läuft bei euch. Der Umsatz merkt davon nichts.",
+  painIntro:
+    "Es fehlt nicht an Technik. Wenn ein Geschäftsführer bei uns anruft, läuft im Haus längst irgendwo ein Sprachmodell.",
+  painLeadIn: "Was wir dort vorfinden:",
+  /**
+   * Jede Zeile ist im eigenen Haus nachprüfbar, keine im Konjunktiv. Punkt 3
+   * und 5 sind zweisätzig — die zweite Hälfte ist jeweils die Pointe.
+   */
   painPoints: [
-    "Werkzeuge, die niemand ans Tagesgeschäft angeschlossen hat",
-    "KI ohne Zugriff auf die eigenen Daten und Systeme",
-    "Einzelne Mitarbeiter, die etwas ausprobieren — ohne festen Ablauf",
-    "Keine Zahl, an der jemand ablesen könnte, ob sich das rechnet",
-    "KI in der Verwaltung statt dort, wo verkauft wird",
+    "Ein ChatGPT-Abo fürs Team, das an keinem einzigen eurer Systeme hängt",
+    "Eine KI, die eure Preise, eure Kunden und eure Angebote nicht kennt",
+    "Zwei, drei Leute, die etwas ausprobieren. Fällt einer aus, fällt es aus.",
+    "Keine Zahl im Controlling, in der das Ganze überhaupt auftaucht",
+    "Jede Automatisierung sitzt in der Verwaltung. Keine im Vertrieb.",
   ],
   painConclusion: "Genau deshalb bleibt der Umsatz, wo er vorher war.",
-  painBridge: "Im Workshop gehen wir jeden dieser fünf Punkte einzeln durch.",
+  painBridge: "Im Workshop gehen wir jeden dieser fünf Punkte an deinem Betrieb durch.",
 
-  /* -------------------------------------------------------- Mechanismus -- */
+  /* ------------------------------------------------------------- Ablauf -- */
 
-  mechanismHeading: "Die 5 Stellen, an denen aus KI Umsatz wird",
-  mechanism: [
+  /**
+   * **Agenda-Beat.** Dieselben fünf Punkte, die hier bis zum 18.08.2026 als
+   * „Mechanismus" standen — nur als Ablauf gerahmt statt als
+   * Methodenversprechen. Wer zwei Stunden Lebenszeit hergibt, will vorher
+   * wissen, wofür.
+   *
+   * ⚠️ Plattform und Teilnehmerzahl fehlen (siehe Punkt 3 im Kopfkommentar).
+   * Sobald sie feststehen, gehören sie in `ablaufLead`.
+   */
+  ablaufHeading: "So laufen die zwei Stunden",
+  ablaufLead:
+    "Fünf Blöcke — die fünf Stellen, an denen aus KI Umsatz wird. Nach jedem entscheidest du für deinen Betrieb, nicht für ein Beispiel.",
+  ablauf: [
     {
       title: "Das Angebot",
       description: "Wo KI deine Leistung wertvoller macht — nicht nur billiger in der Herstellung.",
     },
     {
       title: "Der Zugriff",
-      description: "Warum KI ohne deine Daten und Systeme ein besserer Suchassistent bleibt.",
+      description: "Warum eine KI ohne eure Daten und Systeme ein besserer Suchassistent bleibt.",
     },
     {
       title: "Der Ablauf",
-      description: "Wie aus einzelnen Nutzern ein Prozess wird, der auch ohne dich weiterläuft.",
+      description: "Wie aus zwei, drei Leuten ein Prozess wird, der auch ohne sie weiterläuft.",
     },
     {
       title: "Der Vertrieb",
@@ -146,24 +234,31 @@ export const funnelContent = {
     },
   ],
 
-  /* --------------------------------------------- Wiedererkennung / Ziel -- */
+  /* -------------------------------------------------- Kosten / Ergebnis -- */
 
-  recognizeHeading: "Vielleicht erkennst du dich hier wieder:",
-  recognize: [
-    "In deinem Betrieb nutzen einzelne Leute KI, aber niemand kann sagen, was es bringt.",
-    "Ihr habt Werkzeuge eingekauft, die nach ein paar Wochen keiner mehr öffnet.",
-    "Die KI kennt eure Preise, Kunden und Abläufe nicht — jede Anfrage fängt bei null an.",
-    "Du weißt, dass da etwas geht, aber nicht, wo ihr anfangen sollt.",
-    "Alles, was ihr bisher automatisiert habt, sitzt in der Verwaltung, nicht im Verkauf.",
+  /**
+   * **Umgewidmet am 18.08.2026.** Vorher stand hier „Vielleicht erkennst du
+   * dich hier wieder" mit fünf Zeilen, von denen vier die `painPoints`
+   * paraphrasierten — dieselbe Diagnose ein zweites Mal, rund 1.100 px lang.
+   * Jetzt steht hier, was das Nichtstun kostet: keine erfundene Zahl, aber
+   * jede Zeile kann der Leser mit seinen eigenen Zahlen nachrechnen.
+   */
+  kostenHeading: "Was es kostet, wenn es so bleibt",
+  kosten: [
+    "Du zahlst Lizenzen für Werkzeuge, die in keinem Angebot und auf keiner Rechnung auftauchen.",
+    "Die Verwaltung ist schneller geworden. Der Vertrieb arbeitet im Tempo von vor zwei Jahren.",
+    "Jeder neue Anlauf fängt bei null an, weil niemand festgehalten hat, woran der letzte gescheitert ist.",
+    "Deine Leute sagen dir nicht, dass es nicht funktioniert. Sie hören einfach auf, es zu benutzen.",
+    "Irgendwann kalkuliert ein Wettbewerber deiner Größe schärfer als du — und du erfährst es über den Preis, nicht über die Technik.",
   ],
 
-  changeHeading: "Das verändert sich nach dem Workshop:",
+  changeHeading: "Womit du am Abend rausgehst",
   change: [
-    "Du weißt, an welcher Stelle in deinem Betrieb KI überhaupt Umsatz berühren kann.",
-    "Du hast einen Anwendungsfall ausgewählt — und die vier anderen bewusst verworfen.",
-    "Du kennst die Zahl, an der du in drei Monaten ablesen kannst, ob es funktioniert hat.",
-    "Du kannst deinem Team erklären, warum dieser Fall und nicht ein anderer.",
-    "Du weißt, was du selbst bauen lassen kannst und wofür du jemanden brauchst.",
+    "Die eine Stelle in deinem Betrieb, an der KI Umsatz berührt — benannt, nicht vermutet.",
+    "Einen Anwendungsfall, für den du dich entschieden hast. Und vier, die du bewusst verworfen hast.",
+    "Die Zahl, an der du in drei Monaten abliest, ob es funktioniert hat.",
+    "Eine Begründung, die du deinem Team in zwei Sätzen erklären kannst.",
+    "Die Trennlinie zwischen dem, was ihr selbst macht, und dem, wofür ihr jemanden braucht.",
   ],
 
   /* ------------------------------------------------------ Qualifizierung -- */
@@ -171,42 +266,57 @@ export const funnelContent = {
   fit: {
     forTitle: "Dieser Workshop ist für dich, wenn …",
     for: [
-      "du einen Betrieb mit mehreren Mitarbeitern führst",
-      "ihr KI schon irgendwo einsetzt, aber ohne messbaren Effekt",
-      "du Entscheidungen über Budget und Prioritäten triffst",
-      "du wissen willst, wo sich der Einsatz zuerst lohnt",
+      "du einen Betrieb ab etwa zehn Mitarbeitern führst",
+      "bei euch schon irgendwo KI läuft, ohne dass es jemand messen kann",
+      "du über Budget und Prioritäten entscheidest",
+      "du wissen willst, wo sich der Einsatz zuerst rechnet",
       "du bereit bist, vier Ideen zu verwerfen, um eine umzusetzen",
     ],
     notTitle: "Dieser Workshop ist NICHT für dich, wenn …",
     not: [
       "du eine Liste mit Prompts suchst",
-      "du dir eine allgemeine Einführung in KI erhoffst",
+      "du eine allgemeine Einführung in KI erwartest",
       "du im Betrieb nichts entscheiden oder anstoßen kannst",
       "du erwartest, dass sich ohne eigene Umsetzung etwas ändert",
-      "du ein fertiges Werkzeug kaufen willst statt zu verstehen, wofür",
+      "du ein fertiges Werkzeug kaufen willst, ohne zu wissen wofür",
     ],
   },
 
   /* ------------------------------------------------------------ Gründer -- */
 
+  /**
+   * Der letzte Absatz endete bis zum 18.08.2026 bei der Entstehungsgeschichte
+   * des Workshops — also beim Absender. Jetzt endet er beim Leser.
+   */
   founder: {
     heading: "Moin, ich bin Ayham. Gründer von KITech Software.",
     paragraphs: [
       "Wir haben über 50 Projekte abgeschlossen — vom ersten Gespräch bis zur Software, die im Tagesgeschäft läuft.",
-      "Dabei ist uns eines immer wieder begegnet: Die meisten Betriebe haben kein Wissensproblem.",
-      "Sie haben ein Problem damit, zu entscheiden, wo KI im eigenen Haus überhaupt Geld berührt.",
-      "Genau daraus ist dieser Workshop entstanden.",
+      "Dabei ist mir eines immer wieder begegnet: Es fehlt nicht am Wissen über KI.",
+      "Es fehlt an der Entscheidung, wo im eigenen Haus überhaupt Geld liegen bleibt.",
+      "Diese Entscheidung triffst du in den zwei Stunden. Mit deinen Zahlen, nicht mit meinen Beispielen.",
     ],
   },
 
   /* ---------------------------------------------------------------- FAQ -- */
 
-  faqHeading: "Fragen? Hier kommen die Antworten",
+  faqHeading: "Was Geschäftsführer vorher wissen wollen",
   faq: [
+    {
+      question: "Wie melde ich mich an?",
+      /*
+       * Steht bewusst an erster Stelle und sagt offen, was passiert: der Knopf
+       * führt in ein Vorgespräch, nicht in ein Workshop-Formular (Punkt 2 im
+       * Kopfkommentar). Solange das so ist, muss es hier stehen — sonst bricht
+       * das Versprechen beim ersten Klick.
+       */
+      answer:
+        "Über den Knopf auf dieser Seite. Wir sprechen vorab kurz miteinander — das dauert keine halbe Stunde und klärt, ob dein Fall in die Runde passt. Danach bekommst du den Termin.",
+    },
     {
       question: "Ist der Workshop wirklich kostenlos?",
       answer:
-        "Ja. Es gibt kein Ticket, keine Zahlung und keine Bedingung dahinter. Wir arbeiten mit Betrieben zusammen, die anschließend etwas umsetzen wollen — dafür müssen wir uns vorher kennengelernt haben.",
+        "Ja. Kein Ticket, keine Kreditkarte, keine Bedingung. Der Workshop ist unsere Art, Betriebe kennenzulernen, die danach etwas umsetzen wollen. Ein Teil beauftragt uns später. Der Rest nicht — das ist eingepreist.",
     },
     {
       question: "Muss ich mich mit KI auskennen?",
@@ -216,24 +326,29 @@ export const funnelContent = {
     {
       question: "Ist das eine verkappte Verkaufsveranstaltung?",
       answer:
-        "Es ist ein Workshop mit einem Ergebnis, das du auch ohne uns umsetzen kannst. Wer danach Hilfe bei der Umsetzung will, bekommt sie — wer nicht, behält trotzdem den Plan.",
+        "Am Ende der zwei Stunden sage ich dir in zwei Minuten, was wir machen. Danach ist Schluss. Die restliche Zeit gehört deinem Betrieb — und was du dabei erarbeitest, kannst du auch ohne uns umsetzen.",
     },
     {
       question: "Wird es eine Aufzeichnung geben?",
       answer:
-        "Nein. Wir gehen im Workshop konkrete Fälle der Teilnehmer durch, deshalb läuft keine Aufnahme mit. Wer nicht dabei ist, verpasst den Termin.",
+        "Nein. Wir gehen konkrete Fälle der Teilnehmer durch, deshalb läuft keine Aufnahme mit. Wer nicht dabei war, war nicht dabei.",
     },
     {
       question: "Für welche Betriebsgröße lohnt sich das?",
       answer:
-        "Ab dem Punkt, an dem mehrere Menschen an denselben Abläufen arbeiten — in der Praxis etwa ab zehn Mitarbeitern. Darunter ist meist noch keine Stelle da, an der sich Automatisierung rechnet.",
+        "Ab etwa zehn Mitarbeitern. Darunter wiederholt sich zu wenig, als dass sich Automatisierung rechnet — dann ist ein Einzelgespräch der bessere Weg.",
     },
   ],
 
   /* -------------------------------------------------------- Abschluss --- */
 
+  /**
+   * Verlust statt Bedingung: „Wenn KI … soll, dann sichere dir …" war ein
+   * Konditionalsatz, der dem Leser die Wahl leicht macht. Jetzt steht da, was
+   * ohne die Entscheidung weiterläuft (`voice.md` Regel 2).
+   */
   cta: {
-    heading: "Wenn KI in deinem Betrieb endlich Umsatz berühren soll, dann sichere dir jetzt deinen Platz.",
+    heading: "Nächstes Jahr läuft bei euch mehr KI. Die Frage ist, ob sie dann Umsatz macht.",
     text: "Zwei Stunden, in denen du entscheidest, wo du anfängst — und woran du misst, ob es sich gelohnt hat.",
   },
 };

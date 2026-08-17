@@ -40,6 +40,27 @@ const HOST_SEGMENTS = new Map<string, string>([
   ["fokus.localhost", "fokus"],
 ]);
 
+/**
+ * Segmente, die aus **einer einzigen Seite** bestehen.
+ *
+ * Für sie wird nur die Wurzel umgeschrieben (`funnel.kitech-software.de/` →
+ * `/funnel`); jeder andere Pfad geht unverändert an die normale Website.
+ *
+ * **Warum das nötig ist:** Die Kampagnenseiten verlinken auf Seiten der
+ * Hauptwebsite — der Anmelde-Knopf auf `/lass-uns-reden`, die Fußzeile auf
+ * `/impressum`, `/datenschutz` und `/agb`. Ohne diese Unterscheidung wurden
+ * daraus `/funnel/lass-uns-reden` und `/funnel/impressum`: Routen, die es nicht
+ * gibt. Das war live so — der **einzige CTA der Seite lief in eine 404**, und
+ * die Anbieterkennzeichnung nach § 5 DDG war von der Domain aus nicht
+ * erreichbar. Der Fehler fiel nicht auf, weil auf der Hauptdomain alles
+ * funktionierte und beide Seiten selbst sauber luden.
+ *
+ * `app` steht bewusst **nicht** in dieser Liste: der eingeloggte Bereich hat
+ * echte Unterseiten (`/auth/login`, `/auth/callback` …), die alle unter
+ * `app.kitech-software.de` erreichbar bleiben müssen.
+ */
+const EINSEITIGE_SEGMENTE = new Set(["funnel", "fokus"]);
+
 export function proxy(request: NextRequest) {
   const host = request.headers.get("host")?.split(":")[0]?.toLowerCase() ?? "";
   const segment = HOST_SEGMENTS.get(host);
@@ -62,6 +83,16 @@ export function proxy(request: NextRequest) {
    */
   if (pathname.startsWith("/api/")) {
     return NextResponse.next();
+  }
+
+  /*
+   * Einseitige Segmente: nur die Wurzel gehört der Kampagnenseite, alles andere
+   * ist die normale Website (Begründung bei `EINSEITIGE_SEGMENTE`).
+   */
+  if (EINSEITIGE_SEGMENTE.has(segment)) {
+    return pathname === "/"
+      ? NextResponse.rewrite(new URL(`/${segment}${search}`, request.url))
+      : NextResponse.next();
   }
 
   // Bereits im richtigen Segment (z. B. interner Aufruf) — nicht doppelt mappen.

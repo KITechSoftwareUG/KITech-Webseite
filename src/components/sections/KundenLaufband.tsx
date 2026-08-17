@@ -38,7 +38,14 @@ const sortiert = [...clientResults].sort((a, b) => {
   return foto(a) - foto(b);
 });
 
-function LaufbandKarte({ result }: { result: ClientResult }) {
+function LaufbandKarte({
+  result,
+  /** Karte ohne Verlinkung rendern — siehe `ohneLinks` an `KundenLaufband`. */
+  ohneLinks = false,
+}: {
+  result: ClientResult;
+  ohneLinks?: boolean;
+}) {
   /* Ziel und Beschriftung kommen aus den Daten (`klickZiel`), damit dieselbe
      Karte im Laufband und in der Uebersicht dasselbe tut. klargehalt fuehrt
      zum Beispiel direkt auf klargehalt.de. */
@@ -119,6 +126,13 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
 
   const melden = () => trackEvent("CTA_Klick", { position: `laufband-${result.slug}` });
 
+  /* Auf Kampagnenseiten zeigt die Karte nur — sie fuehrt nirgendwohin.
+     `hover:border-primary` faellt mit weg: ein Rahmen, der auf Mausberuehrung
+     reagiert, kuendigt einen Klick an, den es hier nicht gibt. */
+  if (ohneLinks) {
+    return <div className={klasse.replace(" transition-colors hover:border-primary", "")}>{inhalt}</div>;
+  }
+
   if (ziel.extern) {
     return (
       <a
@@ -140,7 +154,13 @@ function LaufbandKarte({ result }: { result: ClientResult }) {
   );
 }
 
-export function KundenLaufband() {
+/**
+ * @param ohneLinks Karten ohne Verlinkung rendern. Auf den Kampagnenseiten
+ *   (`/funnel`) gesetzt: sechs anklickbare Karten waeren sechs Ausgaenge aus
+ *   einer Seite, die genau ein Ziel hat — dieselbe Ueberlegung, aus der dort
+ *   auch die Hauptnavigation fehlt. Auf der Startseite bleibt es bei Links.
+ */
+export function KundenLaufband({ ohneLinks = false }: { ohneLinks?: boolean } = {}) {
   return (
     <section
       id="ergebnisse"
@@ -181,13 +201,19 @@ export function KundenLaufband() {
               inert={durchlauf > 0}
             >
               {sortiert.map((result) => (
-                <LaufbandKarte key={`${durchlauf}-${result.slug}`} result={result} />
+                <LaufbandKarte
+                  key={`${durchlauf}-${result.slug}`}
+                  result={result}
+                  ohneLinks={ohneLinks}
+                />
               ))}
             </div>
           ))}
         </div>
       </div>
 
+      {/* Auch dieser Link ist ein Ausgang — auf Kampagnenseiten bleibt er weg. */}
+      {!ohneLinks && (
       <div className="mx-auto mt-10 flex w-full max-w-site justify-center px-[15px]">
         <Link
           href="/referenzen"
@@ -198,6 +224,7 @@ export function KundenLaufband() {
           <ArrowRight className="h-6 w-6 animate-pulse-nudge" strokeWidth={2.5} aria-hidden="true" />
         </Link>
       </div>
+      )}
     </section>
   );
 }

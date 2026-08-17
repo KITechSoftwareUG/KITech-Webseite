@@ -47,6 +47,17 @@ export const dynamic = "force-dynamic";
 const BesuchSchema = z.object({
   /** Welche Seite. Nur die beiden Kampagnenpfade sind erlaubt. */
   seite: z.enum(["/funnel", "/fokus"]),
+  /**
+   * Was passiert ist. `aufruf` ist der Seitenaufruf, `gelesen` meldet, dass
+   * jemand 90 % der Seite gescrollt hat.
+   *
+   * Die Scrolltiefe ist auf einer Seite dieser Länge die aussagekräftigste
+   * Zahl nach dem Aufruf: sie trennt „kurz reingeschaut" von „bis zum Ende
+   * gelesen und trotzdem nicht geklickt". Plausible könnte das auch, aber nur
+   * nach Einwilligung — über diesen Kanal wird es ohne Cookie und ohne
+   * personenbezogene Daten gezählt.
+   */
+  ereignis: z.enum(["aufruf", "gelesen"]).default("aufruf"),
   /** Woher der Besucher kam. Fremde Eingabe — Länge begrenzt. */
   referrer: z.string().trim().max(500).nullable().optional(),
   utmSource: z.string().trim().max(120).nullable().optional(),
@@ -154,7 +165,7 @@ export async function POST(request: NextRequest) {
         ...(secret ? { "x-tracking-secret": secret } : {}),
       },
       body: JSON.stringify({
-        ereignis: "funnel_besuch",
+        ereignis: daten.ereignis === "gelesen" ? "funnel_gelesen" : "funnel_besuch",
         seite: daten.seite,
         referrer: daten.referrer ?? null,
         utm_source: daten.utmSource ?? null,
