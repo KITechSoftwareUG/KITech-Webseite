@@ -6,6 +6,7 @@ import { Check, ChevronDown, X } from "lucide-react";
 import { FunnelLogo, FunnelShell } from "@/components/layout/FunnelShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { FunnelStickyCta } from "@/components/conversion/FunnelStickyCta";
+import { Einblenden } from "@/components/sections/Einblenden";
 import { KundenLaufband } from "@/components/sections/KundenLaufband";
 import { StarRating } from "@/components/sections/StarRating";
 import { WorkshopTermin } from "@/components/sections/WorkshopTermin";
@@ -170,6 +171,13 @@ function ZeichenListe({
  */
 const ayhamPortrait = "/images/team/ayham.webp";
 
+/**
+ * Freigestelltes Hero-Portrait — dieselbe Datei, die auch die Startseite rechts
+ * im Hero zeigt. Ohne Hintergrund, damit es auf dem grauen Grund steht statt in
+ * einem Kasten.
+ */
+const heroPortrait = "/images/team/ayham-hero.webp";
+
 /* -------------------------------------------------------------------------- */
 
 export function Funnel() {
@@ -197,13 +205,32 @@ export function Funnel() {
       {/* ------------------------------------------------------------ Hero -- */}
       {/* Linksbündig wie in der Vorlage — nicht zentriert wie der Hero der
           Startseite. Auf `surface-strong`, dem grauen Grund des Designsystems. */}
-      <section className="bg-surface-strong pb-14 pt-7 sm:pt-9">
-        <div className={SITE_CONTAINER}>
+      <section className="relative isolate overflow-hidden bg-surface-strong pb-0 pt-7 sm:pt-9 lg:pb-14">
+        {/*
+          Ayham steht rechts im Bild und wird vom Fensterrand angeschnitten —
+          dieselbe Anordnung wie im Hero der Startseite.
+
+          **Warum das hier besonders zählt:** Der Traffic dieser Seite kommt aus
+          dem LinkedIn-Profil von Ayham. Wer klickt, hat gerade sein Gesicht
+          gesehen; steht hier nur Text, bricht die Wiedererkennung genau an der
+          teuersten Stelle ab. Bis zum 18.08.2026 war die rechte Hälfte des
+          Heros komplett leer.
+
+          `aria-hidden`, weil das Bild nichts trägt, was nicht im Text steht.
+        */}
+        <img
+          src={heroPortrait}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 right-0 hidden h-[380px] w-auto select-none object-contain object-bottom lg:block dt:h-[440px]"
+        />
+
+        <div className={`${SITE_CONTAINER} relative`}>
           {/* Absender, keine Navigation — steht auf demselben grauen Grund wie
               der Hero, damit über der Aussage keine eigene Leiste liegt. */}
           <FunnelLogo />
 
-          <h1 className="kinetic-display kinetic-morph-in mt-10 max-w-[860px] text-balance text-[36px] leading-[41.4px] text-foreground sm:mt-14 sm:text-h1">
+          <h1 className="kinetic-display kinetic-morph-in mt-10 max-w-[860px] text-balance text-[36px] leading-[41.4px] text-foreground sm:mt-14 sm:text-h1 lg:max-w-[840px]">
             {c.headline}{" "}
             <span className="box-decoration-clone bg-primary px-2 text-primary-foreground">
               {c.headlineHighlight}
@@ -211,7 +238,7 @@ export function Funnel() {
             {c.headlineRest}
           </h1>
 
-          <p className="mt-6 max-w-[640px] text-pretty text-lead font-normal text-muted-foreground">
+          <p className="mt-6 max-w-[640px] text-pretty text-lead font-normal text-muted-foreground lg:max-w-[560px]">
             {c.lead}
           </p>
 
@@ -222,11 +249,18 @@ export function Funnel() {
           {/* Die drei Angaben, die vor dem Klick entscheiden — auf Lesehöhe
               statt als Kleingedrucktes unter dem Knopf. Senkrechte Striche
               statt Aufzählungspunkten, damit die Zeile ruhig bleibt. */}
-          <ul className="mt-7 flex flex-wrap items-center gap-y-2">
+          {/* Die Trennstriche stehen erst ab `sm`: auf dem Handy bricht die
+              Zeile um, und ein Strich am Zeilenanfang sieht aus wie ein
+              Aufzählungszeichen, das dort nicht hingehört. Stattdessen trägt
+              der Abstand die Trennung. */}
+          <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-0">
             {c.eckdaten.map((punkt, index) => (
               <li key={punkt} className="flex items-center">
                 {index > 0 && (
-                  <span className="mx-4 h-4 w-px bg-border sm:mx-5" aria-hidden="true" />
+                  <span
+                    className="mr-5 hidden h-4 w-px bg-border sm:ml-5 sm:block"
+                    aria-hidden="true"
+                  />
                 )}
                 <span className="kinetic-data text-fliess font-semibold text-foreground sm:text-[16px]">
                   {punkt}
@@ -243,6 +277,19 @@ export function Funnel() {
               <AnmeldeKnopf position="funnel-hero" />
             </div>
           </div>
+
+          {/* Handy und Tablet: das Portrait steht unter dem Knopf, mittig und
+              unten bündig — dieselbe Anordnung wie auf der Startseite. Neben dem
+              Text hätte es hier keinen Platz, ganz weglassen hieße aber, dem
+              LinkedIn-Besucher ausgerechnet auf dem Gerät kein Gesicht zu
+              zeigen, auf dem die meisten klicken. */}
+          <div className="mt-10 flex w-full justify-center lg:hidden" aria-hidden="true">
+            <img
+              src={heroPortrait}
+              alt=""
+              className="h-[300px] w-auto select-none object-contain object-bottom sm:h-[340px]"
+            />
+          </div>
         </div>
       </section>
 
@@ -250,34 +297,52 @@ export function Funnel() {
       {/* Zahlen zuerst: die belegten Kennzahlen aus client-results.ts, danach
           die zwei echten Zitate. Beides steht direkt unter dem Hero, weil kalter
           Traffic den Beleg braucht, bevor eine Behauptung fällt. */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="beweis">
+      <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="beweis">
         <AbschnittsTitel id="beweis">{c.beweisHeading}</AbschnittsTitel>
 
-        <ul className="mx-auto mt-9 max-w-[760px] divide-y divide-border border-y border-border">
-          {c.beweisZeilen.map((zeile) => (
-            <li
-              key={zeile}
-              className="py-4 text-fliess font-medium leading-[1.5] text-foreground sm:text-[16px]"
-            >
-              {zeile}
+        {/*
+          Die Zahl trägt den Block, nicht der Satz. Raster über `gap-px` auf
+          `bg-border`: die Trennlinien entstehen aus dem Abstand, ohne dass
+          jede Zelle einen eigenen Rahmen bekommt — dasselbe Muster wie in den
+          Leistungen. Zwei Spalten auf dem Handy, vier ab `lg`.
+        */}
+        <ul className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {c.beweis.map((fall) => (
+            <li key={fall.firma} className="bg-background p-6 sm:p-7">
+              <p className="kinetic-data text-[40px] font-light leading-none text-primary sm:text-[44px]">
+                {fall.zahl}
+              </p>
+              <p className="mt-3 text-fliess font-bold leading-snug text-foreground">
+                {fall.label}
+              </p>
+              <p className="mt-4 border-t border-border pt-3 text-mini leading-snug text-muted-foreground">
+                {fall.firma}
+                {fall.dauer && (
+                  <>
+                    <br />
+                    {fall.dauer}
+                  </>
+                )}
+              </p>
             </li>
           ))}
         </ul>
 
-        <p className="mx-auto mt-6 max-w-[760px] text-balance text-center text-[16px] font-semibold leading-snug text-foreground sm:text-lead">
+        <p className="mx-auto mt-8 max-w-[760px] text-balance text-center text-[17px] font-semibold leading-snug text-foreground sm:text-lead">
           {c.beweisSchluss}
         </p>
 
         {/* Die zwei abgegebenen Zitate. Mehr gibt es nicht — und mehr wird
-            nicht erfunden. */}
-        <ul className="mx-auto mt-12 grid max-w-[900px] gap-x-12 gap-y-8 sm:grid-cols-2">
+            nicht erfunden. Größer gesetzt als der Fließtext ringsum: zwei echte
+            Sätze wirken stärker, wenn sie nicht wie Kleingedrucktes aussehen. */}
+        <ul className="mx-auto mt-14 grid max-w-[900px] gap-x-12 gap-y-10 sm:grid-cols-2">
           {testimonials.map((stimme) => (
             <li key={stimme.author} className="flex flex-col">
               <StarRating value={stimme.rating} />
-              <p className="mt-3 text-[16px] font-semibold leading-[1.45] text-foreground">
+              <p className="mt-4 text-balance text-[19px] font-semibold leading-[1.35] text-foreground sm:text-[21px]">
                 „{stimme.quote}“
               </p>
-              <p className="mt-2 text-fliess text-muted-foreground">
+              <p className="mt-3 text-fliess text-muted-foreground">
                 {stimme.author} · {stimme.role}
               </p>
             </li>
@@ -289,22 +354,48 @@ export function Funnel() {
 
       {/* ------------------------------------------------ Pattern-Interrupt -- */}
       {/* Schema A, Beat 2: die eigene Fehlererfahrung, bevor eine Behauptung
-          über das Angebot fällt. Linksbündig, wie die Gründer-Passage. */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="verbrannt">
-        <h2
-          id="verbrannt"
-          className="kinetic-display max-w-[720px] text-balance text-[26px] leading-[1.16] text-foreground sm:text-h3"
-        >
-          {c.patternInterrupt.heading}
-        </h2>
-        <p className="mt-5 max-w-[640px] text-pretty text-[16px] leading-[1.6] text-foreground/85 sm:text-lead">
-          {c.patternInterrupt.body}
-        </p>
+          über das Angebot fällt.
+
+          Als Zitat mit Gesicht gesetzt, nicht als Fließtext: es ist der einzige
+          Absatz der Seite in der Ich-Form, und ohne Person daneben las er sich
+          wie ein weiterer Textblock. Auf `surface` statt Weiß — dadurch hebt er
+          sich vom Beweis darüber und vom Problem darunter ab. */}
+      <section className="bg-surface py-16" aria-labelledby="verbrannt">
+        <div className={SITE_CONTAINER}>
+          <Einblenden>
+            <div className="mx-auto flex max-w-[900px] flex-col items-start gap-8 sm:flex-row sm:gap-12">
+              {/* Nicht `aria-hidden`: hier steht, wer spricht — das ist Inhalt. */}
+              <img
+                src={ayhamPortrait}
+                alt="Ayham Alkhalil"
+                loading="lazy"
+                className="h-[112px] w-[112px] shrink-0 select-none rounded-full bg-surface-strong object-cover object-top sm:h-[132px] sm:w-[132px]"
+              />
+
+              <div>
+                <h2
+                  id="verbrannt"
+                  className="kinetic-display text-balance text-[26px] leading-[1.16] text-foreground sm:text-h3"
+                >
+                  {c.patternInterrupt.heading}
+                </h2>
+                <p className="mt-5 text-pretty text-[17px] leading-[1.6] text-foreground/85 sm:text-lead">
+                  {c.patternInterrupt.body}
+                </p>
+                <p className="mt-5 text-fliess font-semibold text-muted-foreground">
+                  Ayham Alkhalil, Gründer von KITech Software
+                </p>
+              </div>
+            </div>
+          </Einblenden>
+        </div>
       </section>
 
       {/* --------------------------------------------------------- Problem -- */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="problem">
-        <AbschnittsTitel id="problem">{c.painHeading}</AbschnittsTitel>
+      <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="problem">
+        <Einblenden>
+          <AbschnittsTitel id="problem">{c.painHeading}</AbschnittsTitel>
+        </Einblenden>
 
         <div className="mx-auto mt-10 max-w-[720px]">
           <p className="text-[16px] font-medium leading-[1.55] text-foreground sm:text-lead">
@@ -380,17 +471,25 @@ export function Funnel() {
       <Weiter />
 
       {/* ------------------------------------------------ Kosten / Ergebnis -- */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="kosten">
-        <AbschnittsTitel id="kosten">{c.kostenHeading}</AbschnittsTitel>
-        <div className="mx-auto mt-8 max-w-[900px]">
-          <ZeichenListe items={c.kosten} marker="cross" />
-        </div>
+      <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="kosten">
+        <Einblenden>
+          <AbschnittsTitel id="kosten">{c.kostenHeading}</AbschnittsTitel>
+          <div className="mx-auto mt-8 max-w-[900px]">
+            <ZeichenListe items={c.kosten} marker="cross" />
+          </div>
+        </Einblenden>
       </section>
 
-      <section className={`${SITE_CONTAINER} pb-14`} aria-labelledby="ergebnis">
-        <AbschnittsTitel id="ergebnis">{c.changeHeading}</AbschnittsTitel>
-        <div className="mx-auto mt-8 max-w-[900px]">
-          <ZeichenListe items={c.change} marker="check" />
+      {/* Auf `surface`: Kosten und Ergebnis stehen gegeneinander, deshalb
+          dürfen sie nicht auf demselben Grund liegen. */}
+      <section className="bg-surface py-16" aria-labelledby="ergebnis">
+        <div className={SITE_CONTAINER}>
+          <Einblenden>
+            <AbschnittsTitel id="ergebnis">{c.changeHeading}</AbschnittsTitel>
+            <div className="mx-auto mt-8 max-w-[900px]">
+              <ZeichenListe items={c.change} marker="check" />
+            </div>
+          </Einblenden>
         </div>
       </section>
 
@@ -407,18 +506,22 @@ export function Funnel() {
       <Weiter />
 
       {/* -------------------------------------------------- Qualifizierung -- */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="geeignet">
-        <AbschnittsTitel id="geeignet">{c.fit.forTitle}</AbschnittsTitel>
-        <div className="mx-auto mt-8 max-w-[900px]">
-          <ZeichenListe items={c.fit.for} marker="check" />
-        </div>
+      <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="geeignet">
+        <Einblenden>
+          <AbschnittsTitel id="geeignet">{c.fit.forTitle}</AbschnittsTitel>
+          <div className="mx-auto mt-8 max-w-[900px]">
+            <ZeichenListe items={c.fit.for} marker="check" />
+          </div>
+        </Einblenden>
       </section>
 
-      <section className={`${SITE_CONTAINER} pb-14`} aria-labelledby="ungeeignet">
-        <AbschnittsTitel id="ungeeignet">{c.fit.notTitle}</AbschnittsTitel>
-        <div className="mx-auto mt-8 max-w-[900px]">
-          <ZeichenListe items={c.fit.not} marker="cross" />
-        </div>
+      <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="ungeeignet">
+        <Einblenden>
+          <AbschnittsTitel id="ungeeignet">{c.fit.notTitle}</AbschnittsTitel>
+          <div className="mx-auto mt-8 max-w-[900px]">
+            <ZeichenListe items={c.fit.not} marker="cross" />
+          </div>
+        </Einblenden>
 
         <div className="mt-12">
           <AnmeldeKnopf position="funnel-qualifizierung" />
@@ -467,8 +570,10 @@ export function Funnel() {
       <Weiter />
 
       {/* ------------------------------------------------------------- FAQ -- */}
-      <section className={`${SITE_CONTAINER} py-14`} aria-labelledby="faq">
-        <AbschnittsTitel id="faq">{c.faqHeading}</AbschnittsTitel>
+      <section className={`${SITE_CONTAINER} py-16`} aria-labelledby="faq">
+        <Einblenden>
+          <AbschnittsTitel id="faq">{c.faqHeading}</AbschnittsTitel>
+        </Einblenden>
 
         <Accordion type="single" collapsible className="mx-auto mt-10 max-w-[760px]">
           {c.faq.map((eintrag, index) => (

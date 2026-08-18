@@ -146,11 +146,41 @@ export const funnelContent = {
    * eine Aufwands-Äquivalenz, kein Dauerzustand.
    */
   beweisHeading: "Was aus abgeschlossenen Projekten übrig bleibt",
-  beweisZeilen: [
-    "1,5 Vollzeitstellen an eingespartem Aufwand — NiImmo Wohnungsbaugesellschaft, 40 Tage bis live",
-    "1,2 Vollzeitkräfte an eingespartem Aufwand — cert consulting Pane, 60 Tage bis live",
-    "10 Minuten für eine Kundenrecherche, die vorher Handarbeit war — Grynia Consulting",
-    "2 Monate von der ersten Zeile bis zum Livegang — klargehalt.de",
+  /**
+   * Als Zahlentafel gesetzt, nicht als Fließtext: die Zahl ist das Argument,
+   * alles andere ist Beleg dazu. Bis zum 18.08.2026 stand jede dieser Angaben
+   * als eine Textzeile mit Gedankenstrich — die stärkste Munition der Seite sah
+   * damit aus wie eine Rechnungsposition.
+   *
+   * `zahl` und `label` sind wörtlich `headline.value` / `headline.label` aus
+   * `src/data/client-results.ts`, `dauer` kommt aus den dortigen `metrics`.
+   * Hier keine Zeile ergänzen, für die es dort keinen Eintrag gibt.
+   */
+  beweis: [
+    {
+      zahl: "1,5",
+      label: "Vollzeitstellen an eingespartem Aufwand",
+      firma: "NiImmo Wohnungsbaugesellschaft",
+      dauer: "40 Tage bis live",
+    },
+    {
+      zahl: "1,2",
+      label: "Vollzeitkräfte an eingespartem Aufwand",
+      firma: "cert consulting Pane",
+      dauer: "60 Tage bis live",
+    },
+    {
+      zahl: "10 Min.",
+      label: "für eine Kundenrecherche, die vorher Handarbeit war",
+      firma: "Grynia Consulting",
+      dauer: null,
+    },
+    {
+      zahl: "2 Monate",
+      label: "von der ersten Zeile bis zum Livegang",
+      firma: "klargehalt.de",
+      dauer: null,
+    },
   ],
   /**
    * Der ungenutzte Beweis: keiner dieser Wege hat länger als zwei Monate

@@ -278,3 +278,33 @@
     }
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Einblenden beim Scrollen (src/components/sections/Einblenden.tsx)
+
+   Die Klassen werden ausschliesslich per JavaScript gesetzt, und zwar nur bei
+   Elementen, die beim Laden noch unterhalb des Sichtfelds liegen. Ohne
+   JavaScript greift keine der beiden Regeln — der Inhalt steht dann einfach da.
+   Genau deshalb sitzt hier kein `opacity: 0` im Ausgangszustand eines Elements.
+--------------------------------------------------------------------------- */
+.einblenden-start {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.einblenden-an {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .einblenden-start,
+  .einblenden-an {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
