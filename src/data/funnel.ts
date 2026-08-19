@@ -52,6 +52,25 @@
  *   3. Plattform und Teilnehmerzahl des Workshops sind unbekannt. Beides sind
  *      Tatsachen, keine Formulierungen: Ayham muss sie liefern, dann gehören
  *      sie in `ablaufLead` und in die FAQ.
+ *   4. **Der Einblick fehlt — und damit der Funnel-Grundsatz.** Ansage vom
+ *      19.08.2026: ein Funnel muss tiefe Einblicke in echte Lösungsarbeit
+ *      geben, bevorzugt als Video, in dem ein konkretes Problem sichtbar
+ *      gelöst wird. Diese Seite bewirbt einen Live-Workshop — der Einblick
+ *      entsteht also erst *nach* der Anmeldung, davor stehen nur Kennzahlen
+ *      und zwei Zitate. Die Regel und ihre Grenzen stehen in
+ *      `.claude/skills/funnel-narrativ/reference/substanz.md`.
+ *
+ *      Was gebraucht wird: ein bis drei kurze Videos (Bildschirmaufnahme,
+ *      ungeschnitten genug, dass man die Sackgassen sieht), in denen ein
+ *      echtes Problem gelöst wird — z. B. die Zerlegung eines der Projekte
+ *      aus `client-results.ts`. Vor der Aufnahme: Testdaten statt echter
+ *      Kundendatensätze, keine Zugangsdaten im Bild, schriftliche Freigabe
+ *      des Kunden. Risikofrei ohne Rückfrage geht es mit `klargehalt.de` —
+ *      das ist ein eigenes Produkt.
+ *
+ *      Der Block gehört zwischen Hero und Problem, dorthin, wo heute die
+ *      Zahlentafel steht: Beweis vor der ersten Behauptung. Die Zahlentafel
+ *      rückt dann darunter und darf kürzer werden.
  *
  * **Alle Zahlen auf dieser Seite müssen belegt sein.** Die Kennzahlen in
  * `beweisZeilen` sind wörtlich aus `src/data/client-results.ts` übernommen, die

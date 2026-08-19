@@ -13,6 +13,12 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
+**Stand 19.08.2026 — Funnel-Grundsatz ergänzt:** Funnels sind **nicht** die
+allgemeine Website und werden nicht wie klassische PDF-Leadmagneten gebaut.
+Siehe [Funnel-Grundsatz](#funnel-grundsatz): In Funnels soll KITech tiefe,
+normalerweise nicht oeffentlich sichtbare Einblicke in echte Loesungen geben —
+vor allem ueber Videos, in denen konkrete Probleme direkt geloest werden.
+
 **Stand 17.08.2026 — was zuletzt geändert wurde:** Die **Bilder sind neu
 geordnet**: alle inhaltlichen Bilder liegen unter `public/images/`
 (`team/`, `referenzen/portraits/`, `referenzen/logos/`), Wegweiser in
@@ -338,6 +344,52 @@ Zwei eigene Domains, ein Repo: `funnel.kitech-software.de` und
 `/funnel` und `/fokus` umgeschrieben (Rewrite, kein Redirect — die Adresszeile
 bleibt stehen). Beide stehen auf `noindex`, in keiner Navigation und in keiner
 Sitemap; der Routen-Test nimmt sie von der Erreichbarkeitsprüfung aus.
+
+#### Funnel-Grundsatz
+
+**Ansage 19.08.2026:** Bei Funnels geht es nicht um die normale Webseite,
+sondern um Kampagnen, die einen klaren, tiefen Einblick in KITechs
+Loesungsarbeit geben. Klassische Funnel-Geschenke wie PDFs, oberflaechliche
+Checklisten oder generische "3 Tipps" sind ausgelaugt und sollen nicht der Kern
+des Angebots sein.
+
+Der Lead-Magnet eines Funnels soll bevorzugt ein **Video oder eine kleine
+Video-Strecke** sein, in der Ayham/KITech ein echtes Problem sichtbar loest:
+"Das ist das Problem, das ist das Thema, und so gehen wir direkt in die
+Loesung." Der Wert muss im Funnel selbst liegen, nicht erst hinter einem Call.
+Geeignet sind tiefe Denkmodelle, Architekturentscheidungen, Prozesszerlegungen,
+Automatisierungen, echte Projektlogik, interne Methoden oder ein sauber
+aufbereiteter Einblick in ein aufwendiges Projekt.
+
+**Wichtig fuer neue Funnel-Konzepte:** lieber ein konkretes Problem radikal gut
+loesen als breit erklaeren. Ein Funnel soll das Gefuehl ausloesen: "Wenn sie
+das kostenlos so tief zeigen, will ich wissen, was sie im Projekt koennen."
+PDFs duerfen hoechstens begleitend als Mitschrift, Spickzettel oder technische
+Zusammenfassung dienen — nie als Hauptversprechen.
+
+Dabei keine vertraulichen Kundendaten, Secrets, Zugangsdaten oder
+vertraglich geschuetzten Details veroeffentlichen. "Tiefe Geheimnisse" meint:
+ungewoehnlich wertvolles Know-how und echte Loesungstiefe, die von Ayham fuer
+den Funnel freigegeben wurde.
+
+**Wo dieser Grundsatz beim Bauen greift:** ausformuliert als
+[`.claude/skills/funnel-narrativ/reference/substanz.md`](.claude/skills/funnel-narrativ/reference/substanz.md).
+Der `funnel-narrativ`-Skill liest die Datei seit dem 19.08.2026 als **Schritt 0**
+— noch vor Sprachregeln und Schemawahl. Damit ist die Frage „was bietet der
+Funnel ueberhaupt an?" nicht mehr eine unter vielen, sondern die erste. Dort
+stehen auch die Punkte, die dieser Abschnitt nur streift: die Match-and-refuse-
+Liste (PDF, Checkliste, "X Tipps", Audit als Koeder), das Prinzip fuer die Grenze
+nach unten (**verschenkt wird das Wissen, nicht die Ausfuehrung**), und was vor
+einer Aufnahme aus einem Kundenprojekt zu klaeren ist — Testdaten statt echter
+Datensaetze, schriftliche Freigabe des Kunden, im Zweifel anwaltlich pruefen
+lassen.
+
+⚠️ **Der aktuelle `/funnel` erfuellt den Grundsatz noch nicht.** Er bewirbt einen
+Live-Workshop — der Einblick entsteht also erst *nach* der Anmeldung. Als Beweis
+davor stehen nur Kennzahlen und zwei Zitate. Solange kein Video davorsteht, in
+dem tatsaechlich etwas geloest wird, verlangt die Seite Vertrauensvorschuss ohne
+Gegenleistung. Was dafuer fehlt, steht im Kopfkommentar von
+`src/data/funnel.ts`.
 
 **`/funnel` bewirbt seit dem 12.08.2026 einen kostenlosen Live-Workshop**
 (vorher: allgemeine Seite über KI-Infrastruktur). Aufhänger ist die Umkehrung —

@@ -18,6 +18,11 @@ beliebige statt einer bewährten Beat-Reihenfolge.
 oder auf Konversion geprüft; Fragen wie "welche Reihenfolge", "welches Schema", "Funnel
 gliedern/sequenzieren", "Hero-Claim + Beats planen", "Copy-Struktur für X".
 
+**Zuständig auch für die Substanz:** `reference/substanz.md` legt fest, was ein
+Funnel überhaupt anbieten darf — tiefe Einblicke in echte Lösungen, bevorzugt als
+Video, in dem ein Problem tatsächlich gelöst wird. Das ist Vorgabe von Ayham
+(18.08.2026) und steht vor jeder Strukturfrage.
+
 **Nicht zuständig für:** reines visuelles Polishing/Farben/Typografie (siehe `impeccable`)
 — das Design (Farben, Komponenten, Typografie) gibt diese Website vor (`CLAUDE.md`,
 Abschnitt "Design System"), nicht dieses Skill. Auch nicht zuständig für
@@ -26,6 +31,11 @@ Struktur + Sprachregeln fest, nicht die konkrete Wortwahl pro Funnel).
 
 ## Setup — immer zuerst
 
+0. **Lies `reference/substanz.md` und kläre zuerst, WAS der Funnel anbietet.**
+   Ein Funnel mit dem falschen Angebot ist mit keiner Struktur zu retten — und
+   PDFs, Checklisten und „X Tipps" sind seit dem 18.08.2026 ausdrücklich raus.
+   Steht das Angebot nicht fest oder ist es dünn, wird das geklärt, bevor
+   irgendein Beat geplant wird.
 1. Lies `reference/voice.md` (gilt für JEDEN Funnel, unabhängig vom Schema) und
    `reference/bans.md` (harte Verbote, match-and-refuse).
 2. Wenn der Nutzer noch kein Schema genannt hat: lies `reference/choosing-a-schema.md`
