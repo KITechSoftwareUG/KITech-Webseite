@@ -1,6 +1,6 @@
 ---
 name: funnel-narrativ
-description: Use when planning, structuring, sequencing, or auditing the narrative/copy structure of a KITech sales funnel page (section order, hero claim, story beats, testimonial placement, CTA flow) — for German-language direct-response funnels specifically. Triggers on "neuer Funnel", "Funnel gliedern/sequenzieren", "welches Schema", "Section-Reihenfolge", "Hero-Claim planen", "Copy-Struktur". Not for visual/color/typography polish (use impeccable) or backend/deployment.
+description: Use when deciding WHAT a KITech funnel offers (lead magnet, Einblick, giveaway) or when planning, structuring, sequencing, or auditing its narrative/copy structure (section order, hero claim, story beats, testimonial placement, CTA flow) — for German-language direct-response funnels specifically. Triggers on "neuer Funnel", "Funnel bauen", "Lead-Magnet", "was bieten wir an", "was verschenken wir", "Funnel gliedern/sequenzieren", "welches Schema", "Section-Reihenfolge", "Hero-Claim planen", "Copy-Struktur". Enforces the 19.08.2026 rule that funnels must show deep insight into real solutions (video of a problem actually being solved) instead of PDFs, checklists or "X Tipps" — read reference/substanz.md first. Not for visual/color/typography polish (use impeccable) or backend/deployment.
 version: 1.0.0
 user-invocable: true
 argument-hint: "[schema-a|schema-b|schema-c|schema-d|schema-e|choose|audit] [funnel-name]"
