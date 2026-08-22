@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { footerNavigation, legalNavigation } from "@/config/navigation";
 import { company, addressLine } from "@/config/company";
 import { SITE_CONTAINER } from "./site-container";
@@ -43,9 +44,13 @@ export function SiteFooter() {
         {/* Zeile 1: Logo und Navigation */}
         <div className="flex flex-col items-center gap-6 dt:flex-row dt:items-center dt:justify-between dt:gap-10">
           <Link href="/" aria-label="KITech Software – Startseite" className="flex shrink-0">
-            <img
-              src="/logo-weiss.svg"
-              alt="KITech Software Logo"
+            {/* Siehe Kommentar in SiteHeader.tsx: 178 KB SVG -> 5,6 KB WebP,
+                mit festem Seitenverhaeltnis gegen die Layoutverschiebung. */}
+            <Image
+              src="/images/logo-weiss.webp"
+              alt="KITech Software"
+              width={456}
+              height={144}
               className="h-9 w-auto dt:h-8"
             />
           </Link>

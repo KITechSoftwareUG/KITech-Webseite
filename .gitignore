@@ -36,3 +36,5 @@ tsconfig.tsbuildinfo
 
 # Temporaere Arbeitsdateien (Messungen, Screenshots, Skripte) — nie committen
 .tmp/
+.tmp-*
+

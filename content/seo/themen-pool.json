@@ -1,0 +1,918 @@
+[
+  {
+    "id": "e-rechnung-pflicht-2027",
+    "arbeitstitel": "E-Rechnung ab 1.1.2027: wer versenden muss und was bis dahin zu tun ist",
+    "zielKeyword": "e-rechnung pflicht 2027",
+    "cluster": "dokumente-und-belege",
+    "autor": "leon-battel",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Die zweite Stufe der Versandpflicht mit dem Umsatzschwellenwert, ab dem sie greift, gelesen im Gesetzestext statt in der Zusammenfassung — und die Ableitung daraus, was bis dahin technisch stehen muss: Format, Ablage, Prüfung, Übergabe an die Buchhaltung.",
+      "herkunft": "§ 14 UStG in der Fassung des Wachstumschancengesetzes samt Übergangsregeln: Stufe ab 01.01.2027 für Unternehmen oberhalb von 800.000 Euro Vorjahresumsatz. Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 1,
+    "spaetestens": "2026-12-31",
+    "notiz": "Schwellenwert und Übergangsfristen unmittelbar vor der Veröffentlichung am Gesetzestext und am einschlägigen BMF-Schreiben gegenprüfen. Nach dem Stichtag trägt die Rahmung „was bis dahin zu tun ist“ nicht mehr."
+  },
+  {
+    "id": "go-digital-nachfolger",
+    "arbeitstitel": "go-digital ist ausgelaufen: die realistischen Nachfolger 2026",
+    "zielKeyword": "go-digital nachfolger",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Was an die Stelle des ausgelaufenen Programms getreten ist — und die unbequeme Antwort, dass es keinen direkten Nachfolger mit Zuschuss gibt, sondern vier andere Wege: Steuerinstrument, Förderkredit, Landesprogramme, kostenlose Beratung.",
+      "herkunft": "Offizielle Programmmeldung zum Auslaufen von go-digital zum 31.12.2024 auf der Förderseite des zuständigen Bundesministeriums; eigener Abgleich der noch laufenden Instrumente, Stand 19.08.2026."
+    },
+    "prioritaet": 2,
+    "notiz": "Förderstände altern schnell — vor dem Schreiben erneut an der Programmseite prüfen und das Abrufdatum in die Quellenangabe schreiben."
+  },
+  {
+    "id": "digital-jetzt-alternative",
+    "arbeitstitel": "Digital Jetzt endgültig eingestellt: welche Alternativen es 2026 noch gibt",
+    "zielKeyword": "digital jetzt alternative",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Das Programm ist nicht pausiert, sondern beendet, und das Antragsportal ist abgeschaltet. Was das für Vorhaben bedeutet, die darauf gewartet haben, und welche Instrumente 2026 tatsächlich noch offenstehen.",
+      "herkunft": "Offizielle Einstellungsmeldung zu Digital Jetzt, Abschaltung des Förderportals zum 31.03.2026; eigener Abgleich der verbliebenen Instrumente, Stand 19.08.2026."
+    },
+    "prioritaet": 3,
+    "notiz": "Bestandsartikel im Netz beschreiben überwiegend noch Antragswege, die es nicht mehr gibt — die Aktualität ist hier das ganze Argument."
+  },
+  {
+    "id": "rag-system-unternehmen",
+    "arbeitstitel": "RAG-System für Unternehmen: was es ist, was es kostet, wann es sich lohnt",
+    "zielKeyword": "rag system unternehmen",
+    "cluster": "rag-und-unternehmensdaten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 4,
+    "notiz": "Pillar-Thema mit hoher Priorität, aber ohne Eigenanteil: braucht ein gebautes System als Beleg — Aufbau, Kosten eines echten Monats, gemessene Trefferqualität. Solange das fehlt, entsteht ein Übersichtsartikel wie zehn andere."
+  },
+  {
+    "id": "prozesse-automatisieren-ohne-it-abteilung",
+    "arbeitstitel": "Prozesse automatisieren ohne eigene IT-Abteilung: was im Mittelstand wirklich funktioniert",
+    "zielKeyword": "prozesse automatisieren unternehmen",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Die Anwendung kennt genau eine Empfängeradresse; welcher Kanal am Ende bedient wird — Messenger, E-Mail, CRM — entscheidet der Workflow dahinter. Wer den Kanal wechselt, fasst die Anwendung nie wieder an. Dazu die Regel, dass eine nicht gesetzte Variable still nichts tut, statt zu brechen.",
+      "herkunft": "Eigene Website: Ereignis-Route unter src/app/api/ereignis/route.ts und der exportierte Workflow deploy/n8n-benachrichtigung.json im selben Repo — vier Knoten, importierbar statt nachbaubar."
+    },
+    "prioritaet": 5,
+    "notiz": "Kein Ideenkatalog. Der Artikel führt einen einzigen, vollständig belegten Ablauf vor und leitet daraus die Bauregeln ab."
+  },
+  {
+    "id": "ki-beratung-hannover",
+    "arbeitstitel": "KI-Beratung in Hannover: wie ein Erstgespräch bei uns abläuft",
+    "zielKeyword": "ki beratung hannover",
+    "cluster": "ki-beratung-hannover",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "prozesszerlegung",
+      "beschreibung": "Der eigene Ablauf offengelegt: ein kostenloses Erstgespräch von 30 Minuten mit fester Platzzahl pro Woche, was darin geprüft wird, in welcher Reihenfolge, und was der Gesprächspartner danach in der Hand hat — dazu aufrufbare Produkte als Beleg statt einer Logowand.",
+      "herkunft": "Eigene Angebotskonfiguration dieser Website (Dauer, Wochentag, Platzzahl) und die öffentlich verlinkten Live-Belege auf kitech-software.de."
+    },
+    "prioritaet": 6,
+    "notiz": "Dauer, Wochentag und Platzzahl stehen in der Angebotskonfiguration und ändern sich — vor der Veröffentlichung abgleichen. Interne Preise und ältere Workshop-Preise bleiben draußen."
+  },
+  {
+    "id": "forschungszulage-ki-projekt",
+    "arbeitstitel": "Forschungszulage für KI-Projekte: 25 oder 35 Prozent, und was als Forschung zählt",
+    "zielKeyword": "forschungszulage ki projekt",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Das Instrument, das von den Digitalisierungsprogrammen übrig geblieben ist: Steuergutschrift statt Zuschuss, zweistufig über Bescheinigungsstelle und Finanzamt — und die Frage, welcher Teil einer Softwareentwicklung überhaupt als Forschung zählt.",
+      "herkunft": "Forschungszulagengesetz im Wortlaut: 25 Prozent im Grundsatz, 35 Prozent für kleine und mittlere Unternehmen, zweistufiges Verfahren. Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 7,
+    "notiz": "Prozentsätze und Bemessungsgrenzen vor der Veröffentlichung am Gesetzestext gegenprüfen. Kein Antragsstichtag, deshalb ganzjährig tragfähig."
+  },
+  {
+    "id": "claude-md-richtig-schreiben",
+    "arbeitstitel": "CLAUDE.md richtig schreiben: Aufbau einer Datei, mit der ein Agent ein Firmenprojekt versteht",
+    "zielKeyword": "claude.md beispiel",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Die Anatomie einer gewachsenen Projektdatei statt einer leeren Vorlage: Stand-Blöcke mit Datum statt Änderungsprotokoll, eine Begründung an jeder Regel, ein Warnzeichen-Feld für offene Punkte, ein Wiederherstellungsblock mit Commit-Kennung für entfernten Code, und ein Abschnitt darüber, was ausdrücklich nicht gebaut wird.",
+      "herkunft": "Die Projektdatei dieses Repos: von 71 Zeilen im ersten Commit auf über 1.100, in 26 Commits auf die Datei. Nachgezählt am 19.08.2026 mit git log --follow -- CLAUDE.md und wc -l; die Datei trägt sieben Stand-Blöcke und zwölf Warnzeichen-Absätze.",
+      "material": [
+        "Regel mit Begründung: Mindesthöhe statt fester Höhe an jedem Knopf — Anlass war eine längere Beschriftung, die oben und unten aus der Fläche lief; Prüfanweisung: bei 360 Pixel Fensterbreite ansehen.",
+        "Entfernter Code gehört dokumentiert, nicht vergessen: Commit-Kennung, der Wiederherstellungsbefehl, und die Liste dessen, was danach wieder einzutragen ist.",
+        "Die Prüffrage für jede Zeile: Würde ein neuer Entwickler daraus dieselbe Entscheidung treffen wie ich letzten Monat?"
+      ]
+    },
+    "prioritaet": 8,
+    "notiz": "Zahlen am 19.08.2026 nachgeprüft und korrigiert — die vorherige Angabe verwechselte Repo-Commits mit Commits auf der Datei."
+  },
+  {
+    "id": "berechtigungen-ki-chatbot",
+    "arbeitstitel": "Berechtigungen im KI-Chat: wie verhindert man, dass die Praktikantin Gehaltsdaten liest?",
+    "zielKeyword": "berechtigungen ki chatbot",
+    "cluster": "rag-und-unternehmensdaten",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Die Rechteprüfung gehört nicht in den Prompt, sondern vor die Suche: Wer etwas nicht sehen darf, bekommt es gar nicht erst in den Kontext. Die Grenze liegt in der Datenbank, nicht in der Anwendung — dieselbe Regel, die im eigenen Stack für jede Tabelle gilt.",
+      "herkunft": "Eigene Sicherheitsregel „Row Level Security ist die Sicherheitsgrenze, nie allein eine Prüfung im Frontend“ und der Standardblock für Rechteregeln im eigenen Migrationsablauf.",
+      "material": [
+        "Ein Filter vor der Suche ist prüfbar, eine Anweisung im Prompt ist eine Bitte.",
+        "Dienstschlüssel gehören ausschließlich in serverseitigen Code — was im Browser landet, ist keine Zugriffskontrolle."
+      ]
+    },
+    "prioritaet": 9,
+    "notiz": "Im deutschen Netz praktisch unbeantwortet und die Trennlinie zwischen Bastellösung und Produktionssystem."
+  },
+  {
+    "id": "eu-ai-act-2026-pflichten",
+    "arbeitstitel": "EU AI Act 2026: welche Pflichten seit dem 2. August wirklich gelten",
+    "zielKeyword": "eu ai act 2026 pflichten",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Auswertung des Verordnungstextes selbst statt der Zusammenfassungen: was seit dem 2. August 2026 tatsächlich gilt, was der Änderungsakt verschoben hat, und was ausdrücklich nicht verschoben wurde.",
+      "herkunft": "Verordnung (EU) 2026/1744, Amtsblatt vom 24.07.2026, in Kraft seit 27.07.2026, dazu die Stufenregelung der KI-Verordnung selbst. Eigene Fristenauswertung, Stand 19.08.2026.",
+      "material": [
+        "Verschoben: die Pflichten für Hochrisiko-Systeme nach Anhang III auf den 02.12.2027, nach Anhang I auf den 02.08.2028.",
+        "Nicht verschoben: die Verbote und die Kompetenzpflicht aus Artikel 4, beide seit 02.02.2025, sowie die Pflichten für Allzweckmodelle seit 02.08.2025."
+      ]
+    },
+    "prioritaet": 10,
+    "notiz": "Die Zuordnung einzelner Absätze aus Artikel 50 zu den Terminen 02.08.2026 und 02.12.2026 wird in den Quellen unterschiedlich dargestellt — vor der Veröffentlichung am Amtsblatt gegenprüfen."
+  },
+  {
+    "id": "n8n-fehlerbehandlung-monitoring",
+    "arbeitstitel": "Was passiert, wenn eine Automatisierung nachts abstürzt? Fehlerbehandlung und Alarmierung",
+    "zielKeyword": "n8n fehlerbehandlung monitoring",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Die vier Pflichtteile jedes Workflows — Fehlerzweig, Protokollierung, Wiederholung mit Wartezeit und höchstens drei Versuchen, versionierter Export im Repo — und die Sperre gegen Dauerfeuer: eine Ablage je Zweck mit Zehn-Minuten-Fenster, samt dem Kommentar, der ihre eigene Grenze benennt.",
+      "herkunft": "src/lib/melde-sperre.ts in diesem Repo, der Workflow-Export unter deploy/n8n-benachrichtigung.json und die eigene Automatisierungsregel für n8n-Workflows.",
+      "material": [
+        "Bei mehreren Instanzen müsste der Zähler nach außen wandern — die Sperre ist bewusst eine Ablage im Prozess und sagt das im Code selbst.",
+        "Knoten heißen „Filter: Leads ohne Email“, nicht „IF1“. Wer nachts um drei einen Alarm liest, braucht einen Namen, keine Nummer."
+      ]
+    },
+    "prioritaet": 11,
+    "notiz": "Rückt an die Stelle des ursprünglich elftplatzierten Themas „Warum KI-Projekte scheitern“ — dessen Zielkeyword ist bereits durch einen bestehenden Artikel belegt."
+  },
+  {
+    "id": "individualsoftware-kosten",
+    "arbeitstitel": "Was kostet Individualsoftware 2026 wirklich? Kalkulation mit echten Projekten",
+    "zielKeyword": "individualsoftware kosten",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 12,
+    "notiz": "Interne Kalkulation, Stundensätze und Angebotsspannen sind gesperrt. Braucht eine ausdrückliche Freigabe Ayhams, welche Zahlen öffentlich genannt werden dürfen — ohne Zahlen ist es der übliche Kostenrahmen-Artikel."
+  },
+  {
+    "id": "besucherbenachrichtigung-ohne-einwilligung",
+    "arbeitstitel": "Besucher melden ohne Cookie-Banner: was ohne Einwilligung laufen darf und was nicht",
+    "zielKeyword": "tracking ohne einwilligung",
+    "cluster": "ki-und-datenschutz",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Die Trennlinie im eigenen Betrieb: Das Ereignis selbst — Seite, Verweisquelle, Kampagne — läuft ohne Cookie, ohne Speicher im Browser und ohne IP im Webhook. Die Firmenerkennung dahinter läuft nur mit Einwilligung, nur serverseitig und nur, wenn ein Zugangstoken gesetzt ist.",
+      "herkunft": "Eigene Website: src/app/api/ereignis/route.ts, src/lib/ereignis.ts und die Inhaltsrichtlinie in next.config.ts, die seit dem Umbau keine Ziele außerhalb der eigenen Domain mehr erlaubt.",
+      "material": [
+        "Vorher lief es andersherum: Zugangstoken im ausgelieferten Bundle, die Besucher-IP direkt aus dem Browser an einen Dienst außerhalb der EU — und der Empfänger antwortete seit einem Umzug mit 404, ohne dass es jemandem auffiel.",
+        "Zählen und Klingeln sind zwei verschiedene Dinge: Statistik braucht Einwilligung, eine Benachrichtigung an den Betreiber nicht zwingend.",
+        "Jede neue externe Verbindung muss in die Inhaltsrichtlinie eingetragen werden — sonst blockiert der Browser sie stillschweigend."
+      ]
+    },
+    "prioritaet": 13,
+    "notiz": "Erstquelle und Verkaufsargument in einem. Die alte Ziel-Adresse des kaputten Webhooks bleibt draußen."
+  },
+  {
+    "id": "agent-skills-erstellen",
+    "arbeitstitel": "Agent Skills bauen: von der ersten SKILL.md bis zur zuverlässigen Auslösung",
+    "zielKeyword": "agent skills erstellen",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Progressive Disclosure an einem echten Skill: eine kurze Anweisungsdatei steuert ein Vielfaches an Referenzmaterial, und die Ladeanweisung entscheidet, welche einzelne Datei gelesen wird — ausdrücklich nicht alle auf Verdacht. Dazu die Auslösebeschreibung mit wörtlichen Trigger-Phrasen und einer Negativabgrenzung.",
+      "herkunft": "Eigener Skill funnel-narrativ in diesem Repo: SKILL.md plus reference/-Verzeichnis mit Entscheidungsbaum, Verbotsliste und sieben Prüfsteinen.",
+      "material": [
+        "Ein Prompt wird geschickt, ein Skill wird gefunden — deshalb ist die Beschreibung der wichtigste Teil der Datei.",
+        "Verbote statt Empfehlungen: eine Liste, gegen die geprüft wird, mit Ablehnpflicht statt Warnung.",
+        "Ordnerkonvention: SKILL.md steuert, reference/ wird bei Bedarf gelesen, _lib/ wird ausgeführt, _state/ wird geschrieben."
+      ]
+    },
+    "prioritaet": 14,
+    "notiz": "Fremde Skills aus Vendor- oder Buchquellen dürfen nicht als eigenes Skill-Design ausgegeben werden — der Artikel zeigt ausschließlich selbst gebaute Skills."
+  },
+  {
+    "id": "kennzeichnungspflicht-ki-inhalte",
+    "arbeitstitel": "Kennzeichnungspflicht für KI-Inhalte ab Dezember 2026: was Marketing jetzt umstellen muss",
+    "zielKeyword": "kennzeichnungspflicht ki inhalte",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Der verschobene Termin für die Kennzeichnung synthetischer Inhalte und was er für Website, Marketing und Kundenkommunikation bedeutet — mit dem Datum aus dem Verordnungstext statt aus dem Zweitartikel.",
+      "herkunft": "Verordnung (EU) 2026/1744 (Amtsblatt 24.07.2026) und die Transparenzregeln der KI-Verordnung; eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 15,
+    "fruehestens": "2026-09-15",
+    "spaetestens": "2026-12-01",
+    "notiz": "Im Oktober veröffentlichen, nicht im Dezember — der Nutzen liegt im Vorlauf vor dem 02.12.2026. Danach muss der Artikel neu gerahmt werden."
+  },
+  {
+    "id": "digital-omnibus-ki-verordnung",
+    "arbeitstitel": "Der Digital Omnibus verschiebt die Hochrisiko-Fristen: was das für Ihr Projekt ändert",
+    "zielKeyword": "digital omnibus ki verordnung",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Was der Änderungsakt an der KI-Verordnung konkret geändert hat — die neuen Termine, und der Teil, der unverändert geblieben ist —, gelesen im Verordnungstext statt in fremden Zusammenfassungen.",
+      "herkunft": "Verordnung (EU) 2026/1744, veröffentlicht im Amtsblatt am 24.07.2026, in Kraft seit 27.07.2026. Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 16,
+    "notiz": "Abgrenzung zum Übersichtsartikel über die Pflichten seit dem 2. August: hier nur die Änderungen und ihre Wirkung auf laufende Vorhaben."
+  },
+  {
+    "id": "digitalbonus-niedersachsen",
+    "arbeitstitel": "Digitalbonus Niedersachsen ausgelaufen: was Unternehmen in Hannover jetzt beantragen können",
+    "zielKeyword": "digitalbonus niedersachsen",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Der Landeszuschuss steht bei der Landesförderbank unter den ausgelaufenen Förderungen, ein Nachfolger ist nicht angekündigt. Was Betriebe in der Region stattdessen beantragen können und in welcher Reihenfolge.",
+      "herkunft": "Programmübersicht der niedersächsischen Landesförderbank, Eintrag unter „Ausgelaufene Förderungen“; eigener Abgleich der regional verfügbaren Instrumente, Stand 19.08.2026."
+    },
+    "prioritaet": 17,
+    "notiz": "Sobald ein Nachfolgeprogramm angekündigt wird, gehört der Artikel innerhalb von zwei Tagen aktualisiert — lokal hält das Keyword, wer zuerst da ist."
+  },
+  {
+    "id": "claude-code-subagents",
+    "arbeitstitel": "Subagents und Orchestrierung: wie man mehrere Agenten arbeiten lässt, ohne Chaos",
+    "zielKeyword": "claude code subagents",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Sieben Subagenten mit unterschiedlichen Werkzeugrechten und einer Rollenordnung: Der Prüfer bekommt bewusst keinen Projektkontext und darf nichts ausführen, die Entscheidungen des Planers werden nicht eigenmächtig überschrieben. Dazu eine mehrstufige Kette, von der der Mensch nur vier Haltepunkte sieht.",
+      "herkunft": "Eigene Agentendefinitionen (Planer, Bauer, Automatisierung, Migration, Prüfer, Qualitätssicherung, Recherche) und die eigene mehrstufige Textpipeline mit Kontextscheiben und Schleifengrenze.",
+      "material": [
+        "Kein Subagent erbt den Kontext des Orchestrators — der muss den Auftrag selbst einlesen und als Text übergeben.",
+        "Übergabe wörtlich, nie umformuliert: Paraphrasieren durch den Orchestrator ist die häufigste Fehlerquelle in selbstgebauten Ketten.",
+        "Jeder Agent bekommt nur seine Scheibe. Zwei Felder werden an die meisten Agenten nie übergeben, damit sie nicht am Thema herumschrauben.",
+        "Schleifen brauchen Grenzen: höchstens drei Durchläufe, danach durchlassen statt erzwingen."
+      ]
+    },
+    "prioritaet": 18,
+    "notiz": "Geringes Suchvolumen, aber das Stück, das verlinkt und weitergereicht wird. Auch als Video-Strecke geeignet."
+  },
+  {
+    "id": "hochrisiko-ki-system-einstufung",
+    "arbeitstitel": "Ist mein KI-System ein Hochrisiko-System? Einstufung in sechs Fragen",
+    "zielKeyword": "hochrisiko ki system einstufung",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Die Einstufung als Fragenkette, wie sie im eigenen Selbstcheck tatsächlich gebaut ist: welche Fragen in welcher Reihenfolge gestellt werden, welche Antwort die Kette abkürzt, und an welcher Stelle das Ergebnis feststeht, bevor alle Fragen beantwortet sind.",
+      "herkunft": "Eigener Selbstcheck dieser Website (src/views/EuAiActSelbstcheck.tsx), seit 11.08.2026 markenfrei und außerhalb der Navigation betrieben."
+    },
+    "prioritaet": 19,
+    "notiz": "Der Selbstcheck steht bewusst in keiner Navigation, in keiner Sitemap und auf noindex. Der Artikel darf die Fragenlogik zeigen, aber nicht ungeprüft dorthin verlinken — ob er verlinkt wird, entscheidet Ayham."
+  },
+  {
+    "id": "nextjs-supabase-unternehmen",
+    "arbeitstitel": "Next.js und Supabase für Unternehmenssoftware: warum dieser Stack, und wo er nicht passt",
+    "zielKeyword": "next.js supabase unternehmen",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Warum dieser Stack und wo er nicht passt, belegt am eigenen Betrieb: die Umstellung von einer reinen Browser-Anwendung auf serverseitiges Rendern, weil Kampagnenseiten organisch ranken sollten, und der Wechsel des Bauverfahrens, ohne den der Serverbetrieb beim Hoster gar nicht erst startet.",
+      "herkunft": "Eigenes Repo dieser Website: next.config.ts, das Dockerfile (Mehrstufenbau, standalone-Ausgabe, Port 3000) und die Deployment-Anleitung unter deploy/COOLIFY.md.",
+      "material": [
+        "Vor jedem Ausrollen wird der Container lokal gebaut und jede Route einzeln abgeklopft — was lokal bricht, bricht auch beim Anbieter.",
+        "Der automatische Auslöser beim Push ist bewusst nicht in Betrieb: ausgerollt wird nach ausdrücklicher Freigabe, nicht nach jedem Commit."
+      ]
+    },
+    "prioritaet": 20,
+    "notiz": "Kennungen aus dem Deployment und Serveradressen bleiben draußen; im Artikel stehen Platzhalter."
+  },
+  {
+    "id": "foerderung-automatisierung-uebersicht",
+    "arbeitstitel": "Fördermittel für Automatisierungsprojekte: Übersicht Bund und Länder 2026",
+    "zielKeyword": "förderung automatisierung kmu",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Ein geprüfter Statusstand statt einer Programmliste: welche Bundeszuschüsse für Digitalisierungsvorhaben es 2026 nicht mehr gibt, welche vier Wege geblieben sind — Steuergutschrift, Förderkredit, Landesprogramme, kostenlose Beratung — und an welcher Stelle mehrere Ratgeber dieselbe falsche Zahl voneinander abschreiben.",
+      "herkunft": "Eigener Abgleich der Programmseiten von Bund und Ländern am 19.08.2026: ausgelaufene Bundesprogramme, aktive Instrumente, dazu ein Landesprogramm, das im Netz fälschlich als Bundesprogramm mit falscher Fördersumme beschrieben wird.",
+      "material": [
+        "Die Enttäuschung ist der Artikel: direkte Bundeszuschüsse für Digitalisierungsinvestitionen sind 2026 praktisch weg.",
+        "Jede Programmangabe bekommt ein Abrufdatum — ohne Datum ist eine Förderaussage in sechs Monaten falsch."
+      ]
+    },
+    "prioritaet": 21,
+    "spaetestens": "2026-12-31",
+    "notiz": "Pillar des Förder-Clusters. Abgrenzung zu go-digital-nachfolger und digital-jetzt-alternative: dort je ein Programm, hier die Wahl zwischen den vier verbliebenen Wegen. Alle Stände unmittelbar vor der Veröffentlichung an den Programmseiten prüfen und das Abrufdatum nennen."
+  },
+  {
+    "id": "ki-kompetenz-artikel-4",
+    "arbeitstitel": "KI-Kompetenz nach Artikel 4: wen die Pflicht trifft und was als Nachweis bleibt",
+    "zielKeyword": "ki kompetenz art 4 nachweis",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Die Pflicht gilt seit dem 2. Februar 2025 und wurde vom Änderungsakt ausdrücklich nicht verschoben — anders als die Hochrisiko-Pflichten. Ausgewertet wird, wen sie trifft, was die Verordnung als ausreichendes Maß beschreibt, und was davon als Nachweis übrig bleibt.",
+      "herkunft": "Artikel 4 der KI-Verordnung im Wortlaut, Geltung seit 02.02.2025, dazu die Stufenregelung des Änderungsakts (Amtsblatt vom 24.07.2026). Eigene Fristenauswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 22,
+    "notiz": "Die Verordnung schreibt keine Zertifikate vor — der Artikel darf keine erfinden. Was die Aufsicht tatsächlich akzeptiert, ist offen und gehört als offene Frage benannt, nicht als Antwort."
+  },
+  {
+    "id": "ki-agent-vs-automatisierung",
+    "arbeitstitel": "KI-Agent oder feste Automatisierung? Der Unterschied entscheidet über die Kosten",
+    "zielKeyword": "ki agent vs automatisierung",
+    "cluster": "ki-agenten",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Die eigene Regel dafür, wann ein Vorgang eine Entscheidung braucht und wann nicht: Eine Prüfung, die immer gleich ausfallen muss, gehört nicht in ein Sprachmodell, sondern in einen Schritt mit festem Ergebnis. In den eigenen Ketten steht deshalb ein deterministischer Prüfschritt mitten in einer sonst modellgetriebenen Strecke.",
+      "herkunft": "Eigene Textpipeline: ein Prüfskript mit festen Mustern, das mit Rückgabewerten antwortet und die Kette zurückschleift, statt ein Modell um eine Einschätzung zu bitten.",
+      "material": [
+        "Ein Agent entscheidet, was er als Nächstes tut — dafür bezahlt man mit Rechenzeit und mit Unvorhersagbarkeit.",
+        "Die Prüfung, die immer gleich ausfallen muss, gehört nicht in ein Sprachmodell."
+      ]
+    },
+    "prioritaet": 23,
+    "notiz": "Kein Hype-Abgleich, sondern eine Kostenfrage. Abgrenzung zu ki-agenten-absichern: dort Rechte und Freigaben, hier die Wahl zwischen Kette und Agent."
+  },
+  {
+    "id": "n8n-selbst-hosten",
+    "arbeitstitel": "n8n selbst hosten: Container, Datenhaltung, Updates — und der Fehler, der alles löscht",
+    "zielKeyword": "n8n selbst hosten",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Warum die Automatisierung als eigener Dienst neben der Anwendung läuft und nicht in ihr — und die Regel, ohne die jedes erneute Ausrollen die Daten mitnimmt: ein benanntes, dauerhaftes Ablagevolumen mit festem Pfad, gesetzt in den Startoptionen des Containers.",
+      "herkunft": "Eigener Betrieb: die Automatisierung läuft seit dem 14.08.2026 als eigener Dienst auf der selbstgehosteten Plattform; die Volumen-Regel stammt aus einem weiteren eigenen Werkzeug im selben Betrieb.",
+      "material": [
+        "Die Anwendung kennt genau eine Empfängeradresse; welcher Kanal am Ende bedient wird, entscheidet der Workflow dahinter.",
+        "Ohne benanntes Volume ist die Datenbank nach dem nächsten Ausrollen leer — und es fällt erst auf, wenn jemand einen alten Lauf sucht."
+      ]
+    },
+    "prioritaet": 24,
+    "notiz": "Hostnamen, Ports und Kennungen der eigenen Instanz bleiben draußen; im Artikel stehen Platzhalter. Abgrenzung zu n8n-fehlerbehandlung-monitoring: dort der Betrieb der Workflows, hier der Betrieb der Anwendung."
+  },
+  {
+    "id": "transparenzpflicht-artikel-50",
+    "arbeitstitel": "Transparenzpflichten nach Artikel 50: der eine Satz, der auf jeden Chatbot gehört",
+    "zielKeyword": "transparenzpflichten artikel 50",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Welche Offenlegungspflicht für Systeme gilt, die mit Menschen sprechen, ab wann sie greift und wo die Verordnung eine Ausnahme macht — gelesen im Verordnungstext, samt der Stelle, an der sich die Zweitquellen widersprechen.",
+      "herkunft": "Artikel 50 der KI-Verordnung und die Stufenregelung des Änderungsakts (Amtsblatt vom 24.07.2026). Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 25,
+    "notiz": "Die Zuordnung einzelner Absätze aus Artikel 50 zu den Terminen 02.08.2026 und 02.12.2026 wird in den Quellen unterschiedlich dargestellt — am Amtsblatt gegenprüfen. Abgrenzung zu kennzeichnungspflicht-ki-inhalte: dort synthetische Inhalte, hier die Offenlegung im Dialog."
+  },
+  {
+    "id": "externe-dienste-mit-einwilligung",
+    "arbeitstitel": "Kalender, Statistik, Schriften: externe Dienste einbinden, ohne die Einwilligung zu umgehen",
+    "zielKeyword": "externe dienste dsgvo einbinden",
+    "cluster": "ki-und-datenschutz",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Wie Terminkalender und Statistik auf derselben Seite hinter genau einer Einwilligung liegen: eine zentrale Prüffunktion mit einem Speicherschlüssel, ein Klick-Gate statt automatischem Laden, Schriften lokal gebündelt statt vom fremden Server — und eine Inhaltsrichtlinie, die jedes nicht eingetragene Ziel sperrt.",
+      "herkunft": "Eigene Website: zentrale Einwilligungslogik in src/lib/consent.ts, das Klick-Gate auf der Terminseite und die Header-Regeln in next.config.ts.",
+      "material": [
+        "Ein eingebetteter Kalender setzt echte Cookies von Dritten — er ist damit nicht „technisch notwendig“, egal wie nützlich er ist.",
+        "Jede neue externe Verbindung muss in die Inhaltsrichtlinie eingetragen werden, sonst blockiert der Browser sie stillschweigend."
+      ]
+    },
+    "prioritaet": 26,
+    "notiz": "Keine Rechtsberatung: der Artikel zeigt die technische Umsetzung, nicht die Bewertung eines Einzelfalls. Anbieternamen nur, soweit sie ohnehin öffentlich auf der eigenen Seite stehen. Abgrenzung zu tracking ohne einwilligung: dort das Melden, hier das Einbinden."
+  },
+  {
+    "id": "bundesnetzagentur-ki-aufsicht",
+    "arbeitstitel": "Bundesnetzagentur als KI-Aufsicht: was das Durchführungsgesetz für Unternehmen bedeutet",
+    "zielKeyword": "bundesnetzagentur ki aufsicht",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Wer in Deutschland zuständig ist, seit wann, und was das praktisch heißt: eine zentrale Marktüberwachungs- und Beschwerdestelle mit Koordinierungsaufgabe, dazu mindestens ein Reallabor. Ausgewertet am Gesetz und am Beschlussdatum statt an Pressemeldungen.",
+      "herkunft": "KI-Durchführungsgesetz, vom Bundestag am 11.06.2026 beschlossen; Zuständigkeitsregelung zur Marktüberwachung nach der KI-Verordnung. Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 27,
+    "notiz": "Vor der Veröffentlichung prüfen, ob das Gesetz inzwischen verkündet ist, und die Fundstelle nennen. Keine Aussagen darüber, was die Aufsicht prüfen wird — dafür gibt es noch keine Fälle."
+  },
+  {
+    "id": "ki-agenten-absichern",
+    "arbeitstitel": "Wie viel Freiheit gibt man einem KI-Agenten? Freigaben, Grenzen, Notausschalter",
+    "zielKeyword": "ki agenten absichern",
+    "cluster": "ki-agenten",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Rechte werden nicht im Prompt geregelt, sondern in der Werkzeugliste: Der Prüfer darf lesen und schreiben, aber nichts ausführen; der Agent für Datenbankänderungen kommt an eine Pflicht-Durchsicht, bevor überhaupt etwas angewendet wird. Die menschliche Freigabe steht als eigener Schritt in der Kette.",
+      "herkunft": "Eigene Agentendefinitionen mit unterschiedlichen Werkzeugfreigaben, die Pflicht-Durchsicht vor dem Anwenden einer Datenbankänderung und ein Freigabe-Tor in einer fachlichen Agentenkette.",
+      "material": [
+        "Was ein Agent nicht darf, gehört in seine Werkzeugliste, nicht in seine Anweisung — eine Anweisung ist eine Bitte.",
+        "Der Notausschalter ist kein Knopf, sondern eine Stelle in der Kette, an der ohne menschliche Freigabe nichts weitergeht."
+      ]
+    },
+    "prioritaet": 28,
+    "notiz": "Abgrenzung zu claude-code-subagents: dort die Orchestrierung mehrerer Agenten, hier ausschließlich Rechte, Freigaben und Grenzen."
+  },
+  {
+    "id": "content-automatisierung-qualitaetstor",
+    "arbeitstitel": "Wenn die Automatisierung Zahlen meldet, die es nicht gibt: Qualitätstore, die wirklich greifen",
+    "zielKeyword": "content automatisierung qualitätssicherung",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "fehlerbericht",
+      "beschreibung": "Fünfzehn interne Links waren im Datenmodell eingetragen, wurden gezählt und tauchten in jeder Auswertung auf — gerendert wurde keiner davon, weil der Ankertext nicht im Absatz stand. Der Fehler war vier Wochen unsichtbar, weil die Zahl stimmte und nur die Seite nicht.",
+      "herkunft": "Umstellung des eigenen Wissensbereichs auf ein geprüftes Datenmodell, 19.08.2026. Die Prüfung liegt seither im Loader und im Test.",
+      "material": [
+        "Die Gegenmaßnahme ist eine Zeile: Steht der Ankertext wörtlich im zugewiesenen Abschnitt? Sonst bricht der Build ab.",
+        "Ein Test, der die Routen aus dem Dateisystem ableitet statt aus einer gepflegten Liste, kann nicht auslaufen."
+      ]
+    },
+    "prioritaet": 29,
+    "notiz": "Das Thema ist die Sorte Fehler, nicht das eigene Werkzeug — der Artikel bewirbt die Automatik nicht, er zeigt, woran eine Kennzahl ohne Gegenprobe scheitert."
+  },
+  {
+    "id": "mittelstand-digital-zentrum",
+    "arbeitstitel": "Mittelstand-Digital Zentren: was die kostenlose Beratung leistet und wo sie endet",
+    "zielKeyword": "mittelstand-digital zentrum",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Was die Zentren tatsächlich anbieten, wer sie bezahlt und wo die Grenze verläuft: Sie beraten, erproben und qualifizieren — umsetzen und betreiben tun sie nicht. Genau diese Grenze fehlt in den Ratgebern, die sie als Ersatz für die ausgelaufenen Zuschüsse nennen.",
+      "herkunft": "Programmseiten der Mittelstand-Digital Zentren und die Einordnung des zuständigen Bundesministeriums als Anlaufstruktur nach dem Auslaufen der Zuschussprogramme. Eigener Abgleich, Stand 19.08.2026."
+    },
+    "prioritaet": 30,
+    "notiz": "Fair bleiben: die Zentren sind Wettbewerb um dieselben Erstgespräche. Die Grenze sachlich benennen, die Zentren nicht abwerten."
+  },
+  {
+    "id": "ki-artikel-automatisch-erstellen",
+    "arbeitstitel": "Kann eine KI täglich Artikel schreiben, ohne dass die Domain dafür bezahlt?",
+    "zielKeyword": "ki artikel automatisch erstellen",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Die Entscheidung, die eine tägliche Frequenz verantwortbar macht: Themen kommen aus einem von Hand gepflegten Vorrat statt aus Keyword-Vorschlägen, und jedes trägt ein Pflichtfeld mit dem Eigenanteil. Fehlt es, bricht die Kette ab und es erscheint an diesem Tag nichts.",
+      "herkunft": "Eigene Redaktionsautomatik in diesem Repo: das Pflichtfeld im Datenmodell, die Prüfung im Auswahlschritt und die neun getrennten Schritte von der Themenwahl bis zur Ablage.",
+      "material": [
+        "Ein leerer Tag kostet nichts. Ein Artikel ohne Eigenanteil kostet die Domain.",
+        "Die teuren Schritte stehen hinten: Wer nach der Ergebnisseite abbricht, weil das Thema besetzt ist, hat fast nichts ausgegeben."
+      ]
+    },
+    "prioritaet": 31,
+    "notiz": "Nur zeigen, was tatsächlich läuft. Keine Aussage über Ranking-Ergebnisse, solange keine gemessenen Zahlen vorliegen."
+  },
+  {
+    "id": "ki-code-review",
+    "arbeitstitel": "Code-Review automatisieren: was ein KI-Prüfer findet und was er übersieht",
+    "zielKeyword": "ki code review",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Der Prüfer bekommt bewusst keinen Projektkontext und darf nichts ausführen — er sieht den Ausschnitt so, wie ihn ein Fremder sähe. Die Begründung dahinter: Ein Modell, das den Code geschrieben hat und ihn anschließend bewertet, gibt sich selbst recht.",
+      "herkunft": "Eigene Agentendefinition für die Codeprüfung: ohne Projektkontext, mit auf Lesen und Schreiben beschränkter Werkzeugliste und festem Ausgabeformat, eingebunden als Pflichtschritt vor der Qualitätssicherung.",
+      "material": [
+        "Ein Modell, das zugleich schreibt und bewertet, gibt sich selbst recht.",
+        "Zwei Prüfschritte, zwei Rollen: der eine liest nur, der andere schreibt Tests und führt sie aus."
+      ]
+    },
+    "prioritaet": 32,
+    "notiz": "Was der Prüfer übersieht, gehört genauso in den Artikel wie das, was er findet — sonst wird daraus eine Werbeanzeige für ein Werkzeug."
+  },
+  {
+    "id": "projektdokumentation-ki-assistent",
+    "arbeitstitel": "Was nicht in die Projektdokumentation für einen KI-Assistenten gehört",
+    "zielKeyword": "projektdokumentation ki assistent",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "architekturentscheidung",
+      "beschreibung": "Eine Negativliste aus dem eigenen Bestand: Zugangsdaten, Kundennamen ohne Freigabe, Serveradressen und Anwendungskennungen haben in einer Datei nichts verloren, die ein Assistent bei jedem Lauf liest und die im Repo landet. Dazu das, was stattdessen dort steht, damit die Regel befolgbar bleibt.",
+      "herkunft": "Eigene Durchsicht der Projektdokumentation über mehrere Repos, dazu die Regel, dass Zugangsdaten ausschließlich in Umgebungsvariablen stehen und Vorlagen nur Platzhalter enthalten.",
+      "material": [
+        "Eine Datei, die ein Agent bei jedem Lauf liest, ist ein Verteiler — was drinsteht, geht mit.",
+        "Statt der Kennung ein Platzhalter und der Satz, wo die echte steht. Der Assistent kommt damit weiter, der Leser des Repos nicht."
+      ]
+    },
+    "prioritaet": 33,
+    "notiz": "Der Artikel zeigt die Regel, nie ein echtes Negativbeispiel aus dem eigenen Bestand. Keine Pfade unterhalb des Benutzerverzeichnisses, keine Kennungen, auch nicht unkenntlich gemacht. Abgrenzung zu claude-md-richtig-schreiben: dort der Aufbau, hier die Grenze."
+  },
+  {
+    "id": "ki-generierter-code-haftung",
+    "arbeitstitel": "Wer haftet für KI-generierten Code? Was im Kundenprojekt tatsächlich geprüft wird",
+    "zielKeyword": "ki generierter code haftung",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "prozesszerlegung",
+      "beschreibung": "Die eigene Kette vor jeder Auslieferung, Schritt für Schritt: Planung, Umsetzung, Prüfung ohne Projektkontext, Qualitätssicherung mit ausgeführten Tests — und erst nach zwei bestandenen Toren das Ausrollen, das ohnehin nur nach ausdrücklicher Freigabe läuft, nicht nach jedem Push.",
+      "herkunft": "Eigener Entwicklungsablauf: Codeprüfung und Qualitätssicherung als Pflichtschritte nach jeder Umsetzung, Ausrollen nur nach ausdrücklicher Freigabe."
+    },
+    "prioritaet": 34,
+    "notiz": "Der haftungsrechtliche Teil braucht eine Fundstelle oder anwaltliche Durchsicht und darf nicht aus dem eigenen Ablauf abgeleitet werden. Belegt ist hier nur, was geprüft wird, bevor etwas ausgeliefert wird."
+  },
+  {
+    "id": "agents-md-datei",
+    "arbeitstitel": "AGENTS.md statt Werkzeugbindung: eine Anweisungsdatei für mehrere KI-Assistenten",
+    "zielKeyword": "agents.md datei",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Eine Projektdatei, die nur eine Zeile enthält: den Import der werkzeugneutralen Datei daneben. Der Inhalt steht einmal, und jedes Werkzeug mit eigener Namenskonvention liest dieselbe Quelle. Was das für Teams löst, die zwei verschiedene Assistenten im selben Repo benutzen.",
+      "herkunft": "Eigene Repos: eine Projektdatei, die aus genau einer Importzeile besteht, daneben die eigentliche Anweisungsdatei; in einem zweiten Repo dieselbe Aufteilung mit dem Import in der ersten Zeile."
+    },
+    "prioritaet": 35,
+    "notiz": "Kleines Suchvolumen auf Deutsch, aber praktisch unbesetzt. Der Artikel zeigt die Aufteilung, nicht die Inhalte der Dateien."
+  },
+  {
+    "id": "nextjs-selbst-hosten",
+    "arbeitstitel": "Next.js selbst hosten statt bei Vercel: was der Betrieb tatsächlich verlangt",
+    "zielKeyword": "next.js selbst hosten",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "eigener-code",
+      "beschreibung": "Der Wechsel des Bauverfahrens, ohne den zur Laufzeit gar kein Server startet, die eigenständige Ausgabe im mehrstufigen Container-Bau — und die Prüfschleife vor jedem Ausrollen, die jede Route einzeln abklopft, statt sich auf einen grünen Build zu verlassen.",
+      "herkunft": "Eigene Website: Dockerfile mit mehrstufigem Bau und eigenständiger Ausgabe, die Umstellung des Build-Verfahrens beim Hoster am 05.08.2026 und die dokumentierte Container-Prüfschleife vor jedem Ausrollen.",
+      "material": [
+        "Was lokal im Container bricht, bricht beim Anbieter genauso — deshalb wird der Container lokal gebaut, bevor irgendetwas ausgerollt wird.",
+        "Der Start über das Paketskript hilft bei eigenständiger Ausgabe nur eingeschränkt; für eine echte Prüfung nimmt man den Container."
+      ]
+    },
+    "prioritaet": 36,
+    "notiz": "Serveradressen, Anwendungskennungen und Zugänge zur Hosting-Oberfläche bleiben draußen; im Artikel stehen Platzhalter. Abgrenzung zu nextjs-supabase-unternehmen: dort die Wahl des Stacks, hier ausschließlich der Betrieb."
+  },
+  {
+    "id": "nis2-ki-systeme",
+    "arbeitstitel": "NIS2 und KI-Systeme: was in die Nachweise gehört — auch als Zulieferer",
+    "zielKeyword": "nis2 ki systeme",
+    "cluster": "ki-betrieb",
+    "autor": "ayham-alkhalil",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Die zweite Welle: Betroffene Unternehmen reichen die Anforderungen an ihre Lieferanten weiter, und mittelständische Zulieferer bekommen Fragebögen, ohne selbst unter das Gesetz zu fallen. Ausgewertet werden Geltungsbeginn, die abgelaufene Registrierungsfrist und die Pflichten zur Lieferkette.",
+      "herkunft": "Deutsches NIS2-Umsetzungsgesetz, in Kraft seit 06.12.2025, und die am 31.07.2026 abgelaufene Nachfrist zur Registrierung. Eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 37,
+    "notiz": "Fundstellen im Gesetzestext nennen. Der KI-Bezug ist die Anwendung der Anforderungen auf ein KI-System, nicht eine eigene NIS2-Regel für KI — diese Unterscheidung muss im Text stehen."
+  },
+  {
+    "id": "e-rechnung-empfangen-pflicht",
+    "arbeitstitel": "E-Rechnungen empfangen: was längst Pflicht ist und wo es in der Praxis hakt",
+    "zielKeyword": "e-rechnung empfangen pflicht",
+    "cluster": "dokumente-und-belege",
+    "autor": "leon-battel",
+    "substanz": {
+      "art": "primaerquelle",
+      "beschreibung": "Die Empfangspflicht gilt für alle inländischen Unternehmen und ohne Übergangsfrist, während für den Versand gestaffelte Fristen laufen. Ausgewertet wird, was „empfangen können“ nach dem Gesetz mindestens bedeutet und welcher Weg dafür genügt.",
+      "herkunft": "§ 14 UStG in der Fassung des Wachstumschancengesetzes samt der Übergangsregeln zum Versand; eigene Auswertung, Stand 19.08.2026."
+    },
+    "prioritaet": 38,
+    "notiz": "Vor der Veröffentlichung am Gesetzestext und am einschlägigen BMF-Schreiben gegenprüfen. Abgrenzung zu e-rechnung-pflicht-2027: dort der Versand mit Stichtag, hier der Empfang, der bereits gilt."
+  },
+  {
+    "id": "chatgpt-im-unternehmen-dsgvo",
+    "arbeitstitel": "ChatGPT im Unternehmen einsetzen: die Einstellungen, ohne die es nicht DSGVO-konform ist",
+    "zielKeyword": "chatgpt im unternehmen dsgvo",
+    "cluster": "ki-und-datenschutz",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 39,
+    "notiz": "Braucht die tatsächlichen Einstellungen eines geschäftlichen Zugangs, benannt und nachvollzogen, mit Abrufdatum und Screenshot-Beschreibung. Aus dem Gedächtnis geschriebene Einstellungslisten sind nach dem nächsten Oberflächenwechsel falsch."
+  },
+  {
+    "id": "n8n-kosten-unternehmen",
+    "arbeitstitel": "Was n8n im Unternehmen kostet, wenn man es richtig betreibt",
+    "zielKeyword": "n8n kosten unternehmen",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 40,
+    "notiz": "Braucht eine echte Monatsabrechnung des eigenen Betriebs — Server, Sicherung, Pflegeaufwand in Stunden. Hostnamen und Kennungen der Instanz dürfen dabei nicht auftauchen."
+  },
+  {
+    "id": "n8n-vs-make-vs-zapier",
+    "arbeitstitel": "n8n, Make oder Zapier? Entscheidungshilfe nach Datenschutz, Kosten und Wartung",
+    "zielKeyword": "n8n vs make vs zapier",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 41,
+    "notiz": "Braucht denselben Ablauf in allen drei Werkzeugen gebaut und gemessen: Bauzeit, Laufzeit, Kosten je tausend Durchläufe. Ohne diesen Vergleich entsteht eine Tabelle aus fremden Preisseiten."
+  },
+  {
+    "id": "avv-ki-anbieter",
+    "arbeitstitel": "Auftragsverarbeitung mit KI-Anbietern: was tatsächlich unterschrieben werden muss",
+    "zielKeyword": "avv openai abschließen",
+    "cluster": "ki-und-datenschutz",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 42,
+    "notiz": "Braucht die Vertragswerke der Anbieter im Wortlaut, gelesen und mit Abrufdatum verglichen. Über den eigenen Vertragsbestand wird in diesem Artikel nichts gesagt."
+  },
+  {
+    "id": "foerderantrag-vor-projektstart",
+    "arbeitstitel": "Der teuerste Fehler bei Förderanträgen: vor der Bewilligung angefangen",
+    "zielKeyword": "förderantrag vor projektstart",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 43,
+    "notiz": "Braucht die Klausel zum vorzeitigen Maßnahmenbeginn im Wortlaut aus mindestens zwei laufenden Förderrichtlinien. Ohne Fundstelle ist es eine Faustregel, die überall steht."
+  },
+  {
+    "id": "kfw-foerderkredit-digitalisierung",
+    "arbeitstitel": "Förderkredit statt Zuschuss für Digitalisierung: rechnet sich das?",
+    "zielKeyword": "kfw förderkredit digitalisierung",
+    "cluster": "foerderung-und-finanzierung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 44,
+    "notiz": "Braucht die aktuellen Konditionen von der Programmseite mit Abrufdatum und eine Beispielrechnung, die zeigt, ab wann sich der Kredit gegenüber Eigenmitteln lohnt. Ohne Zahlen bleibt es die bekannte Programmbeschreibung."
+  },
+  {
+    "id": "stunden-sparen-automatisierung",
+    "arbeitstitel": "Wie viele Stunden spart eine Automatisierung wirklich?",
+    "zielKeyword": "stunden sparen automatisierung",
+    "cluster": "prozessautomatisierung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 45,
+    "notiz": "Braucht eine freigegebene Vorher-Nachher-Zahl aus einem echten Projekt, gemessen über einen benannten Zeitraum. Kundennamen und Kennzahlen nur mit dokumentierter Freigabe; ohne Freigabe bleibt das Thema liegen."
+  },
+  {
+    "id": "eu-ai-act-bussgeld",
+    "arbeitstitel": "Bußgelder nach der KI-Verordnung: welche Verstöße wirklich teuer werden",
+    "zielKeyword": "eu ai act bußgeld",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 46,
+    "notiz": "Braucht die Bußgeldrahmen aus dem Sanktionsartikel der KI-Verordnung im Wortlaut, mit Fundstelle und Abrufdatum. Die kursierenden Beträge werden voneinander abgeschrieben und weichen voneinander ab."
+  },
+  {
+    "id": "ki-inventar-unternehmen",
+    "arbeitstitel": "KI-Inventar aufbauen: die Liste, die bei einer Prüfung als Erstes verlangt wird",
+    "zielKeyword": "ki inventar unternehmen",
+    "cluster": "eu-ai-act",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 47,
+    "spaetestens": "2027-12-01",
+    "notiz": "Braucht ein tatsächlich geführtes Inventar als Vorlage — Spalten, Pflegeintervall, wer es führt. Eine erfundene Vorlage ist genau das, was auf den ersten zehn Ergebnissen schon steht. Der Zeitpunkt hängt an den Hochrisiko-Pflichten zum 02.12.2027."
+  },
+  {
+    "id": "loeschkonzept-vektordatenbank",
+    "arbeitstitel": "Löschen aus einer Vektordatenbank: warum „gelöscht“ oft nicht gelöscht heißt",
+    "zielKeyword": "löschkonzept vektordatenbank",
+    "cluster": "ki-und-datenschutz",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 48,
+    "notiz": "Braucht ein gebautes System, an dem der Löschpfad einmal vollständig durchgespielt wurde — Originaldatei, Abschnitte, Vektoren, Zwischenspeicher, Protokolle, Sicherung. Ohne dieses Durchspielen fehlt genau die Stelle, an der es hakt."
+  },
+  {
+    "id": "rag-system-kosten",
+    "arbeitstitel": "Was ein RAG-System monatlich kostet: Aufstellung statt Schätzung",
+    "zielKeyword": "rag system kosten",
+    "cluster": "rag-und-unternehmensdaten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 49,
+    "notiz": "Braucht die Abrechnung eines echten Monats, aufgeschlüsselt nach Modellaufrufen, Speicher und Betrieb. Geschätzte Kosten sind hier wertlos, weil jede Quelle etwas anderes schätzt."
+  },
+  {
+    "id": "chatbot-eigene-dokumente",
+    "arbeitstitel": "Chatbot mit eigenen Dokumenten: Architektur eines Systems, das produktiv läuft",
+    "zielKeyword": "chatbot eigene dokumente",
+    "cluster": "rag-und-unternehmensdaten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 50,
+    "notiz": "Braucht ein produktiv laufendes System als Beleg. Solange keines steht, wiederholt der Artikel die Architekturbilder, die überall zu sehen sind."
+  },
+  {
+    "id": "halluzinationen-vermeiden-rag",
+    "arbeitstitel": "Halluzinationen im RAG: welche Maßnahmen messbar wirken",
+    "zielKeyword": "halluzinationen vermeiden rag",
+    "cluster": "rag-und-unternehmensdaten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 51,
+    "notiz": "Braucht eine eigene Messreihe: dieselben Fragen vor und nach einer Maßnahme, mit Trefferquote. Ohne Messung bleibt es die übliche Fünf-Maßnahmen-Liste."
+  },
+  {
+    "id": "model-context-protocol-erklaert",
+    "arbeitstitel": "Model Context Protocol erklärt — für Entscheider, nicht für Entwickler",
+    "zielKeyword": "model context protocol erklärt",
+    "cluster": "ki-agenten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 52,
+    "notiz": "Braucht mindestens eine selbst gebaute Anbindung, an der sich zeigen lässt, was das Protokoll abnimmt und was nicht. Erklärstücke aus zweiter Hand gibt es genug."
+  },
+  {
+    "id": "ki-agent-kosten-token",
+    "arbeitstitel": "Was ein KI-Agent im Monat an Tokens kostet",
+    "zielKeyword": "ki agent kosten token",
+    "cluster": "ki-agenten",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 53,
+    "notiz": "Braucht eine echte Abrechnung über mehrere Monate. Genau diese Zahl sucht jeder und niemand veröffentlicht sie — vor der Freigabe ist zu klären, was sie über die eigene Kalkulation verrät."
+  },
+  {
+    "id": "claude-code-vs-cursor",
+    "arbeitstitel": "Claude Code oder Cursor: ein Vergleich aus dem täglichen Einsatz",
+    "zielKeyword": "claude code vs cursor",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 54,
+    "notiz": "Braucht einen dokumentierten Vergleich aus dem eigenen Einsatz — gleiche Aufgabe, beide Werkzeuge, festgehaltene Unterschiede mit Datum. Ein Vergleich aus zweiter Hand ist in drei Monaten falsch."
+  },
+  {
+    "id": "claude-code-im-unternehmen",
+    "arbeitstitel": "KI-Entwicklungswerkzeuge im Team: Rechte, Repos, Kostenkontrolle, Datenabfluss",
+    "zielKeyword": "claude code im unternehmen",
+    "cluster": "ki-gestuetzte-entwicklung",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 55,
+    "notiz": "Braucht die Verbrauchs- und Kostenabrechnung über mehrere Monate sowie eine belastbare Aussage zum Datenabfluss. Beides liegt nicht vor."
+  },
+  {
+    "id": "standardsoftware-vs-individualsoftware",
+    "arbeitstitel": "Standardsoftware oder Individualentwicklung: Entscheidung statt Bauchgefühl",
+    "zielKeyword": "standardsoftware vs individualsoftware",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 56,
+    "notiz": "Braucht mindestens einen Fall, in dem die Entscheidung nachweislich in die eine oder andere Richtung gefallen ist, mit Begründung und Freigabe. Ohne Fall entsteht die übliche Entscheidungsmatrix."
+  },
+  {
+    "id": "excel-abloesen-software",
+    "arbeitstitel": "Die Excel-Tabelle, an der die halbe Firma hängt — und wie man sie ablöst",
+    "zielKeyword": "excel ablösen software",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 57,
+    "notiz": "Braucht eine echte abgelöste Tabelle: wie viele Spalten, wie viele Nutzer, woran es gehakt hat. Anonymisierung genügt nur, wenn die Branche nicht identifizierend ist — sonst Freigabe einholen."
+  },
+  {
+    "id": "software-wartungskosten",
+    "arbeitstitel": "Was Software nach dem Start jährlich kostet",
+    "zielKeyword": "software wartungskosten",
+    "cluster": "individualsoftware",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 58,
+    "notiz": "Interne Kalkulation und Stundensätze sind gesperrt. Braucht eine ausdrückliche Freigabe, welche Zahlen öffentlich genannt werden dürfen — sonst entsteht der bekannte Prozentsatz-Artikel."
+  },
+  {
+    "id": "llm-selbst-hosten-kosten",
+    "arbeitstitel": "Ein Sprachmodell im eigenen Haus betreiben: Hardware, Strom, Personal",
+    "zielKeyword": "llm selbst hosten kosten",
+    "cluster": "ki-betrieb",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 59,
+    "notiz": "Braucht eine Rechnung mit echten Hardware-, Strom- und Personalkosten oder ein eingeholtes Angebot. Ohne eigene Zahlen bleibt es eine Wiederholung der Hersteller-Rechenbeispiele."
+  },
+  {
+    "id": "azure-openai-vs-aws-bedrock",
+    "arbeitstitel": "Verwalteter KI-Dienst bei Azure oder AWS? Entscheidung nach Datenklassifizierung",
+    "zielKeyword": "azure openai vs aws bedrock",
+    "cluster": "ki-betrieb",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 60,
+    "notiz": "Braucht denselben Anwendungsfall auf beiden Plattformen aufgesetzt, mit Laufzeiten und Kosten. Die Vertragslage zur Datenverarbeitung gehört mit Abrufdatum belegt, nicht aus dem Gedächtnis. Abgrenzung zum bestehenden Artikel über AWS, Azure und eigenen Server."
+  },
+  {
+    "id": "ki-betriebskonzept",
+    "arbeitstitel": "Betriebskonzept für ein KI-System: Überwachung, Eskalation, Zuständigkeiten",
+    "zielKeyword": "ki betriebskonzept",
+    "cluster": "ki-betrieb",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 61,
+    "notiz": "Braucht ein tatsächlich geschriebenes Betriebskonzept mit benannten Rollen und Reaktionszeiten. Ohne ein echtes Dokument entsteht eine Gliederung, die niemandem hilft."
+  },
+  {
+    "id": "ki-pilot-in-produktion",
+    "arbeitstitel": "Vom Pilotprojekt in den Betrieb: die Lücke, an der die meisten hängenbleiben",
+    "zielKeyword": "ki pilot in produktion",
+    "cluster": "ki-strategie",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 62,
+    "notiz": "Braucht einen Piloten, der tatsächlich in den Betrieb gegangen ist, samt der Stellen, an denen es dabei geklemmt hat. Abgrenzung zum bestehenden Artikel über gescheiterte KI-Projekte."
+  },
+  {
+    "id": "roi-ki-projekt-berechnen",
+    "arbeitstitel": "Den wirtschaftlichen Beitrag eines KI-Projekts berechnen: Formel und Fallstricke",
+    "zielKeyword": "roi ki projekt berechnen",
+    "cluster": "ki-strategie",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 63,
+    "notiz": "Braucht eine Beispielrechnung mit Zahlen, die jemand verantworten kann. Die frühere ROI-Zusage ist bewusst aus dem Angebot genommen — der Artikel darf keine daraus machen."
+  },
+  {
+    "id": "xrechnung-zugferd-verarbeiten",
+    "arbeitstitel": "XRechnung und ZUGFeRD automatisch verarbeiten",
+    "zielKeyword": "xrechnung zugferd verarbeiten",
+    "cluster": "dokumente-und-belege",
+    "autor": "leon-battel",
+    "substanz": null,
+    "prioritaet": 64,
+    "notiz": "Braucht die Auswertung der zugrunde liegenden Norm und ein Beispiel, an dem der Unterschied zwischen reinem Datensatz und eingebetteten Daten sichtbar wird. Keine Beispieldatei mit echten Belegdaten."
+  },
+  {
+    "id": "eingangsrechnung-automatisch-auslesen",
+    "arbeitstitel": "Eingangsrechnungen automatisch auslesen: Texterkennung, Sprachmodell oder beides?",
+    "zielKeyword": "eingangsrechnung automatisch auslesen",
+    "cluster": "dokumente-und-belege",
+    "autor": "leon-battel",
+    "substanz": null,
+    "prioritaet": 65,
+    "notiz": "Braucht eine gemessene Trefferquote aus einem echten Belegstapel. Ohne Zahl ist die Frage nicht zu beantworten, sondern nur zu bebildern."
+  },
+  {
+    "id": "dunkelverarbeitung-rechnungen",
+    "arbeitstitel": "Dunkelverarbeitung: welche Quote im Mittelstand realistisch ist",
+    "zielKeyword": "dunkelverarbeitung rechnungen",
+    "cluster": "dokumente-und-belege",
+    "autor": "leon-battel",
+    "substanz": null,
+    "prioritaet": 66,
+    "notiz": "Braucht die eigene Quote über einen definierten Zeitraum. Fremde Quotenangaben schwanken zwischen den Anbietern so stark, dass sie ohne eigene Messung nichts belegen."
+  },
+  {
+    "id": "kostenlose-ki-analyse",
+    "arbeitstitel": "Der kostenlose 1:1-KI-Check: was in dreißig Minuten herauskommt",
+    "zielKeyword": "kostenlose ki analyse",
+    "cluster": "ki-beratung-hannover",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 67,
+    "notiz": "Ablauf und Rahmen stehen bereits als Eigenanteil bei ki-beratung-hannover. Hier fehlt das Ergebnis-Artefakt: eine anonymisierte Auswertung dessen, was tatsächlich herauskommt. Dauer, Wochentag und Platzzahl vorher an der Angebotskonfiguration abgleichen."
+  },
+  {
+    "id": "ki-beratung-kosten",
+    "arbeitstitel": "Was KI-Beratung kostet: Stundensätze, Pakete, und was wir davon halten",
+    "zielKeyword": "ki beratung kosten",
+    "cluster": "ki-beratung-hannover",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 68,
+    "notiz": "Interne Preise, Stundensätze und ältere Workshop-Preise sind gesperrt. Braucht eine ausdrückliche Freigabe Ayhams, welche Beträge öffentlich genannt werden dürfen."
+  },
+  {
+    "id": "automatisierung-niedersachsen",
+    "arbeitstitel": "Prozessautomatisierung für Unternehmen in Niedersachsen",
+    "zielKeyword": "automatisierung niedersachsen",
+    "cluster": "ki-beratung-hannover",
+    "autor": "ayham-alkhalil",
+    "substanz": null,
+    "prioritaet": 69,
+    "notiz": "Braucht mindestens einen regionalen Fall mit Freigabe oder ein aufrufbares Produkt als Beleg. Eine Standortseite ohne Nachweis ist genau das, was die lokale Konkurrenz bereits hat."
+  }
+]

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -238,7 +239,33 @@ export function SiteHeader({ className }: { className?: string }) {
               größer als in der Vorlage und ließ die Navigationsleiste optisch
               schwerer wirken, obwohl beide Leisten exakt gleich hoch sind.
             */}
-            <img src="/logo-weiss.svg" alt="KITech Software Logo" className="h-8 w-auto dt:h-6" />
+            {/*
+              `/images/logo-weiss.webp` statt `/logo-weiss.svg` (20.08.2026).
+
+              Die SVG-Datei war kein Vektor: Sie enthielt ein 1584x500 grosses
+              Graustufen-PNG als base64, dazu einen `feColorMatrix`, der daraus
+              Weiss mit Deckkraft aus der Helligkeit machte. **178 KB** — damit
+              die groesste Ressource der ganzen Website, groesser als jeder
+              JavaScript-Chunk, und sie stand in Kopf- UND Fusszeile, also auf
+              jeder Seite zweimal.
+
+              Das WebP ist derselbe Bildinhalt mit demselben Farbmatrix-Ergebnis,
+              gerechnet bei 456x144 (das Vierfache der groessten Anzeigehoehe):
+              **5,6 KB**. Erzeugt aus der SVG-Datei, die als Quelle liegen
+              bleibt.
+
+              `width`/`height` sind gesetzt, weil das fehlende Seitenverhaeltnis
+              vorher Layoutverschiebung erzeugt hat — das Fusszeilen-Logo war
+              der gemessene CLS-Verursacher der Startseite.
+            */}
+            <Image
+              src="/images/logo-weiss.webp"
+              alt="KITech Software"
+              width={456}
+              height={144}
+              priority
+              className="h-8 w-auto dt:h-6"
+            />
           </Link>
 
           {/* Ab 1025 px volle Leiste, darunter Hamburger — derselbe Punkt,

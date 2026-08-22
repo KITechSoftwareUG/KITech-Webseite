@@ -9,7 +9,7 @@ import Referenzen from "@/views/Referenzen";
 export const metadata = buildMetadata({
   title: "Referenzen – KITech Software",
   description:
-    "Sechs Kundenfälle mit Zahlen: was gebaut wurde, wie lange es gedauert hat und was es dem Unternehmen seitdem bringt. Eine Auswahl aus über 50 abgeschlossenen Projekten.",
+    "Sechs Kundenfälle mit Zahlen: was gebaut wurde, wie lange es gedauert hat und was es dem Unternehmen seitdem bringt. Auswahl aus über 50 Projekten.",
   path: "/referenzen",
 });
 

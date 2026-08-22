@@ -15,7 +15,7 @@ import { Funnel } from "@/views/Funnel";
 export const metadata = buildMetadata({
   title: "Warum du mit KI keinen Umsatz machst – kostenloser Workshop",
   description:
-    "Kostenloser Live-Workshop für Geschäftsführer im Mittelstand: die fünf Stellen, an denen aus KI Umsatz wird — und warum die meisten Betriebe an keiner davon ansetzen.",
+    "Kostenloser Live-Workshop für Geschäftsführer: die fünf Stellen, an denen aus KI Umsatz wird — und warum die meisten Betriebe an keiner ansetzen.",
   path: "/funnel",
   ogImage: "https://kitech-software.de/images/og/funnel.png",
   noindex: true,

@@ -140,7 +140,15 @@ export interface ClientResult {
    * Schriftlich belegt sind bisher nur Dennis Mikyas und Eugen Kretschmann
    * mit je 5 Sternen (siehe src/data/testimonials.ts). Für die übrigen Kunden
    * braucht es vor dem Livegang eine echte, dokumentierte Bewertung —
-   * erfundene Bewertungen sind nach § 5b Abs. 3 UWG abmahnbar.
+   * erfundene Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG abmahnbar.
+   *
+   * ⚠️ **Norm am 19.08.2026 korrigiert.** Hier stand vorher § 5b Abs. 3 UWG.
+   * Der regelt aber die *Informationspflicht* darüber, ob und wie ein Anbieter
+   * die Echtheit veröffentlichter Bewertungen sicherstellt. Erfundene
+   * Bewertungen selbst fallen unter die Schwarze Liste im Anhang zu § 3 Abs. 3
+   * UWG — Nr. 23c (gefälschte Verbraucherbewertungen) und Nr. 23b (Irreführung
+   * über die Echtheit). Der Unterschied ist erheblich: Die Schwarze Liste greift
+   * **ohne Interessenabwägung**, ein Verstoß ist per se unlauter.
    */
   rating: number | null;
   /**
@@ -150,7 +158,7 @@ export interface ClientResult {
    * `null`, solange kein belegter Satz vorliegt: die Karte zeigt dann Name,
    * Firma und Sterne, aber keine Aussage. Hier NICHTS erfinden und auch nichts
    * aus `summary` oder `headline` umformulieren — das wäre eine Bewertung, die
-   * dem Kunden in den Mund gelegt wird (§ 5b Abs. 3 UWG).
+   * dem Kunden in den Mund gelegt wird (Anhang zu § 3 Abs. 3 Nr. 23c UWG).
    *
    * TODO (Ayham): Sätze für Benjamin Ronneburg, Leon Battel, Jan Uwe Pane
    * und Mike Letzgus nachliefern.

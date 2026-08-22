@@ -1,6 +1,11 @@
 "use client";
 
 import type { ReactNode } from "react";
+import {
+  StructuredData,
+  getOrganizationSchema,
+  getWebSiteSchema,
+} from "@/components/seo/StructuredData";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
@@ -44,6 +49,31 @@ export function PageShell({
         backdrop === "surface" ? "bg-surface" : "bg-background"
       } text-foreground`}
     >
+      {/*
+        Unternehmen und Website als Datenknoten — einmal auf jeder Seite, die
+        diesen Rahmen benutzt.
+
+        **Warum hier und nicht im Root-Layout:** Nicht jede Seite dieser Website
+        darf die Marke tragen. `/selbstcheck_eu_ai_act` laeuft auf Ansage
+        markenfrei ueber `CheckShell` — kein Logo, kein Firmenname, kein
+        Absender. Ein Organisations-Knoten mit Name, Anschrift und Telefonnummer
+        im Kopf dieser Seite waere genau das, was dort nicht hingehoert. Im
+        Root-Layout haette er sie erwischt.
+
+        **Warum nicht nur auf der Startseite:** Jede Artikel- und Autorenseite
+        verweist mit `publisher` bzw. `worksFor` auf `ORGANISATION_ID`. Steht der
+        Knoten nur auf `/`, muss ein Pruefer erst die Startseite abrufen, um den
+        Herausgeber eines Artikels aufzuloesen — und ein Sprachmodell, das nur
+        die Artikelseite liest, bekommt ihn nie zu sehen.
+
+        Bis zum 20.08.2026 stand er auf **keiner** Seite: `getOrganizationSchema()`
+        war gebaut und mit Unit-Tests abgedeckt, aber nirgends eingebunden. Alle
+        Verweise auf `#organisation` zeigten ins Leere, und die Website trug kein
+        einziges `sameAs` — bei einer Marke, die sich mit „KITech NextGen
+        Solutions" (kitech.ai) verwechseln laesst.
+      */}
+      <StructuredData data={[getOrganizationSchema(), getWebSiteSchema()]} />
+
       <AnnouncementBar />
       <SiteHeader />
 

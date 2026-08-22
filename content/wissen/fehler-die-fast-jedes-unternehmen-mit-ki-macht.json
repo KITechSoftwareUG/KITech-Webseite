@@ -1,0 +1,131 @@
+{
+  "slug": "fehler-die-fast-jedes-unternehmen-mit-ki-macht",
+  "titel": "Die fünf Fehler, die fast jedes Unternehmen mit KI macht",
+  "teaser": "Nicht die Technik scheitert, sondern die Stelle, an der sie sitzt. Fünf Muster, die in Betrieben immer wieder auftauchen — und woran man sie früh erkennt.",
+  "kategorie": "Fehler",
+  "cluster": "ki-strategie",
+  "zielKeyword": "warum ki projekte scheitern",
+  "sekundaerKeywords": [
+    "ki projekte scheitern",
+    "ki pilotprojekt verantwortlicher",
+    "ki anwendungsfall auswählen",
+    "fehler bei der ki einführung",
+    "nutzen von ki messen",
+    "ki im mittelstand einsetzen"
+  ],
+  "datum": "2026-08-12",
+  "aktualisiert": "2026-08-12",
+  "lesezeit": 6,
+  "autor": "ayham-alkhalil",
+  "intro": "Wenn ein KI-Projekt nicht liefert, liegt es selten am Modell. Es liegt fast immer daran, an welcher Stelle im Betrieb es eingesetzt wurde und wer danach dafür zuständig ist. Diese fünf Muster tauchen so regelmäßig auf, dass man sie im ersten Gespräch schon hört.",
+  "abschnitte": [
+    {
+      "heading": "1. KI sitzt dort, wo kein Geld entsteht",
+      "paragraphs": [
+        "Der häufigste Fall: Ein Werkzeug schreibt Texte, fasst Protokolle zusammen, formuliert Angebote vor. Das funktioniert sofort und fühlt sich nach Fortschritt an — nur ist Schreiben in den seltensten Fällen der Engpass eines Betriebs.",
+        "Geld geht dort verloren, wo etwas liegen bleibt: die Anfrage, die zwei Tage unbeantwortet steht. Das Angebot, das nie rausging. Die Übergabe zwischen zwei Abteilungen, die jedes Mal jemand von Hand macht. Wer dort ansetzt, sieht den Unterschied in der Auswertung, nicht nur im Kalender.",
+        "Die Gegenprobe ist einfach: Nenne den Vorgang, an dem gerade Umsatz hängt. Sitzt die Automatisierung nicht an diesem Vorgang, spart sie Zeit — aber sie verdient kein Geld."
+      ]
+    },
+    {
+      "heading": "2. Der Pilot hat keinen Besitzer",
+      "paragraphs": [
+        "Ein Bereich probiert etwas aus, es läuft, alle sind zufrieden. Dann soll es in den Betrieb, und dort stellt sich heraus: Niemand ist dafür zuständig, wenn es morgens nicht läuft. Niemand pflegt die Regeln nach, wenn sich ein Ablauf ändert. Niemand entscheidet, was passiert, wenn das Ergebnis einmal falsch ist.",
+        "Ein Pilot ohne benannte verantwortliche Person ist kein Projekt, sondern ein Experiment. Das ist in Ordnung, solange man es so nennt — problematisch wird es, wenn ein Experiment als Einführung verkauft wird."
+      ]
+    },
+    {
+      "heading": "3. Das Modell bekommt die eigenen Daten nicht zu sehen",
+      "paragraphs": [
+        "Ein Sprachmodell ohne Zugriff auf die Daten des Betriebs kann nur allgemein antworten. Es kennt die Preisliste nicht, nicht die Historie eines Kunden, nicht die interne Regel, warum dieser eine Fall anders behandelt wird.",
+        "Genau diese Anbindung ist die Arbeit, die niemand gern übernimmt: Schnittstellen zu Systemen, die seit Jahren laufen, Rechte und Rollen, Datenqualität. Sie entscheidet aber darüber, ob am Ende ein Werkzeug steht oder ein besserer Chat."
+      ]
+    },
+    {
+      "heading": "4. Es gibt keine Zahl, an der man ablesen kann, ob es sich lohnt",
+      "paragraphs": [
+        "Ohne Ausgangsmessung ist jede spätere Diskussion Geschmackssache. Bevor irgendetwas gebaut wird, sollte klar sein: Wie lange dauert dieser Vorgang heute, wie oft kommt er vor, wer macht ihn.",
+        "Das ist keine Bürokratie, sondern Selbstschutz. Es ist die einzige Grundlage, auf der man ein Projekt später fortsetzen — oder eben ehrlich beenden — kann."
+      ],
+      "bullets": [
+        "Wie viele Vorgänge pro Woche?",
+        "Wie viele Minuten je Vorgang, von Anfang bis Ende?",
+        "Wie viele davon sind Nacharbeit, weil vorher etwas fehlte?"
+      ]
+    },
+    {
+      "heading": "5. Alles auf einmal statt einer Sache richtig",
+      "paragraphs": [
+        "Der Reflex nach dem ersten Erfolg ist die Landkarte: zwanzig Anwendungsfälle, priorisiert, mit Roadmap über drei Jahre. In der Zeit, in der so ein Programm aufgesetzt wird, ändert sich die Lage — und mit ihr die Begründung des Programms.",
+        "Ein Vorgang, sauber automatisiert, im Betrieb, mit einer Zahl dahinter, ist mehr wert als eine Landkarte. Er beweist im eigenen Haus, dass es geht, und er finanziert das nächste Stück."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Ein Pilot ohne benannte verantwortliche Person ist kein Projekt, sondern ein Experiment.",
+    "Eine Automatisierung, die nicht an dem Vorgang sitzt, an dem der Umsatz hängt, spart Zeit — aber sie verdient kein Geld.",
+    "Ohne Ausgangsmessung ist jede spätere Diskussion über den Nutzen einer KI-Einführung Geschmackssache: Wie lange ein Vorgang heute dauert und wie oft er vorkommt, gehört vor die erste Zeile Code."
+  ],
+  "fazit": "Falsche KI kostet mehr als keine KI: Sie bindet Budget, bindet die besten Leute und hinterlässt im Betrieb die Überzeugung, dass das Thema nichts bringt.",
+  "faq": [
+    {
+      "frage": "Woran scheitern KI-Projekte am häufigsten?",
+      "antwort": "Selten am Modell. Fast immer an der Stelle, an der es eingesetzt wurde, und an der Frage, wer danach zuständig ist. Fünf Muster wiederholen sich: Die Automatisierung sitzt dort, wo kein Geld entsteht. Der Pilot hat keinen Besitzer. Das Modell bekommt die eigenen Daten nicht zu sehen. Es fehlt eine Ausgangsmessung. Und statt einer Sache wird alles auf einmal begonnen."
+    },
+    {
+      "frage": "Wie erkennt man, ob eine Automatisierung an der richtigen Stelle sitzt?",
+      "antwort": "Über eine Gegenprobe: Nenne den Vorgang, an dem gerade Umsatz hängt. Sitzt die Automatisierung nicht an diesem Vorgang, spart sie Zeit, verdient aber kein Geld. Geld geht dort verloren, wo etwas liegen bleibt — die unbeantwortete Anfrage, das Angebot, das nie rausging, die Übergabe zwischen zwei Abteilungen."
+    },
+    {
+      "frage": "Was gehört in eine Ausgangsmessung vor einem KI-Projekt?",
+      "antwort": "Drei Angaben reichen: wie viele Vorgänge pro Woche anfallen, wie viele Minuten ein Vorgang von Anfang bis Ende dauert, und wie viel davon Nacharbeit ist, weil vorher etwas fehlte. Ohne diese Zahlen ist jede spätere Diskussion Geschmackssache — und es gibt keine Grundlage, ein Projekt fortzusetzen oder ehrlich zu beenden."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/leistungen",
+      "ankertext": "Sitzt die Automatisierung nicht an diesem Vorgang",
+      "abschnitt": 0
+    },
+    {
+      "ziel": "/gratis-wissen/was-ein-ki-setup-im-betrieb-wirklich-ausmacht",
+      "ankertext": "wenn ein Experiment als Einführung verkauft wird",
+      "abschnitt": 1
+    },
+    {
+      "ziel": "/glossar/llm-integration",
+      "ankertext": "Ein Sprachmodell ohne Zugriff auf die Daten des Betriebs",
+      "abschnitt": 2
+    },
+    {
+      "ziel": "/glossar/ki-audit",
+      "ankertext": "Ohne Ausgangsmessung",
+      "abschnitt": 3
+    },
+    {
+      "ziel": "/referenzen",
+      "ankertext": "mit einer Zahl dahinter",
+      "abschnitt": 4
+    }
+  ],
+  "substanz": {
+    "art": "prozesszerlegung",
+    "beschreibung": "Zerlegt den Weg eines KI-Vorhabens in fünf Stationen — Auswahl des Vorgangs, Pilot, Datenanbindung, Ausgangsmessung, Ausweitung — und benennt an jeder den Punkt, an dem es abbricht. Dahinter steht keine eigene Erhebung: der Eigenanteil ist die Zerlegung, nicht ein Messwert.",
+    "herkunft": "src/data/wissen.ts, Startbestand vom 12.08.2026 — Text von einem Modell verfasst, von Ayham Alkhalil freigegeben. Keine Messreihe, keine Fallzahl, keine externe Statistik im Text."
+  },
+  "cta": {
+    "heading": "Erkennen ist der leichtere Teil.",
+    "text": "Im 1:1-KI-Check suchen wir den einen Vorgang bei euch, an dem gerade Geld liegen bleibt."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-12"
+  },
+  "erzeugt": {
+    "lauf": "startbestand-wissen",
+    "modell": "claude",
+    "am": "2026-08-12"
+  }
+}

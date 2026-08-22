@@ -185,8 +185,8 @@ export function CookieConsent() {
           className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
         >
           <div className="mx-auto max-w-4xl">
-            <div className="relative rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl p-6 md:p-8">
-              <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <div className="relative rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl p-5 md:p-8">
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center">
                 <div className="flex-shrink-0 hidden md:block">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Cookie className="h-7 w-7 text-primary" />
@@ -194,10 +194,27 @@ export function CookieConsent() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                  <h3 className="text-base md:text-lg font-semibold text-foreground mb-1.5 md:mb-2">
                     Datenschutz & Cookies
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  {/*
+                    Auf dem Handy kleiner und enger gesetzt (20.08.2026).
+
+                    Anlass: Auf Artikelseiten war **dieser Absatz das groesste
+                    gezeichnete Element der Seite** und damit der LCP-Wert —
+                    gemessen 51.168 px² gegen 47.880 px² des Artikel-Aufmachers.
+                    Ein Einwilligungsbanner, das den Artikel als groesstes
+                    Element verdraengt, ist auch unabhaengig von der Messung
+                    das falsche Groessenverhaeltnis; der Kommentar oben sagt
+                    schon, dass er auf dem Handy bei 70 % der Bildschirmhoehe
+                    stand.
+
+                    **Kein Wort ist entfallen** — die Nennung von Plausible und
+                    ipinfo.io und der Verweis auf die Datenschutzerklaerung
+                    stehen unveraendert. Geaendert sind nur Schriftgroesse und
+                    Zeilenabstand, und nur unterhalb von `md`.
+                  */}
+                  <p className="text-[13px] leading-[1.5] text-muted-foreground md:text-sm md:leading-relaxed">
                     {complianceText}
                   </p>
 

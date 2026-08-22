@@ -8,7 +8,7 @@ import Warum from "@/views/Warum";
  * diese Seite trägt eigenen, fertigen Text — die Letter tragen noch Platzhalter.
  */
 export const metadata = buildMetadata({
-  title: "Warum KI bei den meisten kein Geld verdient – KITech Software",
+  title: "Warum KI bei den meisten kein Geld verdient",
   description:
     "Nicht die Technik ist das Problem. Zwei Wege zur selben Ursache: einer für Selbstständige, einer für Unternehmen.",
   path: "/warum",

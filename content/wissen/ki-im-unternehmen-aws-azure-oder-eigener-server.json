@@ -1,0 +1,125 @@
+{
+  "slug": "ki-im-unternehmen-aws-azure-oder-eigener-server",
+  "titel": "KI im Unternehmen: AWS, Azure oder eigener Server?",
+  "teaser": "Für Betriebe mit echten Compliance-Anforderungen ist die Frage nicht, welches Modell das beste ist, sondern wo es läuft. Ein Vergleich der drei Wege — mit den Kriterien, die tatsächlich entscheiden.",
+  "kategorie": "Enterprise",
+  "cluster": "ki-betrieb",
+  "zielKeyword": "ki im unternehmen hosten",
+  "sekundaerKeywords": [
+    "aws bedrock oder azure openai",
+    "sprachmodell auf eigenem server betreiben",
+    "ki dsgvo konform betreiben",
+    "auftragsverarbeitungsvertrag ki anbieter",
+    "ki betrieb in europäischer region",
+    "offene modelle im unternehmen einsetzen"
+  ],
+  "datum": "2026-08-12",
+  "aktualisiert": "2026-08-12",
+  "lesezeit": 7,
+  "autor": "ayham-alkhalil",
+  "intro": "Sobald personenbezogene Daten, Betriebsgeheimnisse oder regulierte Prozesse im Spiel sind, verschiebt sich die Frage. Nicht „welches Modell ist das beste“, sondern: Wo läuft es, wer kommt an die Daten, und was steht im Vertrag. Drei Wege stehen zur Wahl, und keiner ist grundsätzlich richtig.",
+  "abschnitte": [
+    {
+      "heading": "Die Hyperscaler: AWS Bedrock und Azure OpenAI",
+      "paragraphs": [
+        "Beide großen Anbieter stellen Sprachmodelle als verwalteten Dienst bereit — AWS über Bedrock, Microsoft über Azure OpenAI Service. Der entscheidende Unterschied zur direkten Nutzung eines Anbieter-Zugangs: Man kann die Region festlegen, in der die Verarbeitung stattfindet, und bekommt einen Auftragsverarbeitungsvertrag, der zu einem europäischen Betrieb passt.",
+        "Was dafür spricht: Die Anbindung an bestehende Systeme ist meist schon da. Wer ohnehin Microsoft 365 oder eine AWS-Landschaft betreibt, hat Identitäten, Rechte und Netzwerkgrenzen bereits geregelt — und genau daran scheitern Projekte sonst.",
+        "Was dagegen spricht: Die Abhängigkeit ist real. Preise, Modellauswahl und Bedingungen legt der Anbieter fest, und ein Wechsel ist Arbeit. Wer das vermeiden will, sollte die Anwendung von Anfang an so bauen, dass das Modell austauschbar bleibt."
+      ]
+    },
+    {
+      "heading": "Der eigene Server: offene Modelle im Haus",
+      "paragraphs": [
+        "Offene Modelle lassen sich auf eigener Hardware betreiben. Damit verlassen die Daten das Haus nicht — das stärkste Argument in Bereichen, in denen das schlicht Voraussetzung ist: Gesundheitswesen, Verteidigung, Teile der öffentlichen Verwaltung.",
+        "Der Preis dafür ist Betrieb. Grafikkarten, Überwachung, Aktualisierungen, jemand, der nachts erreichbar ist. Diese Kosten fallen an, ob das System genutzt wird oder nicht, während man beim Hyperscaler nach Verbrauch zahlt.",
+        "Die ehrliche Faustregel: Eigener Betrieb lohnt sich, wenn die Nutzung hoch und gleichmäßig ist — oder wenn eine Vorschrift keine Wahl lässt. Für den ersten Anwendungsfall ist er fast immer der teurere Weg."
+      ]
+    },
+    {
+      "heading": "Was tatsächlich entscheidet",
+      "paragraphs": [
+        "Die Wahl fällt selten am Modell, sondern an vier nüchternen Fragen:"
+      ],
+      "bullets": [
+        "Welche Daten gehen hinein — und dürfen die das überhaupt verlassen?",
+        "Gibt es einen Auftragsverarbeitungsvertrag, der zum eigenen Datenschutzkonzept passt?",
+        "Wie ist die Last verteilt: Dauerbetrieb oder ein paar Anfragen am Tag?",
+        "Wer betreibt das in zwei Jahren — und mit welchem Wissen im Haus?"
+      ]
+    },
+    {
+      "heading": "Der pragmatische Weg",
+      "paragraphs": [
+        "In den meisten Betrieben führt der Weg über einen verwalteten Dienst in europäischer Region, mit sauber gezogenen Grenzen: welche Daten hineindürfen, welche nicht, und einer Anwendungsschicht dazwischen, die den Anbieter austauschbar hält.",
+        "Der eigene Server kommt dann später, wenn die Nutzung es rechtfertigt oder eine Vorschrift es verlangt. Diese Reihenfolge kostet weniger und macht früher etwas nutzbar — und sie verbaut nichts."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Die Infrastrukturfrage bei KI ist keine Geschmacksfrage, sondern eine Rechenaufgabe mit vier Größen: Daten, Vertrag, Last und wer es später betreibt.",
+    "Ein verwalteter Dienst wie AWS Bedrock oder Azure OpenAI Service unterscheidet sich vom direkten Anbieter-Zugang darin, dass sich die Region der Verarbeitung festlegen lässt und ein Auftragsverarbeitungsvertrag dazugehört.",
+    "Der Betrieb offener Modelle auf eigener Hardware lohnt sich, wenn die Nutzung hoch und gleichmäßig ist — oder wenn eine Vorschrift keine Wahl lässt."
+  ],
+  "fazit": "Die Infrastrukturfrage ist keine Geschmacksfrage, sondern eine Rechenaufgabe mit vier Größen: Daten, Vertrag, Last und wer es später betreibt.",
+  "faq": [
+    {
+      "frage": "Wann lohnt sich ein eigener Server für KI-Modelle?",
+      "antwort": "Wenn die Nutzung hoch und gleichmäßig ist, oder wenn eine Vorschrift keine Wahl lässt — etwa im Gesundheitswesen, in der Verteidigung oder in Teilen der öffentlichen Verwaltung. Der Preis dafür ist Betrieb: Grafikkarten, Überwachung, Aktualisierungen und jemand, der nachts erreichbar ist. Diese Kosten fallen an, ob das System genutzt wird oder nicht. Für den ersten Anwendungsfall ist der eigene Server fast immer der teurere Weg."
+    },
+    {
+      "frage": "Was spricht für AWS Bedrock oder Azure OpenAI Service?",
+      "antwort": "Zwei Dinge. Erstens lässt sich die Region festlegen, in der die Verarbeitung stattfindet, und es gibt einen Auftragsverarbeitungsvertrag, der zu einem europäischen Betrieb passt. Zweitens ist die Anbindung an bestehende Systeme meist schon da: Wer Microsoft 365 oder eine AWS-Landschaft betreibt, hat Identitäten, Rechte und Netzwerkgrenzen bereits geregelt — und genau daran scheitern Projekte sonst."
+    },
+    {
+      "frage": "Wie bleibt das Modell bei einem verwalteten Dienst austauschbar?",
+      "antwort": "Über eine eigene Anwendungsschicht zwischen Fachanwendung und Anbieter. Preise, Modellauswahl und Bedingungen legt der Anbieter fest, und ein Wechsel ist Arbeit. Wer die Anwendung von Anfang an so baut, dass das Modell dahinter tauschbar bleibt, hält die Abhängigkeit klein, ohne auf die fertige Umgebung zu verzichten."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/glossar/dsgvo-konforme-ki",
+      "ankertext": "einen Auftragsverarbeitungsvertrag, der zu einem europäischen Betrieb passt",
+      "abschnitt": 0
+    },
+    {
+      "ziel": "/gratis-wissen/fehler-die-fast-jedes-unternehmen-mit-ki-macht",
+      "ankertext": "genau daran scheitern Projekte sonst",
+      "abschnitt": 0
+    },
+    {
+      "ziel": "/glossar/mlops",
+      "ankertext": "Grafikkarten, Überwachung, Aktualisierungen",
+      "abschnitt": 1
+    },
+    {
+      "ziel": "/enterprise",
+      "ankertext": "Gesundheitswesen, Verteidigung, Teile der öffentlichen Verwaltung",
+      "abschnitt": 1
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "einen verwalteten Dienst in europäischer Region",
+      "abschnitt": 3
+    }
+  ],
+  "substanz": {
+    "art": "architekturentscheidung",
+    "beschreibung": "Die Reihenfolge, für die sich KITech entschieden hat: erst verwalteter Dienst in europäischer Region mit Auftragsverarbeitungsvertrag, eigene Hardware erst bei hoher gleichmäßiger Last oder wenn eine Vorschrift sie verlangt — dazwischen eine Schicht, die den Anbieter tauschbar hält. Ohne eigene Kostenrechnung im Text.",
+    "herkunft": "Betriebsempfehlung aus src/data/services.ts (Enterprise-Betrieb über AWS oder Azure mit Auftragsverarbeitungsvertrag, alternativ eigene Hardware). Artikeltext: src/data/wissen.ts, Startbestand 12.08.2026, von einem Modell verfasst und freigegeben."
+  },
+  "cta": {
+    "heading": "Der Vergleich ersetzt die Rechnung nicht.",
+    "text": "Im 1:1-KI-Check rechnen wir eure Last, eure Daten und euren Vertragsrahmen einmal konkret durch."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-12"
+  },
+  "erzeugt": {
+    "lauf": "startbestand-wissen",
+    "modell": "claude",
+    "am": "2026-08-12"
+  }
+}

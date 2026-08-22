@@ -11,18 +11,25 @@ muss beim Wechsel des Kanals nie wieder die Website angefasst werden.
 Website ──POST──> n8n-Webhook ──> Nachricht bauen ──> Telegram / E-Mail / …
 ```
 
-## Stand (14.08.2026)
+## Stand (20.08.2026)
 
 | Teil | Zustand |
 |---|---|
 | `/api/ereignis`, `/api/tagesbericht` | gebaut, deployt, getestet |
 | `TAGESBERICHT_SECRET`, `IPINFO_TOKEN` in Coolify | gesetzt |
+| Plausible zählt | ja — `stats.kitech-software.de`, CE v3.2.0 |
+| Täglicher Bericht per E-Mail | **läuft** — Cron 8:00, Microsoft Graph, siehe Schritt 6 |
+| `PLAUSIBLE_API_KEY` in Coolify | nicht gesetzt — vom Tagesbericht nicht mehr gebraucht, siehe Schritt 5 |
 | n8n als Coolify-Service | angelegt und läuft (`n8n-automation`) |
 | n8n über **HTTPS** | ⚠️ offen — siehe Schritt 1 |
 | n8n-Ersteinrichtung + Workflow | ⚠️ offen — Schritte 2 und 3 |
 | `EREIGNIS_WEBHOOK_URL` in Coolify | ⚠️ offen — Schritt 4 |
-| `PLAUSIBLE_API_KEY` | ⚠️ offen — Schritt 5 |
-| Täglicher Auslöser für den Bericht | ⚠️ offen — Schritt 6 |
+
+**Der Tagesbericht braucht n8n nicht.** Er geht auf Ansage (20.08.2026) per
+E-Mail raus: ein Cron auf dem Server ruft die Route auf und verschickt den Text
+selbst — siehe [`scripts/tagesbericht/`](../scripts/tagesbericht/README.md).
+Die Schritte 1 bis 4 betreffen nur die **Sofortmeldungen** (`/api/ereignis`);
+solange sie offen sind, meldet die Website einzelne Besuche an niemanden.
 
 ## Schritt 1 — n8n auf HTTPS umstellen
 
@@ -96,7 +103,14 @@ curl -i -X POST https://kitech-software.de/api/ereignis \
 # 204 erwartet — und in n8n muss eine Ausführung erscheinen
 ```
 
-## Schritt 5 — Plausible-API-Schlüssel
+## Schritt 5 — Plausible-API-Schlüssel (nur noch für die Route)
+
+> **Seit 20.08.2026:** Der Schlüssel **existiert** (Plausible → Settings → API
+> Keys, Name „Tagesbericht") und liegt in
+> `/home/deploy/KITech/infra/secrets/tagesbericht.env`. Der tägliche Bericht
+> nutzt ihn von dort und fragt Plausible direkt ab — er braucht Coolify nicht.
+> Die Schritte unten gelten nur, wenn `/api/tagesbericht` selbst antworten soll
+> (n8n-Weg). Bis dahin bleibt die Route bewusst auf 404.
 
 `stats.kitech-software.de` → Konto oben rechts → **Settings** → **API Keys** →
 *New API Key*. Namen vergeben (z. B. „Tagesbericht"), Schlüssel kopieren und in
@@ -117,17 +131,24 @@ Antwortet mit den Zahlen des Vortags als JSON — und schickt sie zugleich an de
 Webhook. Kommt `{"fehler": "Plausible antwortet nicht …"}`, stimmt der
 Schlüssel nicht.
 
-## Schritt 6 — Täglicher Auslöser
+## Schritt 6 — Täglicher Bericht (läuft seit 20.08.2026)
 
-Die Website hat keinen eigenen Zeitgeber; der Bericht muss von außen angestoßen
-werden. Am einfachsten ein **zweiter n8n-Workflow**:
+Ein Cron auf dem Server, täglich 8:00 Europe/Berlin:
 
-1. **Schedule Trigger** — täglich, z. B. 08:00 Uhr
-2. **HTTP Request** — `POST https://kitech-software.de/api/tagesbericht`,
-   Header `x-tagesbericht-secret: <TAGESBERICHT_SECRET>`
+```cron
+0 8 * * * /usr/bin/python3 /home/deploy/KITech/projects/KITech-Webseite/scripts/tagesbericht/sende_tagesbericht.py >> …/.tmp/tagesbericht.log 2>&1
+```
 
-Der Bericht landet dann über denselben Webhook im ersten Workflow — die Route
-schickt ihn selbst dorthin, der Schedule-Workflow braucht nichts weiter zu tun.
+Das Skript fragt Plausible direkt ab und verschickt den Bericht über Microsoft
+Graph aus dem M365-Postfach. Es geht damit **an dieser Route vorbei** — Grund
+und Umfang stehen in
+[`scripts/tagesbericht/README.md`](../scripts/tagesbericht/README.md).
+
+Bewusst **nicht** über n8n: der Kanal war E-Mail, und n8n ist noch nicht
+eingerichtet (Schritte 1–3). Wer später doch über n8n gehen will, braucht dort
+nur **Schedule Trigger** + **HTTP Request** auf `POST /api/tagesbericht` mit dem
+Header `x-tagesbericht-secret` — dann muss allerdings `PLAUSIBLE_API_KEY` in
+Coolify stehen (Schritt 5), und der Cron kann weg.
 
 ## Was gemeldet wird
 

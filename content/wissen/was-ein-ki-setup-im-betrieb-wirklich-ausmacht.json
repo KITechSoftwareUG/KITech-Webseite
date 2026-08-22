@@ -1,0 +1,120 @@
+{
+  "slug": "was-ein-ki-setup-im-betrieb-wirklich-ausmacht",
+  "titel": "Was ein KI-Setup im Betrieb wirklich ausmacht",
+  "teaser": "Der Zugang ist an einem Nachmittag eingerichtet. Warum es trotzdem Wochen dauert, bis KI im Tagesgeschäft etwas verändert — und woraus die Zeit tatsächlich besteht.",
+  "kategorie": "Grundlagen",
+  "cluster": "ki-strategie",
+  "zielKeyword": "ki im unternehmen einführen",
+  "sekundaerKeywords": [
+    "ki einführung im betrieb",
+    "ki wird im unternehmen nicht genutzt",
+    "regeln für den ki einsatz festlegen",
+    "ki im arbeitsalltag verankern",
+    "ki setup im betrieb",
+    "warum ki lizenzen ungenutzt bleiben"
+  ],
+  "datum": "2026-08-12",
+  "aktualisiert": "2026-08-12",
+  "lesezeit": 5,
+  "autor": "ayham-alkhalil",
+  "intro": "„Wir haben die Lizenzen, es benutzt nur keiner.“ Dieser Satz fällt oft, und er beschreibt kein Motivationsproblem. Er beschreibt ein fehlendes Setup — und das ist etwas anderes als ein Zugang.",
+  "abschnitte": [
+    {
+      "heading": "Ein Zugang ist keine Einführung",
+      "paragraphs": [
+        "Ein Konto ist in fünf Minuten angelegt. Danach steht jede Person vor demselben leeren Eingabefeld und muss selbst herausfinden, wofür sich das lohnt. Ein Teil probiert etwas, die meisten kehren nach zwei Wochen zu ihrem alten Weg zurück — weil der alte Weg verlässlich ist und der neue jedes Mal neu erfunden werden muss."
+      ]
+    },
+    {
+      "heading": "Woraus ein Setup besteht",
+      "paragraphs": [
+        "Ein tragfähiges Setup hat drei Teile, und keiner davon ist die Lizenz."
+      ],
+      "bullets": [
+        "Die Arbeitsumgebung: womit gearbeitet wird, worauf zugegriffen werden darf, wo Ergebnisse landen.",
+        "Die Regeln: schriftlich hinterlegte Vorgaben, wie hier gearbeitet wird, was ohne Rückfrage passieren darf und was ausdrücklich nicht.",
+        "Die Automatisierungen: die wiederkehrenden Handgriffe, die vorher jedes Mal jemand selbst gemacht hat."
+      ]
+    },
+    {
+      "heading": "Warum die Regeln der wichtigste Teil sind",
+      "paragraphs": [
+        "Ohne hinterlegte Regeln beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen. Es kennt die Tonalität des Hauses nicht, nicht die Reihenfolge, in der Dinge geprüft werden, nicht die Fälle, in denen jemand gefragt werden muss.",
+        "Mit Regeln wird aus einem allgemeinen Werkzeug ein Bestandteil der Arbeit. Sie sind auch der Grund, warum sich ein Setup nicht kopieren lässt: Sie beschreiben genau das, was diesen Betrieb von anderen unterscheidet."
+      ]
+    },
+    {
+      "heading": "Woran man merkt, dass es sitzt",
+      "paragraphs": [
+        "Nicht daran, dass alle begeistert sind. Sondern daran, dass jemand sich beschwert, wenn es einmal nicht läuft. Ab dem Moment ist es Teil des Arbeitswegs — und nicht mehr ein Zusatzangebot, das man auch ignorieren kann."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Ein Zugang ist keine Einführung: Ein Konto ist in fünf Minuten angelegt, danach steht jede Person vor demselben leeren Eingabefeld.",
+    "Ein tragfähiges KI-Setup hat drei Teile, und keiner davon ist die Lizenz: die Arbeitsumgebung, die schriftlich hinterlegten Regeln und die Automatisierungen.",
+    "Ohne hinterlegte Regeln beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen — es kennt die Tonalität des Hauses nicht und nicht die Fälle, in denen jemand gefragt werden muss."
+  ],
+  "fazit": "Die Lizenz ist der günstigste Teil. Bezahlt wird für den Aufbau darum herum — und genau der entscheidet, ob nach drei Monaten noch jemand damit arbeitet.",
+  "faq": [
+    {
+      "frage": "Warum benutzt niemand die vorhandenen KI-Lizenzen?",
+      "antwort": "Weil ein Zugang keine Einführung ist. Nach dem Anlegen des Kontos steht jede Person vor demselben leeren Eingabefeld und muss selbst herausfinden, wofür sich das lohnt. Die meisten kehren nach zwei Wochen zum alten Weg zurück — der ist verlässlich, während der neue jedes Mal neu erfunden werden muss. Das ist kein Motivationsproblem, sondern ein fehlendes Setup."
+    },
+    {
+      "frage": "Woraus besteht ein KI-Setup im Betrieb?",
+      "antwort": "Aus drei Teilen, und keiner davon ist die Lizenz: der Arbeitsumgebung (womit gearbeitet wird, worauf zugegriffen werden darf, wo Ergebnisse landen), den Regeln (schriftlich hinterlegte Vorgaben, was ohne Rückfrage passieren darf und was ausdrücklich nicht) und den Automatisierungen (die wiederkehrenden Handgriffe, die vorher jedes Mal jemand selbst gemacht hat)."
+    },
+    {
+      "frage": "Woran merkt man, dass ein KI-Setup im Betrieb angekommen ist?",
+      "antwort": "Nicht daran, dass alle begeistert sind. Sondern daran, dass jemand sich beschwert, wenn es einmal nicht läuft. Ab dem Moment ist es Teil des Arbeitswegs und kein Zusatzangebot mehr, das man auch ignorieren kann."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/gratis-wissen/thema/ki-strategie",
+      "ankertext": "ein fehlendes Setup",
+      "abschnitt": "intro"
+    },
+    {
+      "ziel": "/gratis-wissen/fehler-die-fast-jedes-unternehmen-mit-ki-macht",
+      "ankertext": "die meisten kehren nach zwei Wochen zu ihrem alten Weg zurück",
+      "abschnitt": 0
+    },
+    {
+      "ziel": "/gratis-wissen/ki-im-unternehmen-aws-azure-oder-eigener-server",
+      "ankertext": "keiner davon ist die Lizenz",
+      "abschnitt": 1
+    },
+    {
+      "ziel": "/glossar/llm-integration",
+      "ankertext": "beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen",
+      "abschnitt": 2
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "Mit Regeln wird aus einem allgemeinen Werkzeug ein Bestandteil der Arbeit",
+      "abschnitt": 2
+    }
+  ],
+  "substanz": {
+    "art": "prozesszerlegung",
+    "beschreibung": "Zerlegt eine KI-Einführung in ihre drei Bestandteile — Arbeitsumgebung, schriftlich hinterlegte Regeln, Automatisierungen — trennt sie vom bloßen Zugang und benennt ein Abnahmekriterium: jemand beschwert sich, wenn es nicht läuft. Kein eigener Messwert dahinter, der Eigenanteil ist die Zerlegung.",
+    "herkunft": "src/data/wissen.ts, Startbestand 12.08.2026, von einem Modell verfasst und freigegeben. Hintergrund sind die Setup-Projekte in src/data/client-results.ts (Pflegexperts, Nereo) — im Artikeltext steht davon keine Zahl und kein Kundenname."
+  },
+  "cta": {
+    "heading": "Ein Setup entsteht nicht beim Lesen.",
+    "text": "Im 1:1-KI-Check nehmen wir einen wiederkehrenden Handgriff bei euch auseinander — und sagen, welche Regel er braucht."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-12"
+  },
+  "erzeugt": {
+    "lauf": "startbestand-wissen",
+    "modell": "claude",
+    "am": "2026-08-12"
+  }
+}

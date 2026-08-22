@@ -75,7 +75,7 @@
  * **Alle Zahlen auf dieser Seite müssen belegt sein.** Die Kennzahlen in
  * `beweisZeilen` sind wörtlich aus `src/data/client-results.ts` übernommen, die
  * Zitate kommen aus `src/data/testimonials.ts`. Hier nichts eintragen, was dort
- * nicht steht (§ 5b Abs. 3 UWG).
+ * nicht steht (Anhang zu § 3 Abs. 3 Nr. 23c UWG).
  */
 
 /** Ein fester Workshop-Termin. `null`, solange keiner feststeht. */

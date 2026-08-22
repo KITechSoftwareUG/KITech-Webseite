@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   mainNavigation,
+  warumEntry,
   footerNavigation,
   legalNavigation,
   siteRoutes,
@@ -11,6 +12,12 @@ import {
 import { clientResults } from "@/data/client-results";
 import { glossaryTerms } from "@/data/glossary";
 import { jobs } from "@/data/jobs";
+import {
+  alleAutoren,
+  alleCluster,
+  artikelImCluster,
+  veroeffentlichteArtikel,
+} from "@/lib/wissen/laden";
 
 /**
  * Routen- und Link-Prüfung.
@@ -68,6 +75,13 @@ const dynamischeSlugs: Record<string, string[]> = {
   "/referenzen/[slug]": clientResults.map((result) => result.slug),
   "/glossar/[slug]": glossaryTerms.map((term) => term.slug),
   "/karriere/[slug]": jobs.map((job) => job.slug),
+  "/gratis-wissen/[slug]": veroeffentlichteArtikel().map((artikel) => artikel.slug),
+  /* Nur Themen mit Artikeln bekommen eine Seite — ein leerer Hub wird gar nicht
+     erst erzeugt (siehe generateStaticParams der Route). */
+  "/gratis-wissen/thema/[cluster]": alleCluster()
+    .filter((cluster) => artikelImCluster(cluster.slug).length > 0)
+    .map((cluster) => cluster.slug),
+  "/autoren/[slug]": alleAutoren().map((autor) => autor.slug),
 };
 
 /* -------------------------------------------------------------------------- */
@@ -262,6 +276,27 @@ describe("Navigation", () => {
       "/funnel", // LinkedIn-Landingpage, eigene Domain, bewusst ohne Website-Navigation
       "/fokus", // LinkedIn-Landingpage, eigene Domain, bewusst ohne Website-Navigation
     ]);
+
+    /**
+     * Zwei Sonderfaelle: die beiden Sales Letter standen bis zum 20.08.2026 mit
+     * vollem Titel in der Fusszeile und sind dort auf Ansage raus. Erreichbar
+     * sind sie weiter — nur nicht ueber die Navigation, sondern ueber die
+     * Weiche `/warum` und die Segmentseiten `/solo` und `/enterprise`. Damit aus
+     * der Ausnahme keine unauffindbare Seite wird, pruefen wir genau das nach.
+     */
+    const nurAusDemSeiteninhalt = [
+      "/warum-du-mit-ki-kein-geld-verdienst",
+      "/warum-unternehmen-mit-ki-kein-geld-verdienen",
+    ];
+    const weichenZiele = new Set(warumEntry.children?.map((child) => child.href) ?? []);
+
+    for (const pfad of nurAusDemSeiteninhalt) {
+      expect(
+        weichenZiele.has(pfad),
+        `${pfad} steht in keiner Navigation und wird auch von /warum nicht mehr verlinkt`
+      ).toBe(true);
+      ausgenommen.add(pfad);
+    }
 
     const erreichbar = new Set(navigationsZiele);
     const unerreichbar = statischeRouten.filter(

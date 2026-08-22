@@ -1,0 +1,153 @@
+{
+  "slug": "besucher-melden-ohne-cookie-banner",
+  "titel": "Besucher melden, ohne am Cookie-Banner vorbeizugehen",
+  "teaser": "Wer wissen will, wer gerade auf der Seite ist, landet schnell bei einem Cookie-Banner. Es gibt eine Ebene darunter — und die verläuft an einer anderen Grenze.",
+  "kategorie": "Datenschutz",
+  "cluster": "ki-und-datenschutz",
+  "zielKeyword": "tracking ohne einwilligung",
+  "sekundaerKeywords": [
+    "besuchermeldung website",
+    "serverseitiges tracking dsgvo",
+    "cookieloses tracking",
+    "tddg paragraf 25",
+    "firmenerkennung website besucher",
+    "webhook benachrichtigung website"
+  ],
+  "datum": "2026-08-21",
+  "aktualisiert": "2026-08-21",
+  "lesezeit": 8,
+  "autor": "ayham-alkhalil",
+  "intro": "Der Wunsch ist alt: eine Nachricht, wenn jemand die Angebotsseite öffnet. Der übliche Weg dorthin führt über ein Werkzeug, das ein Cookie setzt, und damit über eine Einwilligung. Beides ist nicht zwingend — die entscheidende Grenze verläuft woanders, als die meisten vermuten.",
+  "abschnitte": [
+    {
+      "heading": "Warum das Cookie-Banner die falsche erste Frage ist",
+      "paragraphs": [
+        "Ein Banner erscheint, weil ein Werkzeug etwas auf dem Gerät des Besuchers ablegt. Es ist die Folge einer Entscheidung, nicht ihr Ausgangspunkt.",
+        "Die Frage davor lautet: Was soll gemeldet werden. Wer sie beantwortet, braucht für die Antwort meist gar keinen Zugriff auf das Endgerät.",
+        "Ein Beispiel aus dem eigenen Betrieb: Sechs Ereignisse werden gemeldet — Terminseite geöffnet, Knopf im Hinweisfenster geklickt, Telefonnummer angeklickt, Adresse angeklickt, Selbstcheck beendet, Besuch. Keines davon braucht ein Cookie."
+      ]
+    },
+    {
+      "heading": "Was unterscheidet ein Ereignis von einem Cookie?",
+      "paragraphs": [
+        "Ein Cookie liegt auf dem Gerät und wird beim nächsten Besuch wieder gelesen. Genau dieses Lesen und Schreiben ist der Vorgang, an dem die Einwilligungspflicht hängt.",
+        "Eine Ereignismeldung dagegen entsteht im Moment der Handlung und ist danach vorbei. Der Server erfährt, dass jemand die Terminseite geöffnet hat, und weiß beim nächsten Aufruf nichts mehr davon.",
+        "Der Unterschied klingt technisch und ist rechtlich der ganze Punkt. § 25 des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes knüpft an den Zugriff auf Endeinrichtungen an, nicht an die Frage, ob dabei Personen erkennbar werden."
+      ]
+    },
+    {
+      "heading": "Welche Angaben braucht eine Meldung wirklich?",
+      "paragraphs": [
+        "Die ehrliche Antwort ist: weniger, als man zuerst annimmt. Wer die Liste aufschreibt, bevor er baut, streicht die Hälfte.",
+        "Im eigenen Aufbau gehen drei Angaben mit: welche Seite, woher der Besucher kam, und über welche Kampagne. Mehr steht nicht in der Nachricht, die den Server verlässt."
+      ],
+      "bullets": [
+        "Seite — welche Adresse wurde geöffnet",
+        "Verweisquelle — von wo kam der Aufruf",
+        "Kampagne — aus welcher Anzeige oder welchem Beitrag"
+      ]
+    },
+    {
+      "heading": "Wo verläuft die Grenze zur Einwilligung?",
+      "paragraphs": [
+        "An zwei Stellen, und beide sind eindeutig.",
+        "Die erste ist der Zugriff auf das Gerät: Cookie, lokaler Speicher, Kennung im Browser. Wer nichts davon anfasst, bleibt außerhalb der Einwilligungspflicht nach § 25.",
+        "Die zweite ist die Weitergabe an Dritte. Sobald die Adresse des Anschlusses an einen fremden Dienst geht, ist das eine Verarbeitung mit eigenem Rechtfertigungsbedarf — unabhängig davon, ob ein Cookie im Spiel war.",
+        "Beide Grenzen lassen sich im Code sichtbar machen, statt sie in einer Datenschutzerklärung zu behaupten. Das ist der Unterschied zwischen einer Aussage und einem Nachweis."
+      ]
+    },
+    {
+      "heading": "Warum die Firmenerkennung auf der anderen Seite steht",
+      "paragraphs": [
+        "Der Wunsch, hinter einem Besuch eine Firma zu sehen, ist verständlich — es gibt einen ganzen Markt dafür. Technisch läuft es über die Adresse des Anschlusses, die bei einem Firmennetz auf den Betreiber zurückführt.",
+        "Damit verlässt die Adresse aber das Haus. Im eigenen Aufbau passiert das deshalb nur, wenn der Besucher zugestimmt hat, und die Abfrage läuft serverseitig — der Browser des Besuchers spricht nie mit dem fremden Dienst.",
+        "Dazu gehört eine Erwartung, die selten mitgeliefert wird: Aus einer Anschlussadresse wird bestenfalls ein Firmenname. Wer auf einen Ansprechpartner hofft, wird enttäuscht, und zwar bei jedem Anbieter."
+      ]
+    },
+    {
+      "heading": "Was passiert, wenn jemand die Seite in Dauerschleife aufruft?",
+      "paragraphs": [
+        "Ohne Bremse wird aus einer Benachrichtigung eine Belästigung. Ein einzelner Besucher, der zwischen zwei Seiten hin und her wechselt, erzeugt sonst zwanzig Nachrichten.",
+        "Die Gegenmaßnahme braucht keine Datenbank: ein Zähler je Zweck und Kennung, ein Zeitfenster von zehn Minuten, fertig. Wer im Fenster schon gemeldet wurde, wird nicht erneut gemeldet.",
+        "Der Kommentar an dieser Stelle nennt die eigene Grenze gleich mit. Der Zähler lebt im Arbeitsspeicher eines Prozesses — bei mehreren Instanzen müsste er nach außen wandern."
+      ]
+    },
+    {
+      "heading": "Warum die Seite nur mit der eigenen Domain spricht",
+      "paragraphs": [
+        "Eine Sicherheitsregel im Browser legt fest, wohin eine Seite überhaupt Verbindungen aufbauen darf. Steht dort kein fremdes Ziel, kann auch versehentlich keines angesprochen werden.",
+        "Im eigenen Aufbau steht in dieser Liste weder der Dienst für die Firmenerkennung noch irgendein anderer Drittanbieter für Besuchsdaten. Was an Fremde geht, geht vom Server aus — sichtbar, prüfbar, an einer Stelle.",
+        "Der Weg dorthin war ein Fehler, der niemandem auffiel: Zugangsschlüssel standen im ausgelieferten Quelltext, und die Adresse des Besuchers ging aus seinem Browser direkt an einen Dienst in Übersee. Beides sah man erst, als jemand nachsah."
+      ]
+    },
+    {
+      "heading": "Woran merkt man, dass man zu viel misst?",
+      "paragraphs": [
+        "An einer einfachen Probe: Wenn eine Meldung eintrifft und niemand daraufhin etwas anders macht, war sie überflüssig.",
+        "Sechs Ereignisse sind eine Zahl, mit der man arbeiten kann. Dreißig sind eine Zahl, bei der man nach zwei Wochen aufhört hinzusehen — und dann fehlt auch die eine, auf die es angekommen wäre.",
+        "Weniger melden heißt hier: mehr merken."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Die Einwilligungspflicht nach § 25 TDDDG hängt nicht daran, ob personenbezogene Daten verarbeitet werden, sondern daran, ob auf das Endgerät des Besuchers zugegriffen wird — lesend oder schreibend.",
+    "Eine Meldung, die nur Seite, Verweisquelle und Kampagne enthält und weder Cookie noch lokalen Speicher anfasst, greift auf das Endgerät nicht zu.",
+    "Die Firmenerkennung über die Adresse des Anschlusses ist ein anderer Fall: Sie gibt Daten an einen Dritten weiter und braucht deshalb eine Einwilligung."
+  ],
+  "fazit": "Die Einwilligung hängt nicht am Wunsch zu messen, sondern am Zugriff auf das Gerät und an der Weitergabe nach außen. Wer beides vermeidet, braucht kein Banner — und wer eines von beidem will, braucht die Einwilligung wirklich.",
+  "faq": [
+    {
+      "frage": "Ist Tracking ohne Einwilligung erlaubt?",
+      "antwort": "Es kommt darauf an, was gemessen wird. § 25 TDDDG verlangt eine Einwilligung für den Zugriff auf Endeinrichtungen — also für Cookies, lokalen Speicher und ähnliche Kennungen. Eine Meldung, die nichts davon anfasst und keine Daten an Dritte gibt, fällt nicht darunter. Für die Verarbeitung selbst braucht es weiterhin eine Rechtsgrundlage nach der Datenschutz-Grundverordnung. Das ersetzt keine rechtliche Prüfung im Einzelfall."
+    },
+    {
+      "frage": "Wie unterscheidet sich das von einem Statistikwerkzeug?",
+      "antwort": "Ein Statistikwerkzeug beantwortet die Frage nach Mengen über die Zeit und braucht dafür Wiedererkennung. Eine Ereignismeldung beantwortet die Frage, ob gerade etwas passiert ist, und braucht keine. Beides schließt sich nicht aus und ersetzt sich auch nicht."
+    },
+    {
+      "frage": "Sieht man dann, welche Firma auf der Seite war?",
+      "antwort": "Nur mit Einwilligung, und nur ungefähr. Die Zuordnung läuft über die Adresse des Anschlusses und führt bei einem Firmennetz auf den Betreiber. Bei einem Anschluss zu Hause oder über Mobilfunk steht dort der Zugangsanbieter, und damit nichts Brauchbares."
+    },
+    {
+      "frage": "Was passiert, wenn die Empfängeradresse nicht eingerichtet ist?",
+      "antwort": "Nichts. Die Schnittstelle bestätigt still und meldet nicht weiter. Das ist bewusst so gebaut: Eine fehlende Einstellung soll die Seite nicht stören, und niemand soll versehentlich Meldungen erzeugen, die nirgends ankommen."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/gratis-wissen/thema/ki-und-datenschutz",
+      "ankertext": "die entscheidende Grenze verläuft woanders",
+      "abschnitt": "intro"
+    },
+    {
+      "ziel": "/glossar",
+      "ankertext": "Der Unterschied klingt technisch",
+      "abschnitt": 1
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "im Code sichtbar machen",
+      "abschnitt": 3
+    },
+    {
+      "ziel": "/referenzen",
+      "ankertext": "sichtbar, prüfbar, an einer Stelle",
+      "abschnitt": 6
+    }
+  ],
+  "substanz": {
+    "art": "architekturentscheidung",
+    "beschreibung": "Die Trennlinie im eigenen Betrieb: Das Ereignis läuft ohne Cookie, ohne lokalen Speicher und ohne Adressweitergabe. Die Firmenerkennung steht bewusst auf der anderen Seite der Linie — nur mit Einwilligung, nur serverseitig, nur bei gesetztem Zugangsschlüssel.",
+    "herkunft": "Die Ereignisschnittstelle dieser Website: sechs Ereignistypen, eine Sperre mit Zehn-Minuten-Fenster im Arbeitsspeicher, und eine Browser-Sicherheitsregel ohne fremdes Ziel für Besuchsdaten. Vorgeschichte: Zugangsschlüssel im ausgelieferten Quelltext, Besucheradresse direkt an einen fremden Dienst."
+  },
+  "cta": {
+    "heading": "Und bei dir?",
+    "text": "Im 1:1-KI-Check sehen wir uns an, was du messen willst und was dafür wirklich nötig ist."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-21"
+  }
+}

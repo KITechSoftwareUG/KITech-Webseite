@@ -74,9 +74,31 @@ const nextConfig: NextConfig = {
    *
    * Spiegelbild in `src/config/navigation.ts` (`permanentRedirects`) — der
    * Routen-Test prüft beide gegeneinander.
+   *
+   * **Der www-Eintrag ist kein Pfad-Redirect, sondern ein Host-Redirect** und
+   * steht deshalb bewusst *nicht* in `permanentRedirects`: Dort stehen alte
+   * Pfade, die es nicht mehr gibt. Hier geht es um dieselbe Seite unter einem
+   * zweiten Hostnamen.
+   *
+   * Anlass (20.08.2026): `https://www.kitech-software.de/` lieferte für **jede**
+   * Adresse eine 200 statt einer Weiterleitung. Damit lag die komplette Website
+   * zweimal im Netz. Das Canonical zeigte zwar korrekt auf die Apex-Domain, und
+   * Google fasst solche Fälle in der Regel zusammen — verlassen sollte man sich
+   * darauf nicht: Crawl-Budget wird doppelt verbraucht, und ein Link auf die
+   * www-Variante zählt nur über den Umweg des Canonicals.
+   *
+   * `has` prüft den `Host`-Header. Der Platzhalter `:path*` überträgt den Pfad
+   * unverändert, sodass `www.…/gratis-wissen/x` auf `…/gratis-wissen/x` landet
+   * und nicht auf der Startseite.
    */
   async redirects() {
     return [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "www.kitech-software.de" }],
+        destination: "https://kitech-software.de/:path*",
+        permanent: true,
+      },
       { source: "/skool", destination: "/", permanent: true },
       { source: "/community", destination: "/", permanent: true },
     ];

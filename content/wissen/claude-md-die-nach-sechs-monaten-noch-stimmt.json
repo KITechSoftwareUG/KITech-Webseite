@@ -1,0 +1,160 @@
+{
+  "slug": "claude-md-die-nach-sechs-monaten-noch-stimmt",
+  "titel": "Eine CLAUDE.md, die nach sechs Monaten noch stimmt",
+  "teaser": "Anleitungen zeigen die leere Datei. Was fehlt, ist eine, die ein Jahr gelebt hat — mit den Stellen, an denen sie sich als falsch erwiesen hat.",
+  "kategorie": "Praxis",
+  "cluster": "ki-gestuetzte-entwicklung",
+  "zielKeyword": "claude.md beispiel",
+  "sekundaerKeywords": [
+    "claude md aufbau",
+    "claude code projektdokumentation",
+    "agents md",
+    "claude md vorlage",
+    "ki assistent projektkontext",
+    "claude code im team"
+  ],
+  "datum": "2026-08-21",
+  "aktualisiert": "2026-08-21",
+  "lesezeit": 8,
+  "autor": "ayham-alkhalil",
+  "intro": "Eine CLAUDE.md ist die Datei, aus der ein KI-Entwicklungswerkzeug ein Projekt versteht. Anleitungen dazu gibt es viele, und fast alle zeigen dieselbe leere Vorlage: Stack, Befehle, Ordnerstruktur. Nach zwei Monaten stimmt davon die Hälfte nicht mehr, und niemand merkt es — außer dem Assistenten, der weiter danach arbeitet.",
+  "abschnitte": [
+    {
+      "heading": "Was in fast allen Anleitungen fehlt",
+      "paragraphs": [
+        "Die üblichen Vorlagen beschreiben den Zustand: welche Sprache, welche Befehle, welche Ordner. Das ist richtig und reicht für die erste Woche.",
+        "Danach beginnt der Teil, den keine Vorlage abbildet. Ein Umbau nimmt eine Entscheidung zurück. Eine Regel stellt sich als falsch heraus. Ein Bereich wird entfernt, und drei Monate später fragt jemand, wo er geblieben ist.",
+        "Die Datei dieses Projekts ist in 26 Commits von 71 Zeilen auf über 1.100 gewachsen. Der größte Teil davon ist nicht Beschreibung, sondern Begründung — und genau der Teil entscheidet, ob sie nach einem halben Jahr noch stimmt."
+      ]
+    },
+    {
+      "heading": "Warum veraltet eine Projektdatei schneller als der Code?",
+      "paragraphs": [
+        "Code wird ausgeführt. Läuft er nicht mehr, fällt es auf. Eine Beschreibung wird gelesen, und eine falsche Beschreibung liest sich genauso flüssig wie eine richtige.",
+        "Dazu kommt der Leser. Ein Mensch, der einen veralteten Satz liest, gleicht ihn stillschweigend mit dem ab, was er im Repo sieht. Ein Assistent tut das nicht — er nimmt den Satz als gegeben und baut darauf auf.",
+        "Deshalb ist der teuerste Fehler in so einer Datei nicht die Lücke, sondern die Aussage, die einmal gestimmt hat."
+      ]
+    },
+    {
+      "heading": "Wie hält man den Verlauf fest, ohne ein zweites Änderungsprotokoll zu pflegen?",
+      "paragraphs": [
+        "Ein eigenes Änderungsprotokoll neben der Datei wird nach drei Einträgen nicht mehr gepflegt. Der Weg, der hier funktioniert, sind Stand-Blöcke im Kopf der Datei selbst.",
+        "Jeder Block trägt ein Datum und beantwortet eine Frage: Was hat sich zuletzt geändert und warum. Der neueste steht oben, ältere rutschen nach unten, gelöscht wird keiner.",
+        "Das klingt nach Ballast und ist das Gegenteil. Wer nach vier Monaten wissen will, warum eine Seite anders gebaut ist als die daneben, findet die Antwort im Block von damals — samt der Ansage, auf die sie zurückgeht. Diese Datei trägt inzwischen sieben solcher Blöcke."
+      ],
+      "bullets": [
+        "Datum im Kopf, neuester Block zuerst",
+        "Was geändert wurde, und auf wessen Ansage",
+        "Alte Blöcke bleiben stehen, sie werden nur nach unten geschoben"
+      ]
+    },
+    {
+      "heading": "Warum steht an jeder Regel eine Begründung?",
+      "paragraphs": [
+        "Eine Regel ohne Anlass ist eine Meinung, und Meinungen werden beim nächsten Umbau überstimmt. Eine Regel mit Anlass ist eine Erfahrung, und die überlebt.",
+        "Ein Beispiel aus diesem Repo: Knöpfe bekommen eine Mindesthöhe statt einer festen Höhe. Als Regel allein klingt das nach Geschmack. Der Anlass steht daneben — eine längere Beschriftung lief oben und unten aus der Fläche heraus, weil die Höhe festgeschrieben war.",
+        "Dazu gehört die Prüfanweisung: Wer eine Beschriftung verlängert, sieht sie sich bei 360 Pixel Fensterbreite an. Dort bricht zuerst etwas um. Aus drei Zeilen wird so eine Regel, die niemand versehentlich zurücknimmt."
+      ]
+    },
+    {
+      "heading": "Wohin mit dem, was noch offen ist?",
+      "paragraphs": [
+        "Offene Punkte wandern normalerweise in ein Ticketsystem. Dort sind sie richtig aufgehoben für die Planung — und unsichtbar für den, der gerade an der Datei arbeitet.",
+        "Was hier stattdessen funktioniert: ein Warnzeichen im Fließtext, direkt an der Stelle, die betroffen ist. Zwölf solcher Absätze stehen derzeit in dieser Datei.",
+        "Der Unterschied ist die Konsequenz. Ein offener Punkt in einem Ticket ist eine Aufgabe. Ein offener Punkt an der Stelle, an der jemand gleich etwas ändern will, ist eine Warnung — und wenn daran eine Folge hängt, steht sie gleich dabei."
+      ]
+    },
+    {
+      "heading": "Was passiert mit Code, der entfernt wird?",
+      "paragraphs": [
+        "Entfernter Code ist nicht weg, er ist in der Versionsgeschichte. Nur findet ihn dort niemand, der nicht weiß, wonach er sucht.",
+        "Deshalb bekommt jede größere Entfernung einen eigenen Abschnitt: was entfernt wurde, warum, unter welcher Commit-Kennung es liegt, und der Befehl, mit dem man es zurückholt. Dazu die Liste dessen, was danach wieder einzutragen ist — Navigationseinträge, Umgebungsvariablen, Weiterleitungen.",
+        "Das ist der Abschnitt, der am seltensten gebraucht wird und am meisten spart, wenn es soweit ist."
+      ]
+    },
+    {
+      "heading": "Warum gehört hinein, was nicht gebaut wird?",
+      "paragraphs": [
+        "Erlaubnisse sind langweilig, Verbote sind wertvoll. Ein Assistent, der weiß, was gewünscht ist, trifft trotzdem hundert Entscheidungen, zu denen nichts dasteht.",
+        "Ein Abschnitt darüber, welche Muster ausdrücklich nicht gebaut werden, erspart genau diese Rückfragen. In diesem Projekt steht dort unter anderem, dass Kachelraster mit Symbolen keine Gliederung ersetzen und dass ein Etikett über jeder Überschrift nicht die Hausform ist.",
+        "Wichtig ist die Alternative daneben. Ein Verbot ohne Ersatz führt dazu, dass etwas anderes Beliebiges entsteht."
+      ]
+    },
+    {
+      "heading": "Wie groß darf die Datei werden?",
+      "paragraphs": [
+        "Über tausend Zeilen klingen nach zu viel. Sie sind es nicht, solange die Datei navigierbar bleibt — Überschriften, Ankerlinks, Tabellen statt Absätzen, wo eine Tabelle trägt.",
+        "Die Grenze liegt woanders. Sobald ein Abschnitt Entscheidungen enthält, die nicht jeder Arbeitsschritt braucht, gehört er ausgelagert: in eine eigene Regeldatei oder in eine Referenz, die bei Bedarf gelesen wird.",
+        "Die Faustregel dahinter ist einfach. Was bei jedem Handgriff gilt, steht in der Hauptdatei. Was nur für eine bestimmte Aufgabe gilt, steht dort, wo diese Aufgabe beschrieben ist."
+      ]
+    },
+    {
+      "heading": "Woran merkt man, dass sie stimmt?",
+      "paragraphs": [
+        "Nicht daran, dass sie vollständig aussieht. Sondern an einer Frage, die man an jede Zeile stellen kann: Würde eine fremde Person daraus dieselbe Entscheidung treffen wie ich letzten Monat?",
+        "Wo die Antwort nein lautet, fehlt nicht Text, sondern der Anlass. Und wo die Antwort niemandem einfällt, war die Regel vermutlich nie eine."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Eine CLAUDE.md ist Projektdokumentation für einen Assistenten, der jeden Tag neu anfängt und kein Gedächtnis mitbringt. Sie veraltet deshalb schneller als jede andere Datei im Repo.",
+    "Der Unterschied zwischen einer Datei, die trägt, und einer, die niemand pflegt, liegt nicht im Umfang, sondern in einer Eigenschaft: Jede Regel steht dort mit ihrer Begründung.",
+    "Wer eine Regel ohne Anlass notiert, bekommt sie beim nächsten Umbau zurückgenommen — weil niemand weiß, was sie verhindert hat."
+  ],
+  "fazit": "Eine Projektdatei altert nicht an fehlenden Kapiteln, sondern an Sätzen, die einmal gestimmt haben. Was sie trägt, ist nicht die Beschreibung des Zustands — es ist die Begründung an jeder Regel.",
+  "faq": [
+    {
+      "frage": "Was gehört in eine CLAUDE.md und was nicht?",
+      "antwort": "Hinein gehört, was ein Assistent nicht aus dem Code ablesen kann: warum etwas so gebaut ist, welche Entscheidung verworfen wurde, was ausdrücklich nicht gebaut wird, und was gerade offen ist. Nicht hinein gehört, was der Code selbst schon sagt — eine Auflistung der Ordner veraltet sofort und lässt sich jederzeit nachsehen."
+    },
+    {
+      "frage": "Wie oft muss die Datei aktualisiert werden?",
+      "antwort": "Bei jeder Änderung, die eine Entscheidung enthält. Ein reines Umbenennen braucht keinen Eintrag, eine zurückgenommene Regel schon. Der praktische Weg ist, sie im selben Commit zu ändern wie den Code — nachträglich erinnert sich niemand mehr an den Anlass."
+    },
+    {
+      "frage": "Ist AGENTS.md dasselbe wie CLAUDE.md?",
+      "antwort": "Der Zweck ist derselbe, der Name unterscheidet sich je nach Werkzeug. Wer mehrere Assistenten einsetzt, legt eine Datei an und verweist aus der zweiten darauf, statt beide zu pflegen. Zwei Fassungen desselben Standards sind zwei Standards."
+    },
+    {
+      "frage": "Wie fängt man an, wenn das Projekt schon läuft?",
+      "antwort": "Nicht mit einer Bestandsaufnahme. Der schnellere Weg ist, bei der nächsten Entscheidung anzufangen: eine Regel, ihr Anlass, ihre Prüfanweisung. Nach zehn solchen Einträgen steht mehr Brauchbares darin als in jeder nachträglich geschriebenen Übersicht."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/gratis-wissen/thema/ki-gestuetzte-entwicklung",
+      "ankertext": "ein KI-Entwicklungswerkzeug ein Projekt versteht",
+      "abschnitt": "intro"
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "Eine Regel mit Anlass ist eine Erfahrung",
+      "abschnitt": 3
+    },
+    {
+      "ziel": "/glossar",
+      "ankertext": "hundert Entscheidungen, zu denen nichts dasteht",
+      "abschnitt": 6
+    },
+    {
+      "ziel": "/referenzen",
+      "ankertext": "Was bei jedem Handgriff gilt, steht in der Hauptdatei",
+      "abschnitt": 7
+    }
+  ],
+  "substanz": {
+    "art": "eigener-code",
+    "beschreibung": "Die Anatomie einer gewachsenen Projektdatei statt einer leeren Vorlage: Stand-Blöcke mit Datum, eine Begründung an jeder Regel, ein Warnzeichen-Feld für offene Punkte, ein Wiederherstellungsblock mit Commit-Kennung, und ein Abschnitt über das, was ausdrücklich nicht gebaut wird.",
+    "herkunft": "Die Projektdatei dieses Repos: von 71 Zeilen im ersten Commit auf über 1.100, in 26 Commits auf die Datei. Nachgezählt am 19.08.2026 mit git log --follow und wc -l; sie trägt sieben Stand-Blöcke und zwölf Warnzeichen-Absätze."
+  },
+  "cta": {
+    "heading": "Und im eigenen Projekt?",
+    "text": "Im 1:1-KI-Check gehen wir durch, wo bei dir Wissen verlorengeht, das niemand aufgeschrieben hat."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-21"
+  }
+}

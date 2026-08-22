@@ -12,8 +12,60 @@ import type { Metadata } from "next";
 
 export const BASE_URL = "https://kitech-software.de";
 
-const DEFAULT_OG_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/PtMzwsuP81OMFsgAS1uxnhIbKCG2/social-images/social-1766141818702-losgo.png";
+/**
+ * Standard-Vorschaubild beim Teilen und im Article-Markup.
+ *
+ * Exportiert, weil das Artikel-Schema ein `image` braucht: Es ist die einzige
+ * Article-Eigenschaft, zu der Google konkrete Anforderungen nennt (mindestens
+ * 50.000 Pixel Fläche, Seitenverhältnisse 16:9, 4:3, 1:1). Ein fehlendes `image`
+ * wäre die auffälligste Lücke im Markup — bis es artikeleigene Bilder gibt,
+ * steht hier dieses.
+ *
+ * **Seit dem 20.08.2026 auf der eigenen Domain.** Vorher zeigte diese Konstante
+ * auf `storage.googleapis.com/gpt-engineer-file-uploads/…` — einen fremden
+ * Bucket aus der Lovable-/gpt-engineer-Herkunft des Projekts. Die Adresse
+ * antwortete zwar, aber sie gehörte KITech nicht: Wer sie abschaltet, nimmt
+ * jeder Seite das Teilen-Bild und jedem Artikel das `image` im Schema. Das alte
+ * Bild war zudem 1024x1024 und wurde von LinkedIn, X und Facebook beschnitten,
+ * die 1200x630 erwarten.
+ *
+ * Das neue Bild entsteht mit `npm run og` (siehe `scripts/og-standardbild.mjs`)
+ * und liegt als Datei im Repo — nicht über `opengraph-image.tsx`, weil dessen
+ * URL einen wechselnden Hash trägt und diese Adresse auch im JSON-LD steht.
+ */
+export const DEFAULT_OG_IMAGE = `${BASE_URL}/images/og/standard.png`;
+
+/**
+ * Zeichenzahlen, ab denen Google im Suchergebnis abschneidet.
+ *
+ * Es sind keine harten Grenzen — Google rechnet in Pixeln und schreibt
+ * Beschreibungen ohnehin oft selbst um. Als Zielkorridor taugen sie trotzdem:
+ * Was darüber liegt, wird auf dem Handy verlässlich gekürzt, und gekürzt wird
+ * am Ende — also genau dort, wo bei uns meistens der Nutzen steht.
+ *
+ * Geprüft in `src/lib/__tests__/metadaten.test.ts`, damit es nicht wieder
+ * auseinanderläuft: Am 20.08.2026 lagen sechs Seiten darüber, die Startseite
+ * mit 230 Zeichen.
+ */
+export const TITEL_MAX = 60;
+export const BESCHREIBUNG_MAX = 155;
+
+/**
+ * Kürzt an der Wortgrenze und hängt ein Auslassungszeichen an.
+ *
+ * Für Texte, die aus Datendateien kommen und nicht für die Suche geschrieben
+ * wurden — Autorenbeschreibungen zum Beispiel. Ein hartes `slice(0, 200)` wie
+ * vorher zerschneidet mitten im Wort und liegt zusätzlich über der Grenze.
+ */
+export function kuerze(text: string, max: number = BESCHREIBUNG_MAX): string {
+  if (text.length <= max) return text;
+
+  const schnitt = text.slice(0, max - 1);
+  const letzteLuecke = schnitt.lastIndexOf(" ");
+  const basis = letzteLuecke > max * 0.6 ? schnitt.slice(0, letzteLuecke) : schnitt;
+
+  return `${basis.replace(/[,;:.\s]+$/, "")}…`;
+}
 
 interface BuildMetadataOptions {
   title: string;

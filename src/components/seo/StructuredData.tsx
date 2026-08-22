@@ -31,10 +31,50 @@ export function StructuredData({ data }: StructuredDataProps) {
 
 // === Vorgefertigte Schema-Factories ===
 
+/**
+ * Die stabile Kennung des Unternehmens im Datengraph.
+ *
+ * **Warum es sie geben muss:** Jede Artikel- und Autorenseite setzt `publisher`
+ * bzw. `worksFor` auf genau diese `@id` (siehe `src/lib/wissen/schema-org.ts`).
+ * Bis zum 20.08.2026 wurde sie **nirgends definiert** — sie tauchte im gesamten
+ * Build ausschließlich als Verweis auf, nie als Knoten. Der Herausgeber jedes
+ * Artikels zeigte damit ins Leere.
+ *
+ * Gleichzeitig gab `getOrganizationSchema()` es zwar, sie war unit-getestet, und
+ * **keine einzige Seite hat sie gerendert.** Auf der ganzen Website stand kein
+ * `sameAs` — bei einer Marke, die sich mit „KITech NextGen Solutions"
+ * (kitech.ai) verwechseln lässt, ist genau das der fehlende Anker.
+ *
+ * Seither: Der Knoten steht global im Root-Layout, `getLocalBusinessSchema()`
+ * trägt dieselbe `@id`, damit Öffnungszeiten und Geokoordinaten in **dieselbe**
+ * Entität fließen statt eine zweite aufzumachen.
+ */
+export const ORGANISATION_ID = "https://kitech-software.de/#organisation";
+
+/** Dasselbe Prinzip für die Website als Ganzes. */
+export const WEBSITE_ID = "https://kitech-software.de/#website";
+
+/**
+ * Profile, die das Unternehmen selbst betreibt und die eine dritte Stelle
+ * bestätigt. Sie sind der Disambiguierungs-Anker, den Google für `Organization`
+ * ausdrücklich empfiehlt.
+ *
+ * ⚠️ **Nur Profile aufnehmen, die KITech gehören.** Verzeichnisse wie
+ * Creditreform oder Companyhouse tragen die Firma ebenfalls, sind aber
+ * abgeschriebene Registerdaten ohne Zutun des Unternehmens — sie antworten
+ * Crawlern zudem mit 403. Ein `sameAs`, das ein Prüfer nicht abrufen kann,
+ * belegt nichts.
+ */
+const SAME_AS = [
+  "https://www.linkedin.com/company/104155510",
+  "https://www.provenexpert.com/de-de/kitech-software-ug/",
+];
+
 export function getOrganizationSchema(): SchemaBase {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORGANISATION_ID,
     name: "KITech Software",
     /* Die Firmierung steht im dafür vorgesehenen Feld, nicht im Namen (Ansage
        17.08.2026: überall „KITech Software", außer im Impressum). Google zeigt
@@ -64,9 +104,7 @@ export function getOrganizationSchema(): SchemaBase {
       contactType: "customer service",
       availableLanguage: ["German", "English"],
     },
-    sameAs: [
-      "https://www.linkedin.com/company/104155510",
-    ],
+    sameAs: SAME_AS,
     foundingDate: "2023",
     areaServed: {
       "@type": "GeoCircle",
@@ -89,11 +127,23 @@ export function getOrganizationSchema(): SchemaBase {
   };
 }
 
+/**
+ * Der lokale Teil derselben Entität — Geokoordinaten, Öffnungszeiten,
+ * Preisniveau. Steht auf `/kontakt`.
+ *
+ * **Dieselbe `@id` wie `getOrganizationSchema()` ist Absicht.**
+ * `ProfessionalService` ist ein Untertyp von `LocalBusiness` und damit von
+ * `Organization`; beide Knoten beschreiben also dieselbe Firma. Über die
+ * gemeinsame Kennung fließen sie im Graph zusammen. Ohne sie stünden auf der
+ * Website zwei unabhängige Unternehmen mit identischer Adresse.
+ */
 export function getLocalBusinessSchema(): SchemaBase {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": ORGANISATION_ID,
     name: "KITech Software",
+    sameAs: SAME_AS,
     /* Firmierung im eigenen Feld — siehe Kommentar in `getOrganizationSchema`. */
     legalName: "KITech Software UG (haftungsbeschränkt)",
     logo: {
@@ -143,13 +193,34 @@ export function getWebPageSchema(
     url,
     isPartOf: {
       "@type": "WebSite",
+      "@id": WEBSITE_ID,
       name: "KITech Software",
       url: "https://kitech-software.de",
     },
-    publisher: {
-      "@type": "Organization",
-      name: "KITech Software",
-    },
+    /* Verweis statt Kopie: Der vollständige Knoten steht einmal global im
+       Root-Layout. Vorher stand hier ein Stummel mit bloßem `name`, der mit dem
+       Herausgeber der Artikel nichts zu tun hatte. */
+    publisher: { "@id": ORGANISATION_ID },
+  };
+}
+
+/**
+ * Der Website-Knoten. Steht zusammen mit der Organisation global im Root-Layout.
+ *
+ * **Bewusst ohne `SearchAction`/Sitelinks-Suchfeld.** Diese Website hat keine
+ * eigene Suche; ein `potentialAction`, das auf eine nicht vorhandene
+ * Suchergebnisseite zeigt, wäre eine Angabe, die bei der ersten Prüfung
+ * auffliegt.
+ */
+export function getWebSiteSchema(): SchemaBase {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: "KITech Software",
+    url: "https://kitech-software.de",
+    inLanguage: "de-DE",
+    publisher: { "@id": ORGANISATION_ID },
   };
 }
 

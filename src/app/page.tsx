@@ -3,10 +3,23 @@ import path from "node:path";
 import { buildMetadata } from "@/lib/metadata";
 import Home from "@/views/Home";
 
+/**
+ * Beschreibung neu gefasst am 20.08.2026 — aus zwei Gründen.
+ *
+ * Sie war mit 230 Zeichen deutlich zu lang und wurde im Suchergebnis hinten
+ * abgeschnitten, also genau dort, wo das Angebot stand. Und sie eröffnete mit
+ * „99 % der KI-Projekte scheitern an der falschen KI" — eine harte Zahl **ohne
+ * Quelle, die auf der Seite selbst an keiner Stelle vorkommt**. Ein Ausschnitt,
+ * der etwas verspricht, was die Seite nicht sagt, ist doppelt ungünstig: als
+ * unbelegte Werbeaussage und als Erwartung, die der erste Blick enttäuscht.
+ *
+ * Was jetzt dort steht, steht auch auf der Seite: die Aussage aus dem Hero und
+ * das Angebot aus `angebot.ts`.
+ */
 export const metadata = buildMetadata({
   title: "KITech Software – Anwendungspartner für KI im Mittelstand",
   description:
-    "99 % der KI-Projekte scheitern an der falschen KI. Wir sind euer Anwendungspartner und verändern, wie KI in eurem Unternehmen tatsächlich eingesetzt wird. Kostenlose Bewertung eurer KI-Aufstellung — 30 Minuten, 5 Plätze pro Woche.",
+    "Falsche KI kostet mehr als keine KI. Wir bauen Automatisierungen und Software, die im Tagesgeschäft läuft — Hannover. Kostenloser 1:1-KI-Check, 30 Minuten.",
   path: "/",
 });
 

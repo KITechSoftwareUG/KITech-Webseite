@@ -8,7 +8,7 @@ import Solo from "@/views/Solo";
 export const metadata = buildMetadata({
   title: "KI für Selbstständige – KITech Software",
   description:
-    "Für Selbstständige und Teams bis sechs Leute: KI im Alltag nutzen statt sie nur zu abonnieren. Gebaut an deinen echten Fällen, danach eigenständig weiterführbar.",
+    "Für Selbstständige und Teams bis sechs Leute: KI im Alltag nutzen statt sie nur zu abonnieren. Gebaut an deinen echten Fällen, dann selbst weiterführbar.",
   path: "/solo",
 });
 

@@ -13,6 +13,67 @@
 **Geschäftsführer:** Ayham Alkhalil
 **Sprache:** Deutsch (de_DE)
 
+**Stand 19.08.2026 — Blog-Automatik für `/gratis-wissen`:** Der Wissensbereich
+ist von einer TypeScript-Datei auf **eine JSON-Datei je Artikel** umgestellt
+(`content/wissen/<slug>.json`), bekommt **Autorenseiten** (`/autoren/<slug>` mit
+`ProfilePage`-Auszeichnung), **Themenseiten** (`/gratis-wissen/thema/<slug>`) und
+einen **RSS-Feed**. Dazu eine Automatik unter `scripts/blog-engine/`, die
+Themen bewertet, Ergebnisseiten analysiert, die rankende Konkurrenz liest,
+schreibt, gegen 81 Hausstilregeln prüft und den Artikel in den Bestand
+einhängt — **und beim Entwurf aufhört.** Freigabe, Commit und Deploy bleiben
+menschliche Schritte. Siehe [Blog-Automatik](#blog-automatik) und
+`deploy/BLOG-ENGINE.md`.
+
+Im selben Zug geradegezogen: `priority` und `changeFrequency` sind aus Sitemap
+und Routen-Register **entfallen** (Google ignoriert beide ausdrücklich), die
+Artikelseiten sind **Server Components** statt Client Components, `robots.txt`
+kennt jetzt `Claude-SearchBot` und `Claude-User`, und die Rechtsnorm für
+erfundene Bewertungen ist **korrigiert**: nicht § 5b Abs. 3 UWG (das ist die
+Informationspflicht), sondern der **Anhang zu § 3 Abs. 3 Nr. 23c UWG** — die
+Schwarze Liste, die ohne Interessenabwägung greift.
+
+**Stand 21.08.2026 — Sichtbarkeitsprüfung und was daraus folgte.** Eine
+vollständige SEO- und GEO-Prüfung gegen die Live-Domain (Lighthouse, curl,
+Auswertung aller vorgerenderten HTML-Dateien) hat sechzehn Befunde ergeben; die
+Punkte, die im Code lagen, sind abgearbeitet. Der Reihe nach:
+
+- **`llms.txt` und `llms-full.txt` werden jetzt erzeugt, nicht gepflegt**
+  (`npm run llms`, [Skript](scripts/llms-txt.ts)). Beide waren seit dem
+  08.07.2026 unverändert und beschrieben eine Website, die es nicht mehr gab —
+  inklusive der ROI-Garantie und eines Testimonials von „Frank Locke", das am
+  02.08. als erfunden entfernt worden war. Siehe
+  [llms.txt](#llmstxt-wird-erzeugt-nicht-gepflegt).
+- **`www` leitet per 308 auf die Apex-Domain.** Vorher lieferte
+  `www.kitech-software.de` für jede Adresse eine 200 — die komplette Website lag
+  zweimal im Netz.
+- **Der Organisations-Knoten existiert.** `getOrganizationSchema()` war gebaut,
+  getestet und auf **keiner** Seite eingebunden; alle `publisher`-Verweise der
+  Artikel zeigten ins Leere. Er steht jetzt in `PageShell` — bewusst nicht im
+  Root-Layout, siehe [Entitäts-Knoten](#entitäts-knoten-organisation-und-website).
+- **Das Vorschaubild liegt auf der eigenen Domain** statt auf einem fremden
+  Google-Bucket, und es ist 1200x630 statt 1024x1024 (`npm run og`).
+- **Das Logo ist von 178 KB auf 5,6 KB geschrumpft** — es war ein Rasterbild in
+  einer SVG-Hülle und die größte Ressource der Website.
+- **LCP:** Auf Artikelseiten war das größte gezeichnete Element der
+  **Cookie-Banner**, nicht der Artikel. Siehe [LCP](#lcp-was-gemessen-wurde).
+- **Titel und Beschreibungen** liegen im Korridor, geprüft von
+  `src/lib/__tests__/metadaten.test.ts`.
+- **Der Glossareintrag `/glossar/roi-garantie` ist neutral**, die Garantie wird
+  KITech dort nicht mehr zugeschrieben.
+
+**Was bewusst offen bleibt** (nichts davon liegt im Code): Search Console und
+Bing Webmaster Tools sind nicht eingerichtet, `INDEXNOW_KEY` muss in Coolify
+gesetzt werden, die `openPoints` der sechs Referenzfälle brauchen
+Kundenfreigaben, und die Blog-Pipeline kann ohne `DATAFORSEO_*`,
+`FIRECRAWL_API_KEY` und `ANTHROPIC_API_KEY` nicht laufen. Zehn von zwölf
+Themen-Clustern haben weiterhin keinen Artikel.
+
+**Stand 20.08.2026 — was zuletzt geändert wurde:** Die beiden Sales Letter
+stehen **nicht mehr in der Fußzeile** (auf Ansage); erreichbar bleiben sie über
+„Warum?" und die Segmentseiten. Und es läuft ein **täglicher Besucherbericht
+per E-Mail** — jeden Morgen um 8:00, siehe [Der tägliche Bericht kommt per
+E-Mail](#der-tägliche-bericht-kommt-per-e-mail).
+
 **Stand 19.08.2026 — Funnel-Grundsatz ergänzt:** Funnels sind **nicht** die
 allgemeine Website und werden nicht wie klassische PDF-Leadmagneten gebaut.
 Siehe [Funnel-Grundsatz](#funnel-grundsatz): In Funnels soll KITech tiefe,
@@ -108,6 +169,17 @@ npm run build      # Production Build
 npm start          # Production-Server auf Port 8080 (setzt npm run build voraus)
 npm run lint       # ESLint
 npm test           # Vitest
+
+npm run llms       # llms.txt + llms-full.txt neu erzeugen
+npm run og         # Standard-Vorschaubild neu rendern (braucht Chrome)
+
+# Blog-Automatik (siehe deploy/BLOG-ENGINE.md)
+npm run blog:lauf -- --trocken   # zeigt, was passieren würde. Kostet nichts.
+npm run blog:lauf -- --anzahl 2  # zwei Entwürfe erzeugen
+npm run blog:pruefen -- -v       # Hausstil aller Artikel prüfen
+npm run blog:freigeben -- <slug> --von "Name"
+npm run blog:indexnow            # nach dem Deploy
+npm run blog:backlinks           # Outreach-Ziele finden
 ```
 
 `npm run preview` gibt es nicht mehr — das war ein Vite-Script.
@@ -155,7 +227,18 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   │   ├── referenzen/logos/    #   Kundenlogos
 │   │   └── og/                  #   Social-Vorschaubilder
 │   └── logo.png                 # Echtes, lokal gebuendeltes Logo
+├── content/                     # ★ Redaktionelle Inhalte als JSON, von der Automatik beschrieben
+│   ├── wissen/                  #   eine Datei je Artikel — der Dateiname ist die URL
+│   └── seo/                     #   autoren.json, cluster.json, themen-pool.json, laeufe/
+├── scripts/
+│   └── blog-engine/             # ★ Die Blog-Automatik (siehe deploy/BLOG-ENGINE.md)
+│       ├── lauf.ts              #   der tägliche Lauf — endet beim Entwurf
+│       ├── freigeben.ts         #   der eine Schritt, den ein Mensch macht
+│       ├── lib/                 #   dataforseo, firecrawl, claude, qualitaet, indexnow
+│       ├── schritte/            #   01 Themen … 09 Ablegen
+│       └── prompts/             #   hausstil.md wird als System-Prompt geschickt
 ├── deploy/
+│   ├── BLOG-ENGINE.md           # Einrichtung der Blog-Automatik, Kosten, Not-Aus
 │   └── COOLIFY.md               # Deployment-Anleitung (nginx.conf/security-headers.conf entfallen)
 ├── Dockerfile                  # Multi-Stage (node:20-alpine, Next standalone, Port 3000) - der aktive Build Pack
 ├── next.config.ts              # Security-Header, CSP, Redirects (/skool, /community -> /), output: standalone
@@ -217,7 +300,10 @@ mehr und keine Baustellen-Weiche: jede Route zeigt das, was in ihrem Ordner lieg
 | `/leistungen` | `Leistungen.tsx` | ja | Sechs Schritte + Zielgruppen-Weiche. Inhalt: `src/data/services.ts`. |
 | `/solo`, `/enterprise` | `Segment.tsx` über `Solo.tsx`/`Enterprise.tsx` | ja | Eine Vorlage, zwei Zielgruppen. Inhalt: `src/data/segments.ts`. |
 | `/referenzen`, `/referenzen/[slug]` | `Referenzen.tsx`, `ReferenzDetail.tsx` | Übersicht ja, Details **nein** | Details auf `noindex`, solange `openPoints` offen sind. |
-| `/gratis-wissen`, `/gratis-wissen/[slug]` | `GratisWissen.tsx`, `WissenArtikel.tsx` | ja | Content-Bereich (Artikel, Tipps, Ratgeber). Inhalt: `src/data/wissen.ts`. Steht seit 12.08.2026 in der Kopfzeile an der Stelle von „Warum?". |
+| `/gratis-wissen`, `/gratis-wissen/[slug]` | `views/wissen/UebersichtSeite.tsx`, `ArtikelSeite.tsx` | ja | Content-Bereich. Inhalt: **eine JSON-Datei je Artikel** unter `content/wissen/`. Steht seit 12.08.2026 in der Kopfzeile an der Stelle von „Warum?". Siehe [Blog-Automatik](#blog-automatik). |
+| `/gratis-wissen/thema/[cluster]` | `views/wissen/ThemaSeite.tsx` | ja | Themenseite je Cluster. Entsteht nur, wenn mindestens ein Artikel dazu steht. Inhalt: `content/seo/cluster.json`. |
+| `/gratis-wissen/rss.xml` | Route Handler | – | Feed für n8n und als zweiter Sitemap-Kanal. |
+| `/autoren`, `/autoren/[slug]` | `views/wissen/AutorSeite.tsx` | ja | Autorenseiten mit `ProfilePage`-Auszeichnung. Inhalt: `content/seo/autoren.json`. |
 | `/haltung` | `Haltung.tsx` | ja | Kopf wie ein Hero („Wer KI falsch einsetzt … verbrennt Geld", wörtliche Vorgabe), darunter Werte + Gründerzitat. Inhalt: `src/data/principles.ts`. |
 | `/karriere`, `/karriere/[slug]` | `Karriere.tsx`, `KarriereJob.tsx` | **nein** | Stellen sind Platzhalter — siehe [Stellenportal](#stellenportal). |
 | `/kontakt` | `Kontakt.tsx` | ja | Kontaktwege, bewusst ohne Formular. |
@@ -336,6 +422,135 @@ Leere, und Google fällt die bekannte URL als 404 aus dem Index.
 ⚠️ **Offen:** Der Unterstrich-Pfad weicht von der kebab-case-Konvention aller
 anderen Routen ab (Vorgabe Ayham). Google behandelt `_` nicht als Worttrenner —
 für die Suche ist `selbstcheck_eu_ai_act` ein Wort.
+
+### Blog-Automatik
+
+**Auf Ansage (19.08.2026):** täglich zwei bis drei Artikel unter
+`/gratis-wissen`, die ranken und auf den 1:1-KI-Check führen.
+
+Gebaut ist eine Kette unter `scripts/blog-engine/`, die **beim Entwurf
+aufhört**. Einrichtung: `deploy/BLOG-ENGINE.md`. Regeln und Bedienung:
+`.claude/skills/blog-seo/` (Skill `blog-seo`).
+
+```
+npm run blog:brief                  # welche Themen haben belegten Eigenanteil?
+npm run blog:brief -- <thema-id>    # Briefing + JSON-Gerüst, ohne bezahlte Abfragen
+npm run blog:lauf -- --trocken      # zeigt, was passieren würde. Kostet nichts.
+npm run blog:lauf -- --anzahl 2     # zwei Entwürfe
+npm run blog:pruefen -- <slug> -v   # Hausstil, 39 harte und 42 weiche Regeln
+npm run blog:freigeben -- <slug> --von "Ayham Alkhalil"
+npm run blog:indexnow               # nach dem Deploy
+npm run blog:backlinks              # Outreach-Ziele, keine Linkerzeugung
+```
+
+#### Zwei Wege, und der erste kostet nichts
+
+`npm run blog:brief -- <thema-id>` erzeugt ein vollständiges Redaktionsbriefing
+aus dem, was ohnehin im Repo liegt — Eigenanteil aus dem Vorrat, Abgrenzung zu
+den Nachbarartikeln, freie Verlinkungsziele samt der schon vergebenen
+Ankertexte, Hausstil-Kennzahlen — plus ein JSON-Gerüst mit allen Pflichtfeldern.
+Geschrieben wird dann von Hand. **Kosten: null, keine Zugangsdaten nötig.**
+
+Der volle Lauf kostet nachgerechnet **rund 44 Cent je Artikel** (Briefing auf
+Sonnet, Schreiben und Nachbessern auf Opus, Einhängen wieder auf Sonnet), dazu
+etwa 13 Cent DataForSEO je Lauf. Er kann dafür etwas, was der Handweg nicht
+kann: die Ergebnisseite lesen und vergleichen, was dort schon steht.
+
+Beide Wege enden beim Entwurf und laufen durch dieselben Tore.
+
+#### Warum die Automatik nicht bis zum Deploy durchläuft
+
+Das ist die wichtigste Entscheidung an diesem Bau, und sie ist keine
+Bequemlichkeitsfrage.
+
+Googles Spam-Richtlinie kennt seit 2024 den Tatbestand **„scaled content
+abuse"**: viele Seiten, deren Hauptzweck Ranking statt Nutzen ist, ohne
+Originalität — *„no matter how it's created"*. Die Bewertungsanleitung für
+Googles Prüfer definiert die Gegenprobe als *„the extent to which a human being
+actively worked to create satisfying content"* und nennt als Negativbeispiel
+ausdrücklich Erzeugung im großen Stil *„without any oversight, manual curation
+etc."*.
+
+Der Freigabeschritt **ist** diese Aufsicht. Er steht mit Namen und Datum im
+Artikel (`freigabe`). Fällt er weg, fällt das Argument weg, mit dem sich
+tägliche Artikel überhaupt verteidigen lassen — und zwar genau in dem Moment,
+in dem es gebraucht wird.
+
+Dazu kommt: Die Bewertung findet auf **Website-Ebene** statt („after looking at
+several pages on the website"). Es gibt keine Quarantäne für den Blog. Ein
+Urteil zieht `/leistungen`, `/referenzen` und die Suche nach dem Firmennamen
+mit hinein. Und ein Deploy liefert ohnehin alles aus, was gerade in `main`
+liegt — nicht nur Artikel.
+
+Vollständige Risikoeinschätzung mit Quellen und Not-Aus:
+`.claude/skills/blog-seo/reference/risiko.md`.
+
+#### Das Substanz-Tor
+
+`content/seo/themen-pool.json` ist der Vorrat. Jedes Thema trägt ein Feld
+`substanz` — den nicht generierbaren Anteil: eine gemessene Zahl, eine
+Konfiguration aus einem echten Projekt, eine Entscheidung mit Begründung, ein
+Fehler mit Kosten, eine gelesene Primärquelle, ein zerlegter Ablauf.
+
+**Ein Thema mit `substanz: null` wird nie produziert.** Ist kein Thema mit
+Eigenanteil da, erscheint an diesem Tag nichts. Das ist der vorgesehene Zustand,
+kein Ausfall — Googles Prüfliste nennt es als Warnsignal, Inhalte nur für den
+Anschein von Frische zu veröffentlichen, mit dem Klammerzusatz *„(No, it
+won't)"*.
+
+Wer dieses Tor aufweicht, nimmt der Automatik genau die Bremse, wegen der sie
+verantwortbar ist. Was als Eigenanteil zählt und was nicht:
+`.claude/skills/blog-seo/reference/substanz-gate.md`.
+
+#### Die sechs harten Tore
+
+Jedes bricht Build oder Lauf ab:
+
+1. **Substanz** — ohne belegten Eigenanteil kein Artikel.
+2. **Ein Keyword, ein Artikel** — Dubletten brechen den Loader ab.
+3. **Keine Zahl ohne Beleg** — jede Fremdzahl braucht `quellen` mit URL und
+   Abrufdatum.
+4. **Namentlicher Autor** — nie ein Modell. Google rät ausdrücklich davon ab,
+   einer KI eine Byline zu geben.
+5. **Ankertext im Text** — jeder interne Link braucht seinen Ankertext wörtlich
+   im zugewiesenen Absatz. Beim Umstellen der drei Bestandsartikel waren
+   fünfzehn von fünfzehn Links eingetragen und **keiner** gerendert; die Prüfung
+   sitzt seither im Loader und im Test.
+6. **Freigabe** — `status: "veroeffentlicht"` verlangt ein `freigabe`-Objekt.
+
+#### Was bewusst NICHT gebaut ist
+
+| Nicht gebaut | Warum |
+|---|---|
+| FAQPage-Schema | Google hat das Rich Result zum 07.05.2026 abgeschaltet, die Doku im Juni entfernt. Der sichtbare Frage-Antwort-Block bleibt, das Markup nicht. |
+| `keywords`, `wordCount`, `articleSection`, `speakable` im JSON-LD | Schema.org-gültig, kommen in Googles Article-Doku aber nicht vor. Ballast, der so aussieht, als täte er etwas. |
+| `priority`, `changefreq` in der Sitemap | *„Google ignores `<priority>` and `<changefreq>` values."* Am 19.08.2026 aus `sitemap.ts` und `navigation.ts` entfernt. |
+| Google Indexing API | Ausdrücklich auf `JobPosting` und `BroadcastEvent` beschränkt. Für Blogartikel wäre es Missbrauch und wirkungslos. |
+| Ein Vorschaubild je Artikel | `opengraph-image.tsx` unter `[slug]` rendert bei jedem Build ein Bild pro Artikel — der Punkt, an dem ein Build von Minuten auf Stunden kippt. |
+| Automatischer Linkaufbau | Die Link-Spam-Richtlinie verbietet wörtlich *„Using automated programs or services to create links to your site"*. `backlink-radar.ts` findet Gelegenheiten für Ansprache durch Menschen. |
+| Eine zweite Domain für mehr Volumen | Wörtlich ein Richtlinienbeispiel (*„Creating multiple sites with the intent of hiding the scaled nature of the content"*) und zusätzlich als Umgehung behandelt. |
+
+#### Aufbau
+
+| Was | Wo |
+|---|---|
+| Datenmodell (Zod), Qualitätstor | `src/lib/wissen/schema.ts` |
+| Laden mit Prüfung — bricht den Build ab | `src/lib/wissen/laden.ts` |
+| JSON-LD (BlogPosting, ProfilePage, CollectionPage) | `src/lib/wissen/schema-org.ts` |
+| Interne Links in den Fließtext setzen | `src/lib/wissen/verlinken.tsx` |
+| Darstellung — **Server Components** | `src/views/wissen/` |
+| Artikel, Autoren, Themen, Vorrat, Protokolle | `content/wissen/`, `content/seo/` |
+| API-Zugänge mit Kostenbremse | `scripts/blog-engine/lib/{dataforseo,firecrawl,claude}.ts` |
+| Hausstilprüfung, 81 Regeln | `scripts/blog-engine/lib/qualitaet.ts` |
+| Die neun Schritte | `scripts/blog-engine/schritte/` |
+| Prüfungen im Testlauf | `src/lib/__tests__/wissen.test.ts` |
+
+⚠️ **`generateStaticParams` rendert derzeit alle Artikel vor.** Das ist richtig,
+solange sie als Dateien im Repo liegen. Ab etwa 500 Artikeln wird der Build
+spürbar länger — dann auf die neuesten 200 plus `dynamicParams: true` umstellen.
+Die Anleitung dafür steht im Kopf von
+`src/app/gratis-wissen/[slug]/page.tsx`. Bei drei Artikeln täglich ist die Marke
+in gut fünf Monaten erreicht.
 
 ### Kampagnenseiten `/funnel` und `/fokus`
 
@@ -563,7 +778,7 @@ einzigen harten Beweis.
   ⚠️ **Offen:** Die Zahl wird einer namentlich genannten Person zugeschrieben,
   schriftlich belegt sind aber nur Dennis Mikyas und Eugen Kretschmann. Fuer die
   uebrigen fuenf Kunden fehlt eine dokumentierte Bewertung — erfundene
-  Bewertungen sind nach § 5b Abs. 3 UWG abmahnbar.
+  Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG abmahnbar.
 - **`review`** ist der kurze Bewertungssatz auf der Karte. Nur befuellen, wo der
   Satz woertlich so abgegeben wurde; aktuell nur bei Dennis Mikyas. Eugen
   Kretschmann (KREMA) hat ein belegtes Zitat in `src/data/testimonials.ts`, aber
@@ -723,6 +938,135 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 
 ---
 
+## Sichtbarkeit: Suche und KI-Antworten
+
+Was am 21.08.2026 aus der Prüfung hervorging und wo es im Code sitzt.
+
+### llms.txt wird erzeugt, nicht gepflegt
+
+`public/llms.txt` und `public/llms-full.txt` entstehen mit **`npm run llms`**
+aus [`scripts/llms-txt.ts`](scripts/llms-txt.ts) — abgeleitet aus
+`company.ts`, `angebot.ts`, `services.ts`, `principles.ts`,
+`client-results.ts`, `testimonials.ts`, `faq.ts`, `glossary.ts`,
+`navigation.ts` und dem Wissens-Loader.
+
+**Warum das kein Handbetrieb mehr ist.** Beide Dateien waren zuletzt am
+08.07.2026 angefasst worden. Am 20.08.2026 standen darin: die ROI-Garantie als
+Aufmacher (am 12.08. von allen Seiten genommen), ein Testimonial von „Frank
+Locke, Kanzlei Locke und Partner" (am 02.08. als erfunden gelöscht — erfundene
+Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG abmahnbar), sechs
+Leistungen, die es nicht mehr gibt, eine tote Calendly-Adresse, „§ 5 TMG" statt
+DDG und eine Seitenliste ohne `/gratis-wissen`, `/warum`, `/solo`,
+`/enterprise`, `/glossar` und `/autoren`.
+
+Das war nicht folgenlos: Eine Websuche nach „KITech Software Hannover" gab am
+selben Tag eine KI-Antwort zurück, die **wörtlich die Eröffnungszeile von
+llms-full.txt** wiedergab und den alten Seitentitel zitierte. Diese Dateien sind
+für abrufende Systeme leichter zu lesen als das HTML — eine veraltete Fassung
+ist deshalb teurer als gar keine.
+
+⚠️ **Die eine Regel: Hier steht nur, was auf der Website steht.** Keine
+Kundennamen ohne Eintrag in `client-results.ts`, keine Zitate ohne Eintrag in
+`testimonials.ts`. Wer eine Aussage in llms.txt haben will, trägt sie in die
+Datendatei ein — dann erscheint sie auf der Seite *und* dort.
+
+`src/lib/__tests__/llms-txt.test.ts` bricht ab, sobald die Dateien vom Stand der
+Datendateien abweichen, und prüft zusätzlich namentlich auf die sechs Fehler von
+oben. Nach jeder inhaltlichen Änderung also `npm run llms` und mitcommitten.
+
+### Entitäts-Knoten: Organisation und Website
+
+`getOrganizationSchema()` und `getWebSiteSchema()` werden in
+[`PageShell.tsx`](src/components/layout/PageShell.tsx) ausgegeben — auf jeder
+Seite genau einmal, mit stabiler `@id` (`ORGANISATION_ID`) und `sameAs`.
+
+**Bis zum 20.08.2026 stand der Knoten auf keiner einzigen Seite.** Die Funktion
+war gebaut und mit Unit-Tests abgedeckt, aber nirgends eingebunden: Jede Artikel-
+und Autorenseite verwies mit `publisher` bzw. `worksFor` auf
+`https://kitech-software.de/#organisation`, und diese Kennung wurde nie mit
+einem Knoten belegt. Auf der ganzen Website stand kein `sameAs`.
+
+⚠️ **Nicht ins Root-Layout verschieben.** `/selbstcheck_eu_ai_act` läuft auf
+Ansage markenfrei über `CheckShell` — ein Organisations-Knoten mit Firmenname,
+Anschrift und Telefonnummer im Kopf wäre genau das, was dort nicht hingehört.
+`PageShell` trifft die richtige Menge; der Selbstcheck enthält weiterhin **null**
+Nennungen von „KITech" und kein JSON-LD.
+
+`getLocalBusinessSchema()` auf `/kontakt` trägt dieselbe `@id`, damit
+Öffnungszeiten und Geokoordinaten in dieselbe Entität fließen statt eine zweite
+aufzumachen.
+
+`sameAs` enthält bewusst nur Profile, die KITech gehören (LinkedIn,
+ProvenExpert). Creditreform und Companyhouse führen die Firma zwar, sind aber
+abgeschriebene Registerdaten und antworten Crawlern mit 403 — ein `sameAs`, das
+ein Prüfer nicht abrufen kann, belegt nichts.
+
+### LCP: was gemessen wurde
+
+Zwei Ursachen, beide behoben, beide nachgemessen (Chrome, Mobil-Emulation,
+4-fache CPU-Drosselung):
+
+| Was | Wirkung |
+|---|---|
+| `.kinetic-morph-in` lief von `opacity: 0` mit `fill-mode: both`. Chrome zählt ein durchsichtiges Element nicht als gezeichnet — die H1 ist auf jeder Seite der LCP-Kandidat. | Startseite live: **2492 ms → 1672 ms** |
+| Auf Artikelseiten war der **Cookie-Banner-Absatz** das größte gezeichnete Element (51.168 px² gegen 47.880 px² des Artikel-Aufmachers). | Artikelseite: LCP **3,6 s → 2,9 s**, und das LCP-Element ist wieder der Artikel |
+
+Die Animation animiert seit dem 20.08.2026 **nur noch `transform`**. Wer dort
+wieder `opacity` einbaut, zahlt den Betrag erneut, und zwar auf jeder Seite.
+Der Banner ist auf dem Handy enger gesetzt (`text-[13px] leading-[1.5]`, ab `md`
+unverändert) — **kein Wort ist entfallen**, nur Schriftgröße und Zeilenabstand.
+
+Im selben Zug: Lighthouse-Barrierefreiheit auf **100** (zwei Kontrastfehler bei
+3,1 bzw. 3,2 : 1), und Hero-Portrait wie Logo tragen feste Maße gegen die
+Layoutverschiebung.
+
+### Bilder: Logo und Vorschaubild
+
+- **`public/images/logo-weiss.webp`** (5,6 KB) ersetzt `public/logo-weiss.svg`
+  (178 KB) in Kopf- und Fußzeile. Die SVG-Datei war kein Vektor, sondern ein
+  1584x500 großes Graustufen-PNG als base64 plus ein `feColorMatrix`, der daraus
+  Weiß mit Deckkraft aus der Helligkeit machte. Sie war damit die größte
+  Ressource der Website und stand auf jeder Seite zweimal. Die Quelldatei bleibt
+  liegen.
+- **`public/images/og/standard.png`** (1200x630) ersetzt das Vorschaubild auf
+  `storage.googleapis.com/gpt-engineer-file-uploads/…` — ein fremder Bucket aus
+  der Lovable-Herkunft des Projekts, der auch das `image` jedes
+  `BlogPosting`-Schemas trug. Neu rendern mit `npm run og`
+  ([Vorlage](scripts/og/standard.html)); braucht Chrome und `puppeteer-core`.
+
+### Titel- und Beschreibungslängen
+
+`TITEL_MAX = 60`, `BESCHREIBUNG_MAX = 155` in
+[`src/lib/metadata.ts`](src/lib/metadata.ts), dazu `kuerze()` für Texte, die aus
+Datendateien kommen. Geprüft von `src/lib/__tests__/metadaten.test.ts` — der
+Test fand am 20.08.2026 vier Beschreibungen und einen Titel über der Grenze, die
+in der reinen Sichtprüfung durchgerutscht waren.
+
+Dabei entfallen: der Zusatz „– KITech Software" auf Artikel-, Autoren-,
+Themen- und Hub-Seiten (er wurde ohnehin abgeschnitten), und die Eröffnung der
+Startseiten-Beschreibung mit **„99 % der KI-Projekte scheitern"** — eine harte
+Zahl ohne Quelle, die auf der Seite selbst an keiner Stelle vorkam.
+
+### Was noch offen ist
+
+| Offen | Wer |
+|---|---|
+| Google Search Console + Bing Webmaster Tools einrichten | Ayham (braucht Konto) |
+| `INDEXNOW_KEY` in Coolify setzen — Schlüsseldatei liegt unter `public/` und ist committet | Ayham |
+| ProvenExpert-Profil: aktiv seit 06.11.2025, **0 Bewertungen**. Fünf echte Bewertungen belegen gleichzeitig die Sterne auf den Kundenkarten | Ayham |
+| Wirtschaftsförderung Region Hannover führt ein KI-Partner-Verzeichnis (40+ Firmen) ohne KITech; Aufnahme über Ansprechpartner | Ayham |
+| `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
+| `DATAFORSEO_*`, `FIRECRAWL_API_KEY`, `ANTHROPIC_API_KEY` fehlen — die Blog-Pipeline kann nicht laufen | Ayham |
+| Zehn von zwölf Themen-Clustern ohne Artikel | Redaktion |
+| `techStack` in `services.ts` (PyTorch, Kubernetes, LangChain, Hugging Face) ist Altbestand der Vorgängerseite und steht so auf `/leistungen` **und** in llms-full.txt | inhaltliche Entscheidung |
+
+⚠️ **`FAQPage`-Schema läuft weiter** auf der Startseite und zwei
+Glossarseiten, obwohl der Wissensbereich es bewusst weglässt (Google hat das
+Rich Result zum 07.05.2026 abgeschaltet). Es ist absichtlich stehen geblieben:
+Der sichtbare Text ist identisch, das Markup kostet nichts, und andere abrufende
+Systeme lesen strukturierte Frage-Antwort-Paare weiterhin aus. Wer es entfernt,
+gewinnt nichts — wer es auf neue Seiten ausrollt, ebenfalls nicht.
+
 ## Sicherheit & Compliance
 
 ### Security Headers (`next.config.ts`)
@@ -793,6 +1137,44 @@ Domain.
 `.env.example`; ohne `EREIGNIS_WEBHOOK_URL` bestätigt die Route still mit 204,
 ohne `PLAUSIBLE_API_KEY`/`TAGESBERICHT_SECRET` antwortet der Bericht mit 404.
 
+### Der tägliche Bericht kommt per E-Mail
+
+**Auf Ansage (20.08.2026):** „Ich möchte jeden Tag einen Bericht bekommen, wie
+viele Leute auf meiner Website sind … so viele Infos wie es geht. Wer war wo,
+hat was gedrückt." Kanal ist E-Mail, **nicht** n8n — n8n läuft zwar als
+Container, hat aber weder HTTPS noch ein Konto, und der Bericht sollte nicht
+darauf warten.
+
+| Teil | Wo |
+|---|---|
+| Auslöser | Cron im `deploy`-Crontab, täglich 8:00 Europe/Berlin |
+| Abfragen + Versand | `scripts/tagesbericht/sende_tagesbericht.py` (nur Python-Standardbibliothek) |
+| Zugangsdaten | `/home/deploy/KITech/infra/secrets/tagesbericht.env` (Modus 600), Vorlage liegt im Repo daneben |
+| Versandweg | Microsoft Graph, App-Rolle `Mail.Send`, Absender `leon.battel@kitech-software.de` |
+| Anleitung | `scripts/tagesbericht/README.md` |
+
+**Das Skript fragt Plausible direkt ab, nicht über `/api/tagesbericht`.** Grund:
+jede Erweiterung der Route kostet Rebuild und Deploy der Live-Website, und
+dieser Bericht soll wachsen dürfen. Die Route bleibt für den n8n-Weg bestehen —
+sie antwortet weiterhin mit 404, weil `PLAUSIBLE_API_KEY` in Coolify **nicht**
+gesetzt ist. Das ist Absicht: ein Restart der Live-Anwendung wäre dafür nötig,
+und der Bericht braucht sie nicht.
+
+⚠️ **Der Bericht untererfasst — mit Absicht.** Plausible lädt erst nach
+Zustimmung im Cookie-Banner, ebenso die Besuchsmeldung
+(`visitor-enrichment.ts`). Wer ablehnt oder den Banner ignoriert, taucht in
+keiner Zahl auf. Unter jeder Mail steht deshalb ein Satz, der das sagt — sonst
+liest sich der Bericht wie eine Vollerhebung. Eine cookielose serverseitige
+Zählung wäre auch ohne Einwilligung zulässig (kein Zugriff auf das Endgerät,
+§ 25 TDDDG greift nicht), ist aber nicht gebaut.
+
+⚠️ **„Wer war das" beantwortet Plausible nicht** — es speichert bewusst keine
+Besucherprofile, kein Cookie, keine IP, keine Wiedererkennung über Tage. Der
+Bericht zeigt deshalb Verhalten (welche Seite, welcher Klick, welche Stunde,
+welches Land), keine Identität. Firmenerkennung gäbe es nur über
+`/api/ereignis` (ipinfo.io, serverseitig, nur mit Einwilligung) — deren
+Meldungen verfallen derzeit ungespeichert, weil `EREIGNIS_WEBHOOK_URL` fehlt.
+
 **Einrichtung Schritt für Schritt:** `deploy/BENACHRICHTIGUNGEN.md` — dort steht
 auch, was schon gesetzt ist und was noch fehlt. Der fertige n8n-Workflow liegt
 als `deploy/n8n-benachrichtigung.json` daneben und wird importiert, nicht
@@ -837,6 +1219,9 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
   for p in / /warum /leistungen /solo /enterprise /referenzen /haltung \
            /karriere /kontakt /glossar /lass-uns-reden \
            /selbstcheck_eu_ai_act /impressum /datenschutz /agb \
+           /gratis-wissen /autoren /autoren/ayham-alkhalil \
+           /gratis-wissen/rss.xml /gratis-wissen/thema/ki-strategie \
+           /llms.txt /images/og/standard.png /images/logo-weiss.webp \
            /glossar/mlops /karriere/b2b-setter /sitemap.xml /gibt-es-nicht; do
     printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123$p)"
   done

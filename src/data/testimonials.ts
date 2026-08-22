@@ -4,7 +4,7 @@
  * vorher lagen sie doppelt im Code.
  *
  * WICHTIG: Hier gehören ausschließlich Bewertungen hinein, die tatsächlich so
- * abgegeben wurden. Erfundene Bewertungen sind nach § 5b Abs. 3 UWG eine
+ * abgegeben wurden. Erfundene Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG eine
  * unlautere geschäftliche Handlung und abmahnbar.
  *
  * Historie: Bis 02.08.2026 stand hier ein Eintrag "Frank Locke, Kanzlei Locke

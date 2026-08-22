@@ -25,9 +25,9 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "roi-garantie",
     term: "ROI-Garantie",
     shortDefinition:
-      "Vertragliche Zusicherung eines messbaren wirtschaftlichen Wertbeitrags eines KI-Projekts in Euro – wird das vereinbarte ROI-Ziel nicht erreicht, zahlt der Kunde nicht.",
+      "Vertragsmodell, bei dem ein Anbieter einen in Euro messbaren Wertbeitrag zusichert und die Vergütung an das Erreichen dieses Ziels koppelt.",
     metaDescription:
-      "ROI-Garantie bei KI-Projekten: Definition, Funktionsweise und wie KITech Software messbaren wirtschaftlichen Wertbeitrag vertraglich zusichert.",
+      "ROI-Garantie bei KI-Projekten: was der Begriff bedeutet, wie der Wertbeitrag gemessen wird und welche Voraussetzungen ein solches Modell braucht.",
     sections: [
       {
         heading: "Definition",
@@ -37,7 +37,7 @@ export const glossaryTerms: GlossaryTerm[] = [
       {
         heading: "Warum eine ROI-Garantie?",
         content:
-          "Klassische KI-Projekte werden auf Zeit- und Materialbasis abgerechnet. Das Risiko liegt vollständig beim Kunden. Studien zeigen, dass über 70 Prozent aller KI-Projekte den Proof-of-Concept-Status nie verlassen. Eine ROI-Garantie zwingt den Anbieter, ausschließlich Use Cases anzunehmen, die einen klaren, quantifizierbaren Business Case haben – und diesen mit einem belastbaren KI-Audit vorab zu verifizieren.",
+          "Klassische KI-Projekte werden auf Zeit- und Materialbasis abgerechnet. Das Risiko liegt damit vollständig beim Auftraggeber, und ein erheblicher Teil der Vorhaben kommt über den Pilotstatus nie hinaus. Eine ROI-Garantie verschiebt dieses Risiko: Sie zwingt den Anbieter, nur Anwendungsfälle anzunehmen, die einen quantifizierbaren Business Case haben – und den vorab zu prüfen.",
       },
       {
         heading: "Wie wird der ROI gemessen?",
@@ -55,7 +55,7 @@ export const glossaryTerms: GlossaryTerm[] = [
       {
         question: "Was passiert, wenn das ROI-Ziel nicht erreicht wird?",
         answer:
-          "Wird das vertraglich vereinbarte ROI-Ziel nicht erreicht, entfällt die Vergütung gemäß der definierten Staffelung – im KITech-Modell zahlt der Kunde im Garantiefall nicht.",
+          "Das hängt vom Vertrag ab. Üblich ist eine Staffelung: Die Vergütung entfällt ganz oder anteilig, gemessen am vereinbarten Zielwert. Welche Staffelung gilt, steht im jeweiligen Vertrag und ist kein Merkmal des Begriffs.",
       },
       {
         question: "Für welche Projekte eignet sich eine ROI-Garantie?",
@@ -68,7 +68,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ki-audit",
     term: "KI-Audit",
     shortDefinition:
-      "Strukturierte Bestandsaufnahme von Prozessen, Daten und Systemen, um KI-Potenziale mit belastbarem Business Case zu identifizieren – Grundlage jeder ROI-Garantie.",
+      "Strukturierte Bestandsaufnahme von Prozessen, Daten und Systemen, um KI-Potenziale mit belastbarem Business Case zu identifizieren.",
     metaDescription:
       "KI-Audit: Definition, Ablauf und Ergebnisse. Wie ein KI-Audit Use Cases mit belastbarem ROI identifiziert – methodisch, datenbasiert, DSGVO-konform.",
     sections: [
@@ -85,7 +85,7 @@ export const glossaryTerms: GlossaryTerm[] = [
       {
         heading: "Ergebnisse",
         content:
-          "Das Audit-Ergebnis ist eine Roadmap mit priorisierten Use Cases, jeweils inklusive geschätztem ROI, technischem Lösungskonzept, Datenanforderungen, Risikoeinschätzung und DSGVO-Bewertung. Diese Roadmap ist die Grundlage für jede ROI-Garantie, weil sie Use Cases ausschließt, die wirtschaftlich oder technisch nicht tragfähig sind.",
+          "Das Audit-Ergebnis ist eine Roadmap mit priorisierten Use Cases, jeweils inklusive geschätztem ROI, technischem Lösungskonzept, Datenanforderungen, Risikoeinschätzung und DSGVO-Bewertung. Wo eine ROI-Garantie vereinbart werden soll, ist eine solche Roadmap die Voraussetzung: Sie schließt Anwendungsfälle aus, die wirtschaftlich oder technisch nicht tragfähig sind.",
       },
       {
         heading: "Abgrenzung zur KI-Strategieberatung",

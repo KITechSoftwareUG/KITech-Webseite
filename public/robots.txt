@@ -33,6 +33,16 @@ User-agent: Google-Extended
 Allow: /
 
 # Anthropic Claude
+# Claude-SearchBot ist der Such-Crawler und entscheidet über die Sichtbarkeit in
+# Claudes Websuche; Anthropic schreibt dazu, ihn zu sperren "prevents our system
+# from indexing your content for search optimization". ClaudeBot ist der
+# Trainings-Crawler, Claude-User holt Seiten auf Zuruf eines Nutzers.
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 User-agent: ClaudeBot
 Allow: /
 
@@ -92,3 +102,4 @@ Allow: /
 # https://kitech-software.de/llms-full.txt
 
 Sitemap: https://kitech-software.de/sitemap.xml
+Sitemap: https://kitech-software.de/gratis-wissen/rss.xml

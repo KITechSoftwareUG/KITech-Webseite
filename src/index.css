@@ -242,11 +242,29 @@
     font-feature-settings: "tnum" 1;
   }
 
-  /* Weiches Einblenden der H1 beim Laden. Frueher morphte hier die
-     Schriftachse; ohne Variable Font bleibt die Bewegung, nicht die Achse. */
+  /* Einfahren der H1 beim Laden. Frueher morphte hier die Schriftachse; ohne
+     Variable Font bleibt die Bewegung, nicht die Achse.
+
+     ⚠️ **Diese Animation darf die Deckkraft nicht mehr anfassen.** Bis zum
+     20.08.2026 lief sie von `opacity: 0` mit `animation-fill-mode: both` — der
+     Startzustand galt also schon vor dem ersten Frame. Chrome zaehlt ein
+     vollstaendig durchsichtiges Element nicht als gezeichnet: Die H1 ist auf
+     jeder Seite das groesste Textelement und damit der LCP-Kandidat, und der
+     wurde dadurch erst nach Ablauf der Animation gemeldet.
+
+     Gemessen am selben Tag (Chrome, Mobil-Emulation, 4x CPU-Drosselung,
+     Startseite live):
+
+       mit opacity 0 -> 1     LCP 2492 ms
+       nur transform          LCP 1672 ms
+
+     Rund 800 ms, also ziemlich genau die Dauer der Animation. Bewegung kostet
+     nichts, weil `transform` das Zeichnen nicht aufhaelt — Transparenz schon.
+     Wer hier wieder `opacity` einbaut, zahlt den Betrag erneut, und zwar auf
+     jeder Seite der Website. */
   @keyframes kinetic-morph-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { transform: translateY(14px); }
+    to { transform: translateY(0); }
   }
 
   .kinetic-morph-in {

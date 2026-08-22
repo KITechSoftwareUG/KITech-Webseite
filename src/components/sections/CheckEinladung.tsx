@@ -61,8 +61,15 @@ export function CheckEinladung() {
           <ol className="divide-y divide-white/12 border-y border-white/12">
             {checkEinladung.schritte.map((schritt, index) => (
               <li key={schritt.titel} className="flex gap-5 py-5">
+                {/*
+                  `/50` statt `/35` (20.08.2026): Bei 35 Prozent Deckkraft kam
+                  die Ziffer auf dem dunkelblauen Grund auf 3,2 : 1 — gefordert
+                  sind 4,5 : 1, und es war der einzige Kontrastfehler der
+                  Startseite. Bei 50 Prozent sind es 5,2 : 1, ohne dass die
+                  Nummer der Überschrift daneben die Aufmerksamkeit wegnimmt.
+                */}
                 <span
-                  className="kinetic-data shrink-0 text-[15px] leading-tight text-white/35"
+                  className="kinetic-data shrink-0 text-[15px] leading-tight text-white/50"
                   aria-hidden="true"
                 >
                   {String(index + 1).padStart(2, "0")}

@@ -90,9 +90,10 @@ export const wissenEntry: NavEntry = {
  * Kopfzeile. Reihenfolge = Reihenfolge in der Leiste.
  *
  * "Warum?" ist am 12.08.2026 auf Ansage aus der Kopfzeile genommen worden
- * ("das ist noch schlecht, ich würde das erstmal auslassen"). Die Seiten
- * bleiben unter ihrer Adresse erreichbar und stehen weiter in der Fußzeile —
- * `warumEntry` wird deshalb weiter exportiert und ist nicht gelöscht.
+ * ("das ist noch schlecht, ich würde das erstmal auslassen"). Die Übersicht
+ * `/warum` steht weiter in der Fußzeile, die beiden Sales Letter seit dem
+ * 20.08.2026 nicht mehr — `warumEntry` wird trotzdem weiter exportiert, weil
+ * `/warum` selbst die Weiche auf beide rendert.
  */
 export const mainNavigation: NavEntry[] = [
   leistungenEntry,
@@ -131,13 +132,12 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
     title: "Wissen",
     links: [
       { label: "Gratis-Wissen", href: "/gratis-wissen" },
+      // Die beiden Sales Letter standen hier bis zum 20.08.2026 mit vollem Titel
+      // und haben die Spalte allein gefuellt. Auf Ansage raus; erreichbar
+      // bleiben sie ueber "Warum?" und die Segmentseiten /solo und /enterprise.
       { label: "Warum?", href: "/warum" },
-      { label: "Warum du mit KI kein Geld verdienst", href: "/warum-du-mit-ki-kein-geld-verdienst" },
-      {
-        label: "Warum Unternehmen mit KI kein Geld verdienen",
-        href: "/warum-unternehmen-mit-ki-kein-geld-verdienen",
-      },
       { label: "Glossar", href: "/glossar" },
+      { label: "Wer hier schreibt", href: "/autoren" },
     ],
   },
 ];
@@ -157,6 +157,20 @@ export const legalNavigation: NavLink[] = [
 /* Routen-Register                                                            */
 /* ------------------------------------------------------------------------- */
 
+/**
+ * Eine statische Route mit ihrem Indexierungs-Status.
+ *
+ * **`changeFrequency` und `priority` sind am 19.08.2026 entfallen.** Beide
+ * standen hier für jede Route gepflegt — und wurden nie ausgewertet. Googles
+ * Sitemap-Dokumentation sagt wörtlich: „Google ignores <priority> and
+ * <changefreq> values." Gary Illyes dazu ausführlicher: changefreq überschneidet
+ * sich begrifflich mit lastmod, und priority sei „a heavily subjective field
+ * and based on our internal studies, it generally doesn't accurately reflect the
+ * actual priority of a page relative to other pages on a site."
+ *
+ * Sie zu pflegen kostete Aufmerksamkeit und suggerierte eine Steuerung, die es
+ * nicht gibt. Wer sie zurückholt, holt beides zurück.
+ */
 export interface RouteDefinition {
   path: string;
   /**
@@ -169,9 +183,14 @@ export interface RouteDefinition {
    * Aliase bleiben aus der Sitemap draußen, sonst entsteht Duplicate Content.
    */
   aliasOf?: string;
+  /**
+   * Datum der letzten inhaltlichen Aenderung. Das einzige Sitemap-Feld, das
+   * Google auswertet — und nur, solange es stimmt: „it needs to consistently
+   * match reality: if your page changed 7 years ago, but you're telling us in
+   * the lastmod element that it changed yesterday, eventually we're not going to
+   * believe you anymore" (Gary Illyes). Im Zweifel weglassen statt raten.
+   */
   lastModified: string;
-  changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
-  priority: number;
 }
 
 /**
@@ -185,61 +204,62 @@ export interface RouteDefinition {
  * hier fehlt oder dort nicht existiert, lässt den Test fehlschlagen.
  */
 export const siteRoutes: RouteDefinition[] = [
-  { path: "/", indexable: true, lastModified: "2026-08-05", changeFrequency: "weekly", priority: 1.0 },
+  { path: "/", indexable: true, lastModified: "2026-08-05" },
 
   // Warum? — die Übersicht ist indexierbar, die beiden Letter bleiben draußen,
   // solange sie Platzhaltertext tragen (isPlaceholder in sales-letters.ts).
-  { path: "/warum", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/warum", indexable: true, lastModified: "2026-08-05" },
   {
     path: "/warum-du-mit-ki-kein-geld-verdienst",
     indexable: false,
     lastModified: "2026-08-05",
-    changeFrequency: "monthly",
-    priority: 0.6,
   },
   {
     path: "/warum-unternehmen-mit-ki-kein-geld-verdienen",
     indexable: false,
     lastModified: "2026-08-05",
-    changeFrequency: "monthly",
-    priority: 0.6,
   },
 
-  { path: "/leistungen", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/solo", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/enterprise", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/leistungen", indexable: true, lastModified: "2026-08-05" },
+  { path: "/solo", indexable: true, lastModified: "2026-08-05" },
+  { path: "/enterprise", indexable: true, lastModified: "2026-08-05" },
 
-  { path: "/referenzen", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/referenzen", indexable: true, lastModified: "2026-08-05" },
   {
     path: "/gratis-wissen",
     indexable: true,
-    lastModified: "2026-08-12",
-    changeFrequency: "weekly",
-    priority: 0.8,
+    lastModified: "2026-08-19",
   },
-  { path: "/haltung", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/glossar", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/kontakt", indexable: true, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.8 },
+  /**
+   * Autorenseiten. Angelegt am 19.08.2026 zusammen mit der Blog-Automatik.
+   *
+   * Sie sind kein Beiwerk: Googles Prüfliste für hilfreiche Inhalte fragt
+   * ausdrücklich „Do bylines lead to further information about the author?",
+   * und die Bewertungsanleitung stellt „first-hand or life experience" in den
+   * Mittelpunkt von E-E-A-T. Beides lässt sich nur an einer benannten Person
+   * festmachen. Die Detailseiten unter `/autoren/[slug]` leitet die Sitemap
+   * aus `content/seo/autoren.json` ab.
+   */
+  { path: "/autoren", indexable: true, lastModified: "2026-08-19" },
+  { path: "/haltung", indexable: true, lastModified: "2026-08-05" },
+  { path: "/glossar", indexable: true, lastModified: "2026-08-05" },
+  { path: "/kontakt", indexable: true, lastModified: "2026-08-05" },
 
   // Stellenanzeigen sind noch Platzhalter (isPlaceholder in jobs.ts). Bis echte
   // Stellen drinstehen: kein Index — erfundene Stellenanzeigen in der Suche
   // ziehen echte Bewerbungen auf eine Stelle, die es nicht gibt.
-  { path: "/karriere", indexable: false, lastModified: "2026-08-05", changeFrequency: "weekly", priority: 0.6 },
+  { path: "/karriere", indexable: false, lastModified: "2026-08-05" },
 
   {
     path: "/lass-uns-reden",
     indexable: true,
     lastModified: "2026-07-11",
-    changeFrequency: "monthly",
-    priority: 0.9,
   },
   {
     path: "/termin",
     indexable: true,
     aliasOf: "/lass-uns-reden",
     lastModified: "2026-07-11",
-    changeFrequency: "monthly",
-    priority: 0.5,
   },
   // Der Selbstcheck gehoert nicht zur Website: markenfreie Einzelseite, die
   // ausserhalb eingesetzt wird (siehe CLAUDE.md, "Markenfreier Selbstcheck").
@@ -250,33 +270,29 @@ export const siteRoutes: RouteDefinition[] = [
     path: "/selbstcheck_eu_ai_act",
     indexable: false,
     lastModified: "2026-08-11",
-    changeFrequency: "monthly",
-    priority: 0.4,
   },
   {
     path: "/selbstcheck",
     indexable: false,
     aliasOf: "/selbstcheck_eu_ai_act",
     lastModified: "2026-08-11",
-    changeFrequency: "monthly",
-    priority: 0.4,
   },
 
-  { path: "/impressum", indexable: true, lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
-  { path: "/datenschutz", indexable: true, lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
-  { path: "/agb", indexable: true, lastModified: "2026-07-10", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/impressum", indexable: true, lastModified: "2026-07-10" },
+  { path: "/datenschutz", indexable: true, lastModified: "2026-07-10" },
+  { path: "/agb", indexable: true, lastModified: "2026-07-10" },
 
   // Eingeloggter Bereich: eigene Domain (app.kitech-software.de über src/proxy.ts),
   // gehört nie in den Index.
-  { path: "/app", indexable: false, lastModified: "2026-08-05", changeFrequency: "monthly", priority: 0.1 },
+  { path: "/app", indexable: false, lastModified: "2026-08-05" },
 
   // LinkedIn-"Featured"-Landingpages, je eigene Domain über src/proxy.ts
   // (funnel.kitech-software.de, fokus.kitech-software.de). Bewusst nicht in
   // mainNavigation/footerNavigation — reine Kampagnenseiten ohne
   // Website-internen Zugang, siehe Ausnahme im Routen-Test. noindex, solange
   // Pattern-Interrupt-Text Platzhalter ist (siehe src/data/funnel.ts, fokus.ts).
-  { path: "/funnel", indexable: false, lastModified: "2026-08-11", changeFrequency: "monthly", priority: 0.4 },
-  { path: "/fokus", indexable: false, lastModified: "2026-08-11", changeFrequency: "monthly", priority: 0.4 },
+  { path: "/funnel", indexable: false, lastModified: "2026-08-11" },
+  { path: "/fokus", indexable: false, lastModified: "2026-08-11" },
 ];
 
 /**

@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "prozessautomatisierung",
+    "titel": "Prozesse automatisieren",
+    "pillarKeyword": "prozesse automatisieren unternehmen",
+    "teaser": "Welche Abläufe sich automatisieren lassen, was das kostet, und woran die meisten Automatisierungen im Betrieb scheitern.",
+    "einleitung": [
+      "Automatisierung wird meistens dort angefangen, wo sie am einfachsten ist — und nicht dort, wo Geld liegen bleibt. Das ist der Grund, warum viele Betriebe nach einem Jahr eine Sammlung laufender Workflows haben und trotzdem nicht sagen können, was sie eingespart haben.",
+      "Die Artikel in diesem Bereich gehen den umgekehrten Weg: erst der Vorgang, an dem etwas hängt, dann die Frage, ob sich Automatisierung dort rechnet. Dazu kommt das, was in Anleitungen selten steht — wer zuständig ist, wenn nachts etwas abbricht, und was der Betrieb im Jahr kostet."
+    ],
+    "reihenfolge": 1,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-und-datenschutz",
+    "titel": "KI und Datenschutz",
+    "pillarKeyword": "ki dsgvo konform einsetzen",
+    "teaser": "Nicht was im Gesetz steht, sondern wie es im System umgesetzt wird: Löschpfade, Berechtigungen, Anonymisierung vor dem Prompt.",
+    "einleitung": [
+      "Zur Rechtslage gibt es genug Texte, und Kanzleien schreiben sie besser. Was fehlt, ist die Ebene darunter: Wie sieht ein Löschkonzept aus, wenn ein Dokument in Originaldatei, Textabschnitten, Vektoren, Cache und Backup liegt? Wie verhindert man, dass eine Antwort Daten enthält, die der Fragende nicht sehen darf?",
+      "Diese Fragen entscheiden darüber, ob ein KI-System eine Prüfung übersteht. Sie sind technisch, und sie werden fast nie beantwortet."
+    ],
+    "reihenfolge": 2,
+    "indexierbar": true
+  },
+  {
+    "slug": "eu-ai-act",
+    "titel": "EU AI Act und KI-Verordnung",
+    "pillarKeyword": "eu ai act unternehmen pflichten",
+    "teaser": "Welche Pflichten wann greifen, was der Digital Omnibus verschoben hat, und wie man ein KI-Inventar aufbaut, das einer Prüfung standhält.",
+    "einleitung": [
+      "Die KI-Verordnung ist in Stufen in Kraft getreten, mehrfach angepasst worden, und ein Teil der Fristen ist inzwischen verschoben. Wer heute liest, was vor einem Jahr geschrieben wurde, bekommt falsche Termine.",
+      "Deshalb steht in jedem Artikel dieses Bereichs die Primärquelle mit Datum. Was hier steht, lässt sich gegen das Amtsblatt prüfen — und wenn sich etwas ändert, wird der Artikel aktualisiert statt ergänzt."
+    ],
+    "reihenfolge": 3,
+    "indexierbar": true
+  },
+  {
+    "slug": "foerderung-und-finanzierung",
+    "titel": "Förderung für Digitalisierung und KI",
+    "pillarKeyword": "ki förderung mittelstand",
+    "teaser": "Was es 2026 noch gibt, was ausgelaufen ist, und welches Instrument zu welchem Projekt passt.",
+    "einleitung": [
+      "Die bekannten Zuschussprogramme für Digitalisierungsvorhaben sind ausgelaufen. Ein großer Teil der Ratgeber im Netz beschreibt trotzdem noch Antragswege, die es nicht mehr gibt.",
+      "Geblieben sind vier Wege: ein Steuerinstrument, ein Förderkredit, Landesprogramme und kostenlose Beratung. Welcher davon zu einem Vorhaben passt, hängt weniger vom Thema ab als vom Zeitpunkt — die teuerste Fehlentscheidung ist, vor der Bewilligung anzufangen."
+    ],
+    "reihenfolge": 4,
+    "indexierbar": true
+  },
+  {
+    "slug": "rag-und-unternehmensdaten",
+    "titel": "KI auf den eigenen Unternehmensdaten",
+    "pillarKeyword": "rag system unternehmen",
+    "teaser": "Wie ein Sprachmodell an die eigenen Dokumente kommt, ohne dass jeder alles sieht — und was so ein System monatlich kostet.",
+    "einleitung": [
+      "Ein Sprachmodell ohne Zugriff auf die Daten des Betriebs kann nur allgemein antworten. Es kennt die Preisliste nicht, nicht die Historie eines Kunden, nicht die interne Regel, warum dieser eine Fall anders behandelt wird.",
+      "Die Anbindung ist die Arbeit, die niemand gern übernimmt: Schnittstellen zu Systemen, die seit Jahren laufen, Rechte und Rollen, Datenqualität. Sie entscheidet darüber, ob am Ende ein Werkzeug steht oder ein besserer Chat."
+    ],
+    "reihenfolge": 5,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-agenten",
+    "titel": "KI-Agenten im Unternehmen",
+    "pillarKeyword": "ki agenten für unternehmen",
+    "teaser": "Wo der Unterschied zwischen einer Automatisierung und einem Agenten liegt, was er kostet, und wie viel Freiheit man ihm gibt.",
+    "einleitung": [
+      "Ein Agent entscheidet, welchen Schritt er als Nächstes macht. Genau das macht ihn nützlich und teuer zugleich: Er löst Fälle, die eine feste Kette nicht abbildet, und er verbraucht dabei ein Vielfaches an Rechenzeit.",
+      "Die Frage ist deshalb selten, ob ein Agent etwas kann, sondern ob der Vorgang seine Freiheit überhaupt braucht. Für den größten Teil dessen, was in Betrieben automatisiert wird, ist die Antwort nein."
+    ],
+    "reihenfolge": 6,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-gestuetzte-entwicklung",
+    "titel": "Softwareentwicklung mit KI",
+    "pillarKeyword": "mit ki programmieren im unternehmen",
+    "teaser": "Wie ein KI-Assistent ein gewachsenes Firmenprojekt versteht: Projektdokumentation, Agenten, Prüfschritte — aus dem täglichen Einsatz.",
+    "einleitung": [
+      "Es gibt viele Anleitungen für den ersten Tag mit einem KI-Entwicklungswerkzeug und fast nichts für den zweihundertsten. Die Fragen verschieben sich: Nicht wie man einen Prompt schreibt, sondern wie ein Projekt aussehen muss, damit ein Assistent nach einem halben Jahr noch dieselben Entscheidungen trifft wie das Team.",
+      "Die Artikel hier zeigen gewachsene Dateien statt leerer Vorlagen — mit den Stellen, die sich als falsch herausgestellt haben."
+    ],
+    "reihenfolge": 7,
+    "indexierbar": true
+  },
+  {
+    "slug": "individualsoftware",
+    "titel": "Individualsoftware",
+    "pillarKeyword": "individualsoftware entwickeln lassen",
+    "teaser": "Wann sich eine eigene Anwendung rechnet, was sie kostet, und woran man ein belastbares Angebot erkennt.",
+    "einleitung": [
+      "Die Entscheidung zwischen Standardsoftware und einer eigenen Anwendung wird meistens am Preis festgemacht und fällt damit am falschen Kriterium. Entscheidend ist, ob der Prozess das Alleinstellungsmerkmal des Betriebs ist oder eine Verwaltungsaufgabe wie überall.",
+      "Dazu kommt die Zahl, die in keinem Angebot steht: was die Anwendung nach dem Start jedes Jahr kostet."
+    ],
+    "reihenfolge": 8,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-betrieb",
+    "titel": "KI-Betrieb: Cloud, eigene Hardware, Souveränität",
+    "pillarKeyword": "ki on premise betreiben",
+    "teaser": "Wo ein Modell laufen soll, wenn Betriebsgeheimnisse im Spiel sind — und was die drei Wege tatsächlich kosten.",
+    "einleitung": [
+      "Sobald personenbezogene Daten, Betriebsgeheimnisse oder regulierte Prozesse im Spiel sind, verschiebt sich die Frage. Nicht welches Modell das beste ist, sondern: Wo läuft es, wer kommt an die Daten, und was steht im Vertrag.",
+      "Drei Wege stehen zur Wahl, und keiner ist grundsätzlich richtig. Was sie unterscheidet, ist keine Geschmacksfrage, sondern eine Rechenaufgabe."
+    ],
+    "reihenfolge": 9,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-strategie",
+    "titel": "KI-Strategie und warum Projekte scheitern",
+    "pillarKeyword": "ki strategie mittelstand",
+    "teaser": "Die Muster, an denen KI-Vorhaben regelmäßig hängenbleiben — und was die erfolgreichen anders gemacht haben.",
+    "einleitung": [
+      "Wenn ein KI-Projekt nicht liefert, liegt es selten am Modell. Es liegt fast immer daran, an welcher Stelle im Betrieb es eingesetzt wurde und wer danach dafür zuständig ist.",
+      "Diese Muster tauchen so regelmäßig auf, dass man sie im ersten Gespräch hört. Sie sind der Grund, warum die Auswahl des Anwendungsfalls über den Erfolg entscheidet und nicht die Technik."
+    ],
+    "reihenfolge": 10,
+    "indexierbar": true
+  },
+  {
+    "slug": "dokumente-und-belege",
+    "titel": "Dokumente, Rechnungen, Belege",
+    "pillarKeyword": "rechnungsverarbeitung automatisieren",
+    "teaser": "Vom Posteingang bis zur Buchung: was sich automatisch auslesen lässt, welche Quote realistisch ist, und was zur E-Rechnung ansteht.",
+    "einleitung": [
+      "Belegverarbeitung ist der Vorgang, bei dem Automatisierung am schnellsten sichtbar wird — und der, bei dem die Erwartungen am häufigsten zu hoch sind. Eine Dunkelverarbeitungsquote von hundert Prozent gibt es nicht, und der Weg von achtzig auf neunzig Prozent kostet mehr als der von null auf achtzig.",
+      "Dazu kommt ein fester Termin: Die Versandpflicht für elektronische Rechnungen greift in Stufen, und der nächste Stichtag steht fest."
+    ],
+    "reihenfolge": 11,
+    "indexierbar": true
+  },
+  {
+    "slug": "ki-beratung-hannover",
+    "titel": "KI-Beratung in Hannover und Niedersachsen",
+    "pillarKeyword": "ki beratung hannover",
+    "teaser": "Wie eine Zusammenarbeit abläuft, was sie kostet, und was regional an Förderung und Ansprechpartnern verfügbar ist.",
+    "einleitung": [
+      "Wer nach einer Beratung in der Region sucht, sucht selten Grundlagenwissen. Er sucht jemanden, der die Frage schon einmal für einen vergleichbaren Betrieb beantwortet hat, und will vorher wissen, wie das abläuft.",
+      "Die Artikel hier beantworten genau das: Ablauf, Kosten, was regional an Programmen und Anlaufstellen da ist."
+    ],
+    "reihenfolge": 12,
+    "indexierbar": true
+  }
+]
