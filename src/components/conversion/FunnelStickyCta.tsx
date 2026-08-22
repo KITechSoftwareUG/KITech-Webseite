@@ -59,7 +59,11 @@ export function FunnelStickyCta({
       aria-hidden={!sichtbar}
       inert={!sichtbar}
     >
-      <div className="px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3">
+      {/* `max-w-[420px]`: dieselbe Breite wie der Knopf im Hero. Ohne sie lief
+         die Pille auf Tablets ueber die volle Fensterbreite — bei 768 px
+         736 px, waehrend derselbe Knopf zwei Bildschirme weiter oben
+         420 px misst. */}
+      <div className="mx-auto w-full max-w-[420px] px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3">
         <Link
           href={href}
           onClick={() => trackEvent("Calendly_Klick", { position: "funnel-sticky" })}

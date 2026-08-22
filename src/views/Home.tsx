@@ -88,13 +88,26 @@ export default function Home({
           Desktop: das Portrait steht absolut am rechten Rand und wird vom
           Fensterrand angeschnitten. 18 % der Fensterbreite entspricht den in
           der Vorlage gemessenen 259 px bei 1440.
+
+          **Erst ab `dt` (1025 px), nicht schon ab `sm`.** Zwischen 640 und
+          1024 px ist der Knopf `w-full` und die Ueberschrift `max-w-[660px]`
+          zentriert — das absolut gesetzte Portrait lag dort ueber beidem:
+          gemessen 138 px ueber der Knopfbeschriftung und 105 px ueber der H1,
+          bei 1024 px sogar 168 px. Im Querformat eines Handys (844x390) galt
+          dasselbe. Ab `dt` bekommt der Knopf mit `dt:w-[420px]` seine feste
+          Breite und rueckt aus dem Weg; erst dann traegt die Anordnung.
+
+          Bis dahin uebernimmt die gestapelte Fassung unter dem Knopf — dieselbe
+          Aufteilung, die `/funnel` schon hat (`lg:block` / `lg:hidden`).
         */}
         {portrait && (
           <img
             src={portrait}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 right-0 hidden h-[300px] w-auto select-none object-contain object-bottom sm:block lg:h-[360px] dt:h-[400px]"
+            width={356}
+            height={700}
+            className="pointer-events-none absolute bottom-0 right-0 hidden h-[360px] w-auto select-none object-contain object-bottom dt:block dt:h-[400px]"
           />
         )}
 
@@ -132,7 +145,12 @@ export default function Home({
             /* `min-h` statt `h`: die Beschriftung kommt aus `angebot.ts` und
                kann laenger werden. Auf schmalen Handys bricht sie zweizeilig
                um — mit fester Hoehe liefe sie aus der Pille heraus. */
-            className="mt-[39px] inline-flex min-h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] py-2 text-center text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 dt:min-h-[56px] dt:w-[420px]"
+            /* Die Breite von 420 px greift ab `sm`, nicht erst ab `dt`: bis
+               dahin lief der Knopf ueber die volle Fensterbreite und war bei
+               1024 px 994 px breit — dieselbe Pille, die am Desktop 420 px
+               misst. Auf dem Handy bleibt die volle Breite richtig, dort ist
+               die Flaeche das Tippziel. */
+            className="mt-[39px] inline-flex min-h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] py-2 text-center text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-[420px] dt:min-h-[56px]"
           >
             {angebot.cta}
           </Link>
@@ -149,12 +167,27 @@ export default function Home({
           {/*
             Handy und Tablet: das Portrait steht unter dem Knopf, mittig und
             unten buendig — dort, wo die Vorlage ihr Hero-Bild zeigt.
+
+            Die Grenze ist `dt` (1025 px), nicht `sm`: bis dahin ist der Knopf
+            `w-full` und die Ueberschrift zentriert, und das absolut gesetzte
+            Portrait lag genau darueber. Begruendung oben am Desktop-Bild.
           */}
           {portrait && (
-            <div className="mt-[30px] flex w-full justify-center sm:hidden" aria-hidden="true">
+            <div className="mt-[30px] flex w-full justify-center dt:hidden" aria-hidden="true">
+              {/*
+                `width`/`height` sind gesetzt, obwohl die Anzeige ueber `h-[320px]
+                w-auto` laeuft: Ohne bekanntes Seitenverhaeltnis reserviert der
+                Browser keinen Platz, und die ganze Spalte darunter springt,
+                sobald das Bild eintrifft. Genau dieser Block war am 20.08.2026
+                der gemessene Hauptverursacher der Layoutverschiebung auf der
+                Startseite. Die Zahlen sind die tatsaechlichen Bildmasse
+                (public/images/team/ayham-hero.webp).
+              */}
               <img
                 src={portrait}
                 alt=""
+                width={356}
+                height={700}
                 className="h-[320px] w-auto select-none object-contain object-bottom"
               />
             </div>

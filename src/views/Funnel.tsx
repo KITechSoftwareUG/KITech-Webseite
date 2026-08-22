@@ -55,7 +55,7 @@ import { BASE_URL } from "@/lib/metadata";
  * **Nicht übernommen** wurde alles, was die Vorlage an Beweis behauptet, ohne
  * dass wir es belegen könnten: zehn Testimonials mit Zahlen (wir haben zwei
  * abgegebene Zitate), eine Sammelbewertung und ein durchgestrichener
- * Vorher-Preis. Erfundene Bewertungen sind nach § 5b Abs. 3 UWG abmahnbar.
+ * Vorher-Preis. Erfundene Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG abmahnbar.
  *
  * Der Rahmen ist `FunnelShell`, nicht `PageShell` — eine Landingpage mit voller
  * Website-Navigation gibt kaltem Traffic ein Dutzend Ausgänge. Begründung dort.
@@ -249,22 +249,40 @@ export function Funnel() {
           {/* Die drei Angaben, die vor dem Klick entscheiden — auf Lesehöhe
               statt als Kleingedrucktes unter dem Knopf. Senkrechte Striche
               statt Aufzählungspunkten, damit die Zeile ruhig bleibt. */}
-          {/* Die Trennstriche stehen erst ab `sm`: auf dem Handy bricht die
-              Zeile um, und ein Strich am Zeilenanfang sieht aus wie ein
-              Aufzählungszeichen, das dort nicht hingehört. Stattdessen trägt
-              der Abstand die Trennung. */}
-          <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-0">
+          {/* Die senkrechten Striche stehen erst ab `sm`. Darunter trennt ein
+              Mittelpunkt — und der steht **hinter** dem Wort, nicht davor.
+
+              Vorher trug allein der Abstand die Trennung, damit kein Strich an
+              einen Zeilenanfang rutscht. Gemessen sah das aber nicht nach einer
+              Liste aus, sondern nach drei verstreuten Wörtern: bei 320–390 px
+              zweizeilig als „Kostenlos   2 Stunden" / „Live, ohne Aufzeichnung",
+              und zwischen 430 und 640 px einzeilig ganz ohne jeden Trenner —
+              während am Desktop drei sauber getrennte Angaben stehen.
+
+              Der Mittelpunkt hinter dem Wort löst beides: er kann nie an einen
+              Zeilenanfang geraten, weil er im selben `li` sitzt wie sein Wort.
+              Dieselbe Schreibweise trägt die Zeile unter dem Hero-Knopf der
+              Startseite („Kostenlos · 30 Minuten · …"). */}
+          <ul className="mt-7 flex flex-wrap items-center gap-y-2">
             {c.eckdaten.map((punkt, index) => (
               <li key={punkt} className="flex items-center">
                 {index > 0 && (
                   <span
-                    className="mr-5 hidden h-4 w-px bg-border sm:ml-5 sm:block"
+                    className="hidden h-4 w-px bg-border sm:mx-5 sm:block"
                     aria-hidden="true"
                   />
                 )}
                 <span className="kinetic-data text-fliess font-semibold text-foreground sm:text-[16px]">
                   {punkt}
                 </span>
+                {index < c.eckdaten.length - 1 && (
+                  <span
+                    className="mx-2 font-semibold text-muted-foreground sm:hidden"
+                    aria-hidden="true"
+                  >
+                    ·
+                  </span>
+                )}
               </li>
             ))}
           </ul>
