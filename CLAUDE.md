@@ -57,6 +57,15 @@ gesucht hatte:
   Sicherheitsupdates. Jetzt `node:22-alpine`, dieselbe Hauptversion, gegen die
   hier lokal getestet wird. `engines` in `package.json` schreibt es fest.
 
+Ein fünfter Befund kam bei der Nachprüfung dazu: **`/glossar` gab zwei
+BreadcrumbList-Knoten für denselben Pfad aus** — einen aus
+`buildGlossaryIndexSchema()`, einen zusätzlich aus der View, unterschieden nur
+in der Beschriftung des ersten Elements („Start > Glossar" gegen „Startseite >
+Glossar"). Das ist kein Alternativpfad, sondern eine Dublette; welchen Google
+für das Suchergebnis nimmt, ist dann Zufall. Im Quelltext war das nicht zu
+sehen — die View spreadete eine Funktion, die mehrere Schemas liefert. Siehe
+[JSON-LD prüfen](#json-ld-des-ausgelieferten-html-prüfen).
+
 Dazu geradegezogen: der ODR-Link im Impressum brach bei 320 px nicht um (4 px
 Overflow, jetzt `break-words`), `lastModified` für `/impressum` steht auf dem
 23.08., und die acht losen Arbeitsdateien aus dem Projektwurzelverzeichnis
@@ -1067,6 +1076,38 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 ### Structured Data (JSON-LD)
 `src/components/seo/StructuredData.tsx` — Schema-Funktionen fuer Organization, LocalBusiness, WebPage, Breadcrumb, Review, FAQ, Person (Gruender), ItemList (Kunden), Enterprise-Cloud-spezifische Schemas. Bei Content-Aenderungen diese Datei ggf. mitpflegen. Zod-Validierung der erzeugten Schemas in `src/lib/schema-validators.ts` + `src/lib/__tests__/`.
 
+### JSON-LD des ausgelieferten HTML prüfen
+
+```bash
+npm run pruefe:jsonld                            # gegen die Live-Domain
+node scripts/pruefe-jsonld.mjs http://127.0.0.1:8124   # gegen den Container
+```
+
+[`scripts/pruefe-jsonld.mjs`](scripts/pruefe-jsonld.mjs) holt 19 Seiten, liest
+jeden `application/ld+json`-Block und prüft drei Dinge: gültiges JSON mit
+`@context`, kein Typ doppelt, der nur einmal vorkommen darf (`BreadcrumbList`,
+`Organization`, `WebSite`, `WebPage`, `ProfilePage`, `CollectionPage`), und
+jede `@id`-Referenz (`publisher`, `worksFor`, `isPartOf`, `about`) zeigt auf
+einen Knoten, der auf derselben Seite auch definiert ist.
+
+**Warum als Skript und nicht als Unit-Test.** Die Schemas entstehen an drei
+Orten: in `StructuredData`-Aufrufen der Views, in Sammelfunktionen wie
+`buildGlossaryIndexSchema()`, und in `PageShell` (Organisation + WebSite). Was
+am Ende auf einer Seite steht, sieht man erst am gerenderten HTML — die
+Breadcrumb-Dublette auf `/glossar` war im Quelltext unsichtbar.
+
+Was sich statisch prüfen lässt, steht trotzdem im Testlauf:
+[`breadcrumb-dubletten.test.ts`](src/lib/__tests__/breadcrumb-dubletten.test.ts)
+prüft die Schema-Funktionen auf genau eine Breadcrumb, die einheitliche
+Beschriftung „Startseite" (der Rest der Website nutzt sie 34-mal, das Glossar
+war der Ausreißer) und — statisch über alle Views — dass keine View eine
+Sammelfunktion mit einem eigenen `getBreadcrumbSchema()` kombiniert.
+
+⚠️ Beide Tests prüfen **Quelltext**. Sie schneiden Kommentare heraus
+([`quelltext.ts`](src/lib/__tests__/quelltext.ts)) — sonst verbietet der Test
+genau die Dokumentation, wegen der er existiert. Dieselbe Falle war vorher beim
+`§ 5 TMG`-Test zugeschnappt.
+
 ### KI-Crawler-Optimierung
 - `robots.txt`: Explizite Allow-Regeln fuer GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
 - `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **werden seit dem 21.08.2026 erzeugt, nicht gepflegt** (`npm run llms`, siehe [llms.txt](#llmstxt-wird-erzeugt-nicht-gepflegt)). Ein Test bricht ab, sobald sie vom Stand der Datendateien abweichen.
@@ -1363,6 +1404,12 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
     printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123$p)"
   done
   docker rm -f kitech-test && docker rmi kitech-website-test:local
+  ```
+
+  Dazu das JSON-LD des laufenden Containers:
+
+  ```bash
+  node scripts/pruefe-jsonld.mjs http://127.0.0.1:8123
   ```
 
   `npm start` funktioniert wegen `output: "standalone"` nur eingeschraenkt (Next

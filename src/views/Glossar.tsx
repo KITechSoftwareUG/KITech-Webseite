@@ -6,10 +6,9 @@ import { PageShell } from "@/components/layout/PageShell";
 import { SITE_CONTAINER } from "@/components/layout/site-container";
 import { PageHeading } from "@/components/sections/PageHeading";
 import { CtaBanner } from "@/components/sections/CtaBanner";
-import { StructuredData, getBreadcrumbSchema } from "@/components/seo/StructuredData";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { glossaryTerms } from "@/data/glossary";
 import { buildGlossaryIndexSchema } from "@/lib/glossary-schema";
-import { BASE_URL } from "@/lib/metadata";
 
 /**
  * `/glossar` — Begriffsübersicht.
@@ -26,15 +25,17 @@ export default function Glossar() {
   return (
     <PageShell>
       <StructuredData
-        data={[
-          // Der Index-Aufbau liefert bereits mehrere Schemas — deshalb spreaden,
-          // sonst entsteht ein verschachteltes Array, das kein gültiges JSON-LD ist.
-          ...buildGlossaryIndexSchema(),
-          getBreadcrumbSchema([
-            { name: "Startseite", url: `${BASE_URL}/` },
-            { name: "Glossar", url: `${BASE_URL}/glossar` },
-          ]),
-        ]}
+        // Der Index-Aufbau liefert mehrere Schemas — deshalb spreaden, sonst
+        // entsteht ein verschachteltes Array, das kein gültiges JSON-LD ist.
+        //
+        // **Und er liefert die Breadcrumb schon mit.** Hier stand bis zum
+        // 23.08.2026 zusätzlich ein eigener `getBreadcrumbSchema()`-Aufruf; die
+        // Seite gab dadurch live **zwei** BreadcrumbList-Knoten für denselben
+        // Pfad aus, die sich nur in der Beschriftung des ersten Elements
+        // unterschieden („Start > Glossar" und „Startseite > Glossar"). Das ist
+        // kein Alternativpfad, sondern eine Dublette — welchen Google nimmt,
+        // ist dann Zufall.
+        data={buildGlossaryIndexSchema()}
       />
 
       <PageHeading

@@ -20,6 +20,7 @@
     "blog:backlinks": "tsx scripts/blog-engine/backlink-radar.ts",
     "blog:brief": "tsx scripts/blog-engine/brief.ts",
     "llms": "tsx scripts/llms-txt.ts",
+    "pruefe:jsonld": "node scripts/pruefe-jsonld.mjs",
     "og": "node scripts/og-standardbild.mjs"
   },
   "dependencies": {

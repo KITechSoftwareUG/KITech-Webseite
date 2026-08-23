@@ -56,7 +56,7 @@ export function buildGlossaryTermSchema(term: GlossaryTerm) {
       },
     },
     getBreadcrumbSchema([
-      { name: "Start", url: `${GLOSSARY_BASE_URL}/` },
+      { name: "Startseite", url: `${GLOSSARY_BASE_URL}/` },
       { name: "Glossar", url: GLOSSARY_INDEX_URL },
       { name: term.term, url },
     ]),
@@ -72,7 +72,7 @@ export function buildGlossaryIndexSchema() {
       GLOSSARY_INDEX_URL
     ),
     getBreadcrumbSchema([
-      { name: "Start", url: `${GLOSSARY_BASE_URL}/` },
+      { name: "Startseite", url: `${GLOSSARY_BASE_URL}/` },
       { name: "Glossar", url: GLOSSARY_INDEX_URL },
     ]),
     {

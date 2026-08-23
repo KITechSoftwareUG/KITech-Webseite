@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
+import { ohneKommentare } from "./quelltext";
 
 /**
  * Die drei Rechtstexte gegen Normen prüfen, die es nicht mehr gibt.
@@ -19,19 +20,6 @@ import path from "node:path";
 
 const RECHTSTEXTE = ["Impressum.tsx", "Datenschutz.tsx", "AGB.tsx"] as const;
 
-/**
- * Kommentare herausschneiden, bevor geprüft wird.
- *
- * Ein Kommentar, der erklärt *warum* „§ 5 TMG" falsch ist, muss die Norm nennen
- * dürfen — sonst ist die Begründung nicht lesbar. Geprüft wird deshalb nur, was
- * die Seite tatsächlich ausgibt. Ohne diesen Schritt verbietet der Test genau
- * die Dokumentation, wegen der er existiert.
- */
-function ohneKommentare(quelltext: string): string {
-  return quelltext
-    .replace(/\/\*[\s\S]*?\*\//g, " ")
-    .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ");
-}
 
 /**
  * Aufgehobene Normen und das, was an ihre Stelle getreten ist.
