@@ -2,7 +2,7 @@
  * Team fuer die "Wer wir sind"-Sektion. Die Reihenfolge in `teamRoster` ist die
  * Reihenfolge im Raster — Ayham zuerst, danach das Team.
  *
- * Ayham und Leon haben freigestellte Portraits (transparenter Hintergrund).
+ * Ayham hat ein freigestelltes Portrait (transparenter Hintergrund).
  * Deshalb setzt die Komponente einen aufgehellten "Studio-Grund" hinter das Bild:
  * ohne den wuerden dunkle Anzuege auf dem near-black Seitenhintergrund komplett
  * verschwinden.
@@ -29,7 +29,7 @@ export interface TeamMember {
    * Persoenliches LinkedIn-Profil. `null`, solange die URL nicht vorliegt — dann
    * rendert die Kachel keinen Link statt auf ein fremdes oder erfundenes Profil
    * zu zeigen.
-   * TODO (Ayham): URLs fuer Leon, Joerg und Jennifer nachtragen.
+   * TODO (Ayham): URLs fuer Joerg und Jennifer nachtragen.
    */
   linkedinUrl: string | null;
   /** Hebt die Kachel hervor (Akzentkante + hellerer Grund). Aktuell nur der Gruender. */
@@ -51,21 +51,6 @@ export const teamRoster: TeamMember[] = [
      * keine zweite Auszeichnung.
      */
     highlight: false,
-  },
-  {
-    name: "Leon",
-    /** Rolle am 17.08.2026 auf Ansage geändert — vorher „Entwickler". */
-    role: "Technical Accountant",
-    bio: "Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen.",
-    /**
-     * Das Foto war am 14.08.2026 kurz draußen, weil Leon damals zusätzlich als
-     * Kunde im Kundenlaufband stand und sein Gesicht dadurch zweimal auf
-     * derselben Seite war. Seit dem 17.08.2026 ist die Referenz `klargehalt.de`
-     * ohne Person (siehe `client-results.ts`) — der Grund ist damit weg, das
-     * Foto bleibt.
-     */
-    photo: "/images/team/leon.webp",
-    linkedinUrl: null,
   },
   {
     /**

@@ -186,14 +186,34 @@ export function CookieConsent() {
         >
           <div className="mx-auto max-w-4xl">
             <div className="relative rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl p-5 md:p-8">
-              <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center">
-                <div className="flex-shrink-0 hidden md:block">
+              {/*
+                Einzeilig erst ab `dt` (1025 px), nicht ab `md` (768 px).
+
+                Gemessen am 23.08.2026 auf der Live-Domain: bei genau 768 px ragte
+                die Knopfgruppe **31 px ueber den rechten Bildschirmrand**, bei
+                800 px stand sie auf der Kante (-1 px), erst ab 840 px war Luft.
+                768 px ist das iPad im Hochformat -- und der Banner ist das erste,
+                was ein Erstbesucher sieht.
+
+                Ursache war nicht der Breakpoint allein, sondern dass in dieser
+                Zeile nichts nachgeben konnte: Icon (56 px) + Text + drei Knoepfe
+                mit `whitespace-nowrap`, und der Textbereich stand auf `flex-1`
+                ohne `min-w-0` -- ein Flex-Kind kann per Vorgabe nicht unter seine
+                Inhaltsbreite schrumpfen. Deshalb beides: spaeterer Umbruch UND
+                `min-w-0`.
+
+                `dt` ist derselbe Punkt, an dem die Kopfzeile auf die volle
+                Navigation schaltet und an dem seit dem 22.08.2026 das
+                Hero-Portrait erscheint.
+              */}
+              <div className="flex flex-col dt:flex-row gap-4 dt:gap-6 items-start dt:items-center">
+                <div className="flex-shrink-0 hidden dt:block">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Cookie className="h-7 w-7 text-primary" />
                   </div>
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <h3 className="text-base md:text-lg font-semibold text-foreground mb-1.5 md:mb-2">
                     Datenschutz & Cookies
                   </h3>
@@ -267,7 +287,7 @@ export function CookieConsent() {
                   )}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div className="flex flex-col sm:flex-row gap-3 w-full dt:w-auto">
                   {showSettings ? (
                     <>
                       <Button

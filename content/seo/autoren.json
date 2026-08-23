@@ -15,17 +15,5 @@
     "bild": "/images/team/ayham.webp",
     "linkedinUrl": "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
     "email": "aalkh@kitech-software.de"
-  },
-  {
-    "slug": "leon-battel",
-    "name": "Leon Battel",
-    "rolle": "Technical Accountant",
-    "kurzbeschreibung": "Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen. Arbeitet an der Schnittstelle zwischen Buchhaltungsprozessen und Software und schreibt über das, was dort tatsächlich automatisierbar ist — und über die Stellen, an denen eine Automatisierung mehr Nacharbeit erzeugt, als sie spart.",
-    "themen": [
-      "Belegverarbeitung",
-      "Schnittstellen zur Finanzbuchhaltung",
-      "Automatisierung im Rechnungswesen"
-    ],
-    "bild": "/images/team/leon.webp"
   }
 ]

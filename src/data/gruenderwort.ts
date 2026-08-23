@@ -53,13 +53,16 @@ export interface Gruenderwort {
    * Wer gezeigt wird — Namen wie in `src/data/team.ts`, in dieser Reihenfolge.
    *
    * **Auf Ansage (14.08.2026):** „Da, wo mein Bild auftaucht, gerne auch mein
-   * Team anzeigen. Ich geb dir zwei Leute: Jörg und Leon." Und kurz darauf:
-   * „Leon und Jörg Kratzat mit Bildern! Alle nebeneinander auch — nicht nur
-   * mich so prominent darstellen!"
+   * Team anzeigen … Alle nebeneinander auch — nicht nur mich so prominent
+   * darstellen!"
    *
    * Deshalb steht Ayham **in derselben Reihe** und nicht mehr als großes
-   * Portrait daneben: drei gleich breite Kacheln, gleiche Bildhöhe, keine
+   * Portrait daneben: gleich breite Kacheln, gleiche Bildhöhe, keine
    * Auszeichnung für den Gründer.
+   *
+   * **Leon ist am 23.08.2026 auf Ansage komplett von der Website genommen**
+   * („Leon soll überall raus. Er ist kein Geschäftsführer!") — er stand hier,
+   * in `team.ts`, im Impressum und als Autor in `content/seo/autoren.json`.
    *
    * Jennifer (Werkstudentin Backoffice) ist bewusst nicht dabei. Wer sie
    * ergänzen will, trägt hier den Namen ein — Foto, Rolle und Satz kommen
@@ -95,7 +98,7 @@ export const gruenderwort: Gruenderwort = {
   abschluss: "Im 1:1-KI-Check sprichst du mit mir, nicht mit einem Vertrieb.",
 
   teamUeberschrift: "Das Team",
-  teamNamen: ["Ayham Alkhalil", "Leon", "Jörg Kratzat"],
+  teamNamen: ["Ayham Alkhalil", "Jörg Kratzat"],
 
   teamEinladung: "Du willst dabei sein?",
 };

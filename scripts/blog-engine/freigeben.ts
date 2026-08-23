@@ -1,3 +1,6 @@
+/* Muss der erste Import bleiben: fuellt process.env aus .env, bevor ein
+   anderes Modul nach einem Zugang fragt. Siehe lib/umgebung.ts. */
+import "./lib/umgebung.js";
 import { ladeAlleArtikel, schreibeArtikel } from "./lib/artikel-io.js";
 import { pruefeArtikel } from "./lib/qualitaet.js";
 import { melde, warne, fehler } from "./lib/protokoll.js";

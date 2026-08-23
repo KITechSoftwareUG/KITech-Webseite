@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand. Sitz in Hannover. Gebaut wird, was im Tagesgeschäft läuft — betrieben in europäischer Region über AWS oder Azure mit Auftragsverarbeitungsvertrag oder auf eigener Hardware.
 
-Stand: 21.08.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
+Stand: 23.08.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
 
 ## Unternehmen
 

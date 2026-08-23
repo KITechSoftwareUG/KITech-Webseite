@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand.
 
-Stand: 21.08.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
+Stand: 23.08.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
 
 ---
 
@@ -200,14 +200,6 @@ Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung 
 - LinkedIn: https://www.linkedin.com/in/ayham-alkhalil-66bb451b5
 - Themen: Prozessautomatisierung, KI-Integration in bestehende Systeme, RAG-Systeme auf Unternehmensdaten, KI-Betrieb unter DSGVO und EU AI Act, Individualsoftware mit Next.js und Supabase, KI-gestützte Softwareentwicklung
 - Artikel: 5
-
-### Leon Battel — Technical Accountant
-
-Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen. Arbeitet an der Schnittstelle zwischen Buchhaltungsprozessen und Software und schreibt über das, was dort tatsächlich automatisierbar ist — und über die Stellen, an denen eine Automatisierung mehr Nacharbeit erzeugt, als sie spart.
-
-- Profil: https://kitech-software.de/autoren/leon-battel
-- Themen: Belegverarbeitung, Schnittstellen zur Finanzbuchhaltung, Automatisierung im Rechnungswesen
-- Artikel: 0
 
 ---
 

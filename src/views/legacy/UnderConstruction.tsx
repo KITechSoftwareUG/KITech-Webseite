@@ -14,10 +14,9 @@ import kremaLogo from "@/assets/krema-logo.png";
 import expatvantageLogo from "@/assets/expatvantage-logo.png";
 import metrikLogo from "@/assets/metrik.webp";
 import ayhamPortrait from "@/assets/ayham-portrait.webp";
-import leonPortrait from "@/assets/leon-portrait.webp";
 
 /**
- * linkedin: Leon bewusst noch leer (kein erfundener Link zu einem echten
+ * linkedin: bewusst leer, wo keine URL vorliegt (kein erfundener Link zu einem echten
  * Profil) - wird ergaenzt, sobald die tatsaechliche URL vorliegt.
  */
 const founders: { name: string; email: string; linkedin: string | null; photo: string }[] = [
@@ -27,7 +26,6 @@ const founders: { name: string; email: string; linkedin: string | null; photo: s
     linkedin: "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
     photo: ayhamPortrait.src,
   },
-  { name: "Leon Battel", email: "leon.battel@kitech-software.de", linkedin: null, photo: leonPortrait.src },
 ];
 
 const ROTATION_INTERVAL_MS = 5000;
@@ -194,7 +192,7 @@ export default function UnderConstruction() {
             </div>
           </div>
 
-          {/* Bildspalte: scharfkantig umrandeter Rahmen, Fotos von Ayham und Leon wechseln
+          {/* Bildspalte: scharfkantig umrandeter Rahmen, die Fotos wechseln
               sich per Crossfade ab (kein rundes Avatar-Crop, passend zum eckigen Seitenstil).
               Bei prefers-reduced-motion keine automatische Rotation - bleibt auf Ayham stehen,
               damit kein sich selbst aendernder Inhalt gegen die Bewegungs-Einstellung laeuft. */}

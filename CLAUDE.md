@@ -32,6 +32,73 @@ erfundene Bewertungen ist **korrigiert**: nicht § 5b Abs. 3 UWG (das ist die
 Informationspflicht), sondern der **Anhang zu § 3 Abs. 3 Nr. 23c UWG** — die
 Schwarze Liste, die ohne Interessenabwägung greift.
 
+**Stand 23.08.2026 — Konsolidierung: was aus mehreren Sessions zusammengezogen
+und in einem Zug deployt wurde.** Auf Ansage („alles glattziehen, in einem Zug
+deployen, Deploy-Architektur prüfen"). Vier Befunde, die keiner der Einzelaufträge
+gesucht hatte:
+
+- **Das Impressum berief sich auf § 5 TMG.** Das Telemediengesetz ist am
+  14.05.2024 durch das Digitale-Dienste-Gesetz abgelöst worden; die
+  Impressumspflicht steht seither in **§ 5 DDG**. Genau dieser Fehler war am
+  21.08.2026 in `llms.txt` gefunden und dort per Test abgesichert worden — die
+  Seite, um die es eigentlich ging, lag außerhalb der Prüfung. Neu:
+  [`src/lib/__tests__/rechtstexte.test.ts`](src/lib/__tests__/rechtstexte.test.ts)
+  deckt Impressum, Datenschutz und AGB ab und kennt auch TTDSG→TDDDG.
+- **Die Blog-Engine hat `.env` nie gelesen.** Sie fragte `process.env` ab, aber
+  weder `dotenv` noch ein `--env-file`-Flag füllten es; `tsx` lädt von sich aus
+  nichts. Wer `DATAFORSEO_LOGIN` korrekt einträgt, bekam trotzdem
+  „DATAFORSEO_LOGIN fehlt" — und suchte beim Zugang statt beim Laden. Siehe
+  [Zugangsdaten der Blog-Automatik](#zugangsdaten-der-blog-automatik).
+- **Der Cookie-Banner ragte bei 768 px über den Bildschirmrand** — auf *jeder*
+  Seite, gemessen 31 px. 768 px ist das iPad im Hochformat, und der Banner ist
+  das erste, was ein Erstbesucher sieht. Siehe
+  [Cookie-Banner bricht erst ab `dt` um](#cookie-banner-bricht-erst-ab-dt-um).
+- **Der Container lief auf Node 20** — seit April 2026 End-of-Life, also ohne
+  Sicherheitsupdates. Jetzt `node:22-alpine`, dieselbe Hauptversion, gegen die
+  hier lokal getestet wird. `engines` in `package.json` schreibt es fest.
+
+Dazu geradegezogen: der ODR-Link im Impressum brach bei 320 px nicht um (4 px
+Overflow, jetzt `break-words`), `lastModified` für `/impressum` steht auf dem
+23.08., und die acht losen Arbeitsdateien aus dem Projektwurzelverzeichnis
+liegen in `.tmp/vorlagen/` mit einer Notiz, was sie sind.
+
+Gemessen statt behauptet: 140 Messungen über 20 Routen × 7 Breiten (320–1024 px)
+gegen den Container → **0 horizontaler Overflow, 0 Textüberlauf, 0 echte
+Tippziel-Befunde** (19 Ziele unter 24 px fallen sämtlich unter eine
+WCAG-2.2-Ausnahme: 3 inline, 16 mit ausreichendem Abstand). Alle 27 Routen im
+Container mit erwartetem Status, `/gibt-es-nicht` mit 404.
+
+**Stand 23.08.2026 — Leon ist von der Website genommen.** Auf Ansage: „Leon
+soll überall raus. Er ist kein Geschäftsführer!" Betroffen waren fünf Stellen:
+die Zeile „Vertreten durch" im **Impressum** (dort stand „Ayham Alkhalil,
+L. Battel"), der Eintrag in `src/data/team.ts`, die Teamliste neben dem
+Gründerwort (`teamNamen` in `src/data/gruenderwort.ts`), der Autoreneintrag in
+`content/seo/autoren.json` samt Autorenseite `/autoren/leon-battel`, und das
+Portrait `public/images/team/leon.webp`. `npm run llms` ist nachgezogen.
+
+Zwei Dinge, die daran hängen:
+
+- **Fünf Themen im Vorrat** (`content/seo/themen-pool.json`, E-Rechnung und
+  Belegverarbeitung) waren ihm als Autor zugewiesen und stehen jetzt auf
+  `ayham-alkhalil`. Ohne das hätte der erste Blog-Lauf zu einem dieser Themen
+  einen Artikel erzeugt, dessen Autor nicht in `autoren.json` steht — und der
+  Loader bricht den Build genau daran ab.
+- **`/autoren/leon-battel` liefert jetzt 404.** Die Seite stand in der Sitemap
+  und war indexiert; die Adresse fällt aus dem Index. Bewusst keine
+  Weiterleitung — es gibt kein Ziel, das dasselbe bedeutet.
+
+⚠️ **Rechtlich zu klären, nicht im Code:** § 5 Abs. 1 Nr. 1 DDG verlangt im
+Impressum **alle** Vertretungsberechtigten. Ist L. Battel im Handelsregister
+(HRB 230077) weiterhin als Geschäftsführer eingetragen, ist die Kurzfassung ein
+abmahnfähiger Verstoß — dann gehört er zurück ins Impressum, unabhängig davon,
+wie er auf der Website sonst auftritt. Ist er ausgetragen (oder war es nie),
+passt der Stand so.
+
+Nicht angefasst: der Absender des Tagesberichts
+(`leon.battel@kitech-software.de`, Microsoft Graph, siehe
+[Tagesbericht](#der-tägliche-bericht-kommt-per-e-mail)) — das ist Infrastruktur
+außerhalb der Website und wäre ein eigener Umbau.
+
 **Stand 21.08.2026 — Sichtbarkeitsprüfung und was daraus folgte.** Eine
 vollständige SEO- und GEO-Prüfung gegen die Live-Domain (Lighthouse, curl,
 Auswertung aller vorgerenderten HTML-Dateien) hat sechzehn Befunde ergeben; die
@@ -85,13 +152,14 @@ geordnet**: alle inhaltlichen Bilder liegen unter `public/images/`
 (`team/`, `referenzen/portraits/`, `referenzen/logos/`), Wegweiser in
 [`public/images/README.md`](public/images/README.md). Ein neues Foto braucht
 damit keine Import-Zeile mehr — Datei ablegen, Pfad eintragen. Die Referenz
-**klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: Leon steht
-im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
+**klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: der Mensch
+dahinter stand damals im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
 seitlich neben dem Gründerwort** statt in großen Kacheln, mit der Einladung
 „Du willst dabei sein?" auf `/karriere`. **Jörg Kratzat** hat ein Foto und
 steht jetzt als Vertrieb für IT und SaaS (er tauchte kurzzeitig als zweite
-Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt). Leon
-heißt jetzt **Technical Accountant**.
+Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt).
+(Der am selben Tag ergänzte Eintrag „Technical Accountant" ist am 23.08.2026
+wieder entfallen, siehe oben.)
 
 Zuletzt am selben Tag: die **klargehalt-Karte führt direkt auf klargehalt.de**
 statt auf ihre Detailseite (Feld `klickZiel` in `src/data/client-results.ts`),
@@ -219,10 +287,10 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 ├── public/
 │   ├── favicon.ico            # Favicon
 │   ├── robots.txt             # SEO + KI-Crawler-Freigaben
-│   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten (liegt hinter dem aktuellen Stand)
-│   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten (liegt hinter dem aktuellen Stand)
+│   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten — ERZEUGT (npm run llms)
+│   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten — ERZEUGT (npm run llms)
 │   ├── images/                  # ★ ALLE inhaltlichen Bilder (siehe images/README.md)
-│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, leon, joerg)
+│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, joerg)
 │   │   ├── referenzen/portraits/ #   Kundengesichter
 │   │   ├── referenzen/logos/    #   Kundenlogos
 │   │   └── og/                  #   Social-Vorschaubilder
@@ -484,6 +552,49 @@ liegt — nicht nur Artikel.
 
 Vollständige Risikoeinschätzung mit Quellen und Not-Aus:
 `.claude/skills/blog-seo/reference/risiko.md`.
+
+#### Zugangsdaten der Blog-Automatik
+
+**Die Werte gehören in `.env` im Projektwurzelverzeichnis** (Vorlage:
+`.env.example`). Die Datei steht in `.gitignore` und wird nie committet.
+
+```
+DATAFORSEO_LOGIN=…        # aus dem DataForSEO-Dashboard unter "API Access",
+DATAFORSEO_PASSWORD=…     #   NICHT die Anmeldedaten des Benutzerkontos
+DATAFORSEO_SANDBOX=1      # zum Ausprobieren: kostenlos, Dummy-Daten
+FIRECRAWL_API_KEY=fc-…
+ANTHROPIC_API_KEY=…
+```
+
+⚠️ **Bis zum 23.08.2026 hätte das nichts genützt: `.env` wurde von keinem
+Skript gelesen.** Die Engine fragte `process.env` ab, aber niemand füllte es —
+kein `dotenv` im Projekt, kein `--env-file` in den `blog:*`-Scripts, und `tsx`
+lädt von sich aus keine `.env`. Nachgemessen: eine Variable eintragen und
+auslesen ergab `(nicht gesetzt)`.
+
+Der Fehler war deshalb so heimtückisch, weil er wie ein Zugangsproblem aussieht:
+Man trägt den Schlüssel sauber ein und liest trotzdem „DATAFORSEO_LOGIN fehlt".
+Und er konnte lange unentdeckt bleiben, weil die Pipeline mangels Schlüsseln
+ohnehin nie gelaufen war.
+
+Behoben mit [`scripts/blog-engine/lib/umgebung.ts`](scripts/blog-engine/lib/umgebung.ts):
+`process.loadEnvFile()` in einem Modul, das jeder der sechs Einstiegspunkte als
+**ersten Import** trägt. Bewusst kein Flag in `package.json` — das griffe nur
+beim Start über npm, und die Engine soll auch aus Cron, n8n oder direkt per
+`tsx` startbar sein. Fehlt `.env`, passiert nichts: im Container kommen die
+Werte aus echten Umgebungsvariablen.
+
+Abgesichert von
+[`src/lib/__tests__/blog-engine-umgebung.test.ts`](src/lib/__tests__/blog-engine-umgebung.test.ts)
+— der Test prüft für jeden Einstiegspunkt, dass der Import an **erster** Stelle
+steht.
+
+**Erster Lauf, wenn die Schlüssel da sind:**
+
+```bash
+npm run blog:lauf -- --trocken     # zeigt, was passieren würde. Kostet nichts.
+npm run blog:lauf -- --anzahl 1    # ein Entwurf, danach ansehen
+```
 
 #### Das Substanz-Tor
 
@@ -789,8 +900,8 @@ einzigen harten Beweis.
   `ReferencePortrait.tsx` haengt allen die Utility `.portrait-fade` (`src/index.css`)
   an: die Fotos enden am Brustkorb, ohne den Verlauf sieht die Person abgeschnitten
   aus. Die `imageClassName`-Hoehe muss zur Breite passen, sonst entsteht Leerraum.
-- **Reihenfolge im Raster** = Array-Reihenfolge. Benjamin Ronneburg und Leon Battel
-  stehen oben, weil nur fuer sie Fotos vorliegen.
+- **Reihenfolge im Raster** = Array-Reihenfolge. Oben stehen die Faelle, fuer die
+  ein Foto vorliegt.
 - **Offen — Grynia:** `public/images/kunden/grynia.webp` liegt bereit, es fehlen
   Name, Firma und die Kennzahl. Kommt der Fall dazu, muessen "Sechs von ueber 50"
   in `ClientResults.tsx` und "Sechs Faelle …" in `Referenzen.tsx` mitgezogen werden.
@@ -887,6 +998,31 @@ Zahlen sind in beiden Fassungen dieselben.
 Geprueft wird das nicht automatisch: wer eine Beschriftung verlaengert, sieht
 sie sich bei **360 px** Fensterbreite an. Dort bricht zuerst etwas um.
 
+### Cookie-Banner bricht erst ab `dt` um
+
+**Regel (23.08.2026): Wer eine Zeile aus Text plus mehreren Knoepfen baut,
+misst sie bei 768 px.** Dort ist sie am engsten — `md` hat gerade gegriffen, der
+Platz aber noch nicht.
+
+Der Cookie-Banner stand auf `md:flex-row` (768 px): Icon (56 px) + Text + drei
+Knoepfe mit `whitespace-nowrap` in einer Zeile. Gemessen auf der Live-Domain
+ragte die Knopfgruppe **31 px ueber den rechten Bildschirmrand**, bei 800 px
+stand sie auf der Kante (−1 px), erst ab 840 px war Luft. Betroffen war **jede
+Seite** — und 768 px ist das iPad im Hochformat.
+
+Zwei Ursachen, beide behoben:
+
+| Was | Warum |
+|---|---|
+| `md:flex-row` → `dt:flex-row` | `dt` (1025 px) ist der Punkt, an dem auch die Kopfzeile umschaltet und seit dem 22.08.2026 das Hero-Portrait erscheint. Bis dahin steht der Banner zweizeilig — was er soll. |
+| `flex-1` → `flex-1 min-w-0` | Ein Flex-Kind kann per Vorgabe **nicht** unter seine Inhaltsbreite schrumpfen (`min-width: auto`). Ohne `min-w-0` drueckt der Text die Knoepfe hinaus, statt selbst nachzugeben. Das ist die eigentliche Ursache — der Breakpoint allein hätte den Fehler nur verschoben. |
+
+Mitgezogen: `hidden md:block` am Icon (sonst stuende es zwischen 768 und 1024 px
+allein ueber dem Text) und `w-full md:w-auto` an der Knopfgruppe.
+
+Nachgemessen im Container: bei 768 px jetzt **57 px Luft** statt 31 px
+Ueberstand, ueber alle Breiten von 700 bis 1100 px kein Ueberstand mehr.
+
 ### Container
 
 Eine Breite fuer alles: **`SITE_CONTAINER`** aus
@@ -933,7 +1069,7 @@ desselben Verlaufswerts. Ueber `PageShell` gesteuert:
 
 ### KI-Crawler-Optimierung
 - `robots.txt`: Explizite Allow-Regeln fuer GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot
-- `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **liegen hinter dem aktuellen Code-Stand zurueck** (sie kennen weder `/warum`, `/karriere` noch die reaktivierten Seiten), vor Verlass darauf gegenpruefen. **Offen:** beide auf den Stand nach dem 05.08.2026 bringen.
+- `llms.txt` / `llms-full.txt`: Kompakte bzw. ausfuehrliche Projektuebersicht fuer KI-Agenten — **werden seit dem 21.08.2026 erzeugt, nicht gepflegt** (`npm run llms`, siehe [llms.txt](#llmstxt-wird-erzeugt-nicht-gepflegt)). Ein Test bricht ab, sobald sie vom Stand der Datendateien abweichen.
 - `sitemap.xml`: enthaelt aktuell 19 URLs — alle Hauptseiten, die Rechtstexte und die sechs Glossarartikel. Nicht enthalten: die beiden Sales Letter und `/karriere` (Platzhalterinhalte), die Referenz-Detailseiten (offene Punkte), die Kampagnenseiten `/funnel` und `/fokus`, der Selbstcheck (siehe [Markenfreier Selbstcheck](#markenfreier-selbstcheck)) und die Alias-Routen.
 
 ---
@@ -1205,6 +1341,7 @@ Custom Events (`src/lib/plausible.ts`, Typ `PlausibleEvent`): `CTA_Klick`, `Kont
 
 - **Platform:** Selbstgehostet ueber Coolify (VPS), Application "KITech Website"
 - **Application-UUID:** `j9vencbq8b2nugo86eimxnku` — API-Token in `/home/deploy/KITech/infra/secrets/coolify-api-token.env`, Dashboard auf `http://localhost:8000`
+- **Node:** **22** im Container (`node:22-alpine`), seit 23.08.2026 — Node 20 ist seit April 2026 End-of-Life. `engines` in `package.json` haelt es fest.
 - **Build Pack:** **`dockerfile`**, Port **3000** — seit 05.08.2026 umgestellt (vorher nixpacks/Caddy, das reicht fuer Next.js nicht, weil zur Laufzeit ein Node-Server noetig ist). Details in `deploy/COOLIFY.md`.
 - **Custom Domain:** `https://kitech-software.de` (+ `www`)
 - **Routing:** dateibasiert ueber `src/app/`. Kein SPA-Fallback mehr noetig — der Node-Server beantwortet jede Route direkt.
@@ -1290,7 +1427,7 @@ entfernen — beides ist eine inhaltliche Entscheidung.
 - **E-Mail:** info@kitech-software.de (allgemein), aalkh@kitech-software.de (Ayham, personalisierte CTAs)
 - **Telefon (Festnetz):** +49 (0) 511 89738590
 - **Telefon (Mobil, Ayham):** +49 151 64682544 — wird in neueren Komponenten (StickyMobileCTA, ExitIntentPopup) verwendet
-- **LinkedIn (Ayham):** [linkedin.com/in/ayham-alkhalil-66bb451b5](https://www.linkedin.com/in/ayham-alkhalil-66bb451b5) — zentral in `founderInfo.linkedinUrl` (`FounderPortrait.tsx`), Leons LinkedIn-URL liegt noch nicht vor
+- **LinkedIn (Ayham):** [linkedin.com/in/ayham-alkhalil-66bb451b5](https://www.linkedin.com/in/ayham-alkhalil-66bb451b5) — zentral in `founderInfo.linkedinUrl` (`FounderPortrait.tsx`)
 - **Adresse:** Wedekindstraße 14, 30161 Hannover
 - **HRB:** 230077 (Amtsgericht Hannover)
 - **USt-IdNr.:** DE459778632

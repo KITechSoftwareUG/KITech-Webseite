@@ -1,3 +1,6 @@
+/* Muss der erste Import bleiben: fuellt process.env aus .env, bevor ein
+   anderes Modul nach einem Zugang fragt. Siehe lib/umgebung.ts. */
+import "./lib/umgebung.js";
 import fs from "node:fs";
 import path from "node:path";
 import {

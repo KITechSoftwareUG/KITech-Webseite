@@ -278,7 +278,7 @@ export const siteRoutes: RouteDefinition[] = [
     lastModified: "2026-08-11",
   },
 
-  { path: "/impressum", indexable: true, lastModified: "2026-07-10" },
+  { path: "/impressum", indexable: true, lastModified: "2026-08-23" },
   { path: "/datenschutz", indexable: true, lastModified: "2026-07-10" },
   { path: "/agb", indexable: true, lastModified: "2026-07-10" },
 

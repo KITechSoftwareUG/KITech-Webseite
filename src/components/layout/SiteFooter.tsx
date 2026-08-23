@@ -9,7 +9,10 @@ import { SITE_CONTAINER } from "./site-container";
 /**
  * Fusszeile aller Seiten — vollflaechig in der Signalfarbe.
  *
- * Aufbau aus der Design-Vorlage uebernommen (referenz_desktop.png / _mobile.png):
+ * Aufbau aus einer Design-Vorlage uebernommen. Die beiden Screenshots
+ * (referenz_desktop.png / referenz_mobile.png) liegen bewusst nicht im Repo,
+ * sondern unter .tmp/vorlagen/ — zusammen 3,8 MB fuer einen Kommentarverweis
+ * waeren im Git-Verlauf teurer als nuetzlich. Struktur:
  *
  *   Zeile 1  Logo links, Navigation horizontal daneben
  *   Zeile 2  Rechtstexte zentriert
