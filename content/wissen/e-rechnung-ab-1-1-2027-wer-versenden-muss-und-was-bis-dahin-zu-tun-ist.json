@@ -18,12 +18,6 @@
   "lesezeit": 8,
   "autor": "ayham-alkhalil",
   "intro": "Zum 1. Januar 2027 entsteht keine neue Pflicht. Es endet eine Ausnahme — und sie endet für Betriebe oberhalb einer Grenze, die anders gerechnet wird als gedacht. Der Gesetzestext ist an drei Stellen genauer als die Ratgeber darüber.",
-  "kernaussagen": [
-    "Eine elektronische Rechnung ist nach § 14 Absatz 1 UStG eine Rechnung in einem strukturierten Format, das eine elektronische Verarbeitung ermöglicht und der europäischen Norm EN 16931 entspricht.",
-    "Die Grenze von 800.000 Euro meint den Gesamtumsatz nach § 19 Absatz 2 UStG: berechnet nach vereinnahmten Entgelten, ohne Verkäufe von Anlagvermögen.",
-    "Am 1. Januar 2027 beginnt keine Pflicht, sondern es endet eine Übergangserlaubnis. Die Versandpflicht selbst gilt seit dem 1. Januar 2025.",
-    "Aufzubewahren ist der strukturierte Teil acht Jahre lang unversehrt in seiner ursprünglichen Form — bei ZUGFeRD also die eingebettete XML-Datei, nicht das sichtbare PDF."
-  ],
   "abschnitte": [
     {
       "heading": "Was ändert sich am 1. Januar 2027 wirklich?",
@@ -126,6 +120,12 @@
       ]
     }
   ],
+  "kernaussagen": [
+    "Eine elektronische Rechnung ist nach § 14 Absatz 1 UStG eine Rechnung in einem strukturierten Format, das eine elektronische Verarbeitung ermöglicht und der europäischen Norm EN 16931 entspricht.",
+    "Die Grenze von 800.000 Euro meint den Gesamtumsatz nach § 19 Absatz 2 UStG: berechnet nach vereinnahmten Entgelten, ohne Verkäufe von Anlagvermögen.",
+    "Am 1. Januar 2027 beginnt keine Pflicht, sondern es endet eine Übergangserlaubnis. Die Versandpflicht selbst gilt seit dem 1. Januar 2025.",
+    "Aufzubewahren ist der strukturierte Teil acht Jahre lang unversehrt in seiner ursprünglichen Form — bei ZUGFeRD also die eingebettete XML-Datei, nicht das sichtbare PDF."
+  ],
   "fazit": "Der 1. Januar 2027 setzt keine neue Pflicht in Kraft, sondern nimmt eine Erlaubnis zurück — und ob das den eigenen Betrieb trifft, entscheidet ein Umsatzbegriff, der Anlagenverkäufe nicht mitzählt.",
   "faq": [
     {
@@ -200,16 +200,15 @@
   "substanz": {
     "art": "primaerquelle",
     "beschreibung": "Drei Stellen, an denen der Gesetzestext genauer ist als seine Zusammenfassungen: Die Grenze meint den Gesamtumsatz nach § 19 Absatz 2 und lässt Anlagenverkäufe außer Ansatz. Das „vorbehaltlich der Zustimmung“ hängt am elektronischen Format, nicht am Papier. Und Nummer 3 sagt „ausgestellt“, wo Nummer 1 und 2 „übermittelt“ sagen.",
-    "herkunft": "Wortlaut von § 27 Absatz 38, § 14 und § 19 Absatz 2 UStG, abgerufen am 24.08.2026 bei gesetze-im-internet.de, gegengeprüft an den Fragen und Antworten des Bundesfinanzministeriums vom Oktober 2025.",
-    "material": [
-      "§ 27 Absatz 38 Nummer 2 UStG wörtlich: „wenn der Gesamtumsatz (§ 19 Absatz 2) des die Rechnung ausstellenden Unternehmers im vorangegangenen Kalenderjahr nicht mehr als 800 000 Euro betragen hat“.",
-      "§ 19 Absatz 2 UStG: Umsätze mit Wirtschaftsgütern des Anlagevermögens bleiben bei der Ermittlung des Gesamtumsatzes außer Ansatz.",
-      "Der Einleitungssatz von § 27 Absatz 38 lautet „Abweichend von § 14 Absatz 1 und 2 kann eine Rechnung“ — eine Erlaubnis, die endet, keine Pflicht, die beginnt."
-    ]
+    "herkunft": "Wortlaut von § 27 Absatz 38, § 14 und § 19 Absatz 2 UStG, abgerufen am 24.08.2026 bei gesetze-im-internet.de, gegengeprüft an den Fragen und Antworten des Bundesfinanzministeriums vom Oktober 2025."
   },
   "cta": {
     "heading": "Der Termin steht, der Ablauf meist nicht",
     "text": "Im 1:1-KI-Check gehen wir euren Rechnungsweg einmal durch und benennen, was bis Januar 2027 fehlt."
   },
-  "status": "entwurf"
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-24"
+  }
 }

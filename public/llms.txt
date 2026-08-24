@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand. Sitz in Hannover. Gebaut wird, was im Tagesgeschäft läuft — betrieben in europäischer Region über AWS oder Azure mit Auftragsverarbeitungsvertrag oder auf eigener Hardware.
 
-Stand: 23.08.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
+Stand: 24.08.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
 
 ## Unternehmen
 
@@ -54,9 +54,11 @@ Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — 
 - [Softwareentwicklung mit KI](https://kitech-software.de/gratis-wissen/thema/ki-gestuetzte-entwicklung) — Wie ein KI-Assistent ein gewachsenes Firmenprojekt versteht: Projektdokumentation, Agenten, Prüfschritte — aus dem täglichen Einsatz. (1 Artikel)
 - [KI-Betrieb: Cloud, eigene Hardware, Souveränität](https://kitech-software.de/gratis-wissen/thema/ki-betrieb) — Wo ein Modell laufen soll, wenn Betriebsgeheimnisse im Spiel sind — und was die drei Wege tatsächlich kosten. (1 Artikel)
 - [KI-Strategie und warum Projekte scheitern](https://kitech-software.de/gratis-wissen/thema/ki-strategie) — Die Muster, an denen KI-Vorhaben regelmäßig hängenbleiben — und was die erfolgreichen anders gemacht haben. (2 Artikel)
+- [Dokumente, Rechnungen, Belege](https://kitech-software.de/gratis-wissen/thema/dokumente-und-belege) — Vom Posteingang bis zur Buchung: was sich automatisch auslesen lässt, welche Quote realistisch ist, und was zur E-Rechnung ansteht. (1 Artikel)
 
 ## Artikel
 
+- [E-Rechnung ab 1.1.2027: wer versenden muss und was bis dahin zu tun ist](https://kitech-software.de/gratis-wissen/e-rechnung-ab-1-1-2027-wer-versenden-muss-und-was-bis-dahin-zu-tun-ist) — Zum Stichtag beginnt keine Pflicht, es endet eine Erlaubnis. Was der Gesetzestext an drei Stellen genauer sagt als die Ratgeber darüber — und was bis dahin stehen muss. (Ayham Alkhalil, 24.08.2026)
 - [Besucher melden, ohne am Cookie-Banner vorbeizugehen](https://kitech-software.de/gratis-wissen/besucher-melden-ohne-cookie-banner) — Wer wissen will, wer gerade auf der Seite ist, landet schnell bei einem Cookie-Banner. Es gibt eine Ebene darunter — und die verläuft an einer anderen Grenze. (Ayham Alkhalil, 21.08.2026)
 - [Eine CLAUDE.md, die nach sechs Monaten noch stimmt](https://kitech-software.de/gratis-wissen/claude-md-die-nach-sechs-monaten-noch-stimmt) — Anleitungen zeigen die leere Datei. Was fehlt, ist eine, die ein Jahr gelebt hat — mit den Stellen, an denen sie sich als falsch erwiesen hat. (Ayham Alkhalil, 21.08.2026)
 - [Die fünf Fehler, die fast jedes Unternehmen mit KI macht](https://kitech-software.de/gratis-wissen/fehler-die-fast-jedes-unternehmen-mit-ki-macht) — Nicht die Technik scheitert, sondern die Stelle, an der sie sitzt. Fünf Muster, die in Betrieben immer wieder auftauchen — und woran man sie früh erkennt. (Ayham Alkhalil, 12.08.2026)
