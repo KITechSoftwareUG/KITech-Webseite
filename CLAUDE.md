@@ -530,8 +530,23 @@ Geschrieben wird dann von Hand. **Kosten: null, keine Zugangsdaten nötig.**
 
 Der volle Lauf kostet nachgerechnet **rund 44 Cent je Artikel** (Briefing auf
 Sonnet, Schreiben und Nachbessern auf Opus, Einhängen wieder auf Sonnet), dazu
-etwa 13 Cent DataForSEO je Lauf. Er kann dafür etwas, was der Handweg nicht
-kann: die Ergebnisseite lesen und vergleichen, was dort schon steht.
+DataForSEO. Er kann dafür etwas, was der Handweg nicht kann: die Ergebnisseite
+lesen und vergleichen, was dort schon steht.
+
+⚠️ **DataForSEO gemessen statt geschätzt (24.08.2026):** Ein Lauf im
+Trockenmodus über 8 Kandidatenthemen — also **nur Schritt 01**, ohne
+SERP-Analyse, ohne Recherche, ohne Schreiben — hat **17,8 Cent** gekostet
+(Kontostand 0,8072 → 0,62876 $). Hier stand vorher „etwa 13 Cent je Lauf" für
+den *ganzen* Durchgang; das war zu niedrig. Der Betrag entsteht zu etwa gleichen
+Teilen aus den drei gebündelten Keyword-Abfragen und den „ähnlichen
+Suchanfragen" für die fünf bestbewerteten Themen (Tiefe 2, ~0,02 $ je Thema).
+Die SERP-Analyse in Schritt 03 kommt je Artikel dazu.
+
+Die Aufrufe sind bereits gebündelt (drei Anfragen für acht Themen statt
+vierundzwanzig) — der Betrag ist nicht durch die Umsetzung verursacht. Wer
+sparen will, senkt `VERWANDTE_FUER_TOP` in
+[`01-themenfindung.ts`](scripts/blog-engine/schritte/01-themenfindung.ts) oder
+die Zahl der bewerteten Kandidaten.
 
 Beide Wege enden beim Entwurf und laufen durch dieselben Tore.
 
@@ -597,6 +612,19 @@ Abgesichert von
 [`src/lib/__tests__/blog-engine-umgebung.test.ts`](src/lib/__tests__/blog-engine-umgebung.test.ts)
 — der Test prüft für jeden Einstiegspunkt, dass der Import an **erster** Stelle
 steht.
+
+**Stand 24.08.2026 — was eingetragen ist:** `DATAFORSEO_LOGIN`,
+`DATAFORSEO_PASSWORD`, `FIRECRAWL_API_KEY` und `INDEXNOW_KEY` liegen in `.env`
+und sind gegen die jeweilige API geprüft. `ANTHROPIC_API_KEY` **fehlt** — ohne
+ihn endet jeder Lauf vor dem Schreiben.
+
+⚠️ **Das DataForSEO-Guthaben ist knapp.** Nach dem ersten echten Lauf standen
+noch **0,63 $** auf dem Konto. `DATAFORSEO_TAGESLIMIT_USD` steht deshalb auf
+**0,50** statt der voreingestellten 5,00 — die Bremse muss unter dem Guthaben
+liegen, sonst greift sie erst, wenn das Konto schon leer ist. Wer auflädt, hebt
+den Wert wieder an.
+
+Firecrawl: 4925 von 5000 Credits, Abrechnungszeitraum bis 21.09.2026.
 
 **Erster Lauf, wenn die Schlüssel da sind:**
 
