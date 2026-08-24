@@ -199,11 +199,17 @@ Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung 
 - Profil: https://kitech-software.de/autoren/ayham-alkhalil
 - LinkedIn: https://www.linkedin.com/in/ayham-alkhalil-66bb451b5
 - Themen: Prozessautomatisierung, KI-Integration in bestehende Systeme, RAG-Systeme auf Unternehmensdaten, KI-Betrieb unter DSGVO und EU AI Act, Individualsoftware mit Next.js und Supabase, KI-gestützte Softwareentwicklung
-- Artikel: 6
+- Artikel: 7
 
 ---
 
 ## 10. Artikel
+
+### Prozesse automatisieren
+
+Welche Abläufe sich automatisieren lassen, was das kostet, und woran die meisten Automatisierungen im Betrieb scheitern.
+
+- **[Was passiert, wenn eine Automatisierung nachts abstürzt?](https://kitech-software.de/gratis-wissen/was-passiert-wenn-eine-automatisierung-nachts-abstuerzt)** — Der Ablauf läuft seit Monaten. Dann bricht er um drei Uhr ab, und niemand merkt es bis Donnerstag. Vier Bestandteile, ohne die keine Automatisierung in Betrieb gehört. (Ayham Alkhalil, 24.08.2026)
 
 ### KI und Datenschutz
 

@@ -50,6 +50,7 @@ Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — 
 
 ## Themen, zu denen wir schreiben
 
+- [Prozesse automatisieren](https://kitech-software.de/gratis-wissen/thema/prozessautomatisierung) — Welche Abläufe sich automatisieren lassen, was das kostet, und woran die meisten Automatisierungen im Betrieb scheitern. (1 Artikel)
 - [KI und Datenschutz](https://kitech-software.de/gratis-wissen/thema/ki-und-datenschutz) — Nicht was im Gesetz steht, sondern wie es im System umgesetzt wird: Löschpfade, Berechtigungen, Anonymisierung vor dem Prompt. (1 Artikel)
 - [Softwareentwicklung mit KI](https://kitech-software.de/gratis-wissen/thema/ki-gestuetzte-entwicklung) — Wie ein KI-Assistent ein gewachsenes Firmenprojekt versteht: Projektdokumentation, Agenten, Prüfschritte — aus dem täglichen Einsatz. (1 Artikel)
 - [KI-Betrieb: Cloud, eigene Hardware, Souveränität](https://kitech-software.de/gratis-wissen/thema/ki-betrieb) — Wo ein Modell laufen soll, wenn Betriebsgeheimnisse im Spiel sind — und was die drei Wege tatsächlich kosten. (1 Artikel)
@@ -59,6 +60,7 @@ Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — 
 ## Artikel
 
 - [E-Rechnung ab 1.1.2027: wer versenden muss und was bis dahin zu tun ist](https://kitech-software.de/gratis-wissen/e-rechnung-ab-1-1-2027-wer-versenden-muss-und-was-bis-dahin-zu-tun-ist) — Zum Stichtag beginnt keine Pflicht, es endet eine Erlaubnis. Was der Gesetzestext an drei Stellen genauer sagt als die Ratgeber darüber — und was bis dahin stehen muss. (Ayham Alkhalil, 24.08.2026)
+- [Was passiert, wenn eine Automatisierung nachts abstürzt?](https://kitech-software.de/gratis-wissen/was-passiert-wenn-eine-automatisierung-nachts-abstuerzt) — Der Ablauf läuft seit Monaten. Dann bricht er um drei Uhr ab, und niemand merkt es bis Donnerstag. Vier Bestandteile, ohne die keine Automatisierung in Betrieb gehört. (Ayham Alkhalil, 24.08.2026)
 - [Besucher melden, ohne am Cookie-Banner vorbeizugehen](https://kitech-software.de/gratis-wissen/besucher-melden-ohne-cookie-banner) — Wer wissen will, wer gerade auf der Seite ist, landet schnell bei einem Cookie-Banner. Es gibt eine Ebene darunter — und die verläuft an einer anderen Grenze. (Ayham Alkhalil, 21.08.2026)
 - [Eine CLAUDE.md, die nach sechs Monaten noch stimmt](https://kitech-software.de/gratis-wissen/claude-md-die-nach-sechs-monaten-noch-stimmt) — Anleitungen zeigen die leere Datei. Was fehlt, ist eine, die ein Jahr gelebt hat — mit den Stellen, an denen sie sich als falsch erwiesen hat. (Ayham Alkhalil, 21.08.2026)
 - [Die fünf Fehler, die fast jedes Unternehmen mit KI macht](https://kitech-software.de/gratis-wissen/fehler-die-fast-jedes-unternehmen-mit-ki-macht) — Nicht die Technik scheitert, sondern die Stelle, an der sie sitzt. Fünf Muster, die in Betrieben immer wieder auftauchen — und woran man sie früh erkennt. (Ayham Alkhalil, 12.08.2026)

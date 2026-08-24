@@ -1,0 +1,159 @@
+{
+  "slug": "was-passiert-wenn-eine-automatisierung-nachts-abstuerzt",
+  "titel": "Was passiert, wenn eine Automatisierung nachts abstürzt?",
+  "teaser": "Der Ablauf läuft seit Monaten. Dann bricht er um drei Uhr ab, und niemand merkt es bis Donnerstag. Vier Bestandteile, ohne die keine Automatisierung in Betrieb gehört.",
+  "kategorie": "Praxis",
+  "cluster": "prozessautomatisierung",
+  "zielKeyword": "n8n fehlerbehandlung",
+  "sekundaerKeywords": [
+    "n8n workflow fehler abfangen",
+    "automatisierung überwachen",
+    "n8n wiederholung nach fehler",
+    "workflow export versionieren",
+    "meldung begrenzen dauerfeuer",
+    "n8n knoten benennen"
+  ],
+  "datum": "2026-08-24",
+  "aktualisiert": "2026-08-24",
+  "lesezeit": 8,
+  "autor": "ayham-alkhalil",
+  "intro": "Eine Automatisierung fällt selten mit einem Knall aus. Fehlerbehandlung ist der Teil eines Ablaufs, der festlegt, was geschieht, wenn ein Schritt scheitert — und genau dieser Teil fehlt in den meisten Fällen. Vier Bestandteile trennen einen Ablauf, der im Betrieb steht, von einem, der nur einmal funktioniert hat.",
+  "abschnitte": [
+    {
+      "heading": "Warum fällt ein Ausfall nachts niemandem auf?",
+      "paragraphs": [
+        "Automatisierungen laufen erfolgreich, indem nichts passiert. Genau das macht ihren Ausfall unsichtbar: Ein Ablauf, der nicht startet, erzeugt keine Fehlermeldung, keine leere Datei, keinen Eintrag. Er erzeugt gar nichts, und gar nichts sieht aus wie ein ruhiger Tag.",
+        "Bemerkt wird es an zweiter Stelle. Eine Anfrage bleibt liegen, ein Angebot geht nicht raus, eine Übergabe zwischen zwei Abteilungen findet nicht statt — jedes Mal Tage später als der eigentliche Ausfall.",
+        "Bis dahin sind im Schnitt Tage vergangen."
+      ]
+    },
+    {
+      "heading": "Welche vier Bestandteile braucht jeder Ablauf?",
+      "paragraphs": [
+        "Sie hängen aneinander, und keiner ersetzt einen anderen. Der Fehlerzweig macht den Ausfall sichtbar, die Protokollierung macht ihn nachvollziehbar, die Wiederholung fängt den häufigsten Fall ab, und der Export macht den Stand wiederherstellbar."
+      ],
+      "bullets": [
+        "Ein Fehlerzweig, der bei einem gescheiterten Schritt greift und meldet, welcher es war.",
+        "Protokollierung mit Zeitpunkt, Knotennamen und Eingabedaten, soweit sie keine personenbezogenen Daten enthalten.",
+        "Eine Wiederholung mit Wartezeit und höchstens drei Versuchen.",
+        "Der Export des Ablaufs, versioniert und im Projektverzeichnis abgelegt."
+      ]
+    },
+    {
+      "heading": "Warum braucht eine Wiederholung eine Wartezeit?",
+      "paragraphs": [
+        "Der häufigste Fehler in einem Ablauf ist kein Fehler im Ablauf. Es ist ein Zielsystem, das gerade nicht antwortet: eine Schnittstelle in Wartung, eine Drossel, die greift, ein Netzwerkweg, der für zehn Sekunden weg ist.",
+        "Genau dagegen hilft ein zweiter Versuch. Nur eben nicht sofort.",
+        "Eine Wiederholung ohne Wartezeit trifft den Dienst in derselben Sekunde noch einmal, in der er ohnehin überlastet ist — und macht aus einem kurzen Ausfall einen längeren. Drei Versuche mit wachsendem Abstand fangen den Normalfall ab, ohne Schaden anzurichten.",
+        "Was nach dem dritten Versuch noch scheitert, ist kein Aussetzer. Es gehört gemeldet, nicht wiederholt."
+      ]
+    },
+    {
+      "heading": "Wie verhindert man, dass die Meldung selbst zum Problem wird?",
+      "paragraphs": [
+        "Sobald ein Ablauf bei jedem Fehler eine Nachricht schickt, entsteht ein neues Risiko. Eine Automatisierung, die in einer Schleife scheitert, flutet genau den Kanal, über den der Alarm ankommen soll. Nach zweihundert Meldungen liest sie niemand mehr.",
+        "In dieser Website sitzt die Bremse in einer eigenen Datei. Sie zählt Meldungen je Kennung in einem Fenster von zehn Minuten und lässt darüber hinaus nichts durch.",
+        "Der Zähler liegt bewusst je Zweck getrennt — damit sich zwei Routen nicht gegenseitig aussperren, wenn eine davon unter Last steht."
+      ]
+    },
+    {
+      "heading": "Was eine solche Sperre nicht kann",
+      "paragraphs": [
+        "Sie hält versehentliches Dauerfeuer auf und einfache Skripte. Gegen jemanden, der sie gezielt umgehen will, hilft sie nicht. Die Kennung stammt aus einem Kopfzeilenfeld, das der vorgelagerte Netzwerkdienst setzt — und dieses Feld ist fälschbar. Wer es bei jeder Anfrage variiert, bekommt jedes Mal ein frisches Kontingent.",
+        "Der zweite Punkt steht im Code selbst: Der Speicher liegt im Prozess. Läuft die Anwendung als ein Server, trägt das. Bei mehreren Instanzen zählt jede für sich, und die Sperre greift entsprechend später.",
+        "Eine Grenze, die im Kommentar steht, ist billiger als eine, die jemand nach einem Vorfall herausfindet."
+      ]
+    },
+    {
+      "heading": "Warum bleiben zwei fast gleiche Funktionen getrennt?",
+      "paragraphs": [
+        "Im selben Modul stehen zwei Funktionen, die beide dieselbe Kopfzeile auslesen und fast dasselbe zurückgeben. Sie sehen aus wie eine Dublette, die jemand aufräumen sollte. Sie sind es nicht.",
+        "Die eine liefert eine Kennung, die im Arbeitsspeicher bleibt und nur zum Zählen dient. Die andere liefert eine IP-Adresse, die an einen externen Dienst geht.",
+        "Der Unterschied ist keine Frage des Stils, sondern die Stelle, an der die Einwilligung hängt: Zählen im eigenen Speicher braucht keine, die Weitergabe an einen Dritten schon. Wer die beiden zusammenlegt, verliert diese Grenze — und merkt es am Code nicht mehr.",
+        "Solche Entscheidungen gehören dorthin, wo jemand sie liest. Der Unterschied zwischen einer Zusammenlegung und einem Datenschutzverstoß steht in diesem Fall in vier Zeilen Kommentar."
+      ]
+    },
+    {
+      "heading": "Wie sollten die Knoten heißen?",
+      "paragraphs": [
+        "Nach dem, was sie tun. Ein Knoten heißt „Filter: Leads ohne Email“, nicht „IF1“ — wer nachts um drei einen Alarm liest, braucht einen Namen und keine Nummer.",
+        "Der Aufwand fällt einmal an, beim Bauen. Der Nutzen fällt jedes Mal an, wenn etwas schiefgeht. Die Meldung aus dem Fehlerzweig trägt den Knotennamen — damit steht die halbe Diagnose schon in der Nachricht.",
+        "Dieselbe Überlegung trägt den vierten Bestandteil. Ein Export unter Versionsverwaltung macht sichtbar, was sich zwischen zwei Ständen geändert hat. Genau das ist die Frage, die nach einem Ausfall als erste gestellt wird."
+      ]
+    },
+    {
+      "heading": "Woran man merkt, dass es trägt",
+      "paragraphs": [
+        "Nicht daran, dass nichts mehr ausfällt. Ausfälle gehören zum Betrieb — ein Ablauf, der von fremden Schnittstellen abhängt, wird scheitern.",
+        "Sondern daran, dass der Ausfall vor dem Kunden bemerkt wird.",
+        "Die Gegenprobe ist einfach: Schalte in einem Testlauf die Zugangsdaten eines Zielsystems auf einen falschen Wert. Kommt binnen Minuten eine Meldung mit dem Namen des gescheiterten Knotens, trägt der Aufbau. Bleibt es still, war der Ablauf nie überwacht, sondern nur bisher erfolgreich."
+      ]
+    }
+  ],
+  "kernaussagen": [
+    "Ein Fehlerzweig ist der Teil eines Ablaufs, der ausgeführt wird, wenn ein Schritt scheitert — ohne ihn endet die Automatisierung still, und der Ausfall zeigt sich erst am fehlenden Ergebnis.",
+    "Eine Wiederholung ohne Wartezeit verwandelt einen kurzen Ausfall beim Zielsystem in einen längeren, weil sie den Dienst in dem Moment trifft, in dem er ohnehin überlastet ist.",
+    "Wer eine Meldung an einen Messenger schickt, braucht eine Sperre dagegen: Ein Ablauf in einer Schleife flutet sonst genau den Kanal, über den der Alarm kommen soll.",
+    "Der Export eines Ablaufs gehört unter Versionsverwaltung. Was nur in der Oberfläche existiert, lässt sich nach einer Änderung nicht vergleichen und nach einem Ausfall nicht wiederherstellen."
+  ],
+  "fazit": "Ein Ablauf ohne Fehlerzweig ist keine Automatisierung, sondern eine Wette: Er läuft, bis er es nicht mehr tut — und der erste, der davon erfährt, ist der Kunde.",
+  "faq": [
+    {
+      "frage": "Wie viele Wiederholungen sind sinnvoll?",
+      "antwort": "Höchstens drei, mit wachsendem Abstand zwischen den Versuchen. Der häufigste Fehler ist ein Zielsystem, das kurz nicht antwortet, und den fängt der zweite oder dritte Versuch ab. Was danach noch scheitert, ist kein Aussetzer und gehört gemeldet statt wiederholt."
+    },
+    {
+      "frage": "Reicht es nicht, die Ausführungsliste regelmäßig anzusehen?",
+      "antwort": "Nur solange es jemand tatsächlich tut. Eine Liste, in die man hineinsehen muss, wird an den Tagen nicht angesehen, an denen es darauf ankommt. Der Fehlerzweig dreht die Richtung um: Die Meldung kommt zu der Person, statt dass die Person nachsehen muss."
+    },
+    {
+      "frage": "Was gehört in ein Fehlerprotokoll und was nicht?",
+      "antwort": "Zeitpunkt, Name des gescheiterten Knotens und so viel Eingabedaten, dass sich der Fall nachvollziehen lässt. Nicht hinein gehören personenbezogene Daten, Zugangsdaten und vollständige Datensätze aus einem Kundensystem. Ein Protokoll, das man nach einem Vorfall niemandem zeigen kann, hilft im Vorfall nicht."
+    },
+    {
+      "frage": "Warum sollte der Export unter Versionsverwaltung liegen?",
+      "antwort": "Weil sich sonst nach einer Änderung nicht vergleichen lässt, was vorher galt. Ein versionierter Export beantwortet nach einem Ausfall die erste Frage: was hat sich geändert. Und er erlaubt, einen funktionierenden Stand zurückzuholen."
+    },
+    {
+      "frage": "Braucht eine Meldung an einen Messenger wirklich eine Sperre?",
+      "antwort": "Ja, sobald sie automatisch ausgelöst wird. Ein Ablauf, der in einer Schleife scheitert, erzeugt in Minuten Hunderte Nachrichten und macht den Kanal unbrauchbar, über den der Alarm ankommen soll. Ein Fenster von zehn Minuten mit einer Obergrenze je Absender genügt für den Anfang."
+    }
+  ],
+  "quellen": [],
+  "interneLinks": [
+    {
+      "ziel": "/gratis-wissen/thema/prozessautomatisierung",
+      "ankertext": "eine Übergabe zwischen zwei Abteilungen findet nicht statt",
+      "abschnitt": 0
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "Solche Entscheidungen gehören dorthin, wo jemand sie liest",
+      "abschnitt": 5
+    },
+    {
+      "ziel": "/referenzen",
+      "ankertext": "dass der Ausfall vor dem Kunden bemerkt wird",
+      "abschnitt": 7
+    },
+    {
+      "ziel": "/glossar",
+      "ankertext": "Nach dem, was sie tun",
+      "abschnitt": 6
+    }
+  ],
+  "substanz": {
+    "art": "eigener-code",
+    "beschreibung": "Die Sperre gegen Dauerfeuer aus dem Quellcode dieser Website: ein Zähler je Zweck in einem Zehn-Minuten-Fenster, mit zwei Grenzen, die im Kommentar stehen statt in einer Nachbetrachtung. Das Kopfzeilenfeld ist fälschbar, und der Speicher liegt im Prozess. Dazu die Entscheidung, zwei fast gleiche Funktionen getrennt zu lassen, weil an der einen die Einwilligung hängt.",
+    "herkunft": "src/lib/melde-sperre.ts im Quellcode dieser Website, in Betrieb auf den öffentlichen Melde-Routen. Dazu die eigene Namenskonvention für Automatisierungsknoten. Stand 24.08.2026."
+  },
+  "cta": {
+    "heading": "Läuft eure Automatisierung oder wartet sie?",
+    "text": "Im 1:1-KI-Check sehen wir uns einen eurer Abläufe an und prüfen, was bei einem Ausfall passiert."
+  },
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-24"
+  }
+}
