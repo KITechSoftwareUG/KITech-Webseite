@@ -1,0 +1,215 @@
+{
+  "slug": "e-rechnung-ab-1-1-2027-wer-versenden-muss-und-was-bis-dahin-zu-tun-ist",
+  "titel": "E-Rechnung ab 1.1.2027: wer versenden muss und was bis dahin zu tun ist",
+  "teaser": "Zum Stichtag beginnt keine Pflicht, es endet eine Erlaubnis. Was der Gesetzestext an drei Stellen genauer sagt als die Ratgeber darüber — und was bis dahin stehen muss.",
+  "kategorie": "Praxis",
+  "cluster": "dokumente-und-belege",
+  "zielKeyword": "e-rechnung pflicht 2027",
+  "sekundaerKeywords": [
+    "e-rechnung 800000 euro grenze",
+    "gesamtumsatz paragraf 19 absatz 2",
+    "uebergangsregelung e-rechnung 2027",
+    "xrechnung oder zugferd",
+    "e-rechnung aufbewahrung acht jahre",
+    "edi verfahren e-rechnung"
+  ],
+  "datum": "2026-08-24",
+  "aktualisiert": "2026-08-24",
+  "lesezeit": 8,
+  "autor": "ayham-alkhalil",
+  "intro": "Zum 1. Januar 2027 entsteht keine neue Pflicht. Es endet eine Ausnahme — und sie endet für Betriebe oberhalb einer Grenze, die anders gerechnet wird als gedacht. Der Gesetzestext ist an drei Stellen genauer als die Ratgeber darüber.",
+  "kernaussagen": [
+    "Eine elektronische Rechnung ist nach § 14 Absatz 1 UStG eine Rechnung in einem strukturierten Format, das eine elektronische Verarbeitung ermöglicht und der europäischen Norm EN 16931 entspricht.",
+    "Die Grenze von 800.000 Euro meint den Gesamtumsatz nach § 19 Absatz 2 UStG: berechnet nach vereinnahmten Entgelten, ohne Verkäufe von Anlagvermögen.",
+    "Am 1. Januar 2027 beginnt keine Pflicht, sondern es endet eine Übergangserlaubnis. Die Versandpflicht selbst gilt seit dem 1. Januar 2025.",
+    "Aufzubewahren ist der strukturierte Teil acht Jahre lang unversehrt in seiner ursprünglichen Form — bei ZUGFeRD also die eingebettete XML-Datei, nicht das sichtbare PDF."
+  ],
+  "abschnitte": [
+    {
+      "heading": "Was ändert sich am 1. Januar 2027 wirklich?",
+      "paragraphs": [
+        "Die Versandpflicht steht seit dem 1. Januar 2025 in § 14 Absatz 2 UStG. Was danach kam, sind Übergangsregeln in § 27 Absatz 38 — und die sind als Erlaubnis formuliert, nicht als Aufschub. Der Wortlaut beginnt mit den Worten „Abweichend von § 14 Absatz 1 und 2 kann eine Rechnung“.",
+        "Am Stichtag entsteht also nichts Neues: Es fällt weg, was bis dahin zusätzlich erlaubt war.",
+        "Der Unterschied ist praktisch. Wer die Ausnahme verliert, bekommt keine Frist gesetzt, muss nichts beantragen und wird von niemandem erinnert — die Rechnung, die am 2. Januar 2027 hinausgeht, ist entweder normgerecht oder falsch."
+      ]
+    },
+    {
+      "heading": "Wie wird die Grenze von 800.000 Euro berechnet?",
+      "paragraphs": [
+        "Hier steht die erste Stelle, an der der Gesetzestext genauer ist. § 27 Absatz 38 Nummer 2 nennt nicht den Umsatz, sondern den „Gesamtumsatz (§ 19 Absatz 2)“ des ausstellenden Unternehmers im vorangegangenen Kalenderjahr.",
+        "Der Gesamtumsatz ist ein eigener Begriff. Er wird nach vereinnahmten Entgelten berechnet, nicht nach gestellten Rechnungen — wer auf Ziel verkauft, rechnet mit dem, was tatsächlich eingegangen ist. Und er kennt eine Ausnahme, die an der Grenze entscheidet.",
+        "Verkäufe von Wirtschaftsgütern des Anlagevermögens bleiben außer Ansatz. Der Firmenwagen, die Maschine, die Anlage — keiner dieser Erlöse zählt mit.",
+        "Für einen Betrieb dicht unter einer Million Euro ist das der Unterschied zwischen betroffen und nicht betroffen."
+      ]
+    },
+    {
+      "heading": "Wann ist Papier noch erlaubt und wann nicht?",
+      "paragraphs": [
+        "Die zweite Stelle, an der der Wortlaut mehr sagt als seine Zusammenfassungen. Nummer 1 und 2 erlauben eine Rechnung „auf Papier oder vorbehaltlich der Zustimmung des Empfängers in einem elektronischen Format“, das der Norm nicht entspricht.",
+        "Das „vorbehaltlich der Zustimmung“ hängt am zweiten Teil, nicht am ersten. Papier bleibt in der Übergangszeit ohne Zustimmung zulässig — ein PDF per E-Mail dagegen nur, wenn der Empfänger einverstanden ist. Verbreitet ist die umgekehrte Lesart, nach der Papier nur noch mit Zustimmung ginge.",
+        "Sie steht so nicht im Text."
+      ]
+    },
+    {
+      "heading": "Was gilt für Betriebe mit EDI-Verfahren?",
+      "paragraphs": [
+        "Nummer 3 der Übergangsregel nennt den elektronischen Datenaustausch nach der Empfehlung 94/820/EG. Wer so übermittelt, hat bis zum 31. Dezember 2027 Zeit — und zwar unabhängig vom Umsatz.",
+        "Die dritte Stelle steckt im Verb. Nummer 1 und 2 sprechen davon, dass eine Rechnung übermittelt werden kann, Nummer 3 davon, dass sie ausgestellt werden kann.",
+        "Wer ein etabliertes EDI-Verfahren betreibt, hat damit ein Jahr mehr als ein gleich großer Betrieb ohne. Die Zustimmung des Empfängers bleibt in diesem Fall nötig."
+      ]
+    },
+    {
+      "heading": "Welches Format erfüllt die Anforderung?",
+      "paragraphs": [
+        "Maßgeblich ist die europäische Norm EN 16931 aus der Richtlinie 2014/55/EU. Das Bundesfinanzministerium nennt die beiden in Deutschland üblichen Formate ausdrücklich: XRechnung und ZUGFeRD ab Version 2.0.1 erfüllen die Voraussetzungen — mit einer Einschränkung, die man kennen muss.",
+        "Die Profile MINIMUM und BASIC-WL sind ausgenommen.",
+        "Der Unterschied zwischen beiden Formaten ist die Verpackung. XRechnung ist reines XML, ZUGFeRD ein PDF mit eingebetteter XML-Datei. Rechtlich zählt in beiden Fällen der strukturierte Teil."
+      ],
+      "tabelle": {
+        "kopf": [
+          "Was",
+          "Bis 31.12.2026",
+          "Ab 01.01.2027"
+        ],
+        "zeilen": [
+          [
+            "Empfangen",
+            "Pflicht für alle",
+            "Pflicht für alle"
+          ],
+          [
+            "Versand, Gesamtumsatz über 800.000 Euro",
+            "Papier oder anderes Format erlaubt",
+            "nur normgerecht"
+          ],
+          [
+            "Versand, Gesamtumsatz bis 800.000 Euro",
+            "Papier oder anderes Format erlaubt",
+            "erlaubt bis 31.12.2027"
+          ],
+          [
+            "Versand über EDI",
+            "erlaubt",
+            "erlaubt bis 31.12.2027"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Was aufbewahrt werden muss — und in welcher Form",
+      "paragraphs": [
+        "Acht Jahre, und zwar so, dass zumindest der strukturierte Teil unversehrt in seiner ursprünglichen Form vorliegt. Das ist die Vorgabe, an der die meisten bestehenden Ablagen scheitern. Bei ZUGFeRD heißt das: Die eingebettete XML-Datei ist das Original, das sichtbare PDF nur die Hülle.",
+        "Wer das PDF ausdruckt und abheftet, hat die Rechnung nicht aufbewahrt.",
+        "Wer wissen will, welche Begriffe in diesem Umfeld was bedeuten, findet sie erklärt statt vorausgesetzt. Der Unterschied zwischen Bilddatei und strukturiertem Datensatz entscheidet hier über die Rechtsfolge."
+      ]
+    },
+    {
+      "heading": "Was bis zum Stichtag technisch stehen muss",
+      "paragraphs": [
+        "Vier Dinge, und keines davon ist ein Produktkauf. Sie hängen aneinander: Fällt eines aus, trägt die Kette nicht.",
+        "Der Weg vom Posteingang bis zur Buchung ist dabei die eigentliche Arbeit — nicht das Erzeugen der Datei, sondern was danach mit ihr passiert.",
+        "Wer den Ablauf einmal sauber zerlegt, sieht meist, dass die Formatfrage der kleinste Posten ist. Aufwendig wird die Prüfung, und teuer wird die Ablage, wenn sie erst nachträglich gebaut wird."
+      ],
+      "bullets": [
+        "Erzeugen: ein Format nach EN 16931, aus dem System, das die Rechnung ohnehin schreibt.",
+        "Vor dem Versand prüft eine Validierung die Datei gegen die Norm.",
+        "Abgelegt wird der strukturierte Teil unverändert, acht Jahre lang, wiederauffindbar.",
+        "Übergeben: ein Weg in die Buchhaltung, der die Datei nicht in ein Bild verwandelt."
+      ]
+    },
+    {
+      "heading": "Woran der Termin in der Praxis hängt",
+      "paragraphs": [
+        "An einer Zahl, die zum Stichtag noch nicht feststeht. Maßgeblich ist der Gesamtumsatz des vorangegangenen Kalenderjahres, also 2026 — und der ist erst nach dessen Ende ermittelt. Wer knapp an der Grenze liegt, plant deshalb nicht nach dem erwarteten Umsatz, sondern nach dem ungünstigeren Fall.",
+        "Die Umstellung dauert länger als die Auskunft der Buchhaltung im Januar.",
+        "Belastbar wird die Planung erst, wenn die Zahl aus derselben Quelle kommt wie die Umsatzsteuervoranmeldung. Ein Betrieb, der seine Abläufe messbar gemacht hat, beantwortet die Frage in Minuten."
+      ]
+    }
+  ],
+  "fazit": "Der 1. Januar 2027 setzt keine neue Pflicht in Kraft, sondern nimmt eine Erlaubnis zurück — und ob das den eigenen Betrieb trifft, entscheidet ein Umsatzbegriff, der Anlagenverkäufe nicht mitzählt.",
+  "faq": [
+    {
+      "frage": "Gilt die Grenze von 800.000 Euro für den Umsatz oder den Gewinn?",
+      "antwort": "Für keinen von beiden in der landläufigen Bedeutung. § 27 Absatz 38 Nummer 2 UStG nennt den Gesamtumsatz nach § 19 Absatz 2 UStG. Der wird nach vereinnahmten Entgelten berechnet, umfasst steuerbare Umsätze nach § 1 Absatz 1 Nummer 1 und lässt Verkäufe von Wirtschaftsgütern des Anlagevermögens außer Ansatz."
+    },
+    {
+      "frage": "Muss ab 2027 auch der Empfang umgestellt werden?",
+      "antwort": "Nein, der Empfang ist bereits seit dem 1. Januar 2025 Pflicht, und zwar ohne Übergangsfrist und ohne Ausnahme für kleine Betriebe. Die Stufen ab 2027 betreffen ausschließlich das Ausstellen und Übermitteln."
+    },
+    {
+      "frage": "Ist ein PDF per E-Mail eine elektronische Rechnung?",
+      "antwort": "Nein. § 14 Absatz 1 UStG verlangt ein strukturiertes elektronisches Format, das eine elektronische Verarbeitung ermöglicht und der Norm EN 16931 entspricht. Ein PDF ohne eingebettete strukturierte Daten gilt als sonstige Rechnung und ist in der Übergangszeit nur mit Zustimmung des Empfängers zulässig."
+    },
+    {
+      "frage": "Reicht es, die E-Rechnung als PDF auszudrucken und abzuheften?",
+      "antwort": "Nein. Aufzubewahren ist zumindest der strukturierte Teil, unversehrt in seiner ursprünglichen Form, acht Jahre lang. Bei ZUGFeRD ist das die eingebettete XML-Datei. Ein Ausdruck oder ein Bildscan erfüllt die Anforderung nicht."
+    },
+    {
+      "frage": "Was gilt für Betriebe, die über EDI abrechnen?",
+      "antwort": "Für sie läuft die Übergangsfrist nach § 27 Absatz 38 Nummer 3 UStG bis zum 31. Dezember 2027, unabhängig von der Höhe des Umsatzes. Vorausgesetzt wird die Zustimmung des Empfängers und eine Übermittlung nach der Empfehlung 94/820/EG."
+    }
+  ],
+  "quellen": [
+    {
+      "bezeichnung": "§ 27 Absatz 38 UStG — Übergangsregelungen zur elektronischen Rechnung",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__27.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Die drei Übergangsnummern mit ihren Fristen, die Grenze von 800.000 Euro als Gesamtumsatz nach § 19 Absatz 2, und die Formulierung als Erlaubnis statt als Aufschub."
+    },
+    {
+      "bezeichnung": "§ 14 UStG — Ausstellung von Rechnungen",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Definition der elektronischen Rechnung als strukturiertes Format nach der Norm aus der Richtlinie 2014/55/EU, und die Versandpflicht zwischen inländischen Unternehmern."
+    },
+    {
+      "bezeichnung": "§ 19 Absatz 2 UStG — Ermittlung des Gesamtumsatzes",
+      "url": "https://www.gesetze-im-internet.de/ustg_1980/__19.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Berechnung nach vereinnahmten Entgelten und die Ausnahme für Umsätze mit Wirtschaftsgütern des Anlagevermögens."
+    },
+    {
+      "bezeichnung": "Bundesfinanzministerium: Fragen und Antworten zur obligatorischen E-Rechnung",
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Aufbewahrung von acht Jahren mit dem strukturierten Teil unversehrt in ursprünglicher Form, und die Formate XRechnung sowie ZUGFeRD ab Version 2.0.1 ohne die Profile MINIMUM und BASIC-WL."
+    }
+  ],
+  "interneLinks": [
+    {
+      "ziel": "/gratis-wissen/thema/dokumente-und-belege",
+      "ankertext": "Der Weg vom Posteingang bis zur Buchung",
+      "abschnitt": 6
+    },
+    {
+      "ziel": "/glossar",
+      "ankertext": "findet sie erklärt statt vorausgesetzt",
+      "abschnitt": 5
+    },
+    {
+      "ziel": "/leistungen",
+      "ankertext": "Wer den Ablauf einmal sauber zerlegt",
+      "abschnitt": 6
+    },
+    {
+      "ziel": "/referenzen",
+      "ankertext": "Ein Betrieb, der seine Abläufe messbar gemacht hat",
+      "abschnitt": 7
+    }
+  ],
+  "substanz": {
+    "art": "primaerquelle",
+    "beschreibung": "Drei Stellen, an denen der Gesetzestext genauer ist als seine Zusammenfassungen: Die Grenze meint den Gesamtumsatz nach § 19 Absatz 2 und lässt Anlagenverkäufe außer Ansatz. Das „vorbehaltlich der Zustimmung“ hängt am elektronischen Format, nicht am Papier. Und Nummer 3 sagt „ausgestellt“, wo Nummer 1 und 2 „übermittelt“ sagen.",
+    "herkunft": "Wortlaut von § 27 Absatz 38, § 14 und § 19 Absatz 2 UStG, abgerufen am 24.08.2026 bei gesetze-im-internet.de, gegengeprüft an den Fragen und Antworten des Bundesfinanzministeriums vom Oktober 2025.",
+    "material": [
+      "§ 27 Absatz 38 Nummer 2 UStG wörtlich: „wenn der Gesamtumsatz (§ 19 Absatz 2) des die Rechnung ausstellenden Unternehmers im vorangegangenen Kalenderjahr nicht mehr als 800 000 Euro betragen hat“.",
+      "§ 19 Absatz 2 UStG: Umsätze mit Wirtschaftsgütern des Anlagevermögens bleiben bei der Ermittlung des Gesamtumsatzes außer Ansatz.",
+      "Der Einleitungssatz von § 27 Absatz 38 lautet „Abweichend von § 14 Absatz 1 und 2 kann eine Rechnung“ — eine Erlaubnis, die endet, keine Pflicht, die beginnt."
+    ]
+  },
+  "cta": {
+    "heading": "Der Termin steht, der Ablauf meist nicht",
+    "text": "Im 1:1-KI-Check gehen wir euren Rechnungsweg einmal durch und benennen, was bis Januar 2027 fehlt."
+  },
+  "status": "entwurf"
+}
