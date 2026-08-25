@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 import { BASE_URL } from "@/lib/metadata";
+import { suchkonsolenBestaetigung } from "@/config/suchkonsolen";
 import "@/index.css";
 
 /**
@@ -17,6 +18,9 @@ export const metadata: Metadata = {
   description:
     "Wir sind euer Anwendungspartner für KI — von der Anwendung im Tagesgeschäft bis zum messbaren Ergebnis.",
   icons: { icon: "/favicon.ico" },
+  /* Bestaetigung fuer Search Console und Bing Webmaster Tools. Solange dort
+     nichts eingetragen ist, rendert Next.js kein Tag. Siehe config/suchkonsolen.ts. */
+  verification: suchkonsolenBestaetigung(),
 };
 
 /**
