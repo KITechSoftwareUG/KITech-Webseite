@@ -1,5 +1,6 @@
 import { buildMetadata } from "@/lib/metadata";
 import Warum from "@/views/Warum";
+import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
 
 /**
  * Ziel des Navigationspunkts "Warum?", unter dem die beiden Sales Letter hängen.
@@ -15,5 +16,5 @@ export const metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <Warum />;
+  return <Warum wissen={empfehlungenFuer("/warum")} />;
 }

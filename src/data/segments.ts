@@ -50,6 +50,13 @@ export interface SegmentContent {
   /** Der passende Sales Letter unter /warum. */
   letter: { href: string; label: string };
   cta: { heading: string; text: string };
+  /**
+   * Überschrift und Zeile über den Artikelempfehlungen am Seitenfuß
+   * (`WeiterlesenBlock`). Steht hier und nicht in der Vorlage, weil beide
+   * Zielgruppen unterschiedlich angesprochen werden — dieselbe Regel wie beim
+   * `cta` darunter: gleiche Form, andere Aussage.
+   */
+  wissen: { heading: string; text: string };
 }
 
 export const soloSegment: SegmentContent = {
@@ -121,6 +128,10 @@ export const soloSegment: SegmentContent = {
   cta: {
     heading: "Einmal an deinem echten Fall statt an einem Beispiel.",
     text: "Dreißig Minuten, in denen wir auf deinen Alltag schauen — nicht auf eine Präsentation.",
+  },
+  wissen: {
+    heading: "Erst lesen, dann Werkzeuge kaufen.",
+    text: "Woran es liegt, wenn die Lizenzen da sind und trotzdem nichts passiert.",
   },
 };
 
@@ -196,5 +207,9 @@ export const enterpriseSegment: SegmentContent = {
   cta: {
     heading: "Einen Prozess durchrechnen, bevor Budget fließt.",
     text: "Dreißig Minuten an einem konkreten Ablauf — am Ende steht eine Zahl, auch wenn sie gegen das Projekt spricht.",
+  },
+  wissen: {
+    heading: "Was im laufenden Betrieb wirklich passiert.",
+    text: "Betriebsfragen, die vor dem Pilot niemand stellt: Zuständigkeit nachts, Datenschutz, Hosting.",
   },
 };

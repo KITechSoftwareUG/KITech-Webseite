@@ -1,5 +1,6 @@
 import { buildMetadata } from "@/lib/metadata";
 import Referenzen from "@/views/Referenzen";
+import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
 
 /**
  * Kein `noindex` mehr: die Übersicht zeigt jetzt sechs echte Fälle mit Zahlen und
@@ -14,5 +15,5 @@ export const metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <Referenzen />;
+  return <Referenzen wissen={empfehlungenFuer("/referenzen")} />;
 }

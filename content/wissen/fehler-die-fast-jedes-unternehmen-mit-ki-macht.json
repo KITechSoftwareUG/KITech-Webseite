@@ -11,60 +11,164 @@
     "ki anwendungsfall auswählen",
     "fehler bei der ki einführung",
     "nutzen von ki messen",
-    "ki im mittelstand einsetzen"
+    "ki im mittelstand einsetzen",
+    "ki projekt gescheitert",
+    "ki einführung betriebsrat",
+    "ki kompetenz pflicht"
   ],
   "datum": "2026-08-12",
-  "aktualisiert": "2026-08-12",
+  "aktualisiert": "2026-08-24",
   "lesezeit": 6,
   "autor": "ayham-alkhalil",
-  "intro": "Wenn ein KI-Projekt nicht liefert, liegt es selten am Modell. Es liegt fast immer daran, an welcher Stelle im Betrieb es eingesetzt wurde und wer danach dafür zuständig ist. Diese fünf Muster tauchen so regelmäßig auf, dass man sie im ersten Gespräch schon hört.",
+  "intro": "Wenn ein KI-Projekt nicht liefert, liegt es selten am Modell. Ein gescheitertes KI-Vorhaben ist fast immer eines, das an der falschen Stelle im Betrieb saß und danach niemanden hatte, der dafür zuständig war. Diese fünf Muster tauchen so regelmäßig auf, dass man sie im ersten Gespräch schon hört.",
   "abschnitte": [
     {
       "heading": "1. KI sitzt dort, wo kein Geld entsteht",
       "paragraphs": [
         "Der häufigste Fall: Ein Werkzeug schreibt Texte, fasst Protokolle zusammen, formuliert Angebote vor. Das funktioniert sofort und fühlt sich nach Fortschritt an — nur ist Schreiben in den seltensten Fällen der Engpass eines Betriebs.",
         "Geld geht dort verloren, wo etwas liegen bleibt: die Anfrage, die zwei Tage unbeantwortet steht. Das Angebot, das nie rausging. Die Übergabe zwischen zwei Abteilungen, die jedes Mal jemand von Hand macht. Wer dort ansetzt, sieht den Unterschied in der Auswertung, nicht nur im Kalender.",
-        "Die Gegenprobe ist einfach: Nenne den Vorgang, an dem gerade Umsatz hängt. Sitzt die Automatisierung nicht an diesem Vorgang, spart sie Zeit — aber sie verdient kein Geld."
+        "Die Gegenprobe ist einfach: Nenne den Vorgang, an dem gerade Umsatz hängt. Sitzt die Automatisierung nicht an diesem Vorgang, spart sie Zeit — aber sie verdient kein Geld.",
+        "Solche Stellen fallen beim Hinsehen nicht auf, sondern beim Nachzählen. Im eigenen Betrieb führte lange keine einzige Hauptseite auf einen Artikel des Wissensbereichs — der hing allein an seiner Übersichtsseite. Der am besten vorbereitete Besucher wurde nie gefragt."
+      ]
+    },
+    {
+      "heading": "Was kostet ein Vorgang, der zu breit gefasst ist?",
+      "paragraphs": [
+        "Fast immer das Vielfache, und der Mehrertrag bleibt liegen. In der eigenen Recherchekette liefert Tiefe 2 der Begriffssuche 72 verwandte Treffer für 0,02 Dollar, Tiefe 4 dagegen 4680 für 0,58 Dollar. Gebraucht werden acht.",
+        "Die Einstellung steht deshalb fest auf 2, und daneben steht im Quelltext, warum. Alles darüber ist bezahlter Ballast, der am Rand vom Thema abkommt.",
+        "Dieselbe Rechnung gilt für den Vorgang selbst. Ein Audit, das vorher sagt, an welcher Stelle Automatisierung etwas bringt und an welcher nicht, ist billiger als jede Korrektur danach."
       ]
     },
     {
       "heading": "2. Der Pilot hat keinen Besitzer",
       "paragraphs": [
         "Ein Bereich probiert etwas aus, es läuft, alle sind zufrieden. Dann soll es in den Betrieb, und dort stellt sich heraus: Niemand ist dafür zuständig, wenn es morgens nicht läuft. Niemand pflegt die Regeln nach, wenn sich ein Ablauf ändert. Niemand entscheidet, was passiert, wenn das Ergebnis einmal falsch ist.",
-        "Ein Pilot ohne benannte verantwortliche Person ist kein Projekt, sondern ein Experiment. Das ist in Ordnung, solange man es so nennt — problematisch wird es, wenn ein Experiment als Einführung verkauft wird."
+        "Ein Pilot ohne benannte verantwortliche Person ist kein Projekt, sondern ein Experiment. Das ist in Ordnung, solange man es so nennt — problematisch wird es, wenn ein Experiment als Einführung verkauft wird.",
+        "Ein bestandener Test ist dabei kein Betriebsnachweis. Im eigenen Haus war ein Baustein für strukturierte Daten gebaut, geprüft und abgenommen — eingehängt war er auf keiner einzigen Seite. Jede Artikelseite verwies auf eine Kennung, die nirgends belegt war.",
+        "Zuständigkeit endet nicht mit einem bestandenen Test. Sie endet an dem Tag, an dem jemand den letzten Handgriff gemacht hat und danach nachsieht, ob er gewirkt hat."
+      ]
+    },
+    {
+      "heading": "Was verlangt das Gesetz an Zuständigkeit?",
+      "paragraphs": [
+        "Mehr, als ein Pilot gewöhnlich vorsieht. Artikel 4 der KI-Verordnung verpflichtet Anbieter und Betreiber, für ein ausreichendes Maß an KI-Kompetenz bei ihrem Personal zu sorgen. Die Pflicht gilt seit dem 2. Februar 2025.",
+        "Sie hängt an keiner Risikoklasse und an keiner Betriebsgröße. Wer eine Anwendung betreibt, braucht Leute, die sie beurteilen können — und das ist etwas anderes als Leute, die sie bedienen können.",
+        "Hinter dem benannten Besitzer steht damit eine Rechtspflicht statt einer Meinung. Ein Bereich kann sie nicht erfüllen, denn ein Bereich lässt sich weder schulen noch fragen."
+      ]
+    },
+    {
+      "heading": "Was passiert, wenn niemand zuständig ist?",
+      "paragraphs": [
+        "Es veraltet, und zwar lautlos. Eine Besuchsmeldung schickte nach einem Serverumzug weiter Daten an eine Adresse, unter der längst eine andere Anwendung lief. Der Pfad antwortete mit 404, angekommen ist nie etwas.",
+        "Zwei Textdateien für abrufende Systeme liefen sechs Wochen aus dem Stand der Website heraus. Darin standen eine zurückgenommene Garantie und ein gelöschtes Kundenzitat — und eine Websuche gab genau diesen Stand wörtlich wieder.",
+        "Die Gegenmaßnahme war ein anderer Zuschnitt, keine höhere Sorgfalt. Beide Dateien werden seither erzeugt statt gepflegt, und ein Test bricht ab, sobald die Ableitung nicht mehr stimmt."
       ]
     },
     {
       "heading": "3. Das Modell bekommt die eigenen Daten nicht zu sehen",
       "paragraphs": [
         "Ein Sprachmodell ohne Zugriff auf die Daten des Betriebs kann nur allgemein antworten. Es kennt die Preisliste nicht, nicht die Historie eines Kunden, nicht die interne Regel, warum dieser eine Fall anders behandelt wird.",
-        "Genau diese Anbindung ist die Arbeit, die niemand gern übernimmt: Schnittstellen zu Systemen, die seit Jahren laufen, Rechte und Rollen, Datenqualität. Sie entscheidet aber darüber, ob am Ende ein Werkzeug steht oder ein besserer Chat."
+        "Genau diese Anbindung ist die Arbeit, die niemand gern übernimmt: Schnittstellen zu Systemen, die seit Jahren laufen, Rechte und Rollen, Datenqualität. Sie entscheidet aber darüber, ob am Ende ein Werkzeug steht oder ein besserer Chat.",
+        "Diese Arbeit steht am Anfang. Wer sie hinter den Piloten schiebt, baut zweimal: einmal die Vorführung und danach das, was tatsächlich in Betrieb geht."
+      ]
+    },
+    {
+      "heading": "Woran scheitert eine Anbindung, wenn der Zugang stimmt?",
+      "paragraphs": [
+        "An der Ladekette, und die Fehlermeldung zeigt dabei auf die falsche Stelle. In der eigenen Automatik fragten sechs Einstiegspunkte Umgebungsvariablen ab, die niemand füllte. Die Datei mit den Zugangsdaten las kein einziges Skript.",
+        "Wer den Schlüssel sauber einträgt, liest trotzdem, der Schlüssel fehle. Der Befund sieht aus wie ein Zugangsproblem und ist ein Ladeproblem — deshalb sucht man ihn tagelang beim Anbieter.",
+        "Ein eigenes Modul lädt die Datei jetzt und steht in jedem Einstiegspunkt als erster Import. Ein Test prüft seither die Position dieses Imports, nicht seine Anwesenheit."
       ]
     },
     {
       "heading": "4. Es gibt keine Zahl, an der man ablesen kann, ob es sich lohnt",
       "paragraphs": [
         "Ohne Ausgangsmessung ist jede spätere Diskussion Geschmackssache. Bevor irgendetwas gebaut wird, sollte klar sein: Wie lange dauert dieser Vorgang heute, wie oft kommt er vor, wer macht ihn.",
-        "Das ist keine Bürokratie, sondern Selbstschutz. Es ist die einzige Grundlage, auf der man ein Projekt später fortsetzen — oder eben ehrlich beenden — kann."
+        "Das ist keine Bürokratie, sondern Selbstschutz. Es ist die einzige Grundlage, auf der man ein Projekt später fortsetzen — oder eben ehrlich beenden — kann.",
+        "Was eine Schätzung wert ist, zeigt der Vergleich mit einer Messung. Für einen Lauf der eigenen Automatik standen 13 Cent im Kopf. Gemessen wurden 17,8 Cent — und zwar allein für den ersten von neun Schritten."
       ],
       "bullets": [
         "Wie viele Vorgänge pro Woche?",
         "Wie viele Minuten je Vorgang, von Anfang bis Ende?",
-        "Wie viele davon sind Nacharbeit, weil vorher etwas fehlte?"
+        "Wie viele davon sind Nacharbeit, weil vorher etwas fehlte?",
+        "Wer merkt es heute, wenn ein Vorgang liegen bleibt?"
+      ]
+    },
+    {
+      "heading": "Was, wenn die Zahl da ist und trotzdem falsch ist?",
+      "paragraphs": [
+        "Dann ist sie gefährlicher als gar keine Zahl. Beim Umstellen der ersten Artikel dieser Website waren fünfzehn interne Verweise eingetragen und wurden gezählt. Gerendert war keiner davon.",
+        "Aufgefallen ist das beim Vergleich zweier Zählungen: Verweise in der Datenquelle gegen Verweise im ausgelieferten Text. Seither bricht der Aufbau der Website ab, wenn beide Zahlen auseinandergehen.",
+        "Dieselbe Falle steckt in Leistungsmessungen. Auf den Artikelseiten war das größte gezeichnete Element nicht der Artikel, sondern der Einwilligungsbanner: 51.168 Quadratpixel gegen 47.880 des Aufmachers.",
+        "Eine gute Kennzahl liefert ihre eigene Lücke mit. Der tägliche Besucherbericht trägt unter jeder Mail den Satz, dass er untererfasst — sonst liest er sich wie eine Vollerhebung."
+      ]
+    },
+    {
+      "heading": "Wann ist eine Grenze wirklich eine Grenze?",
+      "paragraphs": [
+        "Wenn sie unter dem Vorrat liegt, den sie schützen soll. Nach dem ersten echten Lauf standen auf dem Konto der Recherche-Schnittstelle noch 0,63 Dollar. Das Tageslimit steht seither auf 0,50 statt auf den voreingestellten fünf.",
+        "Eine Grenze oberhalb des Guthabens greift erst, wenn das Konto leer ist. Dieselbe Schnittstelle schreibt die Kosten jeder Antwort mit, statt sie am Monatsende nachzurechnen — eine Bremse, keine Empfehlung."
       ]
     },
     {
       "heading": "5. Alles auf einmal statt einer Sache richtig",
       "paragraphs": [
         "Der Reflex nach dem ersten Erfolg ist die Landkarte: zwanzig Anwendungsfälle, priorisiert, mit Roadmap über drei Jahre. In der Zeit, in der so ein Programm aufgesetzt wird, ändert sich die Lage — und mit ihr die Begründung des Programms.",
-        "Ein Vorgang, sauber automatisiert, im Betrieb, mit einer Zahl dahinter, ist mehr wert als eine Landkarte. Er beweist im eigenen Haus, dass es geht, und er finanziert das nächste Stück."
+        "Ein Vorgang, sauber automatisiert, im Betrieb, mit einer Zahl dahinter, ist mehr wert als eine Landkarte. Er beweist im eigenen Haus, dass es geht, und er finanziert das nächste Stück.",
+        "Was Ausweiten ohne eine Quelle kostet, lässt sich zählen. Eine einzige Angebotsbezeichnung stand an 31 Stellen im Code, verteilt auf 25 Dateien: in Knopfbeschriftungen, in Fließtexten, in strukturierten Daten, in Stellenanzeigen.",
+        "Wer den Namen ändern wollte, musste alle finden. Seither steht das Angebot an einer Stelle, und die Seiten holen es sich dort ab.",
+        "Wachstum lässt sich vorher beziffern. Der Wissensbereich rendert heute jeden Artikel beim Aufbau vor. Im Kopf der Datei steht, dass die Grenze bei 500 Artikeln liegt und wie der Umbau dann aussieht."
+      ]
+    },
+    {
+      "heading": "Was übersieht ein Pilot auf dem Weg in den Betrieb?",
+      "paragraphs": [
+        "Meistens die Stellen, die technisch unsichtbar sind. Das Betriebsverfassungsgesetz nennt Künstliche Intelligenz wörtlich im Gesetzestext, und vier Fundstellen greifen, bevor ein System produktiv läuft.",
+        "Die Reihenfolge ist dabei der Punkt. Eine Beteiligung, die erst nach dem Piloten beginnt, kommt zu spät — das Gesetz verlangt sie zu einem Zeitpunkt, an dem Bedenken die Planung noch ändern können."
+      ],
+      "tabelle": {
+        "kopf": [
+          "Fundstelle",
+          "Was sie verlangt"
+        ],
+        "zeilen": [
+          [
+            "§ 90 Absatz 1 Nummer 3 BetrVG",
+            "Unterrichtung über die Planung von Arbeitsverfahren und Arbeitsabläufen einschließlich des Einsatzes von Künstlicher Intelligenz"
+          ],
+          [
+            "§ 90 Absatz 2 BetrVG",
+            "Beratung so rechtzeitig, dass Vorschläge und Bedenken des Betriebsrats bei der Planung noch berücksichtigt werden können"
+          ],
+          [
+            "§ 87 Absatz 1 Nummer 6 BetrVG",
+            "Mitbestimmung bei technischen Einrichtungen, die dazu bestimmt sind, Verhalten oder Leistung der Arbeitnehmer zu überwachen"
+          ],
+          [
+            "§ 80 Absatz 3 BetrVG",
+            "Zur Beurteilung von Künstlicher Intelligenz gilt die Hinzuziehung eines Sachverständigen als erforderlich"
+          ],
+          [
+            "§ 95 Absatz 2a BetrVG",
+            "Mitbestimmung bei Auswahlrichtlinien gilt auch, wenn dabei Künstliche Intelligenz zum Einsatz kommt"
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Wie hört ein Vorhaben auf?",
+      "paragraphs": [
+        "Geordnet, wenn der Weg vorher feststeht. Ein Abbruchweg, der erst im Ernstfall entworfen wird, ist keiner — dann läuft ein Vorhaben aus, statt beendet zu werden.",
+        "Für die eigene Automatik steht der Weg schriftlich fest. Wöchentlich an der einen Stelle nachsehen, an der eine Sanktion angekündigt wird. Monatlich prüfen, ob das Problem überhaupt noch dort liegt, wo es vermutet wird.",
+        "Dazu kommt ein fertiger Befehl, der einen Artikel zurückzieht, und ein Termin im Quartal für alles, was nach sechs Monaten nichts bringt. Ohne diese Zeilen gibt es kein ehrliches Ende, sondern nur ein Versickern."
       ]
     }
   ],
   "kernaussagen": [
     "Ein Pilot ohne benannte verantwortliche Person ist kein Projekt, sondern ein Experiment.",
     "Eine Automatisierung, die nicht an dem Vorgang sitzt, an dem der Umsatz hängt, spart Zeit — aber sie verdient kein Geld.",
-    "Ohne Ausgangsmessung ist jede spätere Diskussion über den Nutzen einer KI-Einführung Geschmackssache: Wie lange ein Vorgang heute dauert und wie oft er vorkommt, gehört vor die erste Zeile Code."
+    "Ohne Ausgangsmessung ist jede spätere Diskussion über den Nutzen einer KI-Einführung Geschmackssache: Wie lange ein Vorgang heute dauert und wie oft er vorkommt, gehört vor die erste Zeile Code.",
+    "Eine Grenze, die oberhalb des tatsächlichen Vorrats liegt, greift erst, wenn nichts mehr da ist, das sie schützen soll."
   ],
   "fazit": "Falsche KI kostet mehr als keine KI: Sie bindet Budget, bindet die besten Leute und hinterlässt im Betrieb die Überzeugung, dass das Thema nichts bringt.",
   "faq": [
@@ -79,9 +183,48 @@
     {
       "frage": "Was gehört in eine Ausgangsmessung vor einem KI-Projekt?",
       "antwort": "Drei Angaben reichen: wie viele Vorgänge pro Woche anfallen, wie viele Minuten ein Vorgang von Anfang bis Ende dauert, und wie viel davon Nacharbeit ist, weil vorher etwas fehlte. Ohne diese Zahlen ist jede spätere Diskussion Geschmackssache — und es gibt keine Grundlage, ein Projekt fortzusetzen oder ehrlich zu beenden."
+    },
+    {
+      "frage": "Muss jeder KI-Einsatz eine benannte verantwortliche Person haben?",
+      "antwort": "Artikel 4 der KI-Verordnung verpflichtet Anbieter und Betreiber, für ein ausreichendes Maß an KI-Kompetenz bei ihrem Personal und bei allen Personen zu sorgen, die in ihrem Auftrag mit dem Betrieb der Systeme befasst sind. Die Pflicht gilt seit dem 2. Februar 2025 und hängt an keiner Risikoklasse. Wer eine Anwendung betreibt, braucht also Leute, die sie beurteilen können. Das ist etwas anderes als Leute, die sie bedienen können."
+    },
+    {
+      "frage": "Wer muss bei der Einführung von KI im Betrieb beteiligt werden?",
+      "antwort": "In Betrieben mit Betriebsrat greift das Betriebsverfassungsgesetz an vier Stellen. Nach § 90 Absatz 1 Nummer 3 ist über die Planung von Arbeitsverfahren einschließlich des Einsatzes von Künstlicher Intelligenz zu unterrichten. Nach Absatz 2 muss die Beratung so rechtzeitig erfolgen, dass Bedenken bei der Planung noch berücksichtigt werden können. § 87 Absatz 1 Nummer 6 bringt Mitbestimmung, sobald eine technische Einrichtung Verhalten oder Leistung überwachen kann. Nach § 80 Absatz 3 gilt ein Sachverständiger zur Beurteilung von Künstlicher Intelligenz als erforderlich, und § 95 Absatz 2a erfasst Auswahlrichtlinien, die mit Künstlicher Intelligenz erstellt werden."
     }
   ],
-  "quellen": [],
+  "quellen": [
+    {
+      "bezeichnung": "Verordnung (EU) 2024/1689, Artikel 4 — KI-Kompetenz",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "abgerufen": "2026-08-24",
+      "belegt": "Anbieter und Betreiber von KI-Systemen müssen ein ausreichendes Maß an KI-Kompetenz ihres Personals und der in ihrem Auftrag handelnden Personen sicherstellen. Die Pflicht gilt seit dem 2. Februar 2025 und ist nicht auf Hochrisiko-Systeme beschränkt."
+    },
+    {
+      "bezeichnung": "§ 90 Betriebsverfassungsgesetz — Unterrichtungs- und Beratungsrechte",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__90.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Absatz 1 Nummer 3 nennt die Planung von Arbeitsverfahren und Arbeitsabläufen einschließlich des Einsatzes von Künstlicher Intelligenz. Absatz 2 verlangt eine Beratung so rechtzeitig, dass Vorschläge und Bedenken bei der Planung noch berücksichtigt werden können."
+    },
+    {
+      "bezeichnung": "§ 87 Absatz 1 Nummer 6 Betriebsverfassungsgesetz — Mitbestimmungsrechte",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__87.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Mitbestimmung bei Einführung und Anwendung von technischen Einrichtungen, die dazu bestimmt sind, das Verhalten oder die Leistung der Arbeitnehmer zu überwachen."
+    },
+    {
+      "bezeichnung": "§ 80 Absatz 3 Betriebsverfassungsgesetz — Sachverständige",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__80.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Muss der Betriebsrat die Einführung oder Anwendung von Künstlicher Intelligenz beurteilen, gilt insoweit die Hinzuziehung eines Sachverständigen als erforderlich."
+    },
+    {
+      "bezeichnung": "§ 95 Absatz 2a Betriebsverfassungsgesetz — Auswahlrichtlinien",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__95.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Die Mitbestimmung bei Auswahlrichtlinien gilt auch dann, wenn bei ihrer Aufstellung Künstliche Intelligenz zum Einsatz kommt."
+    }
+  ],
   "interneLinks": [
     {
       "ziel": "/leistungen",
@@ -89,30 +232,45 @@
       "abschnitt": 0
     },
     {
+      "ziel": "/gratis-wissen/thema/ki-strategie",
+      "ankertext": "an welcher Stelle Automatisierung etwas bringt",
+      "abschnitt": 1
+    },
+    {
       "ziel": "/gratis-wissen/was-ein-ki-setup-im-betrieb-wirklich-ausmacht",
       "ankertext": "wenn ein Experiment als Einführung verkauft wird",
-      "abschnitt": 1
+      "abschnitt": 2
+    },
+    {
+      "ziel": "/gratis-wissen/was-passiert-wenn-eine-automatisierung-nachts-abstuerzt",
+      "ankertext": "Der Pfad antwortete mit 404",
+      "abschnitt": 4
     },
     {
       "ziel": "/glossar/llm-integration",
       "ankertext": "Ein Sprachmodell ohne Zugriff auf die Daten des Betriebs",
-      "abschnitt": 2
+      "abschnitt": 5
     },
     {
       "ziel": "/glossar/ki-audit",
       "ankertext": "Ohne Ausgangsmessung",
-      "abschnitt": 3
+      "abschnitt": 7
     },
     {
       "ziel": "/referenzen",
       "ankertext": "mit einer Zahl dahinter",
-      "abschnitt": 4
+      "abschnitt": 10
+    },
+    {
+      "ziel": "/gratis-wissen/claude-md-die-nach-sechs-monaten-noch-stimmt",
+      "ankertext": "Im Kopf der Datei steht",
+      "abschnitt": 10
     }
   ],
   "substanz": {
-    "art": "prozesszerlegung",
-    "beschreibung": "Zerlegt den Weg eines KI-Vorhabens in fünf Stationen — Auswahl des Vorgangs, Pilot, Datenanbindung, Ausgangsmessung, Ausweitung — und benennt an jeder den Punkt, an dem es abbricht. Dahinter steht keine eigene Erhebung: der Eigenanteil ist die Zerlegung, nicht ein Messwert.",
-    "herkunft": "src/data/wissen.ts, Startbestand vom 12.08.2026 — Text von einem Modell verfasst, von Ayham Alkhalil freigegeben. Keine Messreihe, keine Fallzahl, keine externe Statistik im Text."
+    "art": "fehlerbericht",
+    "beschreibung": "Fünf Stationen, an denen ein KI-Vorhaben abbricht, belegt an Fehlern aus dem eigenen Betrieb: eine Schätzung, die eine Messung um mehr als ein Drittel verfehlte und dabei nur den ersten von neun Schritten betraf; ein Einwilligungsbanner als größtes Element der Artikelseite; fünfzehn eingetragene und null gerenderte Verweise; eine Anbindung, die nicht am Zugang scheiterte, sondern an der Ladekette.",
+    "herkunft": "Eigener Betrieb, keine Kundendaten. Gemessen: 17,8 Cent je Lauf gegen 13 Cent geschätzt; 51.168 gegen 47.880 Quadratpixel. Fundstellen: CLAUDE.md, src/lib/wissen/laden.ts, src/components/CookieConsent.tsx, src/config/angebot.ts. Startbestand 12.08.2026 von einem Modell verfasst."
   },
   "cta": {
     "heading": "Erkennen ist der leichtere Teil.",

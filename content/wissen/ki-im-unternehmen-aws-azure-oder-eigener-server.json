@@ -1,7 +1,7 @@
 {
   "slug": "ki-im-unternehmen-aws-azure-oder-eigener-server",
   "titel": "KI im Unternehmen: AWS, Azure oder eigener Server?",
-  "teaser": "Für Betriebe mit echten Compliance-Anforderungen ist die Frage nicht, welches Modell das beste ist, sondern wo es läuft. Ein Vergleich der drei Wege — mit den Kriterien, die tatsächlich entscheiden.",
+  "teaser": "Für Betriebe mit echten Datenschutzanforderungen ist die Frage nicht, welches Modell das beste ist, sondern wo es läuft. Drei Wege, die Kriterien dahinter — und was eigener Betrieb an Arbeit zurückbringt.",
   "kategorie": "Enterprise",
   "cluster": "ki-betrieb",
   "zielKeyword": "ki im unternehmen hosten",
@@ -14,8 +14,8 @@
     "offene modelle im unternehmen einsetzen"
   ],
   "datum": "2026-08-12",
-  "aktualisiert": "2026-08-12",
-  "lesezeit": 7,
+  "aktualisiert": "2026-08-24",
+  "lesezeit": 10,
   "autor": "ayham-alkhalil",
   "intro": "Sobald personenbezogene Daten, Betriebsgeheimnisse oder regulierte Prozesse im Spiel sind, verschiebt sich die Frage. Nicht „welches Modell ist das beste“, sondern: Wo läuft es, wer kommt an die Daten, und was steht im Vertrag. Drei Wege stehen zur Wahl, und keiner ist grundsätzlich richtig.",
   "abschnitte": [
@@ -28,11 +28,78 @@
       ]
     },
     {
+      "heading": "Was leistet eine europäische Region rechtlich?",
+      "paragraphs": [
+        "Die Region legt fest, wo die Verarbeitung läuft. Sie sagt nichts darüber, wer von wo aus zugreifen darf — und genau daran hängt die rechtliche Bewertung. Jede Offenlegung gegenüber einem Empfänger im Drittland ist eine Übermittlung nach Kapitel V der DSGVO.",
+        "Für eine solche Übermittlung braucht es eine Grundlage: einen Angemessenheitsbeschluss, Standardvertragsklauseln oder ein anderes Instrument aus Artikel 46 DSGVO. Der Europäische Gerichtshof hat in der Rechtssache C-311/18 entschieden: Klauseln allein genügen nicht, wenn das Recht des Empfängerlands sie aushebelt.",
+        "Was ein Anbieter unter europäischer Region versteht, steht in seiner eigenen Dokumentation. Microsoft beschreibt die EU Data Boundary samt der Ausnahmen für Unterstützung und Bedrohungsanalyse. Wer das nicht liest, hält eine Einstellung für eine Zusage.",
+        "Dieselbe Dokumentation beantwortet die zweite Frage: ob Eingaben zum Training verwendet werden, wie lange sie gespeichert bleiben und wer sie im Missbrauchsfall sehen darf. Microsoft und AWS halten das schriftlich fest — nachlesen muss es trotzdem jemand."
+      ]
+    },
+    {
+      "heading": "Was muss im Auftragsverarbeitungsvertrag stehen?",
+      "paragraphs": [
+        "Vorher steht die Rollenfrage. Ein Anbieter, der die Daten für eigene Zwecke nutzt, ist kein Auftragsverarbeiter nach Artikel 4 Nummer 8 DSGVO. Dann trägt dieser Vertragstyp die Sache nicht.",
+        "Der Europäische Datenschutzausschuss hat für die Modellebene eine eigene Stellungnahme vorgelegt. Sie behandelt, wann ein Modell selbst als anonym gilt und was unrechtmäßig verarbeitete Trainingsdaten für den späteren Einsatz bedeuten.",
+        "Wer nachprüfen will, ob ein verwalteter Dienst den Vertrag auch einhält, fragt nach einem Testat. Der Kriterienkatalog C5 des Bundesamts für Sicherheit in der Informationstechnik ist der Rahmen — danach fragt in Deutschland ein Prüfer.",
+        "Artikel 28 Absatz 3 DSGVO zählt auf, was der Vertrag mindestens regeln muss. Die Liste ist kurz genug, um sie beim Lesen eines Anbietervertrags abzuhaken:"
+      ],
+      "bullets": [
+        "Verarbeitung nur auf dokumentierte Weisung, auch bei Übermittlungen in ein Drittland.",
+        "Vertraulichkeit der Personen, die zur Verarbeitung befugt sind.",
+        "Maßnahmen zur Sicherheit der Verarbeitung nach Artikel 32 DSGVO.",
+        "Unterauftragsverarbeiter nur mit vorheriger Genehmigung des Verantwortlichen.",
+        "Unterstützung bei den Rechten betroffener Personen und bei den Meldepflichten.",
+        "Löschung oder Rückgabe nach Ende der Leistung, dazu Nachweise und die Möglichkeit einer Prüfung."
+      ]
+    },
+    {
       "heading": "Der eigene Server: offene Modelle im Haus",
       "paragraphs": [
         "Offene Modelle lassen sich auf eigener Hardware betreiben. Damit verlassen die Daten das Haus nicht — das stärkste Argument in Bereichen, in denen das schlicht Voraussetzung ist: Gesundheitswesen, Verteidigung, Teile der öffentlichen Verwaltung.",
         "Der Preis dafür ist Betrieb. Grafikkarten, Überwachung, Aktualisierungen, jemand, der nachts erreichbar ist. Diese Kosten fallen an, ob das System genutzt wird oder nicht, während man beim Hyperscaler nach Verbrauch zahlt.",
         "Die ehrliche Faustregel: Eigener Betrieb lohnt sich, wenn die Nutzung hoch und gleichmäßig ist — oder wenn eine Vorschrift keine Wahl lässt. Für den ersten Anwendungsfall ist er fast immer der teurere Weg."
+      ]
+    },
+    {
+      "heading": "Was kostet der Betrieb, den ein verwalteter Dienst abnimmt?",
+      "paragraphs": [
+        "Betrieb ist keine einmalige Einrichtung, sondern eine Liste, die nie leer wird. Ein Beispiel dafür: Ein öffentlich erreichbarer Container lief monatelang auf Node 20.",
+        "Diese Version ist im April 2026 aus der Wartung gefallen und bekommt seither keine Sicherheitsaktualisierungen mehr. Aufgefallen ist das bei einer Durchsicht, nicht im laufenden Betrieb — eine Laufzeit ohne Wartung meldet sich nicht von selbst.",
+        "Der Nachfolger Node 22 steht bis April 2027 in Wartung. Der Wechsel selbst war eine Zeile im Dockerfile. Die Arbeit steckte davor: Jemand muss hinsehen, und dieser Jemand muss wissen, wonach.",
+        "Dazu kommt, was fertig ist und trotzdem nicht laufen darf. Ein selbst betriebener Anmeldedienst bleibt abgeschaltet, solange er kein Zertifikat für seine Domain hat.",
+        "Die Reihenfolge ist dabei nicht beliebig. Der Aussteller steckt in jedem ausgegebenen Token — ein Domainwechsel nach der ersten echten Anmeldung entwertet alle bestehenden Sitzungen."
+      ]
+    },
+    {
+      "heading": "Warum ist eine Kostenbremse im Prozess kein Tageslimit?",
+      "paragraphs": [
+        "Verbrauchsabrechnung heißt, dass ein Programmierfehler eine Rechnung ist. Eine Schleife über zweitausend Suchbegriffe ist in einer Minute geschrieben und in derselben Minute teuer.",
+        "Deshalb steht vor jedem bezahlten Aufruf ein Zähler, der die tatsächlichen Kosten aus der Antwort mitschreibt und bei einem gesetzten Betrag abbricht. Der Haken steckt im Wort Prozess: Der Zähler lebt im Programmlauf, nicht im Kalendertag.",
+        "Zehn Starts hintereinander zählen zehnmal von vorn. Ein echtes Tageslimit gehört deshalb in das Konto beim Anbieter — die Bremse im Programm ersetzt es nicht.",
+        "Der zweite Fehler ist die Höhe. Steht die Bremse über dem Guthaben, greift sie erst, wenn das Konto schon leer ist.",
+        "Wie weit eine Schätzung danebenliegt, zeigt eine Messung: Ein Trockenlauf über acht Kandidatenthemen kostete 17,8 Cent. Veranschlagt waren 13 Cent — und zwar für den ganzen Durchgang, nicht für dessen ersten Schritt.",
+        "Fixkosten kennt man vorher. Verbrauchskosten entstehen beim Benutzen — und wer sie nicht misst, kennt sie erst auf der Rechnung."
+      ]
+    },
+    {
+      "heading": "Woran scheitert die Austauschbarkeit in der Praxis?",
+      "paragraphs": [
+        "An zwei Stellen, und keine davon ist die Schnittstelle. Die erste ist die Adresse des Dienstes: Steht sie fest im Quelltext, ist ein Umzug ein Eingriff in die Anwendung. Steht sie in einer Umgebungsvariablen, ist er eine Zeile Konfiguration.",
+        "In derselben Kette liegen beide Fassungen nebeneinander. Zwei Zugänge lesen ihre Basisadresse aus einer Umgebungsvariablen. Ein dritter trägt sie fest verdrahtet — dort kostet derselbe Umzug einen Eingriff.",
+        "Die zweite Stelle sind die Parameter. Modelle, die gestern noch einen Regler für die Streuung annahmen, antworten heute mit HTTP 400 auf genau diesen Wert.",
+        "Der übliche Rat lautet, die Bindung durch eine eigene Schicht kleinzuhalten. Der Rat stimmt, und er ist nicht umsonst: Wer kein fertiges Anbieterpaket einbindet, pflegt Modellkennungen, Parameternamen und Beta-Kennzeichen selbst.",
+        "Die Schicht macht den Wechsel also nicht billiger. Sie verschiebt die Arbeit — von einem großen Umbau später auf laufende Pflege jetzt."
+      ]
+    },
+    {
+      "heading": "Wer kommt an die Daten, wenn der Vertrag steht?",
+      "paragraphs": [
+        "Der Vertrag regelt, was der Anbieter darf — nicht, wohin die eigene Anwendung nebenbei funkt. Diese zweite Frage lässt sich technisch beantworten statt vertraglich.",
+        "Eine Content-Security-Policy ist eine Positivliste erlaubter Gegenstellen, die der Browser durchsetzt. Wer eine neue externe Verbindung einbaut und sie dort nicht einträgt, bekommt keine Fehlermeldung, sondern eine stillschweigend blockierte Anfrage.",
+        "Denselben Weg gibt es rückwärts. Zwei fremde Ziele standen in dieser Liste, weil der Browser des Besuchers direkt dorthin meldete. Das läuft heute serverseitig, und die Liste ist wieder kürzer.",
+        "Eine Ebene tiefer entscheidet ein Namenspräfix. Bei Next.js wandert jede Variable mit dem Präfix NEXT_PUBLIC_ in das ausgelieferte Bündel — ein Schlüssel darin steht im Quelltext jeder Seite.",
+        "Das gilt für den verwalteten Dienst und für den eigenen Server gleichermaßen. Der Ort der Verarbeitung ändert nichts daran, wer den Schlüssel lesen kann."
       ]
     },
     {
@@ -48,17 +115,26 @@
       ]
     },
     {
+      "heading": "Wann nimmt eine Vorschrift die Wahl ab?",
+      "paragraphs": [
+        "Manche Pflichten wirken unmittelbar auf den Betrieb. Artikel 12 der KI-Verordnung verlangt für Hochrisiko-Systeme eine automatische Aufzeichnung von Ereignissen. Wer solche Protokolle führen muss, entscheidet über Speicherort und Aufbewahrung nicht mehr frei.",
+        "Der zweite Weg läuft über Verträge. Die NIS2-Richtlinie verpflichtet betroffene Einrichtungen in Artikel 21 Absatz 2 zur Sicherheit ihrer Lieferkette. Diese Anforderungen erreichen dann Zulieferer, die selbst nicht unter die Richtlinie fallen — über den Vertrag mit dem Kunden."
+      ]
+    },
+    {
       "heading": "Der pragmatische Weg",
       "paragraphs": [
         "In den meisten Betrieben führt der Weg über einen verwalteten Dienst in europäischer Region, mit sauber gezogenen Grenzen: welche Daten hineindürfen, welche nicht, und einer Anwendungsschicht dazwischen, die den Anbieter austauschbar hält.",
-        "Der eigene Server kommt dann später, wenn die Nutzung es rechtfertigt oder eine Vorschrift es verlangt. Diese Reihenfolge kostet weniger und macht früher etwas nutzbar — und sie verbaut nichts."
+        "Der eigene Server kommt dann später, wenn die Nutzung es rechtfertigt oder eine Vorschrift es verlangt. Diese Reihenfolge kostet weniger und macht früher etwas nutzbar — und sie verbaut nichts.",
+        "Sie hält auch den ersten Fehler klein — wer die Reihenfolge umdreht, kauft Hardware für eine Last, die noch niemand gemessen hat."
       ]
     }
   ],
   "kernaussagen": [
     "Die Infrastrukturfrage bei KI ist keine Geschmacksfrage, sondern eine Rechenaufgabe mit vier Größen: Daten, Vertrag, Last und wer es später betreibt.",
     "Ein verwalteter Dienst wie AWS Bedrock oder Azure OpenAI Service unterscheidet sich vom direkten Anbieter-Zugang darin, dass sich die Region der Verarbeitung festlegen lässt und ein Auftragsverarbeitungsvertrag dazugehört.",
-    "Der Betrieb offener Modelle auf eigener Hardware lohnt sich, wenn die Nutzung hoch und gleichmäßig ist — oder wenn eine Vorschrift keine Wahl lässt."
+    "Die Region einer Verarbeitung sagt, wo Daten liegen, nicht wer von wo aus zugreift: Jede Offenlegung gegenüber einem Empfänger im Drittland bleibt eine Übermittlung nach Kapitel V der DSGVO.",
+    "Eine Kostenbremse, die im Programmlauf zählt, ist kein Tageslimit: Zehn Starts hintereinander zählen zehnmal von vorn."
   ],
   "fazit": "Die Infrastrukturfrage ist keine Geschmacksfrage, sondern eine Rechenaufgabe mit vier Größen: Daten, Vertrag, Last und wer es später betreibt.",
   "faq": [
@@ -71,11 +147,86 @@
       "antwort": "Zwei Dinge. Erstens lässt sich die Region festlegen, in der die Verarbeitung stattfindet, und es gibt einen Auftragsverarbeitungsvertrag, der zu einem europäischen Betrieb passt. Zweitens ist die Anbindung an bestehende Systeme meist schon da: Wer Microsoft 365 oder eine AWS-Landschaft betreibt, hat Identitäten, Rechte und Netzwerkgrenzen bereits geregelt — und genau daran scheitern Projekte sonst."
     },
     {
+      "frage": "Reicht eine europäische Region, damit die Daten in Europa bleiben?",
+      "antwort": "Sie legt fest, wo verarbeitet wird. Ob jemand aus einem Drittland darauf zugreift, ist eine zweite Frage. Jede Offenlegung gegenüber einem Empfänger dort ist eine Übermittlung nach Kapitel V der DSGVO. Sie braucht eine eigene Grundlage: einen Angemessenheitsbeschluss, Standardvertragsklauseln oder ein anderes Instrument aus Artikel 46. Anbieter beschreiben die Ausnahmen ihrer Datengrenze in der eigenen Dokumentation, etwa für Unterstützung und Bedrohungsanalyse."
+    },
+    {
+      "frage": "Was muss in einem Auftragsverarbeitungsvertrag stehen?",
+      "antwort": "Artikel 28 Absatz 3 DSGVO listet die Pflichtinhalte auf. Der Vertrag bindet den Anbieter an dokumentierte Weisungen und verpflichtet die befugten Personen zur Vertraulichkeit. Er regelt Unterauftragsverarbeiter, die Unterstützung bei den Rechten betroffener Personen sowie Löschung oder Rückgabe nach Ende der Leistung. Zuletzt schuldet der Anbieter Nachweise und lässt eine Prüfung zu. Vorher steht die Rollenfrage: Wer die Daten für eigene Zwecke nutzt, ist kein Auftragsverarbeiter nach Artikel 4 Nummer 8 DSGVO."
+    },
+    {
       "frage": "Wie bleibt das Modell bei einem verwalteten Dienst austauschbar?",
-      "antwort": "Über eine eigene Anwendungsschicht zwischen Fachanwendung und Anbieter. Preise, Modellauswahl und Bedingungen legt der Anbieter fest, und ein Wechsel ist Arbeit. Wer die Anwendung von Anfang an so baut, dass das Modell dahinter tauschbar bleibt, hält die Abhängigkeit klein, ohne auf die fertige Umgebung zu verzichten."
+      "antwort": "Über eine eigene Anwendungsschicht zwischen Fachanwendung und Anbieter. Preise, Modellauswahl und Bedingungen legt der Anbieter fest, und ein Wechsel ist Arbeit. Wer die Anwendung von Anfang an so baut, dass das Modell dahinter tauschbar bleibt, hält die Abhängigkeit klein. Umsonst ist die Schicht nicht: Modellkennungen und Parameternamen pflegt dann das eigene Haus, und ein Regler, den ein Modell gestern noch annahm, wird heute mit HTTP 400 abgelehnt."
     }
   ],
-  "quellen": [],
+  "quellen": [
+    {
+      "bezeichnung": "Verordnung (EU) 2016/679 (DSGVO), Artikel 4 Nummer 8, Artikel 28 Absatz 3 und Artikel 32",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32016R0679",
+      "abgerufen": "2026-08-24",
+      "belegt": "Wer als Auftragsverarbeiter gilt und welche Punkte ein Auftragsverarbeitungsvertrag mindestens regeln muss: Weisungsbindung, Vertraulichkeit, Unterauftragsverarbeiter, Sicherheit der Verarbeitung, Unterstützung bei Betroffenenrechten, Löschung oder Rückgabe, Nachweise und Prüfung."
+    },
+    {
+      "bezeichnung": "Verordnung (EU) 2016/679 (DSGVO), Kapitel V, Artikel 44 bis 49",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32016R0679",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass jede Offenlegung gegenüber einem Empfänger in einem Drittland eine Übermittlung ist und eine eigene Grundlage braucht, etwa einen Angemessenheitsbeschluss oder ein Instrument nach Artikel 46."
+    },
+    {
+      "bezeichnung": "Durchführungsbeschluss (EU) 2021/914 der Kommission vom 4. Juni 2021 über Standardvertragsklauseln",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32021D0914",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass Standardvertragsklauseln ein Instrument nach Artikel 46 DSGVO sind und in welcher Fassung sie gelten."
+    },
+    {
+      "bezeichnung": "Gerichtshof der Europäischen Union, Urteil vom 16. Juli 2020, Rechtssache C-311/18",
+      "url": "https://curia.europa.eu/juris/liste.jsf?num=C-311/18",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass Vertragsklauseln allein nicht genügen, wenn das Recht des Empfängerlands den Schutz aushebelt, und dass die Lage im Empfängerland deshalb zu prüfen ist."
+    },
+    {
+      "bezeichnung": "Europäischer Datenschutzausschuss, Stellungnahme 28/2024 zu Datenschutzaspekten bei KI-Modellen",
+      "url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-282024-certain-data-protection-aspects_de",
+      "abgerufen": "2026-08-24",
+      "belegt": "Wann ein KI-Modell selbst als anonym gelten kann und welche Folgen unrechtmäßig verarbeitete Trainingsdaten für den späteren Einsatz des Modells haben."
+    },
+    {
+      "bezeichnung": "Bundesamt für Sicherheit in der Informationstechnik, Kriterienkatalog C5",
+      "url": "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Empfehlungen-nach-Angriffszielen/Cloud-Computing/Kriterienkatalog-C5/kriterienkatalog-c5_node.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass es für den Nachweis der Sicherheit eines verwalteten Dienstes einen amtlichen Kriterienkatalog gibt, nach dem in Deutschland geprüft und testiert wird."
+    },
+    {
+      "bezeichnung": "Microsoft, Dokumentation zur EU Data Boundary",
+      "url": "https://learn.microsoft.com/de-de/privacy/eudb/eu-data-boundary-learn",
+      "abgerufen": "2026-08-24",
+      "belegt": "Was der Anbieter unter einer europäischen Datengrenze versteht und an welchen Stellen Ausnahmen bestehen, etwa bei Unterstützung und Bedrohungsanalyse."
+    },
+    {
+      "bezeichnung": "Microsoft, Daten, Datenschutz und Sicherheit für Azure OpenAI Service",
+      "url": "https://learn.microsoft.com/de-de/azure/ai-foundry/responsible-ai/openai/data-privacy",
+      "abgerufen": "2026-08-24",
+      "belegt": "Ob Eingaben zum Training verwendet werden, wie lange sie gespeichert bleiben und wer sie im Rahmen der Missbrauchsüberwachung sehen kann."
+    },
+    {
+      "bezeichnung": "AWS, Data protection in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Wie die Verarbeitung an eine Region gebunden wird, wie Eingaben verschlüsselt werden und dass sie nicht zur Verbesserung der Modelle verwendet werden."
+    },
+    {
+      "bezeichnung": "Richtlinie (EU) 2022/2555 (NIS2), Artikel 21 Absatz 2",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32022L2555",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass betroffene Einrichtungen die Sicherheit ihrer Lieferkette gewährleisten müssen und die Anforderungen dadurch vertraglich an Zulieferer weitergereicht werden."
+    },
+    {
+      "bezeichnung": "Verordnung (EU) 2024/1689 (KI-Verordnung), Artikel 12",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32024R1689",
+      "abgerufen": "2026-08-24",
+      "belegt": "Dass Hochrisiko-Systeme Ereignisse über ihre Lebensdauer automatisch aufzeichnen müssen, was unmittelbare Folgen für Speicherort und Aufbewahrung hat."
+    }
+  ],
   "interneLinks": [
     {
       "ziel": "/glossar/dsgvo-konforme-ki",
@@ -88,25 +239,40 @@
       "abschnitt": 0
     },
     {
+      "ziel": "/gratis-wissen/thema/ki-betrieb",
+      "ankertext": "wer von wo aus zugreifen darf",
+      "abschnitt": 1
+    },
+    {
       "ziel": "/glossar/mlops",
       "ankertext": "Grafikkarten, Überwachung, Aktualisierungen",
-      "abschnitt": 1
+      "abschnitt": 3
     },
     {
       "ziel": "/enterprise",
       "ankertext": "Gesundheitswesen, Verteidigung, Teile der öffentlichen Verwaltung",
-      "abschnitt": 1
+      "abschnitt": 3
+    },
+    {
+      "ziel": "/gratis-wissen/was-passiert-wenn-eine-automatisierung-nachts-abstuerzt",
+      "ankertext": "eine Laufzeit ohne Wartung meldet sich nicht von selbst",
+      "abschnitt": 4
+    },
+    {
+      "ziel": "/gratis-wissen/besucher-melden-ohne-cookie-banner",
+      "ankertext": "Das läuft heute serverseitig",
+      "abschnitt": 7
     },
     {
       "ziel": "/leistungen",
       "ankertext": "einen verwalteten Dienst in europäischer Region",
-      "abschnitt": 3
+      "abschnitt": 10
     }
   ],
   "substanz": {
     "art": "architekturentscheidung",
-    "beschreibung": "Die Reihenfolge, für die sich KITech entschieden hat: erst verwalteter Dienst in europäischer Region mit Auftragsverarbeitungsvertrag, eigene Hardware erst bei hoher gleichmäßiger Last oder wenn eine Vorschrift sie verlangt — dazwischen eine Schicht, die den Anbieter tauschbar hält. Ohne eigene Kostenrechnung im Text.",
-    "herkunft": "Betriebsempfehlung aus src/data/services.ts (Enterprise-Betrieb über AWS oder Azure mit Auftragsverarbeitungsvertrag, alternativ eigene Hardware). Artikeltext: src/data/wissen.ts, Startbestand 12.08.2026, von einem Modell verfasst und freigegeben."
+    "beschreibung": "Die dokumentierte Reihenfolge: erst verwalteter Dienst in europäischer Region mit Auftragsverarbeitungsvertrag, eigene Hardware erst bei hoher gleichmäßiger Last oder wenn eine Vorschrift sie verlangt, dazwischen eine Schicht, die den Anbieter tauschbar hält. Dazu zwei gemessene Befunde: ein Trockenlauf kostete 17,8 statt veranschlagter 13 Cent, und ein Container lief nach dem Wartungsende weiter.",
+    "herkunft": "src/data/services.ts Leistungspunkt 03 und src/data/faq.ts (Betrieb in europäischer Region mit Auftragsverarbeitungsvertrag oder eigener Hardware), Kostenmessung CLAUDE.md 24.08.2026, Node-Befund Dockerfile 23.08.2026. Startbestand 12.08.2026 von einem Modell verfasst, Ausbau 24.08.2026."
   },
   "cta": {
     "heading": "Der Vergleich ersetzt die Rechnung nicht.",

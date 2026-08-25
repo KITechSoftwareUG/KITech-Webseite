@@ -12,6 +12,8 @@ import { faq } from "@/data/faq";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * Startseite, von oben nach unten:
@@ -63,8 +65,11 @@ const HERO_SUBLINE =
 export default function Home({
   /** Freigestelltes Hero-Portrait, vom Server-Wrapper geprüft. `null` => Ersatz. */
   heroPortrait = null,
+  /** Artikel aus /gratis-wissen, vom Server-Wrapper ausgewählt. */
+  wissen = [],
 }: {
   heroPortrait?: string | null;
+  wissen?: ArtikelTeaser[];
 }) {
   const portrait = heroPortrait ?? ersatzPortrait;
 
@@ -210,6 +215,18 @@ export default function Home({
           und ging direkt in die Fusszeile — der am besten vorbereitete Besucher
           der ganzen Seite wurde also nie gefragt. Inhalt:
           src/data/check-einladung.ts. */}
+      {/* Artikel aus /gratis-wissen — eingebaut am 24.08.2026, nachdem gemessen
+          wurde, dass keine einzige Hauptseite auf einen Beitrag verlinkte. Die
+          Startseite trägt die meiste Autorität; von hier aus ist jeder Artikel
+          einen Sprung entfernt statt zwei. Der Hero bleibt davon unberührt —
+          er trägt weiterhin genau eine Aussage. Auswahl:
+          src/lib/wissen/empfehlungen.ts. */}
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading="Wir schreiben auf, was wir wissen."
+        text="Kostenlos, ohne Anmeldung — mit den Zahlen und Entscheidungen aus echten Projekten."
+      />
+
       <CheckEinladung />
 
       {/* Geht kurz nach dem Laden ueber dem Hero auf — nur hier, nicht in der

@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { buildMetadata } from "@/lib/metadata";
 import Home from "@/views/Home";
+import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
 
 /**
  * Beschreibung neu gefasst am 20.08.2026 — aus zwei Gründen.
@@ -40,5 +41,5 @@ const heroPortrait = existsSync(path.join(process.cwd(), "public", HERO_PORTRAIT
   : null;
 
 export default function Page() {
-  return <Home heroPortrait={heroPortrait} />;
+  return <Home heroPortrait={heroPortrait} wissen={empfehlungenFuer("/")} />;
 }

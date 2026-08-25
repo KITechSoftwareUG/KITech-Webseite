@@ -1,5 +1,6 @@
 import { buildMetadata } from "@/lib/metadata";
 import Leistungen from "@/views/Leistungen";
+import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
 
 /**
  * Stand bis zum 05.08.2026 auf der Baustellenseite mit `noindex`, obwohl die
@@ -14,5 +15,5 @@ export const metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <Leistungen />;
+  return <Leistungen wissen={empfehlungenFuer("/leistungen")} />;
 }

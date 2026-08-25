@@ -227,14 +227,14 @@ Wie ein KI-Assistent ein gewachsenes Firmenprojekt versteht: Projektdokumentatio
 
 Wo ein Modell laufen soll, wenn Betriebsgeheimnisse im Spiel sind — und was die drei Wege tatsächlich kosten.
 
-- **[KI im Unternehmen: AWS, Azure oder eigener Server?](https://kitech-software.de/gratis-wissen/ki-im-unternehmen-aws-azure-oder-eigener-server)** — Für Betriebe mit echten Compliance-Anforderungen ist die Frage nicht, welches Modell das beste ist, sondern wo es läuft. Ein Vergleich der drei Wege — mit den Kriterien, die tatsächlich entscheiden. (Ayham Alkhalil, 12.08.2026)
+- **[KI im Unternehmen: AWS, Azure oder eigener Server?](https://kitech-software.de/gratis-wissen/ki-im-unternehmen-aws-azure-oder-eigener-server)** — Für Betriebe mit echten Datenschutzanforderungen ist die Frage nicht, welches Modell das beste ist, sondern wo es läuft. Drei Wege, die Kriterien dahinter — und was eigener Betrieb an Arbeit zurückbringt. (Ayham Alkhalil, 12.08.2026)
 
 ### KI-Strategie und warum Projekte scheitern
 
 Die Muster, an denen KI-Vorhaben regelmäßig hängenbleiben — und was die erfolgreichen anders gemacht haben.
 
 - **[Die fünf Fehler, die fast jedes Unternehmen mit KI macht](https://kitech-software.de/gratis-wissen/fehler-die-fast-jedes-unternehmen-mit-ki-macht)** — Nicht die Technik scheitert, sondern die Stelle, an der sie sitzt. Fünf Muster, die in Betrieben immer wieder auftauchen — und woran man sie früh erkennt. (Ayham Alkhalil, 12.08.2026)
-- **[Was ein KI-Setup im Betrieb wirklich ausmacht](https://kitech-software.de/gratis-wissen/was-ein-ki-setup-im-betrieb-wirklich-ausmacht)** — Der Zugang ist an einem Nachmittag eingerichtet. Warum es trotzdem Wochen dauert, bis KI im Tagesgeschäft etwas verändert — und woraus die Zeit tatsächlich besteht. (Ayham Alkhalil, 12.08.2026)
+- **[Was ein KI-Setup im Betrieb wirklich ausmacht](https://kitech-software.de/gratis-wissen/was-ein-ki-setup-im-betrieb-wirklich-ausmacht)** — Der Zugang ist an einem Nachmittag eingerichtet. Woraus die Wochen danach bestehen: Arbeitsumgebung, schriftliche Regeln, Automatisierungen — gezeigt an den Zahlen und Fehlern aus einem laufenden Setup. (Ayham Alkhalil, 12.08.2026)
 
 ### Dokumente, Rechnungen, Belege
 

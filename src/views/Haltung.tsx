@@ -16,6 +16,8 @@ import { founderInfo } from "@/components/sections/FounderPortrait";
 import { principles, commitments } from "@/data/principles";
 import { company } from "@/config/company";
 import { BASE_URL } from "@/lib/metadata";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * `/haltung` — wonach entschieden wird, wenn es im Projekt eng wird.
@@ -29,7 +31,7 @@ import { BASE_URL } from "@/lib/metadata";
  *
  * Inhalte in `src/data/principles.ts`.
  */
-export default function Haltung() {
+export default function Haltung({ wissen = [] }: { wissen?: ArtikelTeaser[] }) {
   return (
     <PageShell>
       <StructuredData
@@ -166,6 +168,12 @@ export default function Haltung() {
           .
         </p>
       </section>
+
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading="Haltung zeigt sich im Detail."
+        text="Was das konkret heißt, steht in den Artikeln — samt der Entscheidungen, die sich als falsch herausgestellt haben."
+      />
 
       <CtaBanner
         heading="Passt das zu dem, was ihr sucht?"

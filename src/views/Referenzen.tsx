@@ -10,6 +10,8 @@ import {
 import { ReferenceCard } from "@/components/sections/ReferenceCard";
 import { ReferenceCta } from "@/components/sections/ReferenceCta";
 import { clientResults } from "@/data/client-results";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * Referenz-Übersicht: Headline, zwei Kennzahl-Kacheln, darunter das Kartenraster.
@@ -25,7 +27,7 @@ import { clientResults } from "@/data/client-results";
  * Alle Inhalte kommen aus `src/data/client-results.ts`. Hier wird nichts ergänzt,
  * gerundet oder ausgeschmückt.
  */
-export default function Referenzen() {
+export default function Referenzen({ wissen = [] }: { wissen?: ArtikelTeaser[] }) {
   return (
     <PageShell>
       <StructuredData
@@ -68,6 +70,12 @@ export default function Referenzen() {
           ))}
         </div>
       </section>
+
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading="Wie gearbeitet wird, nicht nur was dabei herauskam."
+        text="Aus denselben Projekten: die Entscheidungen dahinter, offen aufgeschrieben."
+      />
 
       <ReferenceCta position="referenzen-uebersicht" />
     </PageShell>

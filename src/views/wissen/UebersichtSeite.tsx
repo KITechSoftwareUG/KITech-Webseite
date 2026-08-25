@@ -50,8 +50,14 @@ export default function UebersichtSeite({
 
       <section className="bg-surface-strong">
         <div className={`${SITE_CONTAINER} py-16 text-center sm:py-20`}>
-          <h1 className="kinetic-morph-in mx-auto max-w-[760px] text-balance text-[38px] font-extrabold uppercase leading-[1.08] tracking-tight text-foreground sm:text-[50px] sm:leading-[57.5px]">
-            Gratis-Wissen
+          {/* Die H1 hieß bis zum 24.08.2026 „Gratis-Wissen" — der Name des
+              Bereichs, aber kein Begriff, nach dem jemand sucht. Die wichtigste
+              Überschrift der Hub-Seite stand damit auf einem Wort ohne
+              Suchvolumen, während der Seitentitel im Kopf längst „KI im
+              Mittelstand" trug. Der Bereichsname bleibt in Navigation,
+              Brotkrume und Adresse; hier steht jetzt, worum es geht. */}
+          <h1 className="kinetic-morph-in mx-auto max-w-[860px] text-balance text-[34px] font-extrabold uppercase leading-[1.08] tracking-tight text-foreground sm:text-[46px] sm:leading-[53px]">
+            KI im Mittelstand: was funktioniert, was Geld kostet.
           </h1>
           <p className="mx-auto mt-6 max-w-[620px] text-pretty text-[18px] font-normal leading-[27px] text-foreground dt:text-subline">
             Tipps, Ratgeber und die Fehler, die fast jeder mit KI macht. Ohne Anmeldung, ohne

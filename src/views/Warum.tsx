@@ -12,6 +12,8 @@ import {
 } from "@/components/seo/StructuredData";
 import { warumEntry } from "@/config/navigation";
 import { BASE_URL } from "@/lib/metadata";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * `/warum` — die Weiche vor den beiden Sales Lettern.
@@ -41,7 +43,7 @@ const GRUENDE = [
   "Niemand hat vorher ausgerechnet, was es überhaupt bringen soll.",
 ];
 
-export default function Warum() {
+export default function Warum({ wissen = [] }: { wissen?: ArtikelTeaser[] }) {
   return (
     <PageShell>
       <StructuredData
@@ -104,6 +106,12 @@ export default function Warum() {
           ))}
         </ul>
       </section>
+
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading="Die lange Fassung."
+        text="Woran KI-Vorhaben scheitern, Station für Station — und was ein Setup ausmacht, das trägt."
+      />
 
       <CtaBanner
         heading="Herausfinden, woran es bei euch liegt."

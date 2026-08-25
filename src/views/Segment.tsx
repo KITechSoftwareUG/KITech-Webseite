@@ -15,6 +15,8 @@ import {
 } from "@/components/seo/StructuredData";
 import type { SegmentContent } from "@/data/segments";
 import { BASE_URL } from "@/lib/metadata";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * Gemeinsame Vorlage für `/solo` und `/enterprise`.
@@ -26,7 +28,13 @@ import { BASE_URL } from "@/lib/metadata";
  *
  * Inhalte in `src/data/segments.ts`.
  */
-export function Segment({ content }: { content: SegmentContent }) {
+export function Segment({
+  content,
+  wissen = [],
+}: {
+  content: SegmentContent;
+  wissen?: ArtikelTeaser[];
+}) {
   return (
     <PageShell backdropClassName="absolute inset-x-0 top-0 -z-10 h-[560px] sm:h-[640px]">
       <StructuredData
@@ -168,6 +176,12 @@ export function Segment({ content }: { content: SegmentContent }) {
 
       {/* Beweis: dieselben Ergebniskarten wie auf Startseite und Sales Lettern. */}
       <ClientResults />
+
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading={content.wissen.heading}
+        text={content.wissen.text}
+      />
 
       <CtaBanner
         heading={content.cta.heading}

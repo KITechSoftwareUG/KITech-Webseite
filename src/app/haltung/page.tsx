@@ -1,5 +1,6 @@
 import { buildMetadata } from "@/lib/metadata";
 import Haltung from "@/views/Haltung";
+import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
 
 export const metadata = buildMetadata({
   title: "Haltung – KITech Software",
@@ -9,5 +10,5 @@ export const metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <Haltung />;
+  return <Haltung wissen={empfehlungenFuer("/haltung")} />;
 }

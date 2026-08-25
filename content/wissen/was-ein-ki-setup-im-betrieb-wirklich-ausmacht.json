@@ -1,7 +1,7 @@
 {
   "slug": "was-ein-ki-setup-im-betrieb-wirklich-ausmacht",
   "titel": "Was ein KI-Setup im Betrieb wirklich ausmacht",
-  "teaser": "Der Zugang ist an einem Nachmittag eingerichtet. Warum es trotzdem Wochen dauert, bis KI im Tagesgeschäft etwas verändert — und woraus die Zeit tatsächlich besteht.",
+  "teaser": "Der Zugang ist an einem Nachmittag eingerichtet. Woraus die Wochen danach bestehen: Arbeitsumgebung, schriftliche Regeln, Automatisierungen — gezeigt an den Zahlen und Fehlern aus einem laufenden Setup.",
   "kategorie": "Grundlagen",
   "cluster": "ki-strategie",
   "zielKeyword": "ki im unternehmen einführen",
@@ -14,21 +14,23 @@
     "warum ki lizenzen ungenutzt bleiben"
   ],
   "datum": "2026-08-12",
-  "aktualisiert": "2026-08-12",
-  "lesezeit": 5,
+  "aktualisiert": "2026-08-24",
+  "lesezeit": 7,
   "autor": "ayham-alkhalil",
-  "intro": "„Wir haben die Lizenzen, es benutzt nur keiner.“ Dieser Satz fällt oft, und er beschreibt kein Motivationsproblem. Er beschreibt ein fehlendes Setup — und das ist etwas anderes als ein Zugang.",
+  "intro": "„Wir haben die Lizenzen, es benutzt nur keiner.“ Dieser Satz fällt oft, und er beschreibt kein Motivationsproblem. Er beschreibt ein fehlendes Setup — und ein Setup ist die Arbeitsumgebung, die Regeln und die Automatisierungen um den Zugang herum.",
   "abschnitte": [
     {
       "heading": "Ein Zugang ist keine Einführung",
       "paragraphs": [
-        "Ein Konto ist in fünf Minuten angelegt. Danach steht jede Person vor demselben leeren Eingabefeld und muss selbst herausfinden, wofür sich das lohnt. Ein Teil probiert etwas, die meisten kehren nach zwei Wochen zu ihrem alten Weg zurück — weil der alte Weg verlässlich ist und der neue jedes Mal neu erfunden werden muss."
+        "Ein Konto ist in fünf Minuten angelegt. Danach steht jede Person vor demselben leeren Eingabefeld — und muss selbst herausfinden, wofür sich das lohnt.",
+        "Ein Teil probiert etwas, die meisten kehren nach zwei Wochen zu ihrem alten Weg zurück, weil der alte Weg verlässlich ist. Der neue muss jedes Mal neu erfunden werden. Der Zugang war nie das Hindernis."
       ]
     },
     {
-      "heading": "Woraus ein Setup besteht",
+      "heading": "Woraus besteht ein Setup?",
       "paragraphs": [
-        "Ein tragfähiges Setup hat drei Teile, und keiner davon ist die Lizenz."
+        "Aus drei Teilen, und keiner davon ist die Lizenz. Der Zugang schaltet nur frei, dass diese drei Teile gebaut werden können — gebaut hat sie damit niemand.",
+        "Die Reihenfolge ist keine Rangfolge. Die Umgebung legt fest, was möglich ist, die Regeln legen fest, was davon ohne Rückfrage passieren darf. Die Automatisierungen sind der Rest, der danach von allein läuft."
       ],
       "bullets": [
         "Die Arbeitsumgebung: womit gearbeitet wird, worauf zugegriffen werden darf, wo Ergebnisse landen.",
@@ -37,23 +39,103 @@
       ]
     },
     {
-      "heading": "Warum die Regeln der wichtigste Teil sind",
+      "heading": "Warum reicht ein korrekt eingetragener Zugang nicht?",
+      "paragraphs": [
+        "Weil zwischen dem Schlüssel und der Anwendung eine Kette liegt, die jemand gebaut haben muss. Fehlt darin ein Glied, meldet das System einen Fehler, der wie ein Zugangsproblem aussieht.",
+        "Die Artikelautomatik dieser Website las ihre Zugangsdaten bis zum 23. August 2026 aus den Umgebungsvariablen des Prozesses. Nur füllte diese Variablen niemand: kein Ladepaket, kein Startparameter dafür, und das Ausführungswerkzeug liest von sich aus keine Datei.",
+        "Der Befund war heimtückisch, weil er wie ein Konfigurationsfehler aussah. Wer den Zugang sauber einträgt, liest trotzdem die Meldung, dass er fehle — und sucht beim Anbieter statt beim Laden.",
+        "Sichtbar wurde es durch eine Gegenprobe von zehn Sekunden: eine Testvariable in die Datei schreiben und aus dem Skript wieder auslesen. Das Ergebnis lautete „nicht gesetzt“.",
+        "Unsichtbar geblieben war der Fehler, weil die Kette mangels Schlüssel ohnehin nie gelaufen ist. Solche Stellen fallen genau dann auf — wenn man sie am wenigsten gebrauchen kann."
+      ]
+    },
+    {
+      "heading": "Was gehört zur Arbeitsumgebung?",
+      "paragraphs": [
+        "Alles, was jemand einmal entscheiden und aufschreiben muss. Eine Erlaubnisliste ist davon der sichtbarste Teil — und oft der einzige, der überhaupt entsteht.",
+        "In der Konfiguration hinter dieser Website stehen 27 Muster, die ohne Rückfrage laufen dürfen: Paketbefehle, Versionsverwaltung, Lesezugriff auf bestimmte Verzeichnisse. Eine Sperrliste gibt es dort nicht — und zwei Ordner außerhalb des Projekts sind ausdrücklich freigegeben.",
+        "Der zweite Teil ist unbequemer: dieselbe Angabe darf nur an einer Stelle stehen. Die Bezeichnung des kostenlosen Angebots stand im Quelltext dieser Website an 31 Stellen, verteilt über 25 Dateien. Wer sie ändern wollte, musste alle finden.",
+        "Dasselbe Muster trifft jede Einführung, in der dieselbe Vorgabe in vier Eingabetexten, zwei Handbüchern und einer Schulungsfolie steht. Geändert wird davon meistens eine — die übrigen sechs bleiben stehen.",
+        "Die Umgebung endet dort, wo ein fremdes System anfängt. Die Dauer des Erstgesprächs steht hier an einer Stelle, im Buchungskalender des Anbieters aber ein zweites Mal — und den zieht keine Datei nach.",
+        "Steht dort weiter eine ganze Stunde, widerspricht die Buchungsstrecke der Angabe auf der Seite. Eine Regel, die nur im eigenen System gilt, ist an dieser Grenze wirkungslos."
+      ]
+    },
+    {
+      "heading": "Warum sind die Regeln der wichtigste Teil?",
       "paragraphs": [
         "Ohne hinterlegte Regeln beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen. Es kennt die Tonalität des Hauses nicht, nicht die Reihenfolge, in der Dinge geprüft werden, nicht die Fälle, in denen jemand gefragt werden muss.",
-        "Mit Regeln wird aus einem allgemeinen Werkzeug ein Bestandteil der Arbeit. Sie sind auch der Grund, warum sich ein Setup nicht kopieren lässt: Sie beschreiben genau das, was diesen Betrieb von anderen unterscheidet."
+        "Mit Regeln wird aus einem allgemeinen Werkzeug ein Bestandteil der Arbeit. Sie sind auch der Grund, warum sich ein Setup nicht kopieren lässt: Sie beschreiben genau das, was diesen Betrieb von anderen unterscheidet.",
+        "Der Umfang überrascht. Das schriftliche Regelwerk um dieses eine Projekt herum umfasst am 24. August 2026 genau 3.488 Zeilen, davon 1.508 in der Projektdatei — die einmal mit 71 Zeilen anfing.",
+        "Der Aufbau dahinter lässt sich nachbauen. Was bei jedem Handgriff gilt, steht immer bereit: Benennung, Sicherheit, Ablauf. Was nur für eine bestimmte Art von Datei gilt, wird auch nur dann geladen — drei der sechs Regeldateien tragen dafür eine Pfadangabe im Kopf.",
+        "Wie wenig sich so etwas übertragen lässt, zeigt eine einzelne Regel aus der Prüfung dieser Artikel. Der lange Gedankenstrich gilt anderswo als Verräter eines Sprachmodells und wird dort gestrichen.",
+        "Hier ist er Hausstandard: 20 Stück auf 102 Sätze in den handgeschriebenen Artikeln, ungefähr jeder fünfte Satz. Am eigenen Bestand gemessen dreht sich dieselbe Regel um — wer sie abschreibt, schreibt den Fehler ab."
+      ]
+    },
+    {
+      "heading": "Wann wird aus einer Empfehlung eine Regel?",
+      "paragraphs": [
+        "In dem Moment, in dem sie etwas anhält.",
+        "Das Laden der Artikeldateien bricht den Bau dieser Website ab, sobald eine Datei das Datenmodell verletzt. Die Begründung steht im Kommentar daneben: Ein Artikel, der das Schema verletzt, ist ein Artikel, den niemand geprüft hat.",
+        "Lieber ein Abbruch als eine halbe Seite in der Suche. Dieselbe Bauart trägt die Prüfung des Ladevorgangs von oben — sie sieht in sechs namentlich genannten Einstiegspunkten nach, ob die Zugangsdatei wirklich als Erstes gelesen wird.",
+        "Der größere Teil eines Regelwerks wird ohnehin nicht geplant, sondern fällt an. Neben diesem Projekt liegen 13 Erfahrungsnotizen auf 391 Zeilen — jede mit der Regel, dem Grund und dem Vorfall dahinter.",
+        "Abschreiben lässt sich die Regel, der Vorfall dahinter nicht. Genau deshalb sieht ein übernommenes Regelwerk aus wie das Original und hält der ersten Auseinandersetzung trotzdem nicht stand."
+      ]
+    },
+    {
+      "heading": "Was kostet der Betrieb, wenn er läuft?",
+      "paragraphs": [
+        "Mehr als die Lizenz — und die genaue Zahl kennt niemand vor dem ersten echten Lauf. Für die Artikelautomatik dieser Website nannte eine frühere Fassung der Anleitung drei bis fünf Dollar je Durchgang.",
+        "Nachgerechnet an den gemessenen Textgrößen und den Listenpreisen ergaben sich 44 Cent je Artikel, verteilt auf vier Schritte:",
+        "Die Schätzung lag damit um den Faktor drei bis fünf zu hoch. In die andere Richtung geht es genauso. Für die Recherche standen 13 Cent je Lauf in der Anleitung — gemessen wurden 17,8 Cent für einen Probelauf ohne eine geschriebene Zeile.",
+        "Deshalb gehört zu jeder Automatisierung eine Bremse, die vor dem Aufruf greift. Geprüft wird gegen das bereits Verbrauchte — der Preis der nächsten Anfrage ist vorher nicht bekannt.",
+        "Die Höhe der Bremse ist der Punkt, an dem die meisten danebenliegen. Das Tageslimit für die Recherche steht auf 0,50 Dollar, weil auf dem Konto noch 0,63 Dollar liegen. Eine Bremse über dem Guthaben greift erst, wenn das Konto leer ist.",
+        "Auch die Reichweite gehört dazu. Diese Zähler leben im Prozess und begrenzen einen Lauf, keinen Kalendertag — ein echtes Tageslimit steht zusätzlich beim Anbieter."
+      ],
+      "bullets": [
+        "Das Briefing kostet 6 Cent.",
+        "Das Schreiben kostet 13 Cent.",
+        "Das Nachbessern kostet bis zu 23 Cent, weil es zweimal laufen darf.",
+        "Das Einhängen in den Bestand kostet 3 Cent."
+      ]
+    },
+    {
+      "heading": "Welcher Schritt bleibt bei einem Menschen?",
+      "paragraphs": [
+        "Der Schritt, der die Verantwortung trägt. In dieser Automatik ist es die Freigabe: ein Befehl, der Namen und Datum in den Artikel schreibt, bevor er öffentlich wird.",
+        "Das ist keine Formalie. Fragt später jemand, wie diese Artikel entstanden sind, ist dieses Feld die Antwort. Wer es automatisch füllen lässt, hat die Antwort vor der Frage verloren.",
+        "Daneben steht ein zweites Tor, das der Automatik ausdrücklich erlaubt, nichts zu liefern. Kein Thema kommt durch, hinter dem kein belegter Eigenanteil steht: eine gemessene Zahl, eine Entscheidung mit Begründung, ein Fehler mit Kosten.",
+        "Ein Lauf ohne Ergebnis ist damit kein Fehler, sondern die Funktionsweise. Das Tor zu lockern tauscht das Risiko der ganzen Sache gegen einen einzelnen Artikel.",
+        "Ein zweites Schloss am selben Tor prüft, ob der Eigenanteil auch ausgefüllt ist. Es sitzt vor den bezahlten Schritten — ein Thema, das erst beim Schreiben scheitert, hat alles davor schon gekostet."
+      ]
+    },
+    {
+      "heading": "Wer muss vor der Einführung beteiligt werden?",
+      "paragraphs": [
+        "In Betrieben mit Betriebsrat ist das keine Frage der Kultur, sondern des Gesetzes. Das Betriebsverfassungsgesetz nennt Künstliche Intelligenz ausdrücklich — als Gegenstand von Unterrichtung, Beratung und Mitbestimmung.",
+        "Die Unterrichtung nach § 90 hängt an der Planung, nicht am fertigen System. Wer den Betriebsrat erst nach dem Einkauf informiert, hat die Reihenfolge der Vorschrift verfehlt.",
+        "Bemerkenswert ist § 80 Absatz 3 Satz 2. Der Gesetzgeber erklärt die Beurteilung eines KI-Einsatzes damit für etwas, das eigene Fachkunde voraussetzt. Das Argument, so ein Werkzeug erkläre sich von selbst, trägt vor diesem Satz nicht.",
+        "Für die Mitbestimmung nach § 87 kommt es auf die Zweckbestimmung der Einrichtung an. Wo ein Werkzeug jede Eingabe protokolliert und einer Person zuordnet, gehört die Frage vor das Einschalten."
+      ],
+      "bullets": [
+        "§ 90 Absatz 1 Nummer 3 verlangt die Unterrichtung über die Planung von Arbeitsverfahren und Arbeitsabläufen einschließlich des Einsatzes von Künstlicher Intelligenz.",
+        "§ 90 Absatz 2 verlangt die rechtzeitige Beratung der vorgesehenen Maßnahmen und ihrer Auswirkungen auf die Arbeitnehmer.",
+        "§ 80 Absatz 3 Satz 2 erklärt die Hinzuziehung eines Sachverständigen für erforderlich, wenn der Betriebsrat einen KI-Einsatz beurteilen muss.",
+        "§ 87 Absatz 1 Nummer 6 begründet Mitbestimmung bei technischen Einrichtungen, die zur Überwachung von Verhalten oder Leistung bestimmt sind."
       ]
     },
     {
       "heading": "Woran man merkt, dass es sitzt",
       "paragraphs": [
-        "Nicht daran, dass alle begeistert sind. Sondern daran, dass jemand sich beschwert, wenn es einmal nicht läuft. Ab dem Moment ist es Teil des Arbeitswegs — und nicht mehr ein Zusatzangebot, das man auch ignorieren kann."
+        "Nicht daran, dass alle begeistert sind. Sondern daran, dass jemand sich beschwert, wenn es einmal nicht läuft. Ab dem Moment ist es Teil des Arbeitswegs — und nicht mehr ein Zusatzangebot, das man auch ignorieren kann.",
+        "Das zweite Kennzeichen ist unbequemer: Es gibt einen Weg zurück, und er ist vorher aufgeschrieben. Für die Artikelautomatik steht er als eigener Abschnitt in der Anleitung — mit Befehl, Prüfrhythmus und der Stelle, an der nachgesehen wird.",
+        "Wer nur den Vorwärtsgang baut, hat kein Setup, sondern eine Sammlung laufender Dinge. Was im Ernstfall zu tun ist, wird vorher festgelegt und nicht im Ernstfall überlegt."
       ]
     }
   ],
   "kernaussagen": [
     "Ein Zugang ist keine Einführung: Ein Konto ist in fünf Minuten angelegt, danach steht jede Person vor demselben leeren Eingabefeld.",
     "Ein tragfähiges KI-Setup hat drei Teile, und keiner davon ist die Lizenz: die Arbeitsumgebung, die schriftlich hinterlegten Regeln und die Automatisierungen.",
-    "Ohne hinterlegte Regeln beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen — es kennt die Tonalität des Hauses nicht und nicht die Fälle, in denen jemand gefragt werden muss."
+    "Eine Vorgabe wird erst dann zur Regel, wenn sie etwas anhält — solange sie nur im Dokument steht, fällt ihr Übergehen niemandem auf.",
+    "Nach § 90 Absatz 1 Nummer 3 des Betriebsverfassungsgesetzes ist der Betriebsrat über die Planung von Arbeitsverfahren einschließlich des Einsatzes von Künstlicher Intelligenz zu unterrichten."
   ],
   "fazit": "Die Lizenz ist der günstigste Teil. Bezahlt wird für den Aufbau darum herum — und genau der entscheidet, ob nach drei Monaten noch jemand damit arbeitet.",
   "faq": [
@@ -63,14 +145,41 @@
     },
     {
       "frage": "Woraus besteht ein KI-Setup im Betrieb?",
-      "antwort": "Aus drei Teilen, und keiner davon ist die Lizenz: der Arbeitsumgebung (womit gearbeitet wird, worauf zugegriffen werden darf, wo Ergebnisse landen), den Regeln (schriftlich hinterlegte Vorgaben, was ohne Rückfrage passieren darf und was ausdrücklich nicht) und den Automatisierungen (die wiederkehrenden Handgriffe, die vorher jedes Mal jemand selbst gemacht hat)."
+      "antwort": "Aus drei Teilen, und keiner davon ist die Lizenz. Die Arbeitsumgebung legt fest, womit gearbeitet wird, worauf zugegriffen werden darf und wo Ergebnisse landen. Die Regeln sind schriftlich hinterlegte Vorgaben dazu, was ohne Rückfrage passieren darf und was ausdrücklich nicht. Die Automatisierungen sind die wiederkehrenden Handgriffe, die vorher jedes Mal jemand selbst gemacht hat."
+    },
+    {
+      "frage": "Was kostet der laufende Betrieb einer KI-Automatisierung?",
+      "antwort": "Mehr als die Lizenz, und die genaue Zahl kennt niemand vor dem ersten echten Lauf. Für die Artikelautomatik dieser Website nannte eine frühere Fassung der Anleitung drei bis fünf Dollar je Durchgang. Nachgerechnet an den gemessenen Textgrößen und den Listenpreisen waren es 44 Cent je Artikel. Bei der Recherche ging es in die andere Richtung: Dort standen 13 Cent je Lauf in der Anleitung, gemessen wurden 17,8 Cent."
+    },
+    {
+      "frage": "Muss der Betriebsrat bei der Einführung von KI beteiligt werden?",
+      "antwort": "In Betrieben mit Betriebsrat ja, und zwar bereits bei der Planung. § 90 Absatz 1 Nummer 3 des Betriebsverfassungsgesetzes verlangt die Unterrichtung über Arbeitsverfahren und Arbeitsabläufe einschließlich des Einsatzes von Künstlicher Intelligenz. Absatz 2 verlangt die rechtzeitige Beratung der vorgesehenen Maßnahmen und ihrer Auswirkungen. Nach § 80 Absatz 3 Satz 2 gilt die Hinzuziehung eines Sachverständigen als erforderlich, wenn der Betriebsrat einen KI-Einsatz beurteilen muss."
     },
     {
       "frage": "Woran merkt man, dass ein KI-Setup im Betrieb angekommen ist?",
       "antwort": "Nicht daran, dass alle begeistert sind. Sondern daran, dass jemand sich beschwert, wenn es einmal nicht läuft. Ab dem Moment ist es Teil des Arbeitswegs und kein Zusatzangebot mehr, das man auch ignorieren kann."
     }
   ],
-  "quellen": [],
+  "quellen": [
+    {
+      "bezeichnung": "§ 90 Betriebsverfassungsgesetz — Unterrichtungs- und Beratungsrechte",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__90.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Absatz 1 Nummer 3 nennt „Arbeitsverfahren und Arbeitsabläufen einschließlich des Einsatzes von Künstlicher Intelligenz“ als unterrichtungspflichtige Planung. Absatz 2 verlangt die rechtzeitige Beratung der Maßnahmen und ihrer Auswirkungen auf die Arbeitnehmer."
+    },
+    {
+      "bezeichnung": "§ 80 Betriebsverfassungsgesetz — Allgemeine Aufgaben, Sachverständige",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__80.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Absatz 3 Satz 2 im Wortlaut: Muss der Betriebsrat die Einführung oder Anwendung von Künstlicher Intelligenz beurteilen, gilt die Hinzuziehung eines Sachverständigen als erforderlich."
+    },
+    {
+      "bezeichnung": "§ 87 Betriebsverfassungsgesetz — Mitbestimmungsrechte",
+      "url": "https://www.gesetze-im-internet.de/betrvg/__87.html",
+      "abgerufen": "2026-08-24",
+      "belegt": "Absatz 1 Nummer 6 begründet Mitbestimmung bei Einführung und Anwendung technischer Einrichtungen, die dazu bestimmt sind, das Verhalten oder die Leistung der Arbeitnehmer zu überwachen."
+    }
+  ],
   "interneLinks": [
     {
       "ziel": "/gratis-wissen/thema/ki-strategie",
@@ -90,18 +199,33 @@
     {
       "ziel": "/glossar/llm-integration",
       "ankertext": "beantwortet ein Sprachmodell jede Aufgabe nach eigenem Ermessen",
-      "abschnitt": 2
+      "abschnitt": 4
     },
     {
       "ziel": "/leistungen",
       "ankertext": "Mit Regeln wird aus einem allgemeinen Werkzeug ein Bestandteil der Arbeit",
-      "abschnitt": 2
+      "abschnitt": 4
+    },
+    {
+      "ziel": "/gratis-wissen/claude-md-die-nach-sechs-monaten-noch-stimmt",
+      "ankertext": "Was bei jedem Handgriff gilt, steht immer bereit",
+      "abschnitt": 4
+    },
+    {
+      "ziel": "/gratis-wissen/was-passiert-wenn-eine-automatisierung-nachts-abstuerzt",
+      "ankertext": "eine Bremse, die vor dem Aufruf greift",
+      "abschnitt": 6
+    },
+    {
+      "ziel": "/glossar/ki-audit",
+      "ankertext": "hinter dem kein belegter Eigenanteil steht",
+      "abschnitt": 7
     }
   ],
   "substanz": {
-    "art": "prozesszerlegung",
-    "beschreibung": "Zerlegt eine KI-Einführung in ihre drei Bestandteile — Arbeitsumgebung, schriftlich hinterlegte Regeln, Automatisierungen — trennt sie vom bloßen Zugang und benennt ein Abnahmekriterium: jemand beschwert sich, wenn es nicht läuft. Kein eigener Messwert dahinter, der Eigenanteil ist die Zerlegung.",
-    "herkunft": "src/data/wissen.ts, Startbestand 12.08.2026, von einem Modell verfasst und freigegeben. Hintergrund sind die Setup-Projekte in src/data/client-results.ts (Pflegexperts, Nereo) — im Artikeltext steht davon keine Zahl und kein Kundenname."
+    "art": "eigene-messung",
+    "beschreibung": "Zahlen aus einem laufenden KI-Setup, selbst gemessen: 3.488 Zeilen Regelwerk, davon 1.508 in der Projektdatei, die mit 71 Zeilen anfing. 27 Erlaubnismuster ohne Sperrliste. Dieselbe Angabe an 31 Stellen in 25 Dateien. 44 Cent je Artikel gegen eine Schätzung von drei bis fünf Dollar. 17,8 Cent gemessene statt 13 Cent geschätzter Recherchekosten.",
+    "herkunft": "Eigene Messungen 24.08.2026: umgebung.ts, dataforseo.ts, 02-auswahl.ts, laden.ts, angebot.ts, BLOG-ENGINE.md (6, 13, 23 und 3 Cent je Schritt), CLAUDE.md, 13 Erfahrungsnotizen auf 391 Zeilen. BetrVG gegen gesetze-im-internet.de geprüft. Startbestand 12.08.2026 von einem Modell."
   },
   "cta": {
     "heading": "Ein Setup entsteht nicht beim Lesen.",

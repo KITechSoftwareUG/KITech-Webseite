@@ -14,6 +14,8 @@ import {
 import { leistungenEntry } from "@/config/navigation";
 import { services, techStack } from "@/data/services";
 import { BASE_URL } from "@/lib/metadata";
+import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
+import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
 /**
  * `/leistungen` — was gebaut wird, in der Reihenfolge, in der es gebaut wird.
@@ -29,7 +31,7 @@ import { BASE_URL } from "@/lib/metadata";
  *
  * Inhalte in `src/data/services.ts`.
  */
-export default function Leistungen() {
+export default function Leistungen({ wissen = [] }: { wissen?: ArtikelTeaser[] }) {
   return (
     <PageShell>
       <StructuredData
@@ -142,6 +144,12 @@ export default function Leistungen() {
           ))}
         </ul>
       </section>
+
+      <WeiterlesenBlock
+        artikel={wissen}
+        heading="Wir schreiben auf, was wir bauen."
+        text="Dieselben Abläufe, ausführlich zerlegt — mit den Stellen, an denen es in der Praxis klemmt."
+      />
 
       <CtaBanner
         heading="Welcher Prozess bei euch zuerst?"
