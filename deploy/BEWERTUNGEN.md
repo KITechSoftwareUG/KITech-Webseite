@@ -22,10 +22,23 @@ Gleichzeitig tragen **fünf Kundenkarten je fünf Sterne**:
 
 Eugen Kretschmann (KREMA) hat ein belegtes Zitat, aber keinen Karteneintrag.
 
-⚠️ **Vier von fünf Sternen haben keinen Nachweis.** Nach dem Anhang zu
-§ 3 Abs. 3 Nr. 23c UWG ist die Angabe erfundener Bewertungen ein
-Verstoß, der ohne Interessenabwägung greift — es genügt der Tatbestand.
-Solange kein Beleg vorliegt, ist jede dieser Zahlen ein offenes Risiko.
+**Woher die vier übrigen Zahlen stammen** (Nachfrage am 26.08.2026): Alle vier
+Kunden haben Ayham die fünf Sterne **mündlich** gegeben.
+
+Das ändert die rechtliche Lage erheblich. Der Tatbestand im Anhang zu
+§ 3 Abs. 3 Nr. 23c UWG trifft das **Erfinden** von Bewertungen. Eine mündlich
+abgegebene Bewertung ist eine echte Bewertung — sie ist nur nicht dokumentiert.
+Die vier Zahlen sind damit keine gefälschten Bewertungen.
+
+⚠️ **Was fehlt, ist die Beweisbarkeit.** Wer die Angabe bestreitet, zwingt zum
+Nachweis, und „wurde mir am Telefon gesagt" trägt vor Gericht wenig. Das ist
+ein bewusst getragenes Risiko, keine Nachlässigkeit — und es verschwindet mit
+den ersten schriftlichen Bewertungen.
+
+**Was bis dahin hilft, ohne Aufwand:** Bei jedem mündlichen Lob eine Zeile
+notieren — Datum, Person, Anlass, Wortlaut soweit erinnerlich. Eine Notiz vom
+Tag des Gesprächs ist etwas völlig anderes als eine Erinnerung zwei Jahre
+später, wenn jemand nachfragt.
 
 **Fünf echte Bewertungen lösen beide Probleme auf einmal:** das leere Profil
 und die unbelegten Sterne.

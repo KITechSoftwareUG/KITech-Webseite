@@ -137,10 +137,37 @@ export interface ClientResult {
    * ACHTUNG: Das ist eine Bewertung, die einer namentlich genannten Person
    * zugeschrieben wird, und sie steht laut Vorgabe ausdrücklich für die
    * jeweilige Kundenaussage — nicht allgemein für die Zusammenarbeit.
-   * Schriftlich belegt sind bisher nur Dennis Mikyas und Eugen Kretschmann
-   * mit je 5 Sternen (siehe src/data/testimonials.ts). Für die übrigen Kunden
-   * braucht es vor dem Livegang eine echte, dokumentierte Bewertung —
-   * erfundene Bewertungen sind nach Anhang zu § 3 Abs. 3 Nr. 23c UWG abmahnbar.
+   *
+   * **Woher die Zahlen stammen (Stand 26.08.2026, auf Nachfrage von Ayham):**
+   *
+   * | Kunde | Grundlage |
+   * |---|---|
+   * | Dennis Mikyas | schriftlich, siehe `testimonials.ts` |
+   * | Eugen Kretschmann | schriftlich, siehe `testimonials.ts` (kein Karteneintrag) |
+   * | Benjamin Ronneburg | **mündlich gegenüber Ayham** |
+   * | Jan Uwe Pane | **mündlich gegenüber Ayham** |
+   * | Thomas Grynia | **mündlich gegenüber Ayham** |
+   * | Mike Letzgus | **mündlich gegenüber Ayham** |
+   *
+   * Eine mündlich abgegebene Bewertung ist eine **echte** Bewertung. Der
+   * Tatbestand im Anhang zu § 3 Abs. 3 Nr. 23c UWG trifft das *Erfinden* von
+   * Bewertungen, nicht das Fehlen eines Formulars — die vier Zahlen sind
+   * deshalb keine gefälschten Bewertungen.
+   *
+   * ⚠️ **Was fehlt, ist die Beweisbarkeit, nicht die Bewertung.** Wer die
+   * Angabe bestreitet, zwingt zum Nachweis, und "wurde mir am Telefon gesagt"
+   * trägt vor Gericht wenig. Solange das so steht, ist das ein bewusst
+   * getragenes Risiko und keine Nachlässigkeit.
+   *
+   * Das Risiko verschwindet, sobald die Bewertungen über ProvenExpert
+   * eingeholt sind (Anleitung und Anschreiben: `deploy/BEWERTUNGEN.md`). Bis
+   * dahin gilt: **Wer eine dieser Zahlen ändert, ohne mit dem Kunden gesprochen
+   * zu haben, erfindet sie** — und genau das ist der Tatbestand.
+   *
+   * Was hier unter keinen Umständen passieren darf: eine Zahl höher setzen als
+   * das, was der Kunde gesagt hat, einen Kunden ergänzen, der nichts gesagt
+   * hat, oder aus einer mündlichen Bewertung ein wörtliches Zitat machen
+   * (dafür ist `review` da, und das bleibt ohne Wortlaut `null`).
    *
    * ⚠️ **Norm am 19.08.2026 korrigiert.** Hier stand vorher § 5b Abs. 3 UWG.
    * Der regelt aber die *Informationspflicht* darüber, ob und wie ein Anbieter
