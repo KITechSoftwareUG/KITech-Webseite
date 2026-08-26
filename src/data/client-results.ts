@@ -33,8 +33,20 @@
  * ANGELEGT am 12.08.2026 — Thomas / Grynia:
  * Ersetzt den entfernten Recherche-Fall. Belegt sind aus Ayhams Ansage: Vorname
  * Thomas, Branche (Vermittlung von Arbeitskräften), was gebaut wurde
- * (automatisierte Kette) und die Kennzahl (Kundenrecherche in 10 Minuten). Das
- * Foto lag seit dem 05.08.2026 bereit.
+ * (automatisierte Kette) und die Kennzahl. Das Foto lag seit dem 05.08.2026
+ * bereit.
+ *
+ * PRÄZISIERT am 26.08.2026 (Ansage Ayham: „Anstatt 5h nun 5 Minuten
+ * Leadrecherche"): Die Kennzahl stand als „Kundenrecherche in 10 Minuten" —
+ * beides ist damit korrigiert. Es geht um die **Lead**recherche, sie dauert
+ * **fünf** Minuten, und der Ausgangswert ist jetzt belegt: **fünf Stunden**.
+ * Der Vorher-Wert steht bewusst im `headline.label` und nicht in
+ * `before`/`after`: die Startseitenkarte rendert nur `headline`, und der
+ * Kontrast ist hier die eigentliche Aussage. Doppelt gesetzt stünde er auf der
+ * Übersichtskarte zweimal.
+ *
+ * Der Slug bleibt `grynia-kundenrecherche` — die Detailseiten stehen auf
+ * `noindex`, ein Umbenennen brächte nichts und bräche geteilte Links.
  *
  * Name und Firma sind bestätigt: **Thomas Grynia**, **Grynia Consulting**,
  * Vermittlung von Arbeitskräften. "Grynia" ist der Nachname, nicht die Firma —
@@ -554,9 +566,9 @@ export const clientResults: ClientResult[] = [
     rating: 5,
     review: null,
     kategorie: "Vertriebs-Automatisierung",
-    headline: { value: "10 Minuten", label: "für die Kundenrecherche" },
+    headline: { value: "5 Minuten", label: "für die Leadrecherche, vorher 5 Stunden" },
     summary:
-      "Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Kundenrecherche, die vorher von Hand lief, ist in zehn Minuten erledigt.",
+      "Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Leadrecherche, die vorher von Hand lief, ist in fünf Minuten erledigt.",
     duration: null,
     before: null,
     after: null,
@@ -569,14 +581,15 @@ export const clientResults: ClientResult[] = [
     detail: {
       intro:
         "Eine automatisierte Kette für die Vermittlung von Arbeitskräften — die " +
-        "Kundenrecherche dauert zehn Minuten.",
+        "Leadrecherche dauert fünf Minuten statt fünf Stunden.",
       sections: [
         {
           heading: "Was wir gebaut haben",
           paragraphs: [
-            "Gebaut wurde eine automatisierte Kette für die Kundenrecherche in der " +
+            "Gebaut wurde eine automatisierte Kette für die Leadrecherche in der " +
               "Vermittlung von Arbeitskräften. Der Schritt, der am Anfang jedes " +
-              "Vermittlungsvorgangs steht, dauert damit zehn Minuten.",
+              "Vermittlungsvorgangs steht, hat vorher fünf Stunden gebraucht und " +
+              "dauert jetzt fünf Minuten.",
             "„Kette“ ist dabei der entscheidende Teil: Recherche besteht nicht aus einem " +
               "Handgriff, sondern aus einer Reihe davon — suchen, prüfen, zuordnen, " +
               "festhalten. Automatisiert man nur einen davon, bleibt die Übergabe " +
@@ -597,7 +610,10 @@ export const clientResults: ClientResult[] = [
         },
       ],
       phases: [],
-      metrics: [{ value: "10 Minuten", label: "für die Kundenrecherche" }],
+      metrics: [
+        { value: "5 Minuten", label: "für die Leadrecherche" },
+        { value: "5 Stunden", label: "die sie vorher gebraucht hat" },
+      ],
       stack: [],
       quote: null,
     },

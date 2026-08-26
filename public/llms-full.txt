@@ -128,9 +128,9 @@ Noch nicht belegt: Ausgangslage beim Kunden nicht dokumentiert; Eingesetzte Tech
 
 ### Grynia Consulting — Vertriebs-Automatisierung
 
-- Ergebnis: **10 Minuten** für die Kundenrecherche
+- Ergebnis: **5 Minuten** für die Leadrecherche, vorher 5 Stunden
 
-Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Kundenrecherche, die vorher von Hand lief, ist in zehn Minuten erledigt.
+Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Leadrecherche, die vorher von Hand lief, ist in fünf Minuten erledigt.
 
 Noch nicht belegt: Ausgangslage beim Kunden nicht dokumentiert; Eingesetzte Technik nicht dokumentiert; Kein freigegebenes Zitat.
 

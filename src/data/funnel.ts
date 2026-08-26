@@ -189,8 +189,8 @@ export const funnelContent = {
       dauer: "60 Tage bis live",
     },
     {
-      zahl: "10 Min.",
-      label: "für eine Kundenrecherche, die vorher Handarbeit war",
+      zahl: "5 Min.",
+      label: "für eine Leadrecherche, die vorher fünf Stunden dauerte",
       firma: "Grynia Consulting",
       dauer: null,
     },

@@ -40,7 +40,7 @@ Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — 
 - **klargehalt.de** (SaaS-Entwicklung): 2 Monate von der ersten Zeile bis zum Livegang. SaaS zur EU-Entgelttransparenzrichtlinie gebaut — Bezahlsystem und Abrechnung inklusive. Live: https://klargehalt.de
 - **NiImmo Wohnungsbaugesellschaft** (Kundenportal): 1,5 Vollzeitstellen an eingespartem Aufwand. Nach 40 Tagen lief die gesamte Objekt- und Kundenverwaltung in einem Portal. Live: https://dashboard.niimmo.de
 - **cert consulting Pane** (Prozess-Portal): 1,2 Vollzeitkräfte an eingespartem Aufwand. Antrag rein, Zertifikat raus — der ganze Weg dazwischen steckt in einem Portal. Live: https://ccp-portal.de
-- **Grynia Consulting** (Vertriebs-Automatisierung): 10 Minuten für die Kundenrecherche. Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Kundenrecherche, die vorher von Hand lief, ist in zehn Minuten erledigt.
+- **Grynia Consulting** (Vertriebs-Automatisierung): 5 Minuten für die Leadrecherche, vorher 5 Stunden. Eine automatisierte Kette für die Vermittlung von Arbeitskräften: Die Leadrecherche, die vorher von Hand lief, ist in fünf Minuten erledigt.
 - **Nereo** (Claude-Code-Setup): 3 Wochen Setup bei Nereo, fertig zum Arbeiten. Für Nereo eine Arbeitsumgebung aufgesetzt, feste Regeln hinterlegt und Automatisierungen für den Alltag gebaut.
 
 ## Kundenstimmen
