@@ -1,4 +1,9 @@
 import { melde, warne } from "./protokoll.js";
+import {
+  openAiAufruf,
+  OPENAI_MODELL_SCHREIBEN,
+  OPENAI_MODELL_STRUKTUR,
+} from "./openai.js";
 
 /**
  * Der Zugang der Blog-Automatik zur Anthropic Messages API.
@@ -134,6 +139,36 @@ export class ClaudeBudgetFehler extends ClaudeFehler {
 /* Zugangsdaten                                                               */
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/* Anbieterwahl                                                               */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Welcher Anbieter genutzt wird, entscheidet sich am vorhandenen Schlüssel.
+ *
+ * **Anthropic hat Vorrang**, wenn beide gesetzt sind: Der Hausstil in
+ * `prompts/hausstil.md` ist an Claude gemessen, und ein Wechsel des Modells
+ * ändert den Ton, den 81 Regeln festlegen sollen. OpenAI ist der Weg, wenn kein
+ * Anthropic-Zugang vorliegt — nicht die gleichwertige Alternative.
+ *
+ * ⚠️ Wer den Anbieter wechselt, prüft danach einen Artikel von Hand gegen
+ * `npm run blog:pruefen -- <slug> -v`. Die Regeln greifen maschinell; ob der
+ * Text trägt, sagt keine Prüfung.
+ */
+export type Anbieter = "anthropic" | "openai";
+
+export function aktiverAnbieter(): Anbieter {
+  if (process.env.ANTHROPIC_API_KEY) return "anthropic";
+  if (process.env.OPENAI_API_KEY) return "openai";
+  return "anthropic";
+}
+
+/** Übersetzt die Claude-Modellnamen auf das Gegenstück des aktiven Anbieters. */
+function modellFuerAnbieter(modell: string): string {
+  if (aktiverAnbieter() !== "openai") return modell;
+  return modell === MODELL_SCHREIBEN ? OPENAI_MODELL_SCHREIBEN : OPENAI_MODELL_STRUKTUR;
+}
+
 const BASIS_URL = "https://api.anthropic.com/v1/messages";
 const API_VERSION = "2023-06-01";
 
@@ -145,10 +180,11 @@ const API_VERSION = "2023-06-01";
  * verwenden. Der Aufrufer, der früh scheitern will, ruft `pruefeUmgebung()`.
  */
 function schluessel(): string {
-  const wert = process.env.ANTHROPIC_API_KEY;
+  const wert =
+    aktiverAnbieter() === "openai" ? process.env.OPENAI_API_KEY : process.env.ANTHROPIC_API_KEY;
   if (!wert) {
     throw new ClaudeKonfigFehler(
-      "ANTHROPIC_API_KEY ist nicht gesetzt. Eintragen in die lokale .env " +
+      "Weder ANTHROPIC_API_KEY noch OPENAI_API_KEY ist gesetzt. Eintragen in die lokale .env " +
         "(Vorlage: .env.example), in Coolify als Runtime-Variable. Ohne " +
         "NEXT_PUBLIC_-Präfix — mit Präfix stünde der Schlüssel im Client-Bundle " +
         "und wäre im Quelltext jeder ausgelieferten Seite lesbar.",
@@ -527,6 +563,72 @@ export async function frage<T = string>(optionen: FrageOptionen): Promise<T> {
       name: WERKZEUG_NAME,
       disable_parallel_tool_use: true,
     };
+  }
+
+  /* -------------------------------------------------------------------- */
+  /* OpenAI-Zweig                                                           */
+  /* -------------------------------------------------------------------- */
+  if (aktiverAnbieter() === "openai") {
+    const zielModell = modellFuerAnbieter(modell);
+    let letzter: ClaudeFehler | null = null;
+
+    for (let versuch = 1; versuch <= MAX_VERSUCHE; versuch++) {
+      pruefeBudget();
+
+      const ergebnis = await openAiAufruf({
+        schluessel: schluessel(),
+        system,
+        nachricht,
+        modell: zielModell,
+        maxTokens,
+        temperatur,
+        schema,
+        timeoutMs: timeoutMs(),
+      });
+
+      if (!ergebnis.ok) {
+        const wiederholbar = ergebnis.status === 0 || WIEDERHOLBARE_CODES.has(ergebnis.status);
+        letzter = new ClaudeFehler(
+          `OpenAI antwortete mit HTTP ${ergebnis.status} (${bezeichnung}, ${zielModell}): ${ergebnis.meldung}`,
+          {
+            ebene: ergebnis.status === 0 ? "netzwerk" : "http",
+            statusCode: ergebnis.status,
+            wiederholbar,
+          },
+        );
+
+        if (!wiederholbar || versuch === MAX_VERSUCHE) throw letzter;
+        melde("OpenAI überlastet oder gedrosselt, neuer Versuch", {
+          status: ergebnis.status,
+          versuch,
+        });
+        await schlafe(wartezeitMs(versuch, null));
+        continue;
+      }
+
+      /* Dieselbe Buchung wie bei Anthropic, nur aus den anderen Feldnamen —
+         sonst liefe die Kostenbremse bei OpenAI ins Leere. */
+      buchen({
+        input_tokens: ergebnis.tokenEin,
+        output_tokens: ergebnis.tokenAus,
+      });
+
+      if (!schema) return ergebnis.text as unknown as T;
+
+      try {
+        return JSON.parse(ergebnis.text) as T;
+      } catch {
+        letzter = new ClaudeFehler(
+          `OpenAI lieferte kein gültiges JSON (${bezeichnung}, ${zielModell}). ` +
+            `Anfang der Antwort: ${ergebnis.text.slice(0, 160)}`,
+          { ebene: "antwort", wiederholbar: true },
+        );
+        if (versuch === MAX_VERSUCHE) throw letzter;
+        await schlafe(wartezeitMs(versuch, null));
+      }
+    }
+
+    throw letzter ?? new ClaudeFehler("OpenAI: kein Ergebnis", { ebene: "http", wiederholbar: false });
   }
 
   let letzterFehler: ClaudeFehler | null = null;

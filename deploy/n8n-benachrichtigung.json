@@ -1,5 +1,5 @@
 {
-  "name": "KITech Website — Benachrichtigungen",
+  "name": "KITech Website — nur Firmen melden",
   "nodes": [
     {
       "parameters": {
@@ -13,23 +13,24 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -592,
-        144
+        -620,
+        140
       ],
       "webhookId": "kitech-website"
     },
     {
       "parameters": {
-        "jsCode": "// Baut aus der Meldung eine lesbare Zeile.\n//\n// Die Website schickt zwei Formen an denselben Webhook:\n//   1. Ereignisse  (src/app/api/ereignis/route.ts)      -> ereignis, seite, referrer, firma, ort, ...\n//   2. Tagesbericht (src/app/api/tagesbericht/route.ts)  -> bringt ein fertiges Feld `text` mit\n//\n// Wer weitere Ereignisse ergaenzt, traegt sie unten in TITEL ein — fehlt ein\n// Eintrag, wird der technische Name angezeigt statt gar nichts.\n\nconst TITEL = {\n  besuch: '👀 Besuch auf der Website',\n  termin_geoeffnet: '📅 Terminseite geoeffnet',\n  popup_geklickt: '🔵 Popup geklickt — will einen Call',\n  telefon_geklickt: '📞 Telefonnummer geklickt',\n  email_geklickt: '✉️ E-Mail-Adresse geklickt',\n  selbstcheck_fertig: '✅ Selbstcheck abgeschlossen',\n  tagesbericht: '📊 Tagesbericht',\n};\n\nconst d = $input.first().json;\n\n// Der Tagesbericht bringt seinen Text schon mit.\nif (d.text) {\n  return [{ json: { nachricht: d.text, betreff: 'KITech-Website: Tagesbericht', ereignis: d.ereignis ?? 'tagesbericht', roh: d } }];\n}\n\nconst zeilen = [TITEL[d.ereignis] ?? d.ereignis];\n\nif (d.seite) zeilen.push(`Seite: ${d.seite}`);\n\n// Firma und Ort kommen nur bei Besuchern mit Einwilligung an.\nif (d.firma) zeilen.push(`Firma: ${d.firma}${d.ort ? ` (${d.ort})` : ''}`);\nelse if (d.ort) zeilen.push(`Ort: ${d.ort}`);\n\nif (d.referrer) zeilen.push(`Kam von: ${d.referrer}`);\n\nconst kampagne = [d.utm_source, d.utm_medium, d.utm_campaign].filter(Boolean).join(' / ');\nif (kampagne) zeilen.push(`Kampagne: ${kampagne}`);\n\nif (d.zeitpunkt) {\n  zeilen.push(\n    new Date(d.zeitpunkt).toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })\n  );\n}\n\nconst betreff = `KITech-Website: ${(TITEL[d.ereignis] ?? d.ereignis).replace(/^\\S+\\s/, '')}`;\n\nreturn [{ json: { nachricht: zeilen.join('\\n'), betreff, ereignis: d.ereignis, roh: d } }];"
+        "jsCode": "// Entscheidet, ob dieser Besuch einen Anruf wert ist.\n//\n// Das Problem, das der Filter loest: ipinfo liefert bei einem Privatanschluss\n// den PROVIDER, nicht die Firma des Besuchers — \"AS3320 Deutsche Telekom AG\"\n// heisst nur, dass jemand einen Telekom-Anschluss hat. Bei einem Firmennetz mit\n// eigenem AS steht dort dagegen der echte Name.\n//\n// Gemeldet wird deshalb nur, was uebrig bleibt, wenn man Provider, Mobilfunk\n// und Rechenzentren abzieht.\n\nconst d = $input.first().json;\n\n// ── Was immer gemeldet wird: jemand sucht gerade aktiv Kontakt ──────────────\nconst HARTE_SIGNALE = ['telefon_geklickt', 'email_geklickt', 'popup_geklickt',\n                       'termin_geoeffnet', 'selbstcheck_fertig'];\n\nif (HARTE_SIGNALE.includes(d.ereignis)) {\n  return [{ json: { ...d, melden: true, grund: 'Kontaktsignal' } }];\n}\n\n// Alles ausser einem Besuch faellt hier raus (z. B. der Tagesbericht).\nif (d.ereignis !== 'besuch') {\n  return [{ json: { ...d, melden: false, grund: 'kein Besuch, kein Kontaktsignal' } }];\n}\n\n// ── Ohne Firmenkennung gibt es nichts anzurufen ─────────────────────────────\nif (!d.firma) {\n  return [{ json: { ...d, melden: false, grund: 'keine Firma erkannt' } }];\n}\n\n// ── Provider, Mobilfunk, Carrier: das ist ein Privatanschluss ───────────────\nconst PRIVAT = [\n  'deutsche telekom', 'telekom deutschland', 'vodafone', 'telefonica', 'o2 ',\n  '1&1', 'united internet', 'kabel deutschland', 'unitymedia', 'netcologne',\n  'ewe tel', 'm-net', 'wilhelm.tel', 'htp gmbh', 'osnatel', 'versatel',\n  'plusnet', 'pyur', 'tele columbus', 'congstar', 'drillisch', 'freenet',\n  'colt technology', 'telenet', 'liberty global', 'orange', 'proximus',\n  'swisscom', 'a1 telekom', 'magenta telekom', 'init7', 'sunrise',\n];\n\n// ── Rechenzentren und Cloud: das ist ein Bot oder ein VPN ───────────────────\nconst MASCHINEN = [\n  'amazon', 'aws', 'google llc', 'google cloud', 'microsoft', 'azure',\n  'hetzner', 'ovh', 'digitalocean', 'linode', 'vultr', 'cloudflare',\n  'akamai', 'fastly', 'contabo', 'ionos', 'strato', 'netcup', 'scaleway',\n  'oracle', 'alibaba', 'tencent', 'datacamp', 'm247', 'leaseweb',\n  'nordvpn', 'mullvad', 'private internet', 'surfshark', 'protonvpn',\n];\n\nconst firma = String(d.firma).toLowerCase();\n\nfor (const wort of PRIVAT) {\n  if (firma.includes(wort)) {\n    return [{ json: { ...d, melden: false, grund: `Privatanschluss (${wort})` } }];\n  }\n}\nfor (const wort of MASCHINEN) {\n  if (firma.includes(wort)) {\n    return [{ json: { ...d, melden: false, grund: `Rechenzentrum oder VPN (${wort})` } }];\n  }\n}\n\n// Was hier ankommt, ist ein Firmennetz mit eigenem Eintrag.\nreturn [{ json: { ...d, melden: true, grund: 'Firmennetz' } }];\n"
       },
-      "id": "nachricht-bauen",
-      "name": "Nachricht bauen",
+      "id": "wer-ist-das",
+      "name": "Lohnt ein Anruf?",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -368,
-        144
-      ]
+        -400,
+        140
+      ],
+      "notes": "Sortiert Privatanschluesse, Mobilfunk, Rechenzentren und VPNs aus. Wer die Listen erweitern will, tut das hier — ein Wort je Zeile, klein geschrieben."
     },
     {
       "parameters": {
@@ -37,17 +38,18 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict",
-            "version": 1
+            "typeValidation": "loose",
+            "version": 2
           },
           "conditions": [
             {
-              "id": "nur-wichtige",
-              "leftValue": "={{ $json.ereignis }}",
-              "rightValue": "besuch",
+              "id": "nur-melden",
+              "leftValue": "={{ $json.melden }}",
+              "rightValue": "",
               "operator": {
-                "type": "string",
-                "operation": "notEquals"
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
               }
             }
           ],
@@ -55,15 +57,28 @@
         },
         "options": {}
       },
-      "id": "filter-lautstaerke",
-      "name": "Nur wichtige melden?",
+      "id": "filter",
+      "name": "Melden?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -176,
-        144
+        -180,
+        140
       ],
-      "notes": "Trennt reine Besuche von den Momenten, aus denen ein Gespraech werden kann. Wer JEDEN Besuch sofort wissen will, verbindet den unteren Ausgang ebenfalls mit dem Versand."
+      "notes": "Oberer Ausgang: melden. Unterer Ausgang: bewusst verworfen — der Grund steht im Feld `grund`, praktisch beim Nachsehen in den Ausfuehrungen."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Baut die Nachricht — geschrieben fuer jemanden, der gleich anruft.\n//\n// Oben steht, WER es ist. Darunter, WAS er angesehen hat. Ganz unten die\n// Herkunft, falls es aus einer Kampagne kam.\n\nconst TITEL = {\n  besuch: 'Firma auf der Website',\n  termin_geoeffnet: 'Terminseite geoeffnet',\n  popup_geklickt: 'Popup geklickt — will einen Call',\n  telefon_geklickt: 'Telefonnummer geklickt',\n  email_geklickt: 'E-Mail-Adresse geklickt',\n  selbstcheck_fertig: 'Selbstcheck abgeschlossen',\n};\n\nconst d = $input.first().json;\n\n// Der Tagesbericht bringt seinen Text schon fertig mit.\nif (d.text) {\n  return [{ json: { betreff: 'KITech-Website: Tagesbericht', nachricht: d.text, roh: d } }];\n}\n\nconst firma = d.firma ? String(d.firma).replace(/^AS\\d+\\s+/, '') : null;\n\nconst kopf = firma ? firma : (TITEL[d.ereignis] ?? d.ereignis);\nconst betreff = firma\n  ? `Website-Besuch: ${firma}`\n  : `Website: ${TITEL[d.ereignis] ?? d.ereignis}`;\n\nconst zeilen = [];\nzeilen.push(kopf);\nzeilen.push('');\n\nif (firma) {\n  const ortsteil = [d.ort, d.region].filter(Boolean).join(', ');\n  if (ortsteil) zeilen.push(`Sitz laut Netz: ${ortsteil}`);\n}\n\nzeilen.push(`Was: ${TITEL[d.ereignis] ?? d.ereignis}`);\nif (d.seite) zeilen.push(`Seite: ${d.seite}`);\n\nif (d.referrer) zeilen.push(`Kam ueber: ${d.referrer}`);\n\nconst kampagne = [d.utm_source, d.utm_medium, d.utm_campaign].filter(Boolean).join(' / ');\nif (kampagne) zeilen.push(`Kampagne: ${kampagne}`);\n\nif (d.zeitpunkt) {\n  zeilen.push('');\n  zeilen.push(new Date(d.zeitpunkt).toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }));\n}\n\nif (firma) {\n  zeilen.push('');\n  zeilen.push(`Suche: https://www.google.com/search?q=${encodeURIComponent(firma)}`);\n}\n\nreturn [{ json: { betreff, nachricht: zeilen.join('\\n'), roh: d } }];\n"
+      },
+      "id": "nachricht-bauen",
+      "name": "Nachricht bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        40,
+        40
+      ]
     },
     {
       "parameters": {
@@ -74,15 +89,15 @@
           "bodyContentType": "text"
         }
       },
-      "id": "outlook-versand",
+      "id": "versand",
       "name": "Mail an Ayham",
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        48,
-        144
+        260,
+        40
       ],
-      "notes": "Betreff und Text kommen aus dem Code-Node. Ohne subject/bodyContent verschickt n8n eine leere Mail."
+      "notes": "Statt Outlook geht hier genauso Telegram — dann bekommst du es aufs Handy. Der Rest des Workflows bleibt gleich."
     }
   ],
   "connections": {
@@ -90,25 +105,37 @@
       "main": [
         [
           {
+            "node": "Lohnt ein Anruf?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lohnt ein Anruf?": {
+      "main": [
+        [
+          {
+            "node": "Melden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Melden?": {
+      "main": [
+        [
+          {
             "node": "Nachricht bauen",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Nachricht bauen": {
-      "main": [
-        [
-          {
-            "node": "Nur wichtige melden?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Nur wichtige melden?": {
       "main": [
         [
           {
@@ -116,8 +143,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     }
   },
