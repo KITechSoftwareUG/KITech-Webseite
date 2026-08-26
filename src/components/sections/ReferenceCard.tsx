@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Clock, ExternalLink } from "lucide-react";
 import { kartenLink, type ClientResult } from "@/data/client-results";
 import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
+import { StattSterne } from "@/components/sections/StattSterne";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -93,7 +94,11 @@ export function ReferenceCard({
               Karte ist jetzt selbst weiss, und alle hinterlegten Kundenlogos sind
               dunkel auf transparent — auf Weiss stehen sie ohne Hilfsflaeche. */}
           <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-2">
-            {result.rating !== null && <StarRating value={result.rating} />}
+            {result.rating !== null ? (
+              <StarRating value={result.rating} />
+            ) : (
+              result.stattSterne && <StattSterne text={result.stattSterne} />
+            )}
             {result.logo && (
               <span className="inline-flex h-10 items-center">
                 <img

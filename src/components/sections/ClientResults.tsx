@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { homeClientResults, type ClientResult } from "@/data/client-results";
 import { StarRating } from "@/components/sections/StarRating";
+import { StattSterne } from "@/components/sections/StattSterne";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -41,7 +42,11 @@ function ReferenzKarte({ result }: { result: ClientResult }) {
           Freisteller vor — mit Bild standen Sterne und Kennzahl in den drei
           Karten auf verschiedener Hoehe und die Reihe wirkte verrutscht. Die
           Gesichter stehen im Hero und auf /referenzen. */}
-      {result.rating !== null && <StarRating value={result.rating} />}
+      {result.rating !== null ? (
+        <StarRating value={result.rating} />
+      ) : (
+        result.stattSterne && <StattSterne text={result.stattSterne} />
+      )}
 
       {/* Die eine Zahl — sie traegt die Karte. In der Vorlage steht an dieser
           Stelle der Kurstitel in 20 px / 800; die Zahl darf groesser sein, weil

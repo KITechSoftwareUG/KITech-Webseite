@@ -191,6 +191,27 @@ export interface ClientResult {
    */
   rating: number | null;
   /**
+   * Steht anstelle der Sterne, wenn `rating` null ist — ein kurzer Beleg in
+   * derselben Zeile, z. B. "20+ Enterprise-Nutzer".
+   *
+   * **Auf Ansage (26.08.2026):** „Bei der klargehalt gibt es ja keine Sterne.
+   * Mach statt den Sternen iwas dahin — sowas wie 20+ Kunden usw."
+   *
+   * Der Fall ohne Person hat keine Bewertung (siehe `rating`) und dadurch eine
+   * sichtbare Lücke im Kartenkopf, wo bei allen anderen fünf Sterne stehen.
+   * Diese Zeile füllt sie mit dem, was der Fall tatsächlich vorweisen kann.
+   *
+   * ⚠️ Das ist **keine** Ersatzbewertung. Hier gehört eine nachprüfbare
+   * Tatsache hin — Nutzung, Laufzeit, Umfang — und nichts, was sich als Urteil
+   * eines Kunden lesen lässt. Sterne ohne Absender wären genau der Fall, den
+   * der Anhang zu § 3 Abs. 3 Nr. 23c UWG trifft; eine Zahl, die man nachzählen
+   * kann, ist es nicht.
+   *
+   * Wo `rating` gesetzt ist, gewinnen die Sterne — beides nebeneinander wäre
+   * eine überladene Zeile.
+   */
+  stattSterne?: string | null;
+  /**
    * Der kurze Bewertungssatz auf der Karte, wörtlich so abgegeben. Genau ein
    * Satz — keine mehrzeiligen Testimonials, das ist Vorgabe.
    *
@@ -365,6 +386,20 @@ export const clientResults: ClientResult[] = [
      */
     person: null,
     rating: null,
+    /*
+     * Steht an der Stelle der Sterne (Ansage Ayham, 26.08.2026: „bei der
+     * klargehalt gibt es ja keine Sterne. Mach statt den Sternen iwas dahin —
+     * sowas wie 20+ Kunden usw.").
+     *
+     * „Nutzer", nicht „Kunden": belegt ist die Zahl der Nutzer im
+     * Enterprise-Tarif („20+ Enterprise User bereits on Board"). Wie viele
+     * Firmen dahinterstehen, weiss hier niemand — daraus „20 Kunden" zu machen,
+     * waere eine Umdeutung nach oben, und Kundenzahlen sind genau die Sorte
+     * Angabe, die jemand nachrechnet.
+     *
+     * Die Zahl waechst; „20+" bleibt damit richtig, solange sie nicht faellt.
+     */
+    stattSterne: "20+ Enterprise-Nutzer",
     review: null,
     kategorie: "SaaS-Entwicklung",
     headline: { value: "2 Monate", label: "von der ersten Zeile bis zum Livegang" },
@@ -413,11 +448,17 @@ export const clientResults: ClientResult[] = [
             "Das Ergebnis steht öffentlich unter klargehalt.de und ist der belastbarste " +
               "Beleg, den dieser Fall hat: keine Beschreibung eines Projekts, sondern das " +
               "Produkt selbst.",
+            "Inzwischen arbeiten über 20 Nutzer im Enterprise-Tarif damit. Das ist der " +
+              "Unterschied zwischen einem Produkt, das fertig geworden ist, und einem, " +
+              "das benutzt wird.",
           ],
         },
       ],
       phases: [],
-      metrics: [{ value: "2 Monate", label: "von null auf live" }],
+      metrics: [
+        { value: "2 Monate", label: "von null auf live" },
+        { value: "20+", label: "Enterprise-Nutzer" },
+      ],
       stack: [],
       quote: null,
     },

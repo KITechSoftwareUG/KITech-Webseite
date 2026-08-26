@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { clientResults, kartenLink, type ClientResult } from "@/data/client-results";
 import { ReferencePortrait } from "@/components/sections/ReferencePortrait";
 import { StarRating } from "@/components/sections/StarRating";
+import { StattSterne } from "@/components/sections/StattSterne";
 import { trackEvent } from "@/lib/plausible";
 
 /**
@@ -116,10 +117,16 @@ function LaufbandKarte({
         </p>
       )}
 
-      {result.rating !== null && (
+      {result.rating !== null ? (
         <div className="mt-2.5">
           <StarRating value={result.rating} />
         </div>
+      ) : (
+        result.stattSterne && (
+          <div className="mt-2.5">
+            <StattSterne text={result.stattSterne} />
+          </div>
+        )
       )}
     </>
   );
