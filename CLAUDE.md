@@ -24,6 +24,7 @@ npm test               # Vitest
 npm run llms           # llms.txt + llms-full.txt neu erzeugen (nach JEDER Inhaltsänderung)
 npm run og             # Standard-Vorschaubild rendern (braucht Chrome)
 npm run pruefe:jsonld  # JSON-LD des ausgelieferten HTML prüfen (Live oder URL als Argument)
+bash scripts/pruefe-container.sh   # Vollprüfung im Container — vor jedem Deploy
 
 npm run blog:brief -- <thema-id>   # Redaktionsbriefing, kostenlos
 npm run blog:lauf -- --trocken     # Automatik-Probelauf, kostet nichts
@@ -35,6 +36,20 @@ npm run blog:indexnow              # nach dem Deploy
 
 Vitest läuft über Vite (`vitest.config.ts`), unabhängig vom Next-Build — das ist
 Absicht: die Tests lesen einzelne Alt-Seiten per `?raw`-Import.
+
+---
+
+## Was von selbst läuft
+
+| Wann | Was | Wo abschalten |
+|---|---|---|
+| werktags **6:30** | Blog-Automatik schreibt, prüft, gibt frei, committet, deployt, meldet an IndexNow | `BLOG_ENGINE_FREIGABE_VON` in `.env` leeren |
+| täglich **8:00** | Besucherbericht des Vortags per Microsoft Graph | crontab-Zeile |
+| bei jedem Besuch | n8n meldet Firmen und Kontaktsignale per Mail | `EREIGNIS_WEBHOOK_URL` in Coolify |
+
+Alle drei in der crontab des Benutzers `deploy` bzw. in n8n — **nichts davon
+hängt an einem Deploy.** ⚠️ Zeitangaben gelten nur, weil `CRON_TZ=Europe/Berlin`
+in der crontab **vor** den Zeilen steht; sonst liefe alles nach UTC.
 
 ---
 
@@ -59,6 +74,7 @@ scripts/
   blog-engine/      Die Blog-Automatik (lauf.ts, schritte/, lib/, prompts/)
   llms-txt.ts       erzeugt llms.txt + llms-full.txt
   pruefe-jsonld.mjs prüft das ausgelieferte HTML
+  pruefe-container.sh  Vollprüfung im Container, vor jedem Deploy
   tagesbericht/     Python, Cron, Microsoft Graph
 src/
   app/              Routing (dünne Server-Wrapper, exportieren nur metadata)
@@ -73,7 +89,8 @@ src/
   data/             Inhalte getrennt von der Darstellung
   lib/              metadata.ts, consent.ts, plausible.ts, wissen/, __tests__/
   proxy.ts          Host-Rewrite: funnel./fokus./app. → interne Pfade
-deploy/             COOLIFY.md, BLOG-ENGINE.md, BENACHRICHTIGUNGEN.md, SUCHKONSOLEN.md
+deploy/             COOLIFY.md, BLOG-ENGINE.md, BENACHRICHTIGUNGEN.md, SUCHKONSOLEN.md,
+                    n8n-benachrichtigung.json, blog-automatik.cron
 Dockerfile          Multi-Stage, node:22-alpine, standalone, Port 3000 — der aktive Build Pack
 ```
 
@@ -192,23 +209,22 @@ Zod-Validierung in `lib/schema-validators.ts`.
   zweite `Organization` in `publisher`/`author`/`worksFor` liest sich als
   zweite Firma.
 - `npm run pruefe:jsonld` prüft das **ausgelieferte HTML** (19 Seiten): kein
-  Typ doppelt, jede `@id`-Referenz aufgelöst. Nötig, weil Schemas an drei
-  Orten entstehen (Views, Sammelfunktionen, `PageShell`) — was am Ende auf
-  einer Seite steht, sieht man erst am gerenderten HTML. Was statisch prüfbar
-  ist, steht zusätzlich in `breadcrumb-dubletten.test.ts`.
+  Typ doppelt, jede `@id` aufgelöst. Nötig, weil Schemas an drei Orten entstehen
+  (Views, Sammelfunktionen, `PageShell`) — was am Ende auf einer Seite steht,
+  sieht man erst am gerenderten HTML. Statisch Prüfbares zusätzlich in
+  `breadcrumb-dubletten.test.ts`.
 
 **llms.txt wird erzeugt, nicht gepflegt** (`npm run llms`). Regel: **Hier steht
-nur, was auf der Website steht.** Keine Kundennamen ohne Eintrag in
-`client-results.ts`, keine Zitate ohne Eintrag in `testimonials.ts`. Ein Test
-bricht ab, sobald die Dateien vom Stand der Datendateien abweichen. Diese
-Dateien werden von KI-Systemen leichter gelesen als das HTML — eine veraltete
-Fassung ist teurer als gar keine.
+nur, was auf der Website steht** — keine Kundennamen ohne `client-results.ts`,
+keine Zitate ohne `testimonials.ts`. Ein Test bricht ab, sobald die Dateien vom
+Stand der Datendateien abweichen. KI-Systeme lesen sie leichter als das HTML;
+eine veraltete Fassung ist teurer als gar keine.
 
-**Suchkonsolen:** Google (URL-Präfix) und Bing sind bestätigt, Kennungen in
-`src/config/suchkonsolen.ts`, ausgegeben vom Root-Layout.
-⚠️ **Die Kennungen bleiben dauerhaft stehen** — fällt das Tag weg, verliert die
-Domain **still** ihren Status. `suchkonsolen.test.ts` hält das fest.
-(Der TXT-Eintrag `MS=ms60455894` in der DNS-Zone ist Microsoft 365, nicht Bing.)
+**Suchkonsolen:** Google (URL-Präfix) und Bing bestätigt, Kennungen in
+`src/config/suchkonsolen.ts`, ausgegeben vom Root-Layout. ⚠️ **Sie bleiben
+dauerhaft stehen** — fällt das Tag weg, verliert die Domain **still** ihren
+Status (`suchkonsolen.test.ts`). Der TXT-Eintrag `MS=ms60455894` in der DNS-Zone
+ist Microsoft 365, nicht Bing.
 
 ⚠️ **Tests, die Quelltext lesen, müssen Kommentare herausschneiden**
 (`src/lib/__tests__/quelltext.ts`) — sonst verbietet der Test genau die
@@ -216,9 +232,9 @@ Dokumentation, wegen der er existiert. Betrifft `rechtstexte.test.ts` und
 `breadcrumb-dubletten.test.ts`.
 
 **Rechtsnormen veralten.** Impressum, Datenschutz und AGB stehen unter
-`rechtstexte.test.ts`: **§ 5 DDG** (nicht TMG — abgelöst am 14.05.2024) und
-**TDDDG** (nicht TTDSG). Eine aufgehobene Vorschrift auf der Seite, die
-Sorgfalt belegen soll, ist ein sichtbarer Mangel.
+`rechtstexte.test.ts`: **§ 5 DDG** (nicht TMG, abgelöst 14.05.2024) und
+**TDDDG** (nicht TTDSG). Eine aufgehobene Vorschrift ausgerechnet auf der Seite,
+die Sorgfalt belegen soll, ist ein sichtbarer Mangel.
 
 **KI-Crawler:** `robots.txt` gibt GPTBot, ChatGPT-User, PerplexityBot,
 ClaudeBot, Claude-SearchBot und Claude-User frei.
@@ -231,35 +247,35 @@ nichts, andere Systeme lesen es); auf neuen Seiten bringt es nichts.
 
 ## Blog-Automatik `/gratis-wissen`
 
-Kette unter `scripts/blog-engine/`. **Zwei Betriebsarten:** ohne Schalter endet
-sie beim Entwurf, mit `--auto` läuft sie bis zur ausgelieferten Seite durch.
-Regeln und Bedienung: Skill `blog-seo`. Einrichtung: `deploy/BLOG-ENGINE.md`.
+Kette unter `scripts/blog-engine/`. Regeln und Bedienung: Skill `blog-seo`.
+Einrichtung: `deploy/BLOG-ENGINE.md`.
 
-**Warum die Freigabe überhaupt ein Thema ist:** Googles Spam-Richtlinie kennt
-„scaled content abuse" — viele Seiten, deren Zweck Ranking statt Nutzen ist,
-*„no matter how it's created"*. Die Gegenprobe der Prüfer ist *„the extent to
-which a human being actively worked to create satisfying content"*. Bewertet
-wird auf **Website-Ebene** — ein Urteil zöge `/leistungen` und `/referenzen`
-mit hinein.
+**Sie läuft: werktags 6:30 per cron, ein Artikel, bis zur ausgelieferten Seite**
+(`deploy/blog-automatik.cron`). Ohne `--auto` endet sie beim Entwurf.
 
-**Auto-Modus (Ansage Ayham, 26.08.2026).** Die Prüfungen bleiben vollständig
-und sind härter als von Hand: kein `--trotzdem`, ein harter Befund blockiert
-ausnahmslos; Tests und Build laufen zusätzlich **nach** dem Statuswechsel; ohne
-`BLOG_ENGINE_FREIGABE_VON` passiert gar nichts. Was entfällt, ist der Mensch,
-der die Prüfung auslöst — der Name in `freigabe` bedeutet dann stehende
-redaktionelle Verantwortung, nicht „gelesen". Tragweite im Kopf von
-`lib/veroeffentlichen.ts`, Tore per Test festgehalten.
+**Was auf dem Spiel steht:** Googles Spam-Richtlinie kennt „scaled content
+abuse" — viele Seiten, deren Zweck Ranking statt Nutzen ist, *„no matter how
+it's created"*. Die Gegenprobe ist *„the extent to which a human being actively
+worked to create satisfying content"*. Bewertet wird auf **Website-Ebene** — ein
+Urteil zöge `/leistungen` und `/referenzen` mit hinein.
 
-⚠️ Der Auto-Modus stellt nur die eigenen Dateien bereit (kein `git add -A`),
-rebast vor dem Schieben und prüft **danach** noch einmal — weil ein Deploy alles
-ausliefert, was in `main` liegt.
+**Auto-Modus (Ansage Ayham, 26.08.2026).** Die Prüfungen bleiben vollständig und
+sind an einer Stelle härter als von Hand: **kein `--trotzdem`**, ein harter
+Befund blockiert ausnahmslos; Tests und Build laufen zusätzlich **nach** dem
+Statuswechsel; ohne `BLOG_ENGINE_FREIGABE_VON` passiert gar nichts. Was entfällt,
+ist der Mensch, der die Prüfung auslöst — der Name in `freigabe` bedeutet dann
+stehende redaktionelle Verantwortung, nicht „gelesen". Tragweite im Kopf von
+`lib/veroeffentlichen.ts`, Tore unter Test. Abschalten: siehe Tabelle oben.
+
+⚠️ Der Auto-Modus stellt nur eigene Dateien bereit (kein `git add -A`) und rebast
+vor dem Schieben — aber **ein Deploy liefert alles aus, was in `main` liegt.**
+Fremde Commits im Push werden protokolliert, nicht zurückgehalten.
 
 **Das Substanz-Tor:** Jedes Thema in `content/seo/themen-pool.json` trägt
 `substanz` — den nicht generierbaren Anteil (gemessene Zahl, echte
 Konfiguration, Entscheidung mit Begründung, Fehler mit Kosten, gelesene
 Primärquelle). **`substanz: null` ⇒ wird nie produziert.** Ist kein Thema mit
-Eigenanteil da, erscheint an dem Tag nichts. Das ist der vorgesehene Zustand,
-kein Ausfall.
+Eigenanteil da, erscheint an dem Tag nichts — vorgesehener Zustand, kein Ausfall.
 
 **Sechs harte Tore** (jedes bricht Build oder Lauf ab): Substanz · ein Keyword,
 ein Artikel · keine Fremdzahl ohne `quellen` mit URL und Abrufdatum ·
@@ -269,8 +285,7 @@ ein `freigabe`-Objekt.
 
 **Zwei Wege:** `blog:brief` erzeugt ein Briefing aus dem, was im Repo liegt —
 kostenlos, ohne Zugangsdaten, geschrieben wird von Hand. Der volle Lauf kostet
-rund 44 Cent je Artikel plus DataForSEO (ein Trockenlauf über 8 Themen: 17,8
-Cent) und kann dafür die Ergebnisseite lesen.
+rund 44 Cent je Artikel plus DataForSEO und kann dafür die Ergebnisseite lesen.
 
 **Bewusst nicht gebaut:** FAQPage-Schema, `keywords`/`wordCount`/`speakable` im
 JSON-LD, Google Indexing API (nur für JobPosting/BroadcastEvent zulässig), ein
@@ -288,13 +303,18 @@ verbietet es wörtlich), eine zweite Domain für mehr Volumen.
 die neuesten 200 plus `dynamicParams: true` umstellen — Anleitung im Kopf von
 `src/app/gratis-wissen/[slug]/page.tsx`.
 
-**Zugangsdaten** gehören in `.env` (Vorlage `.env.example`), nie ins Repo.
-Geladen von `scripts/blog-engine/lib/umgebung.ts`, das in jedem Einstiegspunkt
-der **erste** Import sein muss (`blog-engine-umgebung.test.ts` prüft das).
-Eingetragen und geprüft: `DATAFORSEO_*`, `FIRECRAWL_API_KEY`, `INDEXNOW_KEY`.
-**Fehlt: `ANTHROPIC_API_KEY`** — ohne ihn endet jeder Lauf vor dem Schreiben.
-⚠️ DataForSEO-Guthaben knapp (~0,63 $), `DATAFORSEO_TAGESLIMIT_USD` steht
-deshalb auf **0,50** — die Bremse muss unter dem Guthaben liegen.
+**Zugangsdaten** in `.env`, nie ins Repo. Geladen von `lib/umgebung.ts`, das in
+jedem Einstiegspunkt der **erste** Import sein muss
+(`blog-engine-umgebung.test.ts`) — und den Pfad über `process.cwd()` bildet,
+weshalb jeder Cron-Aufruf ein `cd` braucht.
+
+**Geschrieben wird über OpenAI** (`lib/openai.ts`, `gpt-5.5`); Anthropic hätte
+Vorrang, aber `ANTHROPIC_API_KEY` fehlt. ⚠️ OpenAIs `max_completion_tokens` zählt
+die Denk-Token mit, Anthropics `max_tokens` nicht — der Adapter rechnet Spielraum
+auf, sonst bricht der Text mit `finish_reason: "length"` ab.
+
+⚠️ **DataForSEO-Guthaben knapp**, `DATAFORSEO_TAGESLIMIT_USD` steht deshalb auf
+**0,20** — die Bremse muss unter dem Guthaben liegen.
 
 ---
 
@@ -310,14 +330,11 @@ Nennungen von „KITech". Ausnahmen mit Grund: Rechtstexte klein in der Fußzeil
 (§ 5 DDG), CTA auf `/lass-uns-reden`, Domain bleibt `kitech-software.de`.
 
 ⚠️ Wer hier Logo oder die normale Fußzeile einbaut, nimmt der Seite genau die
-Eigenschaft, für die sie gebaut wurde.
-
-⚠️ Die alte Adresse `/eu-ai-act-selbstcheck` liefert **404, keine
-Weiterleitung** — auf Ansage. Eine 308 wäre genau die Spur in `next.config.ts`,
-die es nicht mehr geben soll. Wer sie als vermeintlichen Fehlerfix wieder
-einbaut, hebt die Entkopplung auf. Der Unterstrich im Pfad weicht bewusst von
-der kebab-case-Konvention ab (Vorgabe Ayham); Google liest `_` nicht als
-Worttrenner.
+Eigenschaft, für die sie gebaut wurde. Ebenso: Die alte Adresse
+`/eu-ai-act-selbstcheck` liefert auf Ansage **404, keine Weiterleitung** — eine
+308 wäre genau die Spur in `next.config.ts`, die es nicht mehr geben soll. Der
+Unterstrich im Pfad weicht bewusst von kebab-case ab (Vorgabe Ayham); Google
+liest `_` nicht als Worttrenner.
 
 ### Kampagnenseiten `/funnel` und `/fokus`
 
@@ -325,12 +342,12 @@ Eigene Domains, per `src/proxy.ts` als **Rewrite** (Adresszeile bleibt stehen).
 Rahmen ist `FunnelShell` — **keine Kopfleiste**: volle Navigation gäbe kaltem
 Traffic ein Dutzend Ausgänge vor dem einen Knopf. `noindex`, keine Sitemap.
 
-**Funnel-Grundsatz (Ansage 19.08.2026):** Der Lead-Magnet ist bevorzugt ein
+**Funnel-Grundsatz (Ansage 19.08.2026):** Lead-Magnet ist bevorzugt ein
 **Video**, in dem ein echtes Problem sichtbar gelöst wird — keine PDFs, keine
-Checklisten, keine „3 Tipps". Der Wert liegt im Funnel selbst, nicht erst hinter
-einem Call. Verschenkt wird **das Wissen, nicht die Ausführung**. Keine
-Kundendaten ohne schriftliche Freigabe. Ausformuliert in
-`.claude/skills/funnel-narrativ/reference/substanz.md` (Schritt 0 des Skills).
+Checklisten, keine „3 Tipps". Der Wert liegt im Funnel selbst, nicht hinter dem
+Call. Verschenkt wird **das Wissen, nicht die Ausführung**. Keine Kundendaten
+ohne schriftliche Freigabe. Ausformuliert in
+`.claude/skills/funnel-narrativ/reference/substanz.md`.
 
 ⚠️ Der aktuelle `/funnel` erfüllt den Grundsatz noch nicht — er bewirbt einen
 Workshop, der Einblick entsteht also erst nach der Anmeldung. Offene Punkte im
@@ -411,17 +428,26 @@ kein Cookie, keine IP im Webhook, § 25 TDDDG greift nicht. **Mit Einwilligung**
 zusätzlich die Firmenerkennung über ipinfo.io — serverseitig, nur wenn
 `IPINFO_TOKEN` gesetzt ist. Cookie-Banner und `/datenschutz` benennen sie beide.
 
-⚠️ **Der Tagesbericht untererfasst** — wer den Banner ablehnt oder ignoriert,
-taucht in keiner Zahl auf. Unter jeder Mail steht deshalb ein Satz, der das
-sagt. Und **„wer war das" beantwortet Plausible nicht**: keine Profile, keine
-Wiedererkennung. Der Bericht zeigt Verhalten, keine Identität.
+**n8n entscheidet, was klingelt** (`deploy/n8n-benachrichtigung.json`, drei
+Knoten): Ein *Besuch* nur, wenn ipinfo eine **echte Firma** liefert — bei einem
+Privatanschluss steht dort der Provider, nicht der Besucher. *Kontaktsignale*
+(Telefon, E-Mail, Popup, Termin, Selbstcheck) gehen immer raus.
 
-**Nicht eingerichtet = passiert nichts.** Ohne `EREIGNIS_WEBHOOK_URL` bestätigt
-die Route still mit 204; ohne `PLAUSIBLE_API_KEY` antwortet der Bericht mit 404.
+⚠️ **Der Meldeweg fällt lautlos aus.** Die Route antwortet **immer** 204 — auch
+ohne `EREIGNIS_WEBHOOK_URL` und auch, wenn n8n wegbricht. Der Webhook meldet
+„Workflow was started", bevor etwas passiert ist, und ein Code-Node mit
+`return []` endet mit `success`. **Der Statuscode beweist nichts.** Ob eine
+Meldung ankam, steht nur in n8n (Workflow `mE5M1CqXse3jETgU`, Zugang in `.env`)
+oder im Postfach. Kostete zweimal Tage: erst leere Mails, dann keine.
 
-**Analytics:** Plausible self-hosted auf `stats.kitech-software.de`, Konfiguration
-hardcoded in `lib/plausible.ts` und `CookieConsent.tsx` (die `VITE_PLAUSIBLE_*`
-in `.env.example` sind tot). Events: `CTA_Klick`, `Kontaktformular_gesendet`,
+⚠️ **Der Tagesbericht untererfasst** — wer den Banner ablehnt, taucht in keiner
+Zahl auf; unter jeder Mail steht deshalb ein Satz dazu. Und **„wer war das"
+beantwortet Plausible nicht**: keine Profile, keine Wiedererkennung. Ohne
+`PLAUSIBLE_API_KEY` antwortet der Bericht mit 404.
+
+**Analytics:** Plausible self-hosted auf `stats.kitech-software.de`, hardcoded in
+`lib/plausible.ts` und `CookieConsent.tsx` (die `VITE_PLAUSIBLE_*` in
+`.env.example` sind tot). Events: `CTA_Klick`, `Kontaktformular_gesendet`,
 `Calendly_Klick`, `Scroll_90`, `Angebot_Seite`, `Lead_Qualifier_abgeschlossen`,
 `Telefon_Klick`, `Email_Klick`.
 
@@ -442,22 +468,12 @@ curl -X GET "http://localhost:8000/api/v1/deploy?uuid=j9vencbq8b2nugo86eimxnku" 
   -H "Authorization: Bearer $COOLIFY_API_TOKEN"
 ```
 
-**Vor jedem Deploy** lokal gegen den Container prüfen — Coolify nutzt dasselbe
+**Vor jedem Deploy** gegen den Container prüfen — Coolify nutzt dasselbe
 Dockerfile, was hier bricht, bricht auch dort:
 
 ```bash
 npm run lint && npm test && npm run build
-docker build -t kitech-website-test:local .
-docker run -d --name kitech-test -p 8124:3000 kitech-website-test:local
-for p in / /warum /leistungen /solo /enterprise /referenzen /haltung /karriere \
-         /kontakt /glossar /lass-uns-reden /selbstcheck_eu_ai_act /impressum \
-         /datenschutz /agb /gratis-wissen /autoren /autoren/ayham-alkhalil \
-         /gratis-wissen/rss.xml /gratis-wissen/thema/ki-strategie /llms.txt \
-         /images/og/standard.png /glossar/mlops /sitemap.xml /gibt-es-nicht; do
-  printf "%-40s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8124$p)"
-done
-node scripts/pruefe-jsonld.mjs http://127.0.0.1:8124
-docker rm -f kitech-test && docker rmi kitech-website-test:local
+bash scripts/pruefe-container.sh      # baut, ruft 25 Routen ab, prüft JSON-LD, räumt auf
 ```
 
 `npm start` taugt wegen `output: "standalone"` nur eingeschränkt — für eine
@@ -479,18 +495,17 @@ Runtime-Variablen brauchen nur einen Neustart, `NEXT_PUBLIC_*` einen Rebuild.
 
 ### Entfernt, aber wiederherstellbar
 
-**Community und Mitgliederbereich** sind am 05.08.2026 auf Ansage komplett von
-der Website genommen worden — die Skool-Gruppe war nicht startklar, und ein
-angekündigter Mitgliederbereich ohne Termin ist ein Versprechen, das niemand
-einlöst. `/community` und `/skool` leiten per 308 auf die Startseite.
+**Community und Mitgliederbereich**, am 05.08.2026 auf Ansage entfernt: die
+Skool-Gruppe war nicht startklar, und ein angekündigter Mitgliederbereich ohne
+Termin ist ein Versprechen, das niemand einlöst. `/community` und `/skool`
+leiten per 308 auf die Startseite.
 
-Der Code liegt vollständig in Commit **`31a655b`**. Ein Wiedereinbau braucht
-zusätzlich: Einträge in `src/config/navigation.ts` (Kopfzeile, Fußzeile,
-`siteRoutes`), `company.skoolUrl`, `WAITLIST_WEBHOOK_URL` in `.env.example` und
-die Rücknahme des Redirects in `next.config.ts`. Der Hash allein genügt nicht.
+Code in Commit **`31a655b`** — ⚠️ **der Hash allein genügt nicht.** Dazu:
+`navigation.ts` (Kopfzeile, Fußzeile, `siteRoutes`), `company.skoolUrl`,
+`WAITLIST_WEBHOOK_URL` in `.env.example`, Redirect in `next.config.ts` zurück.
 
-Nicht betroffen: der eingeloggte Bereich unter `src/app/app/` (LogTo) — er ist
-weiterhin da, wird auf der öffentlichen Seite nur nicht angekündigt.
+Nicht betroffen: der eingeloggte Bereich `src/app/app/` (LogTo) — weiterhin da,
+nur nicht angekündigt.
 
 ---
 
@@ -523,12 +538,15 @@ Companyhouse sind abgeschriebene Registerdaten und antworten Crawlern mit 403.
 
 ## Offen
 
+Stand 26.08.2026.
+
 | Was | Wer |
 |---|---|
+| ⚠️ **DataForSEO nur noch 0,45 $** — reicht für gut zwei Auto-Läufe, danach schreibt die Automatik ohne Keyword-Daten weiter | Ayham |
 | ProvenExpert-Profil hat **0 Bewertungen** — fünf echte würden zugleich die Sterne auf den Kundenkarten belegen (`deploy/BEWERTUNGEN.md`) | Ayham |
 | `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
-| `ANTHROPIC_API_KEY` fehlt; DataForSEO-Guthaben knapp | Ayham |
-| Themen-Cluster ohne Artikel — Stand zählt `content/seo/cluster.json` gegen `content/wissen/` (derzeit 5 von 12) | Redaktion |
+| Themen-Cluster ohne Artikel — `content/seo/cluster.json` gegen `content/wissen/` (5 von 12) | Redaktion |
 | `techStack` in `services.ts` (PyTorch, Kubernetes, LangChain) ist Altbestand der Vorgängerseite | inhaltliche Entscheidung |
 | KI-Partner-Verzeichnis der Wirtschaftsförderung Region Hannover: Aufnahme | Ayham |
 | Sales Letter und `/funnel` tragen Platzhaltertext | Ayham |
+| `/api/funnel-besuch` und `/api/ereignis` gehören zusammengelegt | technische Schuld |
