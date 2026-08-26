@@ -17,8 +17,15 @@ export interface GlossaryTerm {
 
 export const GLOSSARY_DEFAULT_PUBLISHED = "2026-06-20";
 export const GLOSSARY_DEFAULT_MODIFIED = "2026-06-23";
-export const GLOSSARY_DEFAULT_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/PtMzwsuP81OMFsgAS1uxnhIbKCG2/social-images/social-1766141818702-losgo.png";
+/*
+ * Vorschaubild der Glossarseiten. Zeigte bis zum 26.08.2026 auf
+ * storage.googleapis.com/gpt-engineer-file-uploads/... -- einen fremden Bucket
+ * aus der Lovable-Herkunft des Projekts, ueber den niemand hier Kontrolle hat.
+ * Dieselbe Altlast war am 21.08.2026 fuer das Standard-Vorschaubild behoben
+ * worden; die sechs Glossarseiten lagen ausserhalb jener Pruefung und gaben den
+ * fremden Bucket weiter im Article-Schema aus.
+ */
+export const GLOSSARY_DEFAULT_IMAGE = "https://kitech-software.de/images/og/standard.png";
 
 export const glossaryTerms: GlossaryTerm[] = [
   {

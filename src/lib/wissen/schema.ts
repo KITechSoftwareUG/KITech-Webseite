@@ -166,6 +166,26 @@ export const substanzSchema = z.object({
 export const artikelSchema = z.object({
   slug: slugMuster,
   titel: z.string().min(15).max(120),
+  /**
+   * Kurzfassung des Titels für das `<title>`-Element — nur nötig, wenn `titel`
+   * über 60 Zeichen liegt.
+   *
+   * **Warum es das Feld gibt.** Eine H1 darf ausführlich sein: sie steht auf
+   * der Seite, wird ganz gelesen und trägt den Zusammenhang. Das Suchergebnis
+   * schneidet dagegen bei etwa 60 Zeichen ab, und was danach kommt, sieht
+   * niemand. Beides in ein Feld zu zwingen heißt, eines von beiden schlechter
+   * zu machen.
+   *
+   * Aufgefallen am 26.08.2026: „E-Rechnung ab 1.1.2027: wer versenden muss und
+   * was bis dahin zu tun ist" misst 71 Zeichen und stand so live. Der Test in
+   * `metadaten.test.ts` hatte das nicht gefunden, weil er nur String-Literale
+   * aus den `page.tsx` unter `src/app/` liest — ein Titel, der aus einer JSON-Datei
+   * kommt, läuft an ihm vorbei.
+   *
+   * Ohne Angabe wird `titel` verwendet. Der Loader bricht ab, wenn *beide*
+   * über der Grenze liegen.
+   */
+  metaTitel: z.string().min(15).max(60).optional(),
   /** Ein Satz für Übersichtskarte und Meta-Beschreibung. */
   teaser: z.string().min(60).max(280),
   kategorie: z.string().min(3).max(30),

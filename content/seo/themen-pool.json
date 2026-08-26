@@ -12,7 +12,8 @@
     },
     "prioritaet": 1,
     "spaetestens": "2026-12-31",
-    "notiz": "Schwellenwert und Übergangsfristen unmittelbar vor der Veröffentlichung am Gesetzestext und am einschlägigen BMF-Schreiben gegenprüfen. Nach dem Stichtag trägt die Rahmung „was bis dahin zu tun ist“ nicht mehr."
+    "notiz": "Schwellenwert und Übergangsfristen unmittelbar vor der Veröffentlichung am Gesetzestext und am einschlägigen BMF-Schreiben gegenprüfen. Nach dem Stichtag trägt die Rahmung „was bis dahin zu tun ist“ nicht mehr.",
+    "erledigt": "e-rechnung-ab-1-1-2027-wer-versenden-muss-und-was-bis-dahin-zu-tun-ist"
   },
   {
     "id": "go-digital-nachfolger",
@@ -78,7 +79,8 @@
       "herkunft": "Eigene Angebotskonfiguration dieser Website (Dauer, Wochentag, Platzzahl) und die öffentlich verlinkten Live-Belege auf kitech-software.de."
     },
     "prioritaet": 6,
-    "notiz": "Dauer, Wochentag und Platzzahl stehen in der Angebotskonfiguration und ändern sich — vor der Veröffentlichung abgleichen. Interne Preise und ältere Workshop-Preise bleiben draußen."
+    "notiz": "Dauer, Wochentag und Platzzahl stehen in der Angebotskonfiguration und ändern sich — vor der Veröffentlichung abgleichen. Interne Preise und ältere Workshop-Preise bleiben draußen.",
+    "erledigt": "ki-beratung-hannover-wie-ein-erstgespraech-ablaeuft"
   },
   {
     "id": "forschungszulage-ki-projekt",
@@ -111,7 +113,8 @@
       ]
     },
     "prioritaet": 8,
-    "notiz": "Zahlen am 19.08.2026 nachgeprüft und korrigiert — die vorherige Angabe verwechselte Repo-Commits mit Commits auf der Datei."
+    "notiz": "Zahlen am 19.08.2026 nachgeprüft und korrigiert — die vorherige Angabe verwechselte Repo-Commits mit Commits auf der Datei.",
+    "erledigt": "claude-md-die-nach-sechs-monaten-noch-stimmt"
   },
   {
     "id": "berechtigungen-ki-chatbot",
@@ -194,7 +197,8 @@
       ]
     },
     "prioritaet": 13,
-    "notiz": "Erstquelle und Verkaufsargument in einem. Die alte Ziel-Adresse des kaputten Webhooks bleibt draußen."
+    "notiz": "Erstquelle und Verkaufsargument in einem. Die alte Ziel-Adresse des kaputten Webhooks bleibt draußen.",
+    "erledigt": "besucher-melden-ohne-cookie-banner"
   },
   {
     "id": "agent-skills-erstellen",

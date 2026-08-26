@@ -81,6 +81,16 @@ export function getOrganizationSchema(): SchemaBase {
        `name`; `legalName` stützt die Anbieterkennzeichnung, die im Impressum
        vollständig steht. */
     legalName: "KITech Software UG (haftungsbeschränkt)",
+    /* Umsatzsteuer-Identifikationsnummer und Registereintrag — beides steht im
+       Impressum und ist damit ohnehin öffentlich. Im Schema stützen sie die
+       Entität: Sie sind eindeutig und lassen sich gegen amtliche Quellen
+       abgleichen, anders als ein Firmenname. */
+    vatID: "DE459778632",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "HRB",
+      value: "HRB 230077, Amtsgericht Hannover",
+    },
     url: "https://kitech-software.de",
     logo: "https://kitech-software.de/logo.png",
     image: "https://kitech-software.de/logo.png",
@@ -94,6 +104,7 @@ export function getOrganizationSchema(): SchemaBase {
       "@type": "PostalAddress",
       streetAddress: "Wedekindstraße 14",
       addressLocality: "Hannover",
+      addressRegion: "Niedersachsen",
       postalCode: "30161",
       addressCountry: "DE",
     },
@@ -105,13 +116,22 @@ export function getOrganizationSchema(): SchemaBase {
       availableLanguage: ["German", "English"],
     },
     sameAs: SAME_AS,
-    foundingDate: "2023",
+    /*
+     * Eintragung ins Handelsregister, HRB 230077 Amtsgericht Hannover, am
+     * 16.01.2026 — geprüft am 26.08.2026 am Registerauszug.
+     *
+     * Hier stand bis dahin "2023", ohne Beleg und ohne Kommentar. Bei einer UG
+     * ist die Eintragung konstitutiv: Die juristische Person, die dieser
+     * Organization-Knoten beschreibt, entsteht mit ihr. Eine frühere Tätigkeit
+     * des Gründers ist etwas anderes als das Gründungsdatum der Gesellschaft.
+     */
+    foundingDate: "2026-01-16",
     areaServed: {
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
-        latitude: 52.3759,
-        longitude: 9.732,
+        latitude: 52.3859,
+        longitude: 9.7529,
       },
       geoRadius: "500 km",
     },
@@ -167,8 +187,8 @@ export function getLocalBusinessSchema(): SchemaBase {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 52.3759,
-      longitude: 9.732,
+      latitude: 52.3859,
+      longitude: 9.7529,
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -392,7 +412,7 @@ export function getFounderPersonSchema(): SchemaBase {
     jobTitle: "Gründer & Geschäftsführer",
     description:
       "Ayham Alkhalil ist Gründer und Geschäftsführer von KITech Software in Hannover. Er entwickelt KI- und Automatisierungslösungen für den deutschen Mittelstand.",
-    image: "https://kitech-software.de/__l5e/assets-v1/b8d41e44-2f66-4470-a47a-43b8db6daa15/alkhalil-portrait.png",
+    image: "https://kitech-software.de/images/team/ayham.webp",
     url: "https://kitech-software.de/haltung",
     worksFor: {
       "@type": "Organization",
@@ -415,14 +435,19 @@ export function getFounderPersonSchema(): SchemaBase {
         addressCountry: "DE",
       },
     },
+    /*
+     * Das persoenliche Profil, nicht die Unternehmensseite. Ein Person-Knoten,
+     * dessen sameAs auf die Firma zeigt, verknuepft die falschen Entitaeten --
+     * die Unternehmensseite steht bereits im sameAs der Organisation.
+     */
     sameAs: [
-      "https://www.linkedin.com/company/104155510",
+      "https://www.linkedin.com/in/ayham-alkhalil-66bb451b5",
     ],
     knowsAbout: [
       "Künstliche Intelligenz",
       "KI-Beratung",
-      "ROI-getriebene KI-Projekte",
-      "KI mit ROI-Garantie",
+      "Prozessautomatisierung",
+      "Individuelle Softwareentwicklung",
       "Mittelstandsberatung",
       "Large Language Models",
       "AI Agents",

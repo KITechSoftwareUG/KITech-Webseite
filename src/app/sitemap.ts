@@ -56,11 +56,30 @@ import {
  * hierher. Das ist ein sehr unauffälliger Fehler.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
+  /*
+   * Die beiden Blog-Hubs datieren sich aus ihrem Bestand statt aus einem festen
+   * Wert in navigation.ts. Dort stand der 19.08.2026 — der Tag, an dem sie
+   * angelegt wurden. Seither sind vier Artikel dazugekommen, und bei jedem
+   * weiteren wäre das Datum erneut überholt: Google bekäme gemeldet, die
+   * Übersichtsseite habe sich seit einer Woche nicht geändert, während unten
+   * neue Einträge stehen.
+   *
+   * Ein fester Wert in navigation.ts bleibt für alle anderen Seiten richtig —
+   * /leistungen ändert sich nur, wenn jemand die Datei anfasst.
+   */
+  const jüngsterArtikel = veroeffentlichteArtikel()
+    .map((artikel) => artikel.aktualisiert)
+    .sort()
+    .at(-1);
+
   const statisch: MetadataRoute.Sitemap = siteRoutes
     .filter((route) => route.indexable && !route.aliasOf)
     .map((route) => ({
       url: `${BASE_URL}${route.path === "/" ? "" : route.path}`,
-      lastModified: route.lastModified,
+      lastModified:
+        (route.path === "/gratis-wissen" || route.path === "/autoren") && jüngsterArtikel
+          ? jüngsterArtikel
+          : route.lastModified,
     }));
 
   const referenzen: MetadataRoute.Sitemap = clientResults
@@ -94,10 +113,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         .at(-1),
     }));
 
-  const autoren: MetadataRoute.Sitemap = alleAutoren().map((autor) => ({
-    url: `${BASE_URL}/autoren/${autor.slug}`,
-    lastModified: "2026-08-19",
-  }));
+  const autoren: MetadataRoute.Sitemap = alleAutoren().map((autor) => {
+    /* Dieselbe Ableitung wie bei den Themen-Hubs: Eine Autorenseite listet die
+       Artikel ihrer Person, sie ändert sich also mit deren jüngstem Stand. Hier
+       stand bis zum 26.08.2026 ein festes Datum, das seit dem 19.08. nicht mehr
+       stimmte — und bei jedem neuen Artikel erneut veraltet wäre. */
+    const eigene = veroeffentlichteArtikel().filter((artikel) => artikel.autor === autor.slug);
+    return {
+      url: `${BASE_URL}/autoren/${autor.slug}`,
+      lastModified:
+        eigene
+          .map((artikel) => artikel.aktualisiert)
+          .sort()
+          .at(-1) ?? "2026-08-19",
+    };
+  });
 
   return [...statisch, ...referenzen, ...glossar, ...wissen, ...themen, ...autoren];
 }

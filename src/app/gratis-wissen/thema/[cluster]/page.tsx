@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { buildMetadata, kuerze } from "@/lib/metadata";
+import { buildMetadata, kuerze, TITEL_MAX } from "@/lib/metadata";
 import { alleCluster, artikelImCluster, clusterNachSlug } from "@/lib/wissen/laden";
 import ThemaSeite from "@/views/wissen/ThemaSeite";
 
@@ -36,10 +36,22 @@ export async function generateMetadata({ params }: ThemaPageProps): Promise<Meta
     });
   }
 
-  /* Zwei Zusätze hinter dem Thementitel ergaben bis zu 82 Zeichen — der
-     längste Titel der Website. Einer reicht. */
+  /*
+   * Zwei Zusätze hinter dem Thementitel ergaben bis zu 82 Zeichen — der längste
+   * Titel der Website. Einer reicht.
+   *
+   * Und auch der eine nur, wenn er passt: „KI-Betrieb: Cloud, eigene Hardware,
+   * Souveränität" misst allein 47 Zeichen, mit Zusatz 63 — über TITEL_MAX. Der
+   * Zusatz ist der verzichtbare Teil, nicht das Thema. Dieselbe Entscheidung wie
+   * am 20.08.2026 beim Firmennamen: Was abgeschnitten würde, steht besser gar
+   * nicht erst da.
+   */
+  const zusatz = " – Gratis-Wissen";
+  const titel =
+    cluster.titel.length + zusatz.length <= TITEL_MAX ? `${cluster.titel}${zusatz}` : cluster.titel;
+
   return buildMetadata({
-    title: `${cluster.titel} – Gratis-Wissen`,
+    title: titel,
     description: kuerze(cluster.teaser),
     path: `/gratis-wissen/thema/${cluster.slug}`,
   });

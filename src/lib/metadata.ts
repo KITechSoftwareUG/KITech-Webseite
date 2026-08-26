@@ -83,11 +83,30 @@ interface BuildMetadataOptions {
   siteName?: string | null;
   /** Setzt robots auf noindex/nofollow — für Seiten ohne fertigen Inhalt. */
   noindex?: boolean;
+  /**
+   * Veröffentlichungs- und Änderungsdatum, ISO `JJJJ-MM-TT`.
+   *
+   * Wirken nur zusammen mit `ogType: "article"` — für eine `website` gibt es
+   * die Angaben im OpenGraph-Protokoll nicht, und Next.js würde sie verwerfen.
+   *
+   * **Warum das zählt:** Das JSON-LD trägt `datePublished`/`dateModified`
+   * bereits, die OpenGraph-Fassung fehlte. Beide werden von unterschiedlichen
+   * Systemen gelesen — Suchmaschinen bevorzugen das strukturierte Datum,
+   * soziale Netze und viele Abrufdienste lesen OpenGraph. Bis zum 26.08.2026
+   * stand `og:type=article` ohne jedes Datum daneben.
+   */
+  publishedTime?: string;
+  modifiedTime?: string;
+  /** Autorname für `article:author`. Nur mit `ogType: "article"`. */
+  authors?: string[];
 }
 
 export function buildMetadata({
   title,
   description,
+  publishedTime,
+  modifiedTime,
+  authors,
   path,
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
@@ -100,7 +119,30 @@ export function buildMetadata({
     title,
     description,
     alternates: { canonical: url },
-    robots: noindex ? { index: false, follow: false } : undefined,
+    /*
+     * `max-image-preview: large` erlaubt Google, ein grosses Vorschaubild zu
+     * zeigen -- in der Bildersuche, in Discover und in den Ergebnisseiten.
+     * Ohne die Angabe waehlt Google die Groesse selbst und nimmt im Zweifel
+     * das kleinere Format. `max-snippet: -1` und `max-video-preview: -1` heben
+     * die Laengenbegrenzung auf; beides ist die uebliche Kombination.
+     *
+     * Der noindex-Zweig bleibt unberuehrt: /funnel, /fokus, die Sales Letter,
+     * /karriere und der markenfreie Selbstcheck laufen dort hindurch und
+     * bekommen weiterhin index:false, follow:false.
+     */
+    robots: noindex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        },
     openGraph: {
       title,
       description,
@@ -109,6 +151,14 @@ export function buildMetadata({
       ...(ogImage ? { images: [ogImage] } : {}),
       locale: "de_DE",
       ...(siteName ? { siteName } : {}),
+      /* Nur bei ogType "article" — sonst verwirft Next.js die Felder. */
+      ...(ogType === "article"
+        ? {
+            ...(publishedTime ? { publishedTime } : {}),
+            ...(modifiedTime ? { modifiedTime } : {}),
+            ...(authors && authors.length > 0 ? { authors } : {}),
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",

@@ -64,10 +64,15 @@ export async function generateMetadata({ params }: ArtikelPageProps): Promise<Me
      nirgends und kostete trotzdem den halben Titel. Der Absender steht in der
      Ergebniszeile ohnehin über die Domain. */
   return buildMetadata({
-    title: artikel.titel,
+    /* `metaTitel` schlaegt `titel`, wo die Ueberschrift laenger sein darf als
+       das Suchergebnis breit ist. Siehe schema.ts. */
+    title: artikel.metaTitel ?? artikel.titel,
     description: kuerze(artikel.teaser),
     path: `/gratis-wissen/${artikel.slug}`,
     ogType: "article",
+    publishedTime: artikel.datum,
+    modifiedTime: artikel.aktualisiert,
+    authors: [autorNachSlug(artikel.autor)?.name ?? artikel.autor],
   });
 }
 

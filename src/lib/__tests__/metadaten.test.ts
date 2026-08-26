@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { veroeffentlichteArtikel, alleCluster } from "../wissen/laden";
 import fs from "node:fs";
 import path from "node:path";
 import { BESCHREIBUNG_MAX, TITEL_MAX, kuerze } from "@/lib/metadata";
@@ -100,5 +101,61 @@ describe("kuerze()", () => {
 
   it("lässt kein Satzzeichen vor dem Auslassungszeichen stehen", () => {
     expect(kuerze("Erst ein Teil, dann noch viel mehr Text als hineinpasst", 20)).not.toMatch(/[,;:]…$/);
+  });
+});
+
+/**
+ * Titel, die NICHT als String-Literal im Code stehen.
+ *
+ * **Die Lücke, die das schließt.** Der Block oben liest String-Literale aus den
+ * `page.tsx` unter `src/app/`. Ein Titel, der zur Laufzeit aus einer JSON-Datei
+ * oder einer Datendatei zusammengesetzt wird, läuft daran vorbei — und genau so
+ * stand am 26.08.2026 ein Artikel mit **71 Zeichen** live, während der Test grün
+ * war.
+ *
+ * Geprüft wird deshalb der Wert, den `generateMetadata` tatsächlich baut.
+ */
+describe("Titel aus Datendateien", () => {
+  it("jeder veröffentlichte Artikel hat einen Suchtitel im Korridor", () => {
+    const zuLang = veroeffentlichteArtikel()
+      .map((a) => ({ slug: a.slug, titel: a.metaTitel ?? a.titel }))
+      .filter((a) => a.titel.length > TITEL_MAX)
+      .map((a) => `  ${a.titel.length} Zeichen  ${a.slug}: „${a.titel}“`);
+
+    expect(
+      zuLang,
+      `Diese Artikel liefern einen <title> über ${TITEL_MAX} Zeichen.\n` +
+        `Lösung: Feld "metaTitel" in der JSON-Datei setzen — die H1 bleibt davon unberührt.\n` +
+        zuLang.join("\n")
+    ).toEqual([]);
+  });
+
+  it("jede Themenseite hat einen Titel im Korridor", () => {
+    /* Dasselbe Muster wie in der Themenseite: Der Zusatz wird nur angehängt,
+       wenn er passt — sonst steht der Thementitel allein. Wer die Route ändert,
+       ändert auch hier. */
+    const zusatz = " – Gratis-Wissen";
+    const zuLang = alleCluster()
+      .map((c) => (c.titel.length + zusatz.length <= TITEL_MAX ? `${c.titel}${zusatz}` : c.titel))
+      .filter((t) => t.length > TITEL_MAX);
+
+    expect(
+      zuLang,
+      `Themenseiten-Titel über ${TITEL_MAX} Zeichen — hier hilft nur ein kürzerer ` +
+        `Cluster-Titel in content/seo/cluster.json:\n${zuLang.join("\n")}`
+    ).toEqual([]);
+  });
+
+  /**
+   * Die Gegenprobe zum Feld selbst: Ein `metaTitel`, der genauso lang ist wie
+   * der Titel, ist ein vergessener Handgriff — dann hat jemand das Feld gesetzt,
+   * ohne zu kürzen.
+   */
+  it("metaTitel ist kürzer als der Titel, wo er gesetzt ist", () => {
+    const sinnlos = veroeffentlichteArtikel()
+      .filter((a) => a.metaTitel && a.metaTitel.length >= a.titel.length)
+      .map((a) => `  ${a.slug}: metaTitel ${a.metaTitel!.length} >= titel ${a.titel.length}`);
+
+    expect(sinnlos, `metaTitel ohne Wirkung:\n${sinnlos.join("\n")}`).toEqual([]);
   });
 });

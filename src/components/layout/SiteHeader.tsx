@@ -241,6 +241,8 @@ export function SiteHeader({ className }: { className?: string }) {
             */}
             {/*
               `/images/logo-weiss.webp` statt `/logo-weiss.svg` (20.08.2026).
+              Die SVG-Datei liegt seit dem 26.08.2026 in `.tmp/vorlagen/`, nicht mehr
+              unter `public/` — sie wurde bei jedem Deploy unbenutzt mitgeliefert.
 
               Die SVG-Datei war kein Vektor: Sie enthielt ein 1584x500 grosses
               Graustufen-PNG als base64, dazu einen `feColorMatrix`, der daraus
