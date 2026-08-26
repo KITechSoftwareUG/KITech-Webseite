@@ -1,8 +1,12 @@
 # Search Console und Bing Webmaster Tools einrichten
 
-Stand 24.08.2026. Beide sind **nicht** eingerichtet — ohne sie ist nicht
-sichtbar, für welche Suchbegriffe die Website erscheint, welche Seiten
-indexiert sind und welche nicht.
+✅ **Stand 26.08.2026: beide sind eingerichtet und bestätigt.** Google Search
+Console (Property-Typ URL-Präfix) und Bing Webmaster Tools, in beiden ist die
+Sitemap eingereicht — Google meldet „Erfolgreich" mit 35 erkannten Seiten.
+
+Die Anleitung unten bleibt für den Fall stehen, dass eine Property neu angelegt
+werden muss. Die Kennungen selbst stehen in
+[`src/config/suchkonsolen.ts`](../src/config/suchkonsolen.ts).
 
 Die Website liefert alles, was die Dienste brauchen: Sitemap, saubere
 Canonicals, gültiges JSON-LD. Was fehlt, ist die Bestätigung, dass die Domain

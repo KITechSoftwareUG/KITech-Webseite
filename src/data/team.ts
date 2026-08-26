@@ -7,7 +7,7 @@
  * ohne den wuerden dunkle Anzuege auf dem near-black Seitenhintergrund komplett
  * verschwinden.
  *
- * Fuer Joerg und Jennifer liegen noch keine Fotos vor (`photo: null`). Die Kachel
+ * Fuer Jennifer liegt noch kein Foto vor (`photo: null`). Die Kachel
  * zeigt dann einen neutralen Platzhalter (Silhouetten-Icon auf dem Studio-Grund),
  * damit die Karte einheitlich zu den anderen bleibt — so von Ayham vorgegeben
  * (05.08.2026). Vorher stand dort eine leere Flaeche ohne jeden Marker.

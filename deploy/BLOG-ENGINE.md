@@ -235,7 +235,12 @@ Ausgabe-Token, Sonnet 5 zwei beziehungsweise zehn im Einführungspreis).
 | 08 Einhängen, bis zu drei Kandidaten | Sonnet 5 | $0,03 |
 | **je Artikel** | | **$0,44** |
 
-Dazu je Lauf rund 13 Cent für DataForSEO und etwa zwölf Firecrawl-Credits aus
+Dazu DataForSEO. ⚠️ **Gemessen statt geschätzt (24.08.2026):** Ein Lauf im
+Trockenmodus über acht Kandidatenthemen — also nur Schritt 01, ohne
+SERP-Analyse, ohne Recherche, ohne Schreiben — kostete **17,8 Cent**
+(Kontostand 0,8072 → 0,62876 $). Hier stand vorher „rund 13 Cent je Lauf" für
+den *ganzen* Durchgang; das war zu niedrig. Die SERP-Analyse in Schritt 03
+kommt je Artikel dazu. Dazu etwa zwölf Firecrawl-Credits aus
 dem Monatspaket.
 
 **Ein Lauf mit zwei Artikeln kostet damit rund einen Dollar. Bei zwanzig

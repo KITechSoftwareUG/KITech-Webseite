@@ -300,6 +300,13 @@ Nennungen von „KITech". Ausnahmen mit Grund: Rechtstexte klein in der Fußzeil
 ⚠️ Wer hier Logo oder die normale Fußzeile einbaut, nimmt der Seite genau die
 Eigenschaft, für die sie gebaut wurde.
 
+⚠️ Die alte Adresse `/eu-ai-act-selbstcheck` liefert **404, keine
+Weiterleitung** — auf Ansage. Eine 308 wäre genau die Spur in `next.config.ts`,
+die es nicht mehr geben soll. Wer sie als vermeintlichen Fehlerfix wieder
+einbaut, hebt die Entkopplung auf. Der Unterstrich im Pfad weicht bewusst von
+der kebab-case-Konvention ab (Vorgabe Ayham); Google liest `_` nicht als
+Worttrenner.
+
 ### Kampagnenseiten `/funnel` und `/fokus`
 
 Eigene Domains, per `src/proxy.ts` als **Rewrite** (Adresszeile bleibt stehen).
@@ -458,6 +465,23 @@ Runtime-Variablen brauchen nur einen Neustart, `NEXT_PUBLIC_*` einen Rebuild.
 
 ---
 
+### Entfernt, aber wiederherstellbar
+
+**Community und Mitgliederbereich** sind am 05.08.2026 auf Ansage komplett von
+der Website genommen worden — die Skool-Gruppe war nicht startklar, und ein
+angekündigter Mitgliederbereich ohne Termin ist ein Versprechen, das niemand
+einlöst. `/community` und `/skool` leiten per 308 auf die Startseite.
+
+Der Code liegt vollständig in Commit **`31a655b`**. Ein Wiedereinbau braucht
+zusätzlich: Einträge in `src/config/navigation.ts` (Kopfzeile, Fußzeile,
+`siteRoutes`), `company.skoolUrl`, `WAITLIST_WEBHOOK_URL` in `.env.example` und
+die Rücknahme des Redirects in `next.config.ts`. Der Hash allein genügt nicht.
+
+Nicht betroffen: der eingeloggte Bereich unter `src/app/app/` (LogTo) — er ist
+weiterhin da, wird auf der öffentlichen Seite nur nicht angekündigt.
+
+---
+
 ## Firmendaten
 
 **Eine Quelle: `src/config/company.ts`.** Ausgenommen sind die Rechtstexte,
@@ -492,7 +516,7 @@ Companyhouse sind abgeschriebene Registerdaten und antworten Crawlern mit 403.
 | ProvenExpert-Profil hat **0 Bewertungen** — fünf echte würden zugleich die Sterne auf den Kundenkarten belegen (`deploy/BEWERTUNGEN.md`) | Ayham |
 | `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
 | `ANTHROPIC_API_KEY` fehlt; DataForSEO-Guthaben knapp | Ayham |
-| Zehn von zwölf Themen-Clustern ohne Artikel | Redaktion |
+| Themen-Cluster ohne Artikel — Stand zählt `content/seo/cluster.json` gegen `content/wissen/` (derzeit 5 von 12) | Redaktion |
 | `techStack` in `services.ts` (PyTorch, Kubernetes, LangChain) ist Altbestand der Vorgängerseite | inhaltliche Entscheidung |
 | KI-Partner-Verzeichnis der Wirtschaftsförderung Region Hannover: Aufnahme | Ayham |
 | Sales Letter und `/funnel` tragen Platzhaltertext | Ayham |
