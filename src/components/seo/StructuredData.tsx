@@ -1,3 +1,5 @@
+import { company } from "@/config/company";
+
 // Typisierte Schema.org Interfaces
 interface SchemaBase {
   "@context": "https://schema.org";
@@ -51,6 +53,31 @@ export function StructuredData({ data }: StructuredDataProps) {
  */
 export const ORGANISATION_ID = "https://kitech-software.de/#organisation";
 
+/**
+ * Die Anschrift — einmal gebaut, aus `src/config/company.ts`.
+ *
+ * **Warum das zusammengezogen wurde (26.08.2026).** Diese Datei trug Anschrift,
+ * Telefonnummer und Firmenname als Zeichenketten, ohne `company.ts` je zu
+ * lesen. Genau daraus entstand der Befund desselben Tages: Die Fußzeile zeigte
+ * die eine Nummer (aus `company.ts`), das JSON-LD eine andere (hier
+ * hartkodiert) — auf derselben Seite. Wer nur an einer Stelle ändert, erzeugt
+ * denselben Widerspruch erneut.
+ *
+ * `src/lib/__tests__/nap-konsistenz.test.ts` fängt das inzwischen ab; die
+ * gemeinsame Quelle macht den Fehler von vornherein unmöglich.
+ */
+const POSTAL_ADDRESS = {
+  "@type": "PostalAddress" as const,
+  streetAddress: company.address.street,
+  addressLocality: company.address.city,
+  addressRegion: "Niedersachsen",
+  postalCode: company.address.zip,
+  addressCountry: "DE",
+};
+
+/** Die Firmennummer in E.164, wie Schema.org sie erwartet. */
+const TELEFON = company.phone.href.replace("tel:", "");
+
 /** Dasselbe Prinzip für die Website als Ganzes. */
 export const WEBSITE_ID = "https://kitech-software.de/#website";
 
@@ -97,12 +124,12 @@ export function getOrganizationSchema(): SchemaBase {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": ORGANISATION_ID,
-    name: "KITech Software",
+    name: company.shortName,
     /* Die Firmierung steht im dafür vorgesehenen Feld, nicht im Namen (Ansage
        17.08.2026: überall „KITech Software", außer im Impressum). Google zeigt
        `name`; `legalName` stützt die Anbieterkennzeichnung, die im Impressum
        vollständig steht. */
-    legalName: "KITech Software UG (haftungsbeschränkt)",
+    legalName: company.legalName,
     /* Umsatzsteuer-Identifikationsnummer und Registereintrag — beides steht im
        Impressum und ist damit ohnehin öffentlich. Im Schema stützen sie die
        Entität: Sie sind eindeutig und lassen sich gegen amtliche Quellen
@@ -123,17 +150,12 @@ export function getOrganizationSchema(): SchemaBase {
     description:
       "KI-Beratung und Softwareentwicklung für den deutschen Mittelstand: Automatisierungen und individuelle Softwarelösungen, die im Tagesgeschäft laufen. Betrieb in europäischer Region oder auf eigener Hardware.",
     address: {
-      "@type": "PostalAddress",
-      streetAddress: "Wedekindstraße 14",
-      addressLocality: "Hannover",
-      addressRegion: "Niedersachsen",
-      postalCode: "30161",
-      addressCountry: "DE",
+      ...POSTAL_ADDRESS,
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+49-151-64682544",
-      email: "info@kitech-software.de",
+      telephone: TELEFON,
+      email: company.email.general,
       contactType: "customer service",
       availableLanguage: ["German", "English"],
     },
@@ -184,28 +206,23 @@ export function getLocalBusinessSchema(): SchemaBase {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": ORGANISATION_ID,
-    name: "KITech Software",
+    name: company.shortName,
     sameAs: SAME_AS,
     /* Firmierung im eigenen Feld — siehe Kommentar in `getOrganizationSchema`. */
-    legalName: "KITech Software UG (haftungsbeschränkt)",
+    legalName: company.legalName,
     logo: {
       "@type": "ImageObject",
       url: "https://kitech-software.de/logo.png",
     },
     image: "https://kitech-software.de/logo.png",
     url: "https://kitech-software.de",
-    telephone: "+49-151-64682544",
-    email: "info@kitech-software.de",
+    telephone: TELEFON,
+    email: company.email.general,
     /* Auch hier stand die ROI-Garantie noch — siehe `getOrganizationSchema`. */
     description:
       "KI-Beratung und Softwareentwicklung für den deutschen Mittelstand: Prozess-Audit, Automatisierungen und individuelle Software, betrieben in europäischer Region oder auf eigener Hardware.",
     address: {
-      "@type": "PostalAddress",
-      streetAddress: "Wedekindstraße 14",
-      addressLocality: "Hannover",
-      postalCode: "30161",
-      addressRegion: "Niedersachsen",
-      addressCountry: "DE",
+      ...POSTAL_ADDRESS,
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -236,7 +253,7 @@ export function getWebPageSchema(
     isPartOf: {
       "@type": "WebSite",
       "@id": WEBSITE_ID,
-      name: "KITech Software",
+      name: company.shortName,
       url: "https://kitech-software.de",
     },
     /* Verweis statt Kopie: Der vollständige Knoten steht einmal global im
@@ -259,7 +276,7 @@ export function getWebSiteSchema(): SchemaBase {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    name: "KITech Software",
+    name: company.shortName,
     url: "https://kitech-software.de",
     inLanguage: "de-DE",
     publisher: { "@id": ORGANISATION_ID },
@@ -293,8 +310,9 @@ export function getServiceSchema(
     name,
     description,
     provider: {
+      "@id": ORGANISATION_ID,
       "@type": "Organization",
-      name: "KITech Software",
+      name: company.shortName,
       url: "https://kitech-software.de",
     },
     areaServed: {
@@ -315,7 +333,10 @@ export function getReviewSchema(
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "KITech Software",
+    /* Derselbe Knoten wie oben, nur um die Bewertungen ergänzt — deshalb
+       dieselbe Kennung, statt einer zweiten namenlosen Organisation. */
+    "@id": ORGANISATION_ID,
+    name: company.shortName,
     review: reviews.map((r) => ({
       "@type": "Review",
       author: { "@type": "Person", name: r.author },
@@ -363,8 +384,9 @@ export function getSoftwareAppSchema(
       availability: "https://schema.org/PreOrder",
     },
     author: {
+      "@id": ORGANISATION_ID,
       "@type": "Organization",
-      name: "KITech Software",
+      name: company.shortName,
     },
   };
 }
@@ -405,12 +427,12 @@ export function getContactPageSchema(): SchemaBase {
     description: "1:1-KI-Check und Kontaktdaten der KITech Software.",
     mainEntity: {
       "@type": "Organization",
-      name: "KITech Software",
+      name: company.shortName,
       url: "https://kitech-software.de",
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+49-151-64682544",
-        email: "info@kitech-software.de",
+        telephone: TELEFON,
+        email: company.email.general,
         contactType: "customer service",
         availableLanguage: ["German", "English"],
       },
@@ -436,25 +458,33 @@ export function getFounderPersonSchema(): SchemaBase {
       "Ayham Alkhalil ist Gründer und Geschäftsführer von KITech Software in Hannover. Er entwickelt KI- und Automatisierungslösungen für den deutschen Mittelstand.",
     image: "https://kitech-software.de/images/team/ayham.webp",
     url: "https://kitech-software.de/haltung",
+    /*
+     * Beide verweisen per `@id` auf den Organisations-Knoten, statt eine zweite
+     * namenlose Organisation aufzumachen. Vorher stand hier zweimal ein
+     * anonymes Objekt — für einen Verbraucher der Daten waren das drei
+     * verschiedene Firmen mit demselben Namen.
+     *
+     * `name` bleibt stehen: `schema-validators.ts` verlangt es als Pflichtfeld,
+     * und es macht den Knoten auch ohne Auflösung lesbar. Ein Verweis mit
+     * Beschriftung ist keine Dublette.
+     */
     worksFor: {
+      "@id": ORGANISATION_ID,
       "@type": "Organization",
-      name: "KITech Software",
+      name: company.shortName,
       url: "https://kitech-software.de",
     },
     founderOf: {
+      "@id": ORGANISATION_ID,
       "@type": "Organization",
-      name: "KITech Software",
+      name: company.shortName,
       url: "https://kitech-software.de",
     },
     nationality: { "@type": "Country", name: "Deutschland" },
     workLocation: {
       "@type": "Place",
       address: {
-        "@type": "PostalAddress",
-        streetAddress: "Wedekindstraße 14",
-        postalCode: "30161",
-        addressLocality: "Hannover",
-        addressCountry: "DE",
+        ...POSTAL_ADDRESS,
       },
     },
     /*
@@ -510,7 +540,7 @@ export function getEnterpriseCloudItemListSchema(
         serviceType: "KI-Agenten-Entwicklung auf Enterprise-Cloud-Plattformen",
         provider: {
           "@type": "Organization",
-          name: "KITech Software",
+          name: company.shortName,
           url: "https://kitech-software.de",
         },
         brand: {

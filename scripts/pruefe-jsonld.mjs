@@ -80,11 +80,45 @@ for (const pfad of SEITEN) {
     if (!k["@context"]) meldungen.push(`Block ohne @context (@type ${k["@type"] ?? "?"})`);
   }
 
+  /*
+   * Typen rekursiv zählen, nicht nur auf oberster Ebene.
+   *
+   * Die flache Zählung sah nur die Blöcke selbst. Ein zweiter WebPage- oder
+   * Organization-Knoten, der als Wert eines Feldes steckt — etwa in
+   * `mainEntity`, `provider` oder `about` — kam dort nie an. Genau solche
+   * eingebetteten Knoten sind aber die häufigste Quelle von Dubletten: Sie
+   * entstehen, wenn jemand einen Verweis ausschreibt, statt per `@id` zu
+   * zeigen.
+   *
+   * Eingebettete Knoten MIT `@id` zählen nicht als Dublette — sie verweisen
+   * auf den definierten Knoten, statt einen zweiten aufzumachen. Das ist der
+   * empfohlene Weg und darf nicht bestraft werden.
+   */
   const zaehler = {};
-  for (const k of alle) {
-    const typ = k["@type"];
-    if (typeof typ === "string") zaehler[typ] = (zaehler[typ] ?? 0) + 1;
-  }
+  const zaehleTypen = (objekt) => {
+    if (!objekt || typeof objekt !== "object") return;
+    if (Array.isArray(objekt)) {
+      for (const eintrag of objekt) zaehleTypen(eintrag);
+      return;
+    }
+    const typ = objekt["@type"];
+    /*
+     * Gezählt werden nur Knoten OHNE `@id`. Ein Knoten mit `@id` ist ein
+     * Verweis auf eine Entität, die anderswo definiert ist — auch dann, wenn
+     * er zur Lesbarkeit `name` oder `url` mitträgt. Das ist der von Google
+     * empfohlene Weg und darf nicht als Dublette gelten.
+     *
+     * Eine echte Dublette entsteht, wenn derselbe Typ ein zweites Mal ohne
+     * Kennung auftaucht: Dann steht dort eine zweite, namenlose Entität, und
+     * kein Verbraucher der Daten kann wissen, dass beide dasselbe meinen.
+     */
+    if (typeof typ === "string" && !objekt["@id"]) {
+      zaehler[typ] = (zaehler[typ] ?? 0) + 1;
+    }
+    for (const wert of Object.values(objekt)) zaehleTypen(wert);
+  };
+  for (const k of alle) zaehleTypen(k);
+
   for (const typ of NUR_EINMAL) {
     if ((zaehler[typ] ?? 0) > 1) meldungen.push(`${typ} kommt ${zaehler[typ]}× vor — darf nur einmal`);
   }

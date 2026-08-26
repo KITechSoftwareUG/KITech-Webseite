@@ -1,3 +1,4 @@
+import { ORGANISATION_ID } from "@/components/seo/StructuredData";
 import {
   glossaryTerms,
   GLOSSARY_DEFAULT_PUBLISHED,
@@ -13,7 +14,17 @@ import {
 
 export const GLOSSARY_BASE_URL = "https://kitech-software.de";
 export const GLOSSARY_INDEX_URL = `${GLOSSARY_BASE_URL}/glossar`;
+/*
+ * Verweis auf den Organisations-Knoten, der in `PageShell` auf jeder Seite
+ * steht — nicht eine zweite Beschreibung derselben Firma.
+ *
+ * Ohne `@id` entstanden hier bis zum 26.08.2026 zwei zusätzliche, namenlose
+ * Organisationen je Glossarseite: eine als `author`, eine als `publisher`. Für
+ * einen Verbraucher der Daten waren das drei verschiedene Firmen mit demselben
+ * Namen. Die Kennung macht daraus einen Verweis auf dieselbe Entität.
+ */
 export const GLOSSARY_PUBLISHER = {
+  "@id": ORGANISATION_ID,
   "@type": "Organization" as const,
   name: "KITech Software",
   url: GLOSSARY_BASE_URL,

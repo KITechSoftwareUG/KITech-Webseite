@@ -83,6 +83,28 @@ function heutigesDatum(): string {
  * `JJJJ-MM-TT` dasselbe wie chronologisch. Das spart die Umwandlung in `Date`
  * und damit jede Zeitzonenfrage.
  */
+/**
+ * Läuft dem Thema die Zeit davon?
+ *
+ * `true`, wenn sein `spaetestens` innerhalb der nächsten acht Wochen liegt.
+ * Die Spanne ist so gewählt, dass ein Thema mehrere Läufe lang bevorzugt wird,
+ * bevor es endgültig herausfällt — bei zwei bis drei Artikeln täglich sind das
+ * reichlich Gelegenheiten, ohne dass ein einzelner Stichtag die Auswahl über
+ * Monate dominiert.
+ *
+ * Themen ohne `spaetestens` bekommen den Bonus nie. Das ist der Normalfall:
+ * Von 69 Einträgen im Vorrat trägt nur ein kleiner Teil einen Stichtag.
+ */
+const STICHTAG_VORLAUF_TAGE = 56;
+
+function hatNahenStichtag(thema: ThemaImVorrat, datum: string): boolean {
+  if (!thema.spaetestens) return false;
+  /* Beide sind ISO-Daten; die Differenz in Tagen genügt hier, Zeitzonen spielen
+     bei einer Acht-Wochen-Spanne keine Rolle. */
+  const tage = (Date.parse(thema.spaetestens) - Date.parse(datum)) / 86_400_000;
+  return tage >= 0 && tage <= STICHTAG_VORLAUF_TAGE;
+}
+
 function istHeuteFaellig(thema: ThemaImVorrat, datum: string): boolean {
   if (thema.erledigt) return false;
   if (thema.fruehestens && thema.fruehestens > datum) return false;
@@ -169,7 +191,18 @@ export async function findeThemen(anzahlKandidaten: number): Promise<Themenfindu
     // Kleinere Zahl zuerst. Bei Gleichstand entscheidet die Kennung, damit zwei
     // Läufe am selben Tag dieselbe Reihenfolge ergeben — sonst hinge es an der
     // Sortierstabilität der Laufzeit, welches Thema geschrieben wird.
-    .sort((a, b) => a.prioritaet - b.prioritaet || a.id.localeCompare(b.id, "de"));
+    //
+    // Davor greift der Stichtagsbonus: Ein Thema mit `spaetestens` fällt am Tag
+    // danach lautlos aus der Fälligkeit (istHeuteFaellig), ohne dass es je nach
+    // vorn gerückt wäre. Ein Beitrag zur E-Rechnungspflicht ab 1.1.2027 nützt am
+    // 2.1.2027 niemandem mehr — er muss vorher geschrieben werden oder gar nicht.
+    // Themen mit nahem Stichtag stehen deshalb vor gleichrangigen ohne.
+    .sort(
+      (a, b) =>
+        Number(hatNahenStichtag(b, datum)) - Number(hatNahenStichtag(a, datum)) ||
+        a.prioritaet - b.prioritaet ||
+        a.id.localeCompare(b.id, "de"),
+    );
 
   const kandidatenThemen = faellig.slice(0, Math.max(0, anzahlKandidaten));
 
