@@ -201,6 +201,14 @@ Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung 
 - Themen: Prozessautomatisierung, KI-Integration in bestehende Systeme, RAG-Systeme auf Unternehmensdaten, KI-Betrieb unter DSGVO und EU AI Act, Individualsoftware mit Next.js und Supabase, KI-gestützte Softwareentwicklung
 - Artikel: 8
 
+### Leon Battel — Technischer Manager
+
+Entwickler mit praktischer Erfahrung in der Umsetzung moderner Software- und Automatisierungslösungen. Arbeitet an der Schnittstelle zwischen Buchhaltungsprozessen und Software und schreibt über das, was dort tatsächlich automatisierbar ist — und über die Stellen, an denen eine Automatisierung mehr Nacharbeit erzeugt, als sie spart.
+
+- Profil: https://kitech-software.de/autoren/leon-battel
+- Themen: Belegverarbeitung, Schnittstellen zur Finanzbuchhaltung, Automatisierung im Rechnungswesen
+- Artikel: 0
+
 ---
 
 ## 10. Artikel

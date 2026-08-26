@@ -343,8 +343,7 @@ export const clientResults: ClientResult[] = [
     /*
      * **Ohne Person, auf Ansage (14.08.2026):** "Du musst Leon rausnehmen aus
      * den Referenzen — mach nur klargehalt.de und das Logo von klargehalt.de
-     * und fertig." (Seit dem 23.08.2026 steht Leon ohnehin nirgends mehr auf
-     * der Website — die Karte bleibt trotzdem ohne Person.) Derselbe
+     * und fertig." Leon steht auf der Startseite bereits im Team; derselbe
      * Mensch ein paar Bildschirme tiefer als Kunde ist kein Beleg, sondern
      * eine Selbstauskunft.
      *

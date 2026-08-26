@@ -77,36 +77,49 @@ Tippziel-Befunde** (19 Ziele unter 24 px fallen sämtlich unter eine
 WCAG-2.2-Ausnahme: 3 inline, 16 mit ausreichendem Abstand). Alle 27 Routen im
 Container mit erwartetem Status, `/gibt-es-nicht` mit 404.
 
-**Stand 23.08.2026 — Leon ist von der Website genommen.** Auf Ansage: „Leon
-soll überall raus. Er ist kein Geschäftsführer!" Betroffen waren fünf Stellen:
-die Zeile „Vertreten durch" im **Impressum** (dort stand „Ayham Alkhalil,
-L. Battel"), der Eintrag in `src/data/team.ts`, die Teamliste neben dem
+**Stand 26.08.2026 — Leon: nur als Geschäftsführer raus, nicht als Mitarbeiter.**
+Richtigstellung einer zu weit ausgelegten Ansage. Am 23.08.2026 hieß es „Leon
+soll überall raus. Er ist kein Geschäftsführer!" — daraufhin war er von der
+**ganzen** Website genommen worden. Gemeint war allein die Zeile „Vertreten
+durch" im Impressum. Klarstellung am 26.08.2026: „Leon ist trotzdem
+Mitarbeiter! Technischer Manager! Ich meinte nur als GF soll er raus!"
+
+Wiederhergestellt sind deshalb: der Eintrag in `src/data/team.ts` (Rolle jetzt
+**Technischer Manager**, vorher „Technical Accountant"), die Teamliste neben dem
 Gründerwort (`teamNamen` in `src/data/gruenderwort.ts`), der Autoreneintrag in
-`content/seo/autoren.json` samt Autorenseite `/autoren/leon-battel`, und das
-Portrait `public/images/team/leon.webp`. `npm run llms` ist nachgezogen.
+`content/seo/autoren.json` samt `/autoren/leon-battel`, und das Portrait
+`public/images/team/leon.webp`. `npm run llms` ist nachgezogen.
+
+**Im Impressum bleibt er draußen** — das war der eigentliche Auftrag. Die
+Rechtsfrage dazu ist inzwischen beantwortet: Der Registerauszug zu HRB 230077
+nennt Ayham Alkhalil als **einzigen** eingetragenen Geschäftsführer (geprüft am
+26.08.2026), damit erfüllt die Kurzfassung § 5 Abs. 1 Nr. 1 DDG.
 
 Zwei Dinge, die daran hängen:
 
-- **Fünf Themen im Vorrat** (`content/seo/themen-pool.json`, E-Rechnung und
-  Belegverarbeitung) waren ihm als Autor zugewiesen und stehen jetzt auf
-  `ayham-alkhalil`. Ohne das hätte der erste Blog-Lauf zu einem dieser Themen
-  einen Artikel erzeugt, dessen Autor nicht in `autoren.json` steht — und der
-  Loader bricht den Build genau daran ab.
-- **`/autoren/leon-battel` liefert jetzt 404.** Die Seite stand in der Sitemap
-  und war indexiert; die Adresse fällt aus dem Index. Bewusst keine
-  Weiterleitung — es gibt kein Ziel, das dasselbe bedeutet.
+- **Vier der fünf E-Rechnung-Themen** im Vorrat (`content/seo/themen-pool.json`)
+  stehen wieder auf `leon-battel`. Das fünfte (`e-rechnung-pflicht-2027`) bleibt
+  bei `ayham-alkhalil`: Der Artikel dazu ist am 26.08.2026 unter dessen Namen
+  freigegeben worden und steht live — eine Freigabe wird nicht rückwirkend
+  umgeschrieben.
+- **`/autoren/leon-battel` war zwischen dem 23. und 26.08.2026 eine 404** und ist
+  wieder da. Die Adresse hat in dieser Zeit möglicherweise ihren Platz im Index
+  verloren; sie kommt über die Sitemap zurück.
 
-⚠️ **Rechtlich zu klären, nicht im Code:** § 5 Abs. 1 Nr. 1 DDG verlangt im
-Impressum **alle** Vertretungsberechtigten. Ist L. Battel im Handelsregister
-(HRB 230077) weiterhin als Geschäftsführer eingetragen, ist die Kurzfassung ein
-abmahnfähiger Verstoß — dann gehört er zurück ins Impressum, unabhängig davon,
-wie er auf der Website sonst auftritt. Ist er ausgetragen (oder war es nie),
-passt der Stand so.
+⚠️ **Der Sache nach zu prüfen:** Die Kurzbeschreibung im Autorenprofil („Arbeitet
+an der Schnittstelle zwischen Buchhaltungsprozessen und Software") und die drei
+Themen dort stammen aus der Zeit als „Technical Accountant". Sie beschreiben
+Fachgebiete, nicht die Rolle, und sind deshalb stehen geblieben — wer sie zur
+neuen Rolle passend haben will, entscheidet das inhaltlich.
+
+ℹ️ Nicht wieder eingebaut: der Eintrag in `src/views/legacy/UnderConstruction.tsx`.
+Die Alt-Seite wird von keiner Route gebaut, und ihr Bild-Import
+(`@/assets/leon-portrait.webp`) zeigt schon länger auf eine Datei, die es nicht
+mehr gibt.
 
 Nicht angefasst: der Absender des Tagesberichts
 (`leon.battel@kitech-software.de`, Microsoft Graph, siehe
-[Tagesbericht](#der-tägliche-bericht-kommt-per-e-mail)) — das ist Infrastruktur
-außerhalb der Website und wäre ein eigener Umbau.
+[Tagesbericht](#der-tägliche-bericht-kommt-per-e-mail)).
 
 **Stand 21.08.2026 — Sichtbarkeitsprüfung und was daraus folgte.** Eine
 vollständige SEO- und GEO-Prüfung gegen die Live-Domain (Lighthouse, curl,
@@ -164,14 +177,14 @@ geordnet**: alle inhaltlichen Bilder liegen unter `public/images/`
 (`team/`, `referenzen/portraits/`, `referenzen/logos/`), Wegweiser in
 [`public/images/README.md`](public/images/README.md). Ein neues Foto braucht
 damit keine Import-Zeile mehr — Datei ablegen, Pfad eintragen. Die Referenz
-**klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: der Mensch
-dahinter stand damals im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
+**klargehalt.de zeigt keine Person mehr**, sondern die Wortmarke: Leon steht
+im Team, und derselbe Mensch als Kunde ist kein Beleg. Das **Team steht
 seitlich neben dem Gründerwort** statt in großen Kacheln, mit der Einladung
 „Du willst dabei sein?" auf `/karriere`. **Jörg Kratzat** hat ein Foto und
 steht jetzt als Vertrieb für IT und SaaS (er tauchte kurzzeitig als zweite
-Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt).
-(Der am selben Tag ergänzte Eintrag „Technical Accountant" ist am 23.08.2026
-wieder entfallen, siehe oben.)
+Person „York" auf — Sprachnachricht, gleiche Person, zusammengeführt). Leon
+hieß ab dem 17.08.2026 **Technical Accountant** und seit dem 26.08.2026
+**Technischer Manager**.
 
 Zuletzt am selben Tag: die **klargehalt-Karte führt direkt auf klargehalt.de**
 statt auf ihre Detailseite (Feld `klickZiel` in `src/data/client-results.ts`),
@@ -302,7 +315,7 @@ Dies ist ein **Next.js 16 Projekt mit App Router** unter `src/app/`. Seiten werd
 │   ├── llms.txt                # Kurzuebersicht fuer KI-Agenten — ERZEUGT (npm run llms)
 │   ├── llms-full.txt           # Ausfuehrliche Doku fuer KI-Agenten — ERZEUGT (npm run llms)
 │   ├── images/                  # ★ ALLE inhaltlichen Bilder (siehe images/README.md)
-│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, joerg)
+│   │   ├── team/                #   eigene Leute (ayham, ayham-hero, leon, joerg)
 │   │   ├── referenzen/portraits/ #   Kundengesichter
 │   │   ├── referenzen/logos/    #   Kundenlogos
 │   │   └── og/                  #   Social-Vorschaubilder

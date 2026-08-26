@@ -599,7 +599,7 @@
     "arbeitstitel": "E-Rechnungen empfangen: was längst Pflicht ist und wo es in der Praxis hakt",
     "zielKeyword": "e-rechnung empfangen pflicht",
     "cluster": "dokumente-und-belege",
-    "autor": "ayham-alkhalil",
+    "autor": "leon-battel",
     "substanz": {
       "art": "primaerquelle",
       "beschreibung": "Die Empfangspflicht gilt für alle inländischen Unternehmen und ohne Übergangsfrist, während für den Versand gestaffelte Fristen laufen. Ausgewertet wird, was „empfangen können“ nach dem Gesetz mindestens bedeutet und welcher Weg dafür genügt.",
@@ -864,7 +864,7 @@
     "arbeitstitel": "XRechnung und ZUGFeRD automatisch verarbeiten",
     "zielKeyword": "xrechnung zugferd verarbeiten",
     "cluster": "dokumente-und-belege",
-    "autor": "ayham-alkhalil",
+    "autor": "leon-battel",
     "substanz": null,
     "prioritaet": 64,
     "notiz": "Braucht die Auswertung der zugrunde liegenden Norm und ein Beispiel, an dem der Unterschied zwischen reinem Datensatz und eingebetteten Daten sichtbar wird. Keine Beispieldatei mit echten Belegdaten."
@@ -874,7 +874,7 @@
     "arbeitstitel": "Eingangsrechnungen automatisch auslesen: Texterkennung, Sprachmodell oder beides?",
     "zielKeyword": "eingangsrechnung automatisch auslesen",
     "cluster": "dokumente-und-belege",
-    "autor": "ayham-alkhalil",
+    "autor": "leon-battel",
     "substanz": null,
     "prioritaet": 65,
     "notiz": "Braucht eine gemessene Trefferquote aus einem echten Belegstapel. Ohne Zahl ist die Frage nicht zu beantworten, sondern nur zu bebildern."
@@ -884,7 +884,7 @@
     "arbeitstitel": "Dunkelverarbeitung: welche Quote im Mittelstand realistisch ist",
     "zielKeyword": "dunkelverarbeitung rechnungen",
     "cluster": "dokumente-und-belege",
-    "autor": "ayham-alkhalil",
+    "autor": "leon-battel",
     "substanz": null,
     "prioritaet": 66,
     "notiz": "Braucht die eigene Quote über einen definierten Zeitraum. Fremde Quotenangaben schwanken zwischen den Anbietern so stark, dass sie ohne eigene Messung nichts belegen."
