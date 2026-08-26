@@ -8,7 +8,7 @@ Was danach damit passiert — Telegram, E-Mail, CRM — entscheidet n8n. Deshalb
 muss beim Wechsel des Kanals nie wieder die Website angefasst werden.
 
 ```
-Website ──POST──> n8n-Webhook ──> Nachricht bauen ──> Telegram / E-Mail / …
+Website ──POST──> n8n-Webhook ──> Lohnt ein Anruf? ──> Outlook-Mail
 ```
 
 ## Stand (20.08.2026)
@@ -62,17 +62,27 @@ Adresse kennt.
 
 In n8n: **Workflows → … → Import from File** und
 [`n8n-benachrichtigung.json`](./n8n-benachrichtigung.json) aus diesem Ordner
-wählen. Der Workflow enthält:
+wählen. Drei Knoten:
 
 - **Meldung von der Website** — Webhook, Pfad `kitech-website`
-- **Nachricht bauen** — macht aus den Feldern eine lesbare Zeile, kennt alle
-  Ereignisse und den Tagesbericht
-- **Nur wichtige melden?** — trennt reine Besuche von den Momenten, aus denen
-  ein Gespräch werden kann. Wer *jeden* Besuch sofort wissen will, verbindet
-  den zweiten Ausgang ebenfalls mit dem Versand.
-- **Telegram** — deaktiviert, bis ein Zugang hinterlegt ist. Bot bei
-  `@BotFather` anlegen, Token als Credential speichern, Chat-ID eintragen,
-  Node aktivieren. Statt Telegram passt hier genauso E-Mail oder Slack.
+- **Lohnt ein Anruf?** — entscheidet **und** formuliert. Wer nicht gemeldet
+  wird, erzeugt ein leeres Ergebnis; der Zweig endet dort. Das ersetzt einen
+  IF-Node durch eine Zeile, die man lesen kann.
+- **Send a message** — Microsoft Outlook, an `aalkh@kitech-software.de`.
+  Der Zugang wandert beim Import **nicht** mit: einmal neu verbinden.
+
+⚠️ **Der Webhook-Node legt die Nutzdaten unter `body` ab, nicht obenauf.**
+Deshalb steht im Code `const d = roh.body ?? roh;`. Wer das auf
+`$input.first().json` verkürzt, liest `undefined` — und der Filter verwirft
+dann **jede** Meldung, lautlos: kein Fehler, kein roter Knoten, in den
+Executions nichts Auffälliges. Genau das ist zweimal passiert (erst kam eine
+leere Mail, danach gar keine, jeweils tagelang unbemerkt).
+
+**Wer wird gemeldet:** ein Besuch nur, wenn ipinfo eine echte Firma liefert —
+bei einem Privatanschluss steht dort der *Provider*, nicht der Besucher.
+Kontaktsignale (Telefon, E-Mail, Popup, Termin, Selbstcheck) gehen immer raus,
+egal woher. Die beiden Wortlisten `PRIVAT` und `MASCHINEN` stehen im Code und
+sind erweiterbar.
 
 Danach den Workflow **aktivieren** (Schalter oben rechts) und die
 **Production-URL** des Webhook-Nodes kopieren. Sie sieht so aus:
