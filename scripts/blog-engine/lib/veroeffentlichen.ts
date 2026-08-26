@@ -378,6 +378,21 @@ function committeUndSchiebe(
     };
   }
 
+  /* `git push` schiebt ALLE lokalen Commits, nicht nur den eigenen — und der
+     Deploy danach liefert sie aus. Wer morgen im Protokoll sucht, warum etwas
+     live ist, das niemand freigegeben hat, findet die Antwort hier. Kein
+     Abbruch: Diese Commits liegen in main, weil jemand sie dorthin gelegt hat.
+     Sie zurückzuhalten wäre ein Eingriff in fremde Arbeit. */
+  const mitlaeufer = fuehreAus("git", ["log", "--oneline", "origin/main..HEAD"])
+    .ausgabe.trim()
+    .split("\n")
+    .filter((zeile) => zeile && !zeile.includes(nachricht.split("\n")[0]));
+
+  if (mitlaeufer.length > 0) {
+    warne(`Der Push nimmt ${mitlaeufer.length} fremde(n) Commit(s) mit:`);
+    for (const zeile of mitlaeufer) warne(`    ${zeile}`);
+  }
+
   const push = fuehreAus("git", ["push", "origin", "main"]);
   if (!push.erfolg) {
     return {
