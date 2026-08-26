@@ -10,6 +10,7 @@ import { schreibeArtikel as verfasse } from "./schritte/06-schreiben.js";
 import { pruefeUndBessere } from "./schritte/07-pruefen.js";
 import { haengeEin } from "./schritte/08-verlinken.js";
 import { legeAb } from "./schritte/09-ablegen.js";
+import { veroeffentliche, pruefeBereitschaft } from "./lib/veroeffentlichen.js";
 import { ladeAlleArtikel, markiereErledigt } from "./lib/artikel-io.js";
 import {
   melde,
@@ -34,12 +35,15 @@ import type { Artikel } from "../../src/lib/wissen/schema.js";
  * npm run blog:lauf -- --trocken     # nichts schreiben, nur zeigen, was passieren würde
  * ```
  *
- * **Was am Ende steht: Entwürfe.** Kein Commit, kein Deploy, nichts Öffentliches.
- * Die Begründung dafür steht ausführlich im Kopf von `schritte/09-ablegen.ts` —
- * kurz: Die Freigabe durch einen Menschen ist der Unterschied zwischen einem
- * verteidigungsfähigen Vorgehen und dem, was Googles Richtlinie als „scaled
- * content abuse" beschreibt. Sie ist keine Bremse, die man später herausnimmt,
- * wenn es gut läuft.
+ * **Ohne `--auto` steht am Ende ein Entwurf.** Kein Commit, kein Deploy, nichts
+ * Öffentliches. Die Begründung steht im Kopf von `schritte/09-ablegen.ts`.
+ *
+ * **Mit `--auto` läuft die Kette durch** — freigeben, committen, ausliefern,
+ * an IndexNow melden. Was dabei aufgegeben wird und was ausdrücklich nicht,
+ * steht im Kopf von `lib/veroeffentlichen.ts`. Kurz: die Prüfungen bleiben
+ * vollständig und sind im Auto-Modus sogar härter (kein `--trotzdem`); was
+ * entfällt, ist der Mensch, der sie auslöst. Der Modus ist eingerichtet, nicht
+ * eingeschaltet: ohne `BLOG_ENGINE_FREIGABE_VON` veröffentlicht er nicht.
  *
  * **Der Lauf bricht bei einem einzelnen Thema nicht ab.** Schlägt die Recherche
  * für Thema zwei fehl, wird Thema drei trotzdem geschrieben. Was schiefging,
@@ -57,16 +61,19 @@ interface Argumente {
   hilfe: boolean;
   /** Ein bestimmtes Thema aus dem Vorrat erzwingen, statt auszuwählen. */
   thema: string | null;
+  /** Durchlaufen bis zur Veröffentlichung, statt beim Entwurf zu enden. */
+  auto: boolean;
 }
 
 function leseArgumente(argv: string[]): Argumente {
-  const args: Argumente = { anzahl: 2, trocken: false, hilfe: false, thema: null };
+  const args: Argumente = { anzahl: 2, trocken: false, hilfe: false, thema: null, auto: false };
 
   for (let i = 0; i < argv.length; i += 1) {
     const wert = argv[i];
     if (wert === "--anzahl") args.anzahl = Math.max(1, Number(argv[++i]) || 2);
     else if (wert === "--trocken") args.trocken = true;
     else if (wert === "--thema") args.thema = argv[++i] ?? null;
+    else if (wert === "--auto") args.auto = true;
     else if (wert === "--hilfe" || wert === "-h") args.hilfe = true;
   }
 
@@ -77,19 +84,27 @@ function zeigeHilfe(): void {
   process.stdout.write(
     [
       "",
-      "Täglicher Lauf der Blog-Automatik. Erzeugt Entwürfe, veröffentlicht nichts.",
+      "Täglicher Lauf der Blog-Automatik.",
+      "",
+      "Ohne --auto endet er beim Entwurf: kein Commit, kein Deploy.",
+      "Mit --auto läuft er bis zur ausgelieferten Seite durch.",
       "",
       "  npm run blog:lauf",
       "  npm run blog:lauf -- --anzahl 3",
       "  npm run blog:lauf -- --thema <id-aus-dem-vorrat>",
       "  npm run blog:lauf -- --trocken",
+      "  npm run blog:lauf -- --anzahl 2 --auto",
       "",
       "Optionen:",
       "  --anzahl <n>   wie viele Artikel (Standard 2)",
       "  --thema <id>   ein bestimmtes Thema aus content/seo/themen-pool.json",
       "  --trocken      nur zeigen, was ausgewählt würde. Kostet nichts.",
+      "  --auto         durchlaufen bis zur Veröffentlichung: freigeben,",
+      "                 committen, schieben, deployen, an IndexNow melden.",
+      "                 Verlangt BLOG_ENGINE_FREIGABE_VON; deployt nur mit",
+      "                 BLOG_ENGINE_DEPLOY=1.",
       "",
-      "Danach:",
+      "Danach (ohne --auto):",
       "  Entwürfe lesen, dann npm run blog:freigeben -- <slug> --von \"Dein Name\"",
       "",
     ].join("\n")
@@ -113,7 +128,25 @@ export async function main(): Promise<number> {
     return 0;
   }
 
-  const protokoll = starteProtokoll(laufId(), "entwurf");
+  /* Die Bereitschaft wird VOR dem ersten Aufruf geprüft, der Geld kostet. Ein
+     Lauf, der zwei Artikel schreibt und dann an einer fehlenden Variablen
+     scheitert, hat bezahlt und nichts erreicht. */
+  if (args.auto) {
+    const bereitschaft = pruefeBereitschaft();
+    if (bereitschaft.bereit) {
+      melde(`Auto-Modus: Freigabe läuft auf "${bereitschaft.von}".`);
+    } else if (args.trocken) {
+      /* Im Trockenlauf abbrechen wäre unfreundlich: Wer prüft, ob der Vorrat
+         trägt, will das auch dann sehen, wenn der Auto-Modus noch nicht
+         eingerichtet ist. Melden genügt — es kostet ja nichts. */
+      warne(`--auto wäre jetzt nicht möglich: ${bereitschaft.grund}`);
+    } else {
+      fehler(`--auto ist verlangt, aber nicht möglich: ${bereitschaft.grund}`);
+      return 1;
+    }
+  }
+
+  const protokoll = starteProtokoll(laufId(), args.auto ? "auto" : "entwurf");
   const bestand = ladeAlleArtikel();
   const fertige: Artikel[] = [];
 
@@ -275,7 +308,7 @@ export async function main(): Promise<number> {
     return 1;
   }
 
-  const ablage = await legeAb(fertige);
+  const ablage = await legeAb(fertige, { autoModus: args.auto });
 
   if (!ablage.testsGruen || !ablage.buildGruen) {
     fehler("Der Bestand ist nach dem Ablegen nicht stimmig. Ausgabe:");
@@ -285,8 +318,54 @@ export async function main(): Promise<number> {
     return 1;
   }
 
+  if (!args.auto) {
+    beendeProtokoll(protokoll);
+    return 0;
+  }
+
+  /* ---------------------------------------------------------------------- */
+  schritt(10, "Freigeben und ausliefern");
+  /* ---------------------------------------------------------------------- */
+
+  const veroeffentlichung = await veroeffentliche(fertige, protokoll.id);
+
+  /* Das Protokoll trägt den Status, den der Artikel am Ende wirklich hat —
+     nicht den, den er beim Ablegen hatte. Wer morgen nachliest, warum ein
+     Artikel nicht online ist, findet die Antwort hier und nicht erst in git. */
+  for (const eintrag of protokoll.artikel) {
+    if (veroeffentlichung.freigegeben.includes(eintrag.slug)) {
+      eintrag.status = "veroeffentlicht";
+    }
+  }
+
+  for (const abgelehnt of veroeffentlichung.blockiert) {
+    protokoll.fehler.push(`${abgelehnt.slug} blieb Entwurf: ${abgelehnt.grund}`);
+  }
+
+  if (veroeffentlichung.abbruch) {
+    protokoll.fehler.push(`Auslieferung: ${veroeffentlichung.abbruch}`);
+  }
+
+  melde("");
+  melde(`Veröffentlicht: ${veroeffentlichung.freigegeben.length}`);
+  melde(`Als Entwurf geblieben: ${veroeffentlichung.blockiert.length}`);
+  melde(`Commit: ${veroeffentlichung.commit ?? "keiner"}`);
+  melde(`Geschoben: ${veroeffentlichung.geschoben ? "ja" : "nein"}`);
+  melde(`Deployt: ${veroeffentlichung.deployt ? "ja" : "nein"}`);
+  melde(`IndexNow: ${veroeffentlichung.indexnowGemeldet ? "gemeldet" : "nicht gemeldet"}`);
+
   beendeProtokoll(protokoll);
-  return 0;
+
+  /* Rückgabe 1, sobald irgendetwas nicht durchlief — auch wenn Artikel
+     entstanden sind. Der Cron-Dienst meldet dann einen Fehlschlag, und genau
+     das soll er: ein Lauf, der zwei Artikel schreibt und keinen ausliefert, ist
+     kein Erfolg. */
+  const vollstaendig =
+    veroeffentlichung.freigegeben.length > 0 &&
+    veroeffentlichung.blockiert.length === 0 &&
+    !veroeffentlichung.abbruch;
+
+  return vollstaendig ? 0 : 1;
 }
 
 function beendeProtokoll(protokoll: ReturnType<typeof starteProtokoll>): void {

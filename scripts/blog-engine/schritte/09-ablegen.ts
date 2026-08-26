@@ -35,6 +35,16 @@ import { melde, warne, fehler } from "../lib/protokoll.js";
  *
  * Wer das ändern will, ändert es bewusst und schreibt hier auf, warum. Es ist
  * eine Entscheidung über das Risiko der ganzen Domain, keine über Bequemlichkeit.
+ *
+ * ---
+ *
+ * **Geändert am 26.08.2026 auf Ansage Ayham:** Es gibt jetzt einen Auto-Modus,
+ * `npm run blog:lauf -- --auto`. Dieser Schritt hier bleibt, wie er ist — er
+ * legt weiter Entwürfe ab. Der Auto-Modus hängt sich als Schritt 10 dahinter:
+ * `lib/veroeffentlichen.ts`. Dort steht die Begründung und, wichtiger, was
+ * dabei ausdrücklich **nicht** aufgegeben wurde. Die drei Punkte oben gelten
+ * unverändert — sie beschreiben das Risiko, das mit dem Auto-Modus bewusst
+ * eingegangen wird.
  */
 
 export interface AblageErgebnis {
@@ -91,7 +101,10 @@ function schwanz(text: string, zeilen = 40): string {
  * das ist die letzte maschinelle Aussage, die vor dem menschlichen Blick möglich
  * ist.
  */
-export async function legeAb(artikel: Artikel[]): Promise<AblageErgebnis> {
+export async function legeAb(
+  artikel: Artikel[],
+  optionen: { autoModus?: boolean } = {}
+): Promise<AblageErgebnis> {
   const pfade: string[] = [];
 
   for (const eintrag of artikel) {
@@ -145,11 +158,16 @@ export async function legeAb(artikel: Artikel[]): Promise<AblageErgebnis> {
   }
 
   melde(`${pfade.length} Entwurf/Entwürfe abgelegt, Tests und Build sind grün.`);
-  melde("Nächster Schritt liegt bei einem Menschen:");
-  melde("  1. Entwürfe lesen — sie stehen unter content/wissen/");
-  melde("  2. npm run blog:freigeben -- <slug> --von \"Dein Name\"");
-  melde("  3. git add content/ && git commit && git push");
-  melde("  4. Deploy wie gewohnt über die Coolify-API, nach eigenem Go");
+
+  if (optionen.autoModus) {
+    melde("Auto-Modus: es geht weiter mit Schritt 10 (freigeben und ausliefern).");
+  } else {
+    melde("Nächster Schritt liegt bei einem Menschen:");
+    melde("  1. Entwürfe lesen — sie stehen unter content/wissen/");
+    melde("  2. npm run blog:freigeben -- <slug> --von \"Dein Name\"");
+    melde("  3. git add content/ && git commit && git push");
+    melde("  4. Deploy wie gewohnt über die Coolify-API, nach eigenem Go");
+  }
 
   return { pfade, testsGruen: true, buildGruen: true, pruefausgabe: null };
 }

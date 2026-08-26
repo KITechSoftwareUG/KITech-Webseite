@@ -13,23 +13,49 @@ Diese Datei ist die einmalige Einrichtung.
 Vorrat → Keyword-Daten → Auswahl → Ergebnisseite → Recherche → Briefing
        → Schreiben → Prüfen → Einhängen → Entwurf ablegen
                                                     ↓
-                                          MENSCH LIEST UND GIBT FREI
+                              ohne --auto:  MENSCH LIEST UND GIBT FREI
+                              mit  --auto:  Prüftor entscheidet
                                                     ↓
                                        committen · deployen · melden
 ```
 
-**Der Lauf endet beim Entwurf.** Kein Commit, kein Deploy, nichts Öffentliches.
+**Zwei Betriebsarten.** Ohne `--auto` endet der Lauf beim Entwurf: kein Commit,
+kein Deploy, nichts Öffentliches. Mit `--auto` läuft er durch.
 
-Das ist keine fehlende Ausbaustufe, sondern der Kern der Sache. Googles
-Bewertungsanleitung definiert „Effort" als *„the extent to which a human being
-actively worked to create satisfying content"* und nennt als Gegenbeispiel
+### Was `--auto` aufgibt und was nicht
+
+Googles Bewertungsanleitung definiert „Effort" als *„the extent to which a human
+being actively worked to create satisfying content"* und nennt als Gegenbeispiel
 ausdrücklich massenhafte Erzeugung *„without any oversight, manual curation
-etc."*. Der Freigabeschritt ist diese Aufsicht — nachvollziehbar, mit Namen und
-Datum im Artikel hinterlegt.
+etc."*. Die Aufsicht ist der Kern der Sache — **sie entfällt im Auto-Modus
+nicht, sie verschiebt sich.**
 
-Dazu kommt: Das Repo deployt bewusst nicht automatisch (siehe `CLAUDE.md`,
-Abschnitt Hosting). Ein Deploy liefert alles aus, was gerade in `main` liegt —
-nicht nur die Artikel.
+| Was | Ohne `--auto` | Mit `--auto` |
+|---|---|---|
+| Eigenanteil (`substanz`) | Pflicht | Pflicht, unverändert |
+| Hausstil, 81 Regeln | Mensch kann mit `--trotzdem` überstimmen | **kein `--trotzdem`** — ein harter Befund blockiert ausnahmslos |
+| Tests und Build | vor der Freigabe | zusätzlich **nach** dem Statuswechsel |
+| Name unter der Freigabe | wird eingetippt | Pflichtvariable, sonst passiert nichts |
+| Artikel gelesen | ja | nein |
+
+Die letzte Zeile ist der ehrliche Preis. `BLOG_ENGINE_FREIGABE_VON` heißt im
+Auto-Modus nicht „ich habe diesen Artikel gelesen", sondern „ich stehe für das
+ein, was diese Automatik unter meinem Namen veröffentlicht" — eine stehende
+redaktionelle Verantwortung, wie sie jeder Herausgeber trägt. Deshalb ist die
+Variable Pflicht und hat keinen Standardwert: Sie muss erklärt werden.
+
+⚠️ **Ein Deploy liefert alles aus, was in `main` liegt** — nicht nur die
+Artikel (siehe `CLAUDE.md`, Abschnitt Hosting). Dagegen hilft kein Filter, nur
+die Reihenfolge: Der Auto-Modus rebast erst auf `origin/main`, lässt dann Tests
+und Build über genau den Stand laufen, der ausgeliefert wird, und deployt erst
+danach. Und er stellt nur die eigenen Dateien bereit — kein `git add -A`, damit
+die Arbeit einer anderen Sitzung nicht in seinem Commit landet.
+
+**Entscheidung Ayham, 26.08.2026:** Auto-Modus gebaut, nachdem der Einwand
+vorgetragen war. Begründung und Tragweite im Kopf von
+`scripts/blog-engine/lib/veroeffentlichen.ts`. Die Tore sind per Test
+festgehalten (`veroeffentlichen.test.ts`) — wer einen davon löscht, hebt eine
+Zusage auf, nicht eine Prüfung.
 
 Vollständige Risikoeinschätzung mit Quellen:
 `.claude/skills/blog-seo/reference/risiko.md`.
@@ -190,6 +216,24 @@ WorkingDirectory=/home/deploy/KITech/projects/KITech-Webseite
 EnvironmentFile=/home/deploy/KITech/projects/KITech-Webseite/.env
 ExecStart=/usr/bin/npm run blog:lauf -- --anzahl 2
 ```
+
+Für den Auto-Modus stattdessen:
+
+```ini
+ExecStart=/usr/bin/npm run blog:lauf -- --anzahl 2 --auto
+```
+
+⚠️ **`EnvironmentFile` liest `.env` anders als die Automatik selbst.** systemd
+kennt keine Anführungszeichen um Werte und keine Zeilenfortsetzung. Ein Name mit
+Leerzeichen (`BLOG_ENGINE_FREIGABE_VON=Ayham Alkhalil`) geht gut, ein Wert mit
+`#` oder Anführungszeichen nicht. Nach dem Einrichten einmal gegenprüfen:
+
+```bash
+sudo systemctl start kitech-blog.service
+journalctl -u kitech-blog.service -n 40 --no-pager
+```
+
+Steht dort „Auto-Modus: Freigabe läuft auf …", ist die Variable angekommen.
 
 ```ini
 # /etc/systemd/system/kitech-blog.timer

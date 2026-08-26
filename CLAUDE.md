@@ -27,6 +27,7 @@ npm run pruefe:jsonld  # JSON-LD des ausgelieferten HTML prüfen (Live oder URL 
 
 npm run blog:brief -- <thema-id>   # Redaktionsbriefing, kostenlos
 npm run blog:lauf -- --trocken     # Automatik-Probelauf, kostet nichts
+npm run blog:lauf -- --auto        # durchlaufen bis zur ausgelieferten Seite
 npm run blog:pruefen -- <slug> -v  # Hausstil, 81 Regeln
 npm run blog:freigeben -- <slug> --von "Name"
 npm run blog:indexnow              # nach dem Deploy
@@ -230,17 +231,28 @@ nichts, andere Systeme lesen es); auf neuen Seiten bringt es nichts.
 
 ## Blog-Automatik `/gratis-wissen`
 
-Kette unter `scripts/blog-engine/`, die **beim Entwurf aufhört**. Freigabe,
-Commit und Deploy sind menschliche Schritte. Regeln und Bedienung:
-Skill `blog-seo`. Einrichtung und Kosten: `deploy/BLOG-ENGINE.md`.
+Kette unter `scripts/blog-engine/`. **Zwei Betriebsarten:** ohne Schalter endet
+sie beim Entwurf, mit `--auto` läuft sie bis zur ausgelieferten Seite durch.
+Regeln und Bedienung: Skill `blog-seo`. Einrichtung: `deploy/BLOG-ENGINE.md`.
 
-**Warum sie nicht durchläuft:** Googles Spam-Richtlinie kennt „scaled content
-abuse" — viele Seiten, deren Zweck Ranking statt Nutzen ist, *„no matter how
-it's created"*. Die Gegenprobe der Prüfer ist *„the extent to which a human
-being actively worked to create satisfying content"*. Der Freigabeschritt **ist**
-diese Aufsicht und steht mit Namen und Datum im Artikel (`freigabe`). Bewertet
+**Warum die Freigabe überhaupt ein Thema ist:** Googles Spam-Richtlinie kennt
+„scaled content abuse" — viele Seiten, deren Zweck Ranking statt Nutzen ist,
+*„no matter how it's created"*. Die Gegenprobe der Prüfer ist *„the extent to
+which a human being actively worked to create satisfying content"*. Bewertet
 wird auf **Website-Ebene** — ein Urteil zöge `/leistungen` und `/referenzen`
 mit hinein.
+
+**Auto-Modus (Ansage Ayham, 26.08.2026).** Die Prüfungen bleiben vollständig
+und sind härter als von Hand: kein `--trotzdem`, ein harter Befund blockiert
+ausnahmslos; Tests und Build laufen zusätzlich **nach** dem Statuswechsel; ohne
+`BLOG_ENGINE_FREIGABE_VON` passiert gar nichts. Was entfällt, ist der Mensch,
+der die Prüfung auslöst — der Name in `freigabe` bedeutet dann stehende
+redaktionelle Verantwortung, nicht „gelesen". Tragweite im Kopf von
+`lib/veroeffentlichen.ts`, Tore per Test festgehalten.
+
+⚠️ Der Auto-Modus stellt nur die eigenen Dateien bereit (kein `git add -A`),
+rebast vor dem Schieben und prüft **danach** noch einmal — weil ein Deploy alles
+ausliefert, was in `main` liegt.
 
 **Das Substanz-Tor:** Jedes Thema in `content/seo/themen-pool.json` trägt
 `substanz` — den nicht generierbaren Anteil (gemessene Zahl, echte
