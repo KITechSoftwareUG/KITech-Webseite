@@ -43,7 +43,7 @@
 export const GOOGLE_SITE_VERIFICATION: string | null = "kswqCDW66B81rNaynhQohlOjWMGZoJ-3ccdXHGLUdXE";
 
 /** Bing Webmaster Tools. Entfällt, wenn aus der Search Console importiert wird. */
-export const BING_SITE_VERIFICATION: string | null = null;
+export const BING_SITE_VERIFICATION: string | null = "0050D52956337F08576C008FDFF0C331";
 
 /**
  * Baut daraus den `verification`-Abschnitt für Next.js. Leere Felder werden
