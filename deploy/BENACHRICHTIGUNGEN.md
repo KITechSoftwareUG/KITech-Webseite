@@ -91,6 +91,33 @@ Danach den Workflow **aktivieren** (Schalter oben rechts) und die
 https://<n8n-adresse>/webhook/kitech-website
 ```
 
+## Nachweis, dass es laeuft (26.08.2026)
+
+Die ganze Kette einmal von vorn bis hinten belegt:
+
+| Glied | Beleg |
+|---|---|
+| Website meldet | `POST https://kitech-software.de/api/ereignis` → Lauf in n8n |
+| Firma wird nachgeschlagen | `AS8560 IONOS SE` kam mit, also greift `IPINFO_TOKEN` |
+| `EREIGNIS_WEBHOOK_URL` gesetzt | ohne sie waere in n8n gar nichts angekommen |
+| Filter entscheidet richtig | Continental gemeldet, Telekom und Hetzner verworfen |
+| Mail kommt an | Posteingang `aalkh@kitech-software.de`, Betreff und Text vollstaendig |
+
+⚠️ **Die Route antwortet immer mit 204** — auch wenn `EREIGNIS_WEBHOOK_URL`
+fehlt und auch wenn der Webhook wegbricht. Das ist Absicht (der Besucher soll
+nichts merken), heisst aber: **der Statuscode taugt nicht als Nachweis.** Ob
+etwas ankam, steht nur in n8n.
+
+Nachsehen ohne Weboberflaeche — Zugangsdaten in `.env`, siehe `.env.example`:
+
+```bash
+curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" \
+  "$N8N_BASIS_URL/api/v1/executions?workflowId=mE5M1CqXse3jETgU&limit=5&includeData=true"
+```
+
+Das ist der einzige Weg, einen **lautlosen** Ausfall zu sehen: ein Lauf, der
+mit `success` endet, ohne dass eine Mail entstanden ist.
+
 ## Schritt 4 — Adresse in Coolify eintragen
 
 Coolify → Anwendung **KITech Website** → **Environment Variables**:
