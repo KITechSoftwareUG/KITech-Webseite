@@ -68,6 +68,23 @@ export interface OpenAiErgebnis {
 }
 
 /**
+ * Wie viel Spielraum die Denk-Token bekommen.
+ *
+ * Der Faktor ist geschätzt, nicht gemessen — gemessen ist nur, dass null
+ * Spielraum zu wenig ist. Er darf großzügig sein: `max_completion_tokens` ist
+ * eine Obergrenze, keine Bestellung. Was nicht gebraucht wird, kostet nichts.
+ * Zu knapp kostet dagegen den ganzen Artikel.
+ */
+const DENK_SPIELRAUM = 2;
+
+/** Mindestbudget, damit auch eine sehr kurze Antwort das Nachdenken übersteht. */
+const MINDESTBUDGET = 2000;
+
+function tokenbudget(gewuenschterText: number): number {
+  return Math.max(MINDESTBUDGET, Math.ceil(gewuenschterText * DENK_SPIELRAUM));
+}
+
+/**
  * Ein Aufruf. Fehlerbehandlung, Wiederholung und Budget bleiben beim Aufrufer —
  * diese Datei kennt nur das Format.
  */
@@ -86,8 +103,19 @@ export async function openAiAufruf(optionen: {
   const koerper: Record<string, unknown> = {
     model: modell,
     /* `max_completion_tokens` — `max_tokens` ist bei den neueren Modellen
-       abgelehnt, nicht nur veraltet. */
-    max_completion_tokens: maxTokens,
+       abgelehnt, nicht nur veraltet.
+     *
+     * ⚠️ Und es zählt etwas anderes als Anthropics `max_tokens`: **die
+     * Denk-Token gehen mit hinein.** Die Aufrufer bemessen ihr Budget nach der
+     * Länge des gewünschten Textes — bei Anthropic stimmt das, hier reicht es
+     * nicht. Nachgemessen an einer Ein-Wort-Antwort: 19 Token aus, davon 9
+     * fürs Nachdenken. Bei langem Text ist der Anteil kleiner, aber nie null.
+     *
+     * Ohne Luft bricht die Antwort mittendrin ab — und zwar ohne Fehler, nur
+     * mit `finish_reason: "length"`. Ein Artikel, der nachts um vier auf halber
+     * Strecke endet, sieht auf den ersten Blick aus wie ein schlechtes Modell.
+     */
+    max_completion_tokens: tokenbudget(maxTokens),
     messages: [
       { role: "system", content: system },
       { role: "user", content: nachricht },
@@ -176,7 +204,13 @@ export async function openAiAufruf(optionen: {
      dann unbrauchbar, aber bezahlt — das gehört ins Protokoll, nicht still
      weiterverarbeitet. */
   if (wahl?.finish_reason === "length") {
-    melde("OpenAI: Antwort an der Tokengrenze abgeschnitten", { modell, maxTokens });
+    melde("OpenAI: Antwort an der Tokengrenze abgeschnitten", {
+      modell,
+      gewuenscht: maxTokens,
+      /* Das tatsaechlich gesendete Budget — sonst sucht man den Fehler an
+         einer Zahl, die so nie an die API ging. */
+      gesendet: tokenbudget(maxTokens),
+    });
   }
 
   return {
