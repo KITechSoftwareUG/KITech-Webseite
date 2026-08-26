@@ -137,12 +137,15 @@ Punkte, die im Code lagen, sind abgearbeitet. Der Reihe nach:
 - **Der Glossareintrag `/glossar/roi-garantie` ist neutral**, die Garantie wird
   KITech dort nicht mehr zugeschrieben.
 
-**Was bewusst offen bleibt** (nichts davon liegt im Code): Search Console und
-Bing Webmaster Tools sind nicht eingerichtet, `INDEXNOW_KEY` muss in Coolify
-gesetzt werden, die `openPoints` der sechs Referenzfälle brauchen
-Kundenfreigaben, und die Blog-Pipeline kann ohne `DATAFORSEO_*`,
-`FIRECRAWL_API_KEY` und `ANTHROPIC_API_KEY` nicht laufen. Zehn von zwölf
-Themen-Clustern haben weiterhin keinen Artikel.
+**Was bewusst offen bleibt** (nichts davon liegt im Code): die `openPoints` der
+sechs Referenzfälle brauchen Kundenfreigaben, und zehn von zwölf Themen-Clustern
+haben keinen Artikel.
+
+ℹ️ **Am 24.08.2026 erledigt:** Search Console und Bing Webmaster Tools sind
+eingerichtet und bestätigt (siehe [Suchkonsolen](#suchkonsolen-google-und-bing)),
+`INDEXNOW_KEY` läuft, und `DATAFORSEO_*` sowie `FIRECRAWL_API_KEY` sind
+eingetragen und geprüft. Es fehlt allein `ANTHROPIC_API_KEY` — und der wird für
+den Handweg nicht gebraucht.
 
 **Stand 20.08.2026 — was zuletzt geändert wurde:** Die beiden Sales Letter
 stehen **nicht mehr in der Fußzeile** (auf Ansage); erreichbar bleiben sie über
@@ -1252,12 +1255,44 @@ Themen- und Hub-Seiten (er wurde ohnehin abgeschnitten), und die Eröffnung der
 Startseiten-Beschreibung mit **„99 % der KI-Projekte scheitern"** — eine harte
 Zahl ohne Quelle, die auf der Seite selbst an keiner Stelle vorkam.
 
+### Suchkonsolen: Google und Bing
+
+Beide sind seit dem **24.08.2026 bestätigt**. Die Kennungen stehen in
+[`src/config/suchkonsolen.ts`](src/config/suchkonsolen.ts) und werden vom
+Root-Layout als Meta-Tag ausgegeben.
+
+| | |
+|---|---|
+| Google Search Console | Property-Typ **URL-Präfix**, Sitemap eingereicht — Status „Erfolgreich", **35 Seiten erkannt** |
+| Bing Webmaster Tools | eigene Meta-Tag-Bestätigung, Sitemap eingereicht |
+
+**Warum Meta-Tag und nicht DNS:** Die Nameserver liegen bei Hostinger
+(`ns1.dns-parking.com`), ein TXT-Eintrag bräuchte Zugang zu deren Oberfläche.
+Der Preis ist der Property-Typ URL-Präfix statt Domain — für diesen Zweck
+genügt das, `funnel.` und `fokus.` stehen ohnehin auf `noindex`.
+
+⚠️ **Beide Kennungen bleiben dauerhaft stehen.** Google und Bing prüfen ihr Tag
+regelmäßig nach; fällt es weg, verliert die Domain **still** ihren bestätigten
+Status und die Daten laufen nicht weiter. Genau die Sorte Zeile, die jemand
+später als Altlast entfernt —
+[`suchkonsolen.test.ts`](src/lib/__tests__/suchkonsolen.test.ts) hält die
+Verdrahtung deshalb fest und prüft zusätzlich auf Platzhaltertext.
+
+ℹ️ Der TXT-Eintrag `MS=ms60455894` in der DNS-Zone ist die
+Microsoft-365-Bestätigung, **nicht** Bing. Er hat mit den Suchkonsolen nichts
+zu tun.
+
+Der GSC-Import in Bing („Import from Google Search Console") schlug zunächst
+fehl: Er zieht nur **bereits bestätigte** Properties, und zu dem Zeitpunkt war
+die Google-Bestätigung noch nicht abgeschlossen. Der direkte Weg über „Add a
+Site" ist davon unabhängig.
+
+Einrichtung Schritt für Schritt: [`deploy/SUCHKONSOLEN.md`](deploy/SUCHKONSOLEN.md).
+
 ### Was noch offen ist
 
 | Offen | Wer |
 |---|---|
-| Google Search Console + Bing Webmaster Tools einrichten | Ayham (braucht Konto) |
-| `INDEXNOW_KEY` in Coolify setzen — Schlüsseldatei liegt unter `public/` und ist committet | Ayham |
 | ProvenExpert-Profil: aktiv seit 06.11.2025, **0 Bewertungen**. Fünf echte Bewertungen belegen gleichzeitig die Sterne auf den Kundenkarten | Ayham |
 | Wirtschaftsförderung Region Hannover führt ein KI-Partner-Verzeichnis (40+ Firmen) ohne KITech; Aufnahme über Ansprechpartner | Ayham |
 | `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
