@@ -257,6 +257,27 @@ systemctl list-timers kitech-blog.timer
 Zeitplan-Knoten, ein SSH- oder Ausführungs-Knoten, fertig. Der Vorteil: Die
 Meldung am Ende geht ohnehin an n8n, dann liegt beides an einer Stelle.
 
+**Was hier tatsächlich benutzt wird: cron.** Der Tagesbericht läuft schon über
+die crontab des Benutzers `deploy`, samt `CRON_TZ=Europe/Berlin`. Zwei
+Zeitplaner für zwei Aufgaben desselben Projekts wären eine Stelle zu viel, an
+der man nachsieht. Fertige Zeile: [`blog-automatik.cron`](./blog-automatik.cron)
+— mit `crontab -e` ans Ende hängen.
+
+⚠️ **`npm` liegt unter nvm und steht in cron nicht im Pfad.** Ohne vollen Pfad
+bricht der Lauf mit „npm: command not found" ab — still, weil niemand ins Log
+sieht. Die fertige Zeile setzt beides.
+
+**Abschalten, drei Stufen — keine davon fasst den Zeitplan an:**
+
+| Was | Wie |
+|---|---|
+| ganz aus | `BLOG_ENGINE_FREIGABE_VON` in `.env` leeren — der Lauf bricht ab, **bevor** er Geld ausgibt |
+| nur Entwürfe | `--auto` aus der cron-Zeile nehmen |
+| nicht deployen | `BLOG_ENGINE_DEPLOY=0` |
+
+**Mitlesen:** `tail -f .tmp/blog-lauf.log`, Protokoll je Lauf unter
+`content/seo/laeufe/`.
+
 **Die Meldung einrichten:** `BLOG_ENGINE_WEBHOOK_URL` auf denselben n8n-Dienst
 zeigen lassen, der schon die Ereignismeldungen bekommt (siehe
 `deploy/BENACHRICHTIGUNGEN.md`). Nach jedem Lauf kommt eine Zusammenfassung:

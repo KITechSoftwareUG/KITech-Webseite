@@ -1,0 +1,34 @@
+# Zeitplan der Blog-Automatik im Auto-Modus.
+#
+# Einhaengen:
+#     crontab -e
+#   und den Block unten ans Ende der Datei setzen. Danach pruefen:
+#     crontab -l
+#
+# Warum nicht systemd: Der Tagesbericht laeuft bereits ueber die crontab des
+# Benutzers `deploy`, samt CRON_TZ=Europe/Berlin. Zwei Zeitplaner fuer zwei
+# Aufgaben desselben Projekts sind eine Stelle zu viel, an der man nachsieht.
+#
+# ⚠️ `npm` liegt unter nvm und steht in cron NICHT im Pfad. Deshalb der volle
+# Pfad und ein gesetztes PATH — ohne beides bricht der Lauf mit
+# "npm: command not found" ab, und zwar still, weil niemand ins Log sieht.
+#
+# ⚠️ CRON_TZ=Europe/Berlin muss VOR dieser Zeile in der crontab stehen (tut es,
+# wegen des Tagesberichts). Sonst laeuft der Job nach UTC.
+#
+# ── Abschalten, drei Stufen ──────────────────────────────────────────────────
+#   ganz aus     : in .env BLOG_ENGINE_FREIGABE_VON leeren
+#                  -> der Lauf bricht ab, BEVOR er Geld ausgibt
+#   nur Entwuerfe: --auto aus der Zeile nehmen
+#   nicht deployen: in .env BLOG_ENGINE_DEPLOY=0
+#
+# ── Mitlesen ─────────────────────────────────────────────────────────────────
+#   tail -f /home/deploy/KITech/projects/KITech-Webseite/.tmp/blog-lauf.log
+#   Protokoll je Lauf: content/seo/laeufe/
+#
+# Ein Artikel je Lauf, nicht zwei: Das DataForSEO-Guthaben lag am 26.08.2026 bei
+# 0,45 USD, die eigene Tagesbremse steht auf 0,20. Nach dem Aufladen kann
+# --anzahl hoch.
+
+# Blog-Automatik, werktags 6:30 Europe/Berlin
+30 6 * * 1-5 PATH=/home/deploy/.nvm/versions/node/v22.22.2/bin:/usr/local/bin:/usr/bin:/bin /home/deploy/.nvm/versions/node/v22.22.2/bin/npm run blog:lauf -- --anzahl 1 --auto >> /home/deploy/KITech/projects/KITech-Webseite/.tmp/blog-lauf.log 2>&1
