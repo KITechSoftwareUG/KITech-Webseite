@@ -40,7 +40,7 @@
  * Google Search Console. `null`, solange nichts eingetragen ist — dann rendert
  * Next.js kein Tag, statt eines mit leerem Inhalt auszugeben.
  */
-export const GOOGLE_SITE_VERIFICATION: string | null = null;
+export const GOOGLE_SITE_VERIFICATION: string | null = "kswqCDW66B81rNaynhQohlOjWMGZoJ-3ccdXHGLUdXE";
 
 /** Bing Webmaster Tools. Entfällt, wenn aus der Search Console importiert wird. */
 export const BING_SITE_VERIFICATION: string | null = null;
