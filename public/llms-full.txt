@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand.
 
-Stand: 24.08.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
+Stand: 26.08.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
 
 ---
 
@@ -14,7 +14,7 @@ KITech Software UG (haftungsbeschränkt) ist ein Software- und KI-Unternehmen mi
 - Anschrift: Wedekindstraße 14, 30161 Hannover, Deutschland
 - E-Mail allgemein: info@kitech-software.de
 - E-Mail Geschäftsführer: aalkh@kitech-software.de
-- Telefon: +49 (0) 511 89738590
+- Telefon: +49 151 64682544
 - Erreichbarkeit: Mo–Fr, 9–18 Uhr
 - Handelsregister: HRB 230077, Amtsgericht Hannover
 - USt-IdNr.: DE459778632
@@ -199,7 +199,7 @@ Zehn Jahre Konzernerfahrung und sieben Jahre Praxiserfahrung in der Entwicklung 
 - Profil: https://kitech-software.de/autoren/ayham-alkhalil
 - LinkedIn: https://www.linkedin.com/in/ayham-alkhalil-66bb451b5
 - Themen: Prozessautomatisierung, KI-Integration in bestehende Systeme, RAG-Systeme auf Unternehmensdaten, KI-Betrieb unter DSGVO und EU AI Act, Individualsoftware mit Next.js und Supabase, KI-gestützte Softwareentwicklung
-- Artikel: 7
+- Artikel: 8
 
 ---
 
@@ -241,6 +241,12 @@ Die Muster, an denen KI-Vorhaben regelmäßig hängenbleiben — und was die erf
 Vom Posteingang bis zur Buchung: was sich automatisch auslesen lässt, welche Quote realistisch ist, und was zur E-Rechnung ansteht.
 
 - **[E-Rechnung ab 1.1.2027: wer versenden muss und was bis dahin zu tun ist](https://kitech-software.de/gratis-wissen/e-rechnung-ab-1-1-2027-wer-versenden-muss-und-was-bis-dahin-zu-tun-ist)** — Zum Stichtag beginnt keine Pflicht, es endet eine Erlaubnis. Was der Gesetzestext an drei Stellen genauer sagt als die Ratgeber darüber — und was bis dahin stehen muss. (Ayham Alkhalil, 24.08.2026)
+
+### KI-Beratung in Hannover und Niedersachsen
+
+Wie eine Zusammenarbeit abläuft, was sie kostet, und was regional an Förderung und Ansprechpartnern verfügbar ist.
+
+- **[KI-Beratung in Hannover: wie ein Erstgespräch abläuft](https://kitech-software.de/gratis-wissen/ki-beratung-hannover-wie-ein-erstgespraech-ablaeuft)** — 30 Minuten, fünf Plätze in der Woche, immer donnerstags. Was darin geprüft wird, in welcher Reihenfolge — und woran man merkt, dass es nicht passt. (Ayham Alkhalil, 26.08.2026)
 
 ---
 

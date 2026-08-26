@@ -35,12 +35,40 @@ export const company = {
     country: "Deutschland",
   },
 
-  /** Festnetz der Firma. */
+  /**
+   * Die Firmennummer — **eine** Nummer, überall dieselbe.
+   *
+   * **Warum das umgestellt wurde (26.08.2026).** Bis dahin führte die Website
+   * zwei Nummern parallel, und zwar genau auf den Flächen, die für den
+   * NAP-Abgleich gelesen werden: Fußzeile und `llms.txt` zeigten das Festnetz
+   * (+49 511 89738590), Impressum, Datenschutzerklärung und alle drei
+   * JSON-LD-Knoten die Mobilnummer. Auf `/kontakt` standen beide auf derselben
+   * Seite — die maschinenlesbare Angabe widersprach der sichtbaren.
+   *
+   * Für die lokale Suche zählt Übereinstimmung von Name, Anschrift und
+   * Telefonnummer über Website, Google Business Profile und Verzeichnisse
+   * hinweg. Zwei Nummern heißen: keine davon bestätigt die andere.
+   *
+   * Auf Ansage von Ayham ist die Mobilnummer die kanonische Firmennummer —
+   * sie steht auch im Google Business Profile.
+   *
+   * ⚠️ Wer hier etwas ändert, ändert es zugleich im Google Business Profile.
+   * Eine Nummer, die nur an einer der beiden Stellen wechselt, ist schlechter
+   * als die alte.
+   */
   phone: {
-    display: "+49 (0) 511 89738590",
-    href: "tel:+4951189738590",
+    display: "+49 151 64682544",
+    href: "tel:+4915164682544",
   },
-  /** Ayhams Mobilnummer — nur dort, wo bewusst der direkte Draht gemeint ist. */
+  /**
+   * Dieselbe Nummer unter ihrem alten Namen.
+   *
+   * `mobile` wurde an Stellen verwendet, die bewusst „den direkten Draht zu
+   * Ayham" meinten — StickyMobileCTA, ExitIntentPopup, der Block „Direkt zu
+   * Ayham" auf /kontakt. Seit die Firmennummer dieselbe ist, zeigen beide auf
+   * denselben Anschluss; das Feld bleibt, damit an diesen Stellen die Absicht
+   * im Code lesbar bleibt.
+   */
   mobile: {
     display: "+49 151 64682544",
     href: "tel:+4915164682544",

@@ -53,7 +53,7 @@ export default function Datenschutz() {
                 30161 Hannover
                 <br />
                 <br />
-                Telefon: +49 (0) 151 64682544
+                Telefon: +49 151 64682544
                 <br />
                 E-Mail: info@kitech-software.de
               </p>

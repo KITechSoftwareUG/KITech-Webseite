@@ -13,8 +13,8 @@
     "kostenloses erstgespräch ki",
     "ki beratung ablauf"
   ],
-  "datum": "2026-08-24",
-  "aktualisiert": "2026-08-24",
+  "datum": "2026-08-26",
+  "aktualisiert": "2026-08-26",
   "lesezeit": 7,
   "autor": "ayham-alkhalil",
   "intro": "Wer eine KI-Beratung in Hannover sucht, will selten Grundlagenwissen. Ein Erstgespräch ist der Termin, in dem sortiert wird, was im Betrieb läuft und was Aufwand erzeugt — nicht der Termin, in dem verkauft wird. Hier steht der Ablauf offen: Dauer, Reihenfolge, Ergebnis und die Grenzen.",
@@ -206,5 +206,9 @@
     "heading": "Eine halbe Stunde, dann steht der Engpass",
     "text": "Im 1:1-KI-Check gehen wir eure Aufstellung einmal durch und sagen, welcher Vorgang zuerst dran ist."
   },
-  "status": "entwurf"
+  "status": "veroeffentlicht",
+  "freigabe": {
+    "von": "Ayham Alkhalil",
+    "am": "2026-08-26"
+  }
 }
