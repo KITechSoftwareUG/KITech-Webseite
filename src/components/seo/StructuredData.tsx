@@ -68,6 +68,28 @@ export const WEBSITE_ID = "https://kitech-software.de/#website";
 const SAME_AS = [
   "https://www.linkedin.com/company/104155510",
   "https://www.provenexpert.com/de-de/kitech-software-ug/",
+  /*
+   * Google Business Profile, adressiert über die CID.
+   *
+   * **Warum diese Form und kein share.google-Link.** Die Teilen-Funktion von
+   * Google liefert einen Kurzlink auf eine *Suche* (`google.com/search?kgmid=…`)
+   * — samt Tracking-Parametern und `authuser`, also dem Kontokontext dessen,
+   * der ihn erzeugt hat. Beides gehört nicht in ein Schema, das auf jeder Seite
+   * ausgeliefert wird.
+   *
+   * Die CID ist die dauerhafte Kennung des Eintrags. Sie steckt im
+   * `data`-Parameter der Maps-URL als zweiter Hexwert
+   * (`…!1s0x47b0751d44e671af:0xe20233564661e0e2!…`) und ergibt dezimal die Zahl
+   * unten. Die Adresse leitet stabil auf das Profil weiter — am 26.08.2026
+   * gerendert und geprüft.
+   *
+   * Gegengeprüft wurde dabei auch die Gegenrichtung, auf die es eigentlich
+   * ankommt: Im Profil selbst ist `kitech-software.de` als Website hinterlegt,
+   * die Telefonnummer stimmt mit `company.phone` überein, und die Anschrift
+   * lautet dort wie hier „Wedekindstraße 14, 30161 Hannover". Ein `sameAs`
+   * bestätigt eine Verknüpfung, es stellt sie nicht her.
+   */
+  "https://maps.google.com/?cid=16285635648166158562",
 ];
 
 export function getOrganizationSchema(): SchemaBase {
