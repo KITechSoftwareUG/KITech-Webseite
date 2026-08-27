@@ -157,7 +157,7 @@ export async function main(): Promise<number> {
   schritt(1, "Themenfindung");
   /* ---------------------------------------------------------------------- */
 
-  const gefunden = await findeThemen(Math.max(args.anzahl * 4, 8));
+  const gefunden = await findeThemen(Math.max(args.anzahl * 4, 8), args.anzahl);
   melde(`${gefunden.kandidaten.length} Kandidat(en) aus dem Vorrat`);
 
   /* ---------------------------------------------------------------------- */

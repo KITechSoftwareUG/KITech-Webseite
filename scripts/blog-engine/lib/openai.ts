@@ -85,6 +85,51 @@ function tokenbudget(gewuenschterText: number): number {
 }
 
 /**
+ * Traegt dieses Schema `strict: true`?
+ *
+ * OpenAI verlangt dafuer auf **jeder** Objektebene: `additionalProperties: false`
+ * und ein `required`, das **alle** Eigenschaften nennt. Anthropic laesst
+ * optionale Felder zu — die Schemas der Engine sind danach gebaut.
+ *
+ * ⚠️ Diese Pruefung muss rekursiv sein. Eine Fassung, die nur die oberste Ebene
+ * ansah, liess das Artikel-Schema durch: Dort ist `bullets` erst in
+ * `abschnitte.items` optional. Die API antwortete mit 400, der Lauf brach im
+ * Schreibschritt ab — nach der bezahlten Keyword-Recherche. Kostete am
+ * 27.08.2026 einen ganzen Lauf (17,8 Cent DataForSEO fuer null Artikel).
+ *
+ * Im Zweifel `false`: Dann gilt `json_object`, das Modell bekommt das Schema
+ * weiterhin im Prompt, und die Formpruefung des Aufrufers faengt den Rest. Ein
+ * lockerer Zwang kostet einen Nachbesserungsdurchgang; ein falscher Zwang
+ * kostet den ganzen Lauf.
+ */
+export function istStrengErzwingbar(knoten: unknown): boolean {
+  if (!knoten || typeof knoten !== "object") return true;
+
+  const k = knoten as Record<string, unknown>;
+
+  /* Kombinatoren erlaubt OpenAI unter `strict` nur eingeschraenkt. Wer sie
+     benutzt, bekommt json_object — das ist die sichere Seite. */
+  if (k.anyOf || k.oneOf || k.allOf || k.not) return false;
+
+  if (k.type === "object" || k.properties) {
+    const eigenschaften = (k.properties ?? {}) as Record<string, unknown>;
+    const pflicht = Array.isArray(k.required) ? (k.required as string[]) : [];
+    if (k.additionalProperties !== false) return false;
+    if (pflicht.length !== Object.keys(eigenschaften).length) return false;
+    for (const wert of Object.values(eigenschaften)) {
+      if (!istStrengErzwingbar(wert)) return false;
+    }
+    return true;
+  }
+
+  if (k.type === "array" || k.items) {
+    return istStrengErzwingbar(k.items);
+  }
+
+  return true;
+}
+
+/**
  * Ein Aufruf. Fehlerbehandlung, Wiederholung und Budget bleiben beim Aufrufer —
  * diese Datei kennt nur das Format.
  */
@@ -127,19 +172,7 @@ export async function openAiAufruf(optionen: {
   }
 
   if (schema) {
-    /*
-     * `strict: true` verlangt, dass JEDES Feld in `required` steht und
-     * `additionalProperties: false` gesetzt ist — strenger als bei Anthropic,
-     * wo optionale Felder erlaubt bleiben. Ist die Bedingung nicht erfüllt,
-     * antwortet die API mit 400 statt zu lockern. Deshalb wird `strict` nur
-     * gesetzt, wenn das Schema es hergibt; sonst genügt `json_object`, und die
-     * Formprüfung des Aufrufers fängt den Rest.
-     */
-    const eigenschaften = (schema.properties ?? {}) as Record<string, unknown>;
-    const pflicht = Array.isArray(schema.required) ? schema.required : [];
-    const streng =
-      schema.additionalProperties === false &&
-      pflicht.length === Object.keys(eigenschaften).length;
+    const streng = istStrengErzwingbar(schema);
 
     koerper.response_format = streng
       ? {

@@ -33,11 +33,21 @@ import type { KeywordDaten, ThemaImVorrat, ThemenfindungErgebnis } from "../lib/
  * Für wie viele der obersten Kandidaten zusätzlich verwandte Suchbegriffe
  * geholt werden.
  *
- * Jeder Aufruf kostet eigenes Geld und der Ertrag ist nur für die Themen
- * nützlich, die heute tatsächlich geschrieben werden — und das sind ein bis
- * zwei. Fünf gibt Schritt 02 genug Spielraum, ohne für Rang 20 zu bezahlen.
+ * Jeder Aufruf kostet eigenes Geld (~0,02 $ bei Tiefe 2) und der Ertrag ist nur
+ * für die Themen nützlich, die heute tatsächlich geschrieben werden.
+ *
+ * ⚠️ Die Zahl hängt deshalb an der Artikelzahl, nicht an einer Konstanten. Vorher
+ * standen hier fest fünf — bei `--anzahl 1`, wie der Cron ihn aufruft, wurden
+ * also vier von fünf Abfragen bezahlt und weggeworfen. Gemessen am Lauf vom
+ * 27.08.2026: 0,178 $ gesamt, davon rund 0,10 $ für diese fünf.
+ *
+ * Der Zuschlag von zwei ist der Spielraum für Schritt 02: Die Kandidatenliste
+ * ist nach Priorität sortiert, aber die Auswahl filtert noch nach Eigenanteil
+ * und Dubletten. Wer zu knapp abfragt, riskiert ein gewähltes Thema **ohne**
+ * Sekundärkeywords — das kostet Qualität statt Geld und ist der schlechtere
+ * Tausch.
  */
-const VERWANDTE_FUER_TOP = 5;
+const VERWANDTE_ZUSCHLAG = 2;
 
 /**
  * Tiefe der „Ähnliche Suchanfragen"-Kette.
@@ -178,8 +188,14 @@ function alsKeywordDaten(satz: VerwandtesKeyword): KeywordDaten {
  *   Jeder Kandidat kostet Geld in Schritt 03 und 04, aber nicht hier: die drei
  *   Metrik-Abfragen laufen **gebündelt** über die ganze Liste. Ein Aufruf für
  *   dreißig Keywords kostet so viel wie einer für eines.
+ * @param anzahlArtikel Wie viele Artikel heute entstehen sollen. Bestimmt, für
+ *   wie viele Themen verwandte Keywords geholt werden — das ist die einzige
+ *   Abfrage hier, die **je Thema** abgerechnet wird.
  */
-export async function findeThemen(anzahlKandidaten: number): Promise<ThemenfindungErgebnis> {
+export async function findeThemen(
+  anzahlKandidaten: number,
+  anzahlArtikel = 2,
+): Promise<ThemenfindungErgebnis> {
   // Der Vorrat kommt von der Platte, nicht aus dem Netz: Er ist da, bevor
   // irgendetwas Geld kostet. Fehlt die Datei, ist die Liste leer und dieser
   // Schritt endet unten mit einer Warnung statt mit einem Stacktrace.
@@ -294,7 +310,7 @@ export async function findeThemen(anzahlKandidaten: number): Promise<Themenfindu
   const verwandte: Record<string, KeywordDaten[]> = {};
 
   if (mitDataForSeo) {
-    for (const thema of kandidaten.slice(0, VERWANDTE_FUER_TOP)) {
+    for (const thema of kandidaten.slice(0, anzahlArtikel + VERWANDTE_ZUSCHLAG)) {
       const treffer = await ohneAbbruch<VerwandtesKeyword[]>(
         `verwandte Keywords zu „${thema.zielKeyword}"`,
         () =>
