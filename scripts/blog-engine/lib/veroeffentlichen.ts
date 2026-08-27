@@ -47,10 +47,11 @@ import { melde, warne, fehler } from "./protokoll.js";
  *
  * ## Was der Schritt nicht anfasst
  *
- * Er stellt **nur die eigenen Dateien** bereit: die Artikel-JSONs und die
- * beiden `llms`-Dateien. Kein `git add -A`. Mehrere Sessions teilen sich diesen
- * Arbeitsbaum (siehe `CLAUDE.md`) — was eine andere Sitzung gerade offen hat,
- * geht die Automatik nichts an und darf nicht in ihrem Commit landen.
+ * Er stellt **nur die eigenen Dateien** bereit: die Artikel-JSONs, die beiden
+ * `llms`-Dateien und das Laufprotokoll. Kein `git add -A`. Mehrere Sessions
+ * teilen sich diesen Arbeitsbaum (siehe `CLAUDE.md`) — was eine andere Sitzung
+ * gerade offen hat, geht die Automatik nichts an und darf nicht in ihrem Commit
+ * landen.
  *
  * ⚠️ Ein Deploy liefert trotzdem **alles** aus, was in `main` liegt. Dagegen
  * hilft kein Filter, nur die Reihenfolge: erst rebasen, dann Tests und Build
@@ -327,6 +328,12 @@ function committeUndSchiebe(
     ...slugs.map((slug) => path.relative(WURZEL, artikelPfad(slug))),
     "public/llms.txt",
     "public/llms-full.txt",
+    /* Das Laufprotokoll gehört dazu. Zwei Gründe: Es ist der Nachweis, wie ein
+       Artikel entstanden ist — Kosten, geprüfte Themen, Fehler —, und ohne ihn
+       sammelt `content/seo/laeufe/` täglich eine unversionierte Datei an. Genau
+       das macht das `git status --short` vor dem Deploy unbrauchbar, auf dem
+       hier alles aufbaut. */
+    `content/seo/laeufe/${laufId}.json`,
   ];
 
   for (const datei of dateien) {
@@ -335,6 +342,10 @@ function committeUndSchiebe(
       return { commit: null, geschoben: false, grund: `git add ${datei}: ${zugefuegt.ausgabe}` };
     }
   }
+
+  /* Ältere Protokolle, die ein abgebrochener Lauf hinterlassen hat, gehen mit —
+     sonst bleiben sie für immer unversioniert liegen. */
+  fuehreAus("git", ["add", "--", "content/seo/laeufe"]);
 
   const bereit = fuehreAus("git", ["diff", "--cached", "--name-only"]);
   if (!bereit.ausgabe.trim()) {

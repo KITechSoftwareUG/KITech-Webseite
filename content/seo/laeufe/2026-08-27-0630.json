@@ -1,0 +1,19 @@
+{
+  "id": "2026-08-27-0630",
+  "gestartet": "2026-08-27T06:30:02.067Z",
+  "modus": "auto",
+  "themen": [
+    "go-digital-nachfolger"
+  ],
+  "artikel": [],
+  "fehler": [
+    "go-digital-nachfolger: OpenAI antwortete mit HTTP 400 (artikel, gpt-5.5): Invalid schema for response_format 'antwort': In context=('properties', 'abschnitte', 'items'), 'required' is required to be supplied and to be an array including every key in properties. Missing 'bullets'."
+  ],
+  "kosten": {
+    "dataforseoUsd": 0.17819,
+    "firecrawlCredits": 6,
+    "claudeTokenEin": 19459,
+    "claudeTokenAus": 2229
+  },
+  "beendet": "2026-08-27T06:31:11.446Z"
+}
