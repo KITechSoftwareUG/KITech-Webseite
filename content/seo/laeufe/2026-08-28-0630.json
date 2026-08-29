@@ -1,0 +1,19 @@
+{
+  "id": "2026-08-28-0630",
+  "gestartet": "2026-08-28T06:30:01.893Z",
+  "modus": "auto",
+  "themen": [
+    "go-digital-nachfolger"
+  ],
+  "artikel": [],
+  "fehler": [
+    "go-digital-nachfolger: undefined is not iterable (cannot read property Symbol(Symbol.iterator))"
+  ],
+  "kosten": {
+    "dataforseoUsd": 0.15419,
+    "firecrawlCredits": 6,
+    "claudeTokenEin": 27415,
+    "claudeTokenAus": 12876
+  },
+  "beendet": "2026-08-28T06:34:44.080Z"
+}

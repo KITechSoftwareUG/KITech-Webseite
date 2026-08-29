@@ -292,9 +292,9 @@ function artikelOhneVerwaltung(artikel: Artikel): Partial<Artikel> {
 function zaehleWoerter(artikel: Artikel): number {
   const teile: string[] = [artikel.intro ?? "", artikel.fazit ?? ""];
   for (const abschnitt of artikel.abschnitte ?? []) {
-    teile.push(abschnitt.heading, ...abschnitt.paragraphs, ...(abschnitt.bullets ?? []));
+    teile.push(abschnitt.heading, ...(abschnitt.paragraphs ?? []), ...(abschnitt.bullets ?? []));
     for (const unter of abschnitt.unterabschnitte ?? []) {
-      teile.push(unter.heading, ...unter.paragraphs);
+      teile.push(unter.heading, ...(unter.paragraphs ?? []));
     }
   }
   for (const eintrag of artikel.faq ?? []) teile.push(eintrag.frage, eintrag.antwort);

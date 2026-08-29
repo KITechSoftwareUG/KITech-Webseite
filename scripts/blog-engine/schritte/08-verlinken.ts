@@ -323,7 +323,7 @@ export async function haengeEin(
     const geaendert: Artikel = {
       ...kandidat,
       interneLinks: [
-        ...kandidat.interneLinks,
+        ...(kandidat.interneLinks ?? []),
         { ziel, ankertext, abschnitt: vorschlag.abschnitt },
       ],
       /* Der Artikel hat sich inhaltlich geändert — ein Link ist laut Googles

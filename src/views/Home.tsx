@@ -12,6 +12,7 @@ import { faq } from "@/data/faq";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
 import { trackEvent } from "@/lib/plausible";
+import { WegeBlock } from "@/components/sections/WegeBlock";
 import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
 import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
 
@@ -208,6 +209,17 @@ export default function Home({
           Person hinter der Firma, dann die Fragen, die im Gespräch immer
           kommen. Inhalte in src/data/gruenderwort.ts bzw. src/data/faq.ts. */}
       <Gruenderwort />
+
+      {/* Die Weiche (27.08.2026): Aus dem Inhalt der Startseite fuehrte kein
+          einziger Link auf /solo, /enterprise oder /leistungen — sie standen
+          nur in Kopf- und Fusszeile. Begruendung im Kopf von WegeBlock.tsx.
+
+          Hier und nicht weiter unten: Wer gerade gelesen hat, wer hinter der
+          Firma steht, fragt als naechstes, was das fuer jemanden wie ihn heisst.
+          Die offenen Fragen darunter raeumen dann den Rest weg, bevor der
+          Knopf kommt. */}
+      <WegeBlock />
+
       <FaqBlock />
 
       {/* Der Schluss (17.08.2026, auf Ansage): was in der halben Stunde passiert

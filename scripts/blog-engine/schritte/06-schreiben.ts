@@ -279,7 +279,7 @@ export async function schreibeArtikel(
     zweck: "artikel",
   });
 
-  let artikel = setzePflichtfelder(roh, brief, thema, vorhandene);
+  let artikel = setzePflichtfelder(normalisiereModellantwort(roh), brief, thema, vorhandene);
   artikel = filtereQuellen(artikel, brief);
   artikel = pruefeAnkertexte(artikel, erlaubteZiele(brief, vorhandene));
 
@@ -314,7 +314,7 @@ export async function schreibeArtikel(
     zweck: "artikel-korrektur",
   });
 
-  let zweiter = setzePflichtfelder(korrigiert, brief, thema, vorhandene);
+  let zweiter = setzePflichtfelder(normalisiereModellantwort(korrigiert), brief, thema, vorhandene);
   zweiter = filtereQuellen(zweiter, brief);
   zweiter = pruefeAnkertexte(zweiter, erlaubteZiele(brief, vorhandene));
 
@@ -520,13 +520,51 @@ function heuteIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+/**
+ * Füllt fehlende Listen der Modellantwort mit leeren Listen.
+ *
+ * ⚠️ **Nötig, seit das Schema als `json_object` statt `strict` durchgeht.** Mit
+ * `strict: true` garantiert OpenAI jedes Feld; das ARTIKEL_SCHEMA trägt diese
+ * Strenge aber nicht (optionale Felder auf mehreren Ebenen, siehe
+ * `lib/openai.ts`). Ohne Zwang darf das Modell Felder weglassen — und dann
+ * stirbt der Lauf an `...undefined` statt an einer lesbaren Zod-Meldung.
+ *
+ * Genau das ist am 28.08.2026 passiert: Der Artikel war geschrieben (12.876
+ * Ausgabe-Token), `zaehleWoerter` spreizte ein fehlendes `paragraphs` auf, und
+ * die Meldung im Protokoll lautete „undefined is not iterable" — eine Zeile, die
+ * nicht verrät, welches Feld fehlte. Kostete 0,154 $ und einen ganzen Lauf.
+ *
+ * **Hier wird nichts erfunden.** Eine fehlende Liste wird leer, nicht gefüllt.
+ * Ob der Artikel dann noch taugt, entscheidet unverändert das Zod-Schema —
+ * und das meldet dann `abschnitte.0.paragraphs: Required`, also die Wahrheit.
+ */
+export function normalisiereModellantwort(roh: ModellArtikel): ModellArtikel {
+  const liste = <T,>(wert: T[] | undefined): T[] => (Array.isArray(wert) ? wert : []);
+
+  return {
+    ...roh,
+    kernaussagen: liste(roh.kernaussagen),
+    quellen: liste(roh.quellen),
+    faq: liste(roh.faq),
+    interneLinks: liste(roh.interneLinks),
+    abschnitte: liste(roh.abschnitte).map((abschnitt) => ({
+      ...abschnitt,
+      paragraphs: liste(abschnitt.paragraphs),
+      unterabschnitte: liste(abschnitt.unterabschnitte).map((unter) => ({
+        ...unter,
+        paragraphs: liste(unter.paragraphs),
+      })),
+    })),
+  };
+}
+
 /** Zählt die Wörter im sichtbaren Fließtext. Grundlage für die Lesezeit. */
 function zaehleWoerter(artikel: Artikel): number {
   const teile: string[] = [artikel.intro ?? "", artikel.fazit ?? ""];
   for (const abschnitt of artikel.abschnitte ?? []) {
-    teile.push(abschnitt.heading, ...abschnitt.paragraphs, ...(abschnitt.bullets ?? []));
+    teile.push(abschnitt.heading, ...(abschnitt.paragraphs ?? []), ...(abschnitt.bullets ?? []));
     for (const unter of abschnitt.unterabschnitte ?? []) {
-      teile.push(unter.heading, ...unter.paragraphs);
+      teile.push(unter.heading, ...(unter.paragraphs ?? []));
     }
   }
   for (const eintrag of artikel.faq ?? []) teile.push(eintrag.frage, eintrag.antwort);
@@ -581,7 +619,7 @@ function fuelleVorlage(
       ? aufzaehlung(brief.material)
       : "Kein wörtlich verwendbares Material. Der Eigenanteil steckt in der Argumentation, nicht in Zitaten.",
     VERLINKUNGSZIELE: [
-      ...brief.verlinkungsziele.map((eintrag) => `- ${eintrag.ziel} — ${eintrag.anlass}`),
+      ...(brief.verlinkungsziele ?? []).map((eintrag) => `- ${eintrag.ziel} — ${eintrag.anlass}`),
       ...vorhandene
         .filter((artikel) => artikel.cluster === brief.cluster)
         .slice(0, 12)
