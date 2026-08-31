@@ -48,10 +48,10 @@ import { melde, warne, fehler } from "./protokoll.js";
  * ## Was der Schritt nicht anfasst
  *
  * Er stellt **nur die eigenen Dateien** bereit: die Artikel-JSONs, die beiden
- * `llms`-Dateien und das Laufprotokoll. Kein `git add -A`. Mehrere Sessions
- * teilen sich diesen Arbeitsbaum (siehe `CLAUDE.md`) — was eine andere Sitzung
- * gerade offen hat, geht die Automatik nichts an und darf nicht in ihrem Commit
- * landen.
+ * `llms`-Dateien, den Themen-Vorrat und die Protokolle der vorigen Läufe. Kein
+ * `git add -A`. Mehrere Sessions teilen sich diesen Arbeitsbaum (siehe
+ * `CLAUDE.md`) — was eine andere Sitzung gerade offen hat, geht die Automatik
+ * nichts an und darf nicht in ihrem Commit landen.
  *
  * ⚠️ Ein Deploy liefert trotzdem **alles** aus, was in `main` liegt. Dagegen
  * hilft kein Filter, nur die Reihenfolge: erst rebasen, dann Tests und Build
@@ -328,12 +328,11 @@ function committeUndSchiebe(
     ...slugs.map((slug) => path.relative(WURZEL, artikelPfad(slug))),
     "public/llms.txt",
     "public/llms-full.txt",
-    /* Das Laufprotokoll gehört dazu. Zwei Gründe: Es ist der Nachweis, wie ein
-       Artikel entstanden ist — Kosten, geprüfte Themen, Fehler —, und ohne ihn
-       sammelt `content/seo/laeufe/` täglich eine unversionierte Datei an. Genau
-       das macht das `git status --short` vor dem Deploy unbrauchbar, auf dem
-       hier alles aufbaut. */
-    `content/seo/laeufe/${laufId}.json`,
+    /* ⚠️ Ohne den Themen-Vorrat verliert der Commit die Markierung, dass das
+       Thema erledigt ist (`markiereErledigt` in lib/artikel-io.ts). Der Lauf
+       von morgen waehlte dann dasselbe Thema erneut — und bezahlte Recherche
+       und Schreiben ein zweites Mal fuer einen Artikel, den es schon gibt. */
+    "content/seo/themen-pool.json",
   ];
 
   for (const datei of dateien) {
@@ -343,8 +342,17 @@ function committeUndSchiebe(
     }
   }
 
-  /* Ältere Protokolle, die ein abgebrochener Lauf hinterlassen hat, gehen mit —
-     sonst bleiben sie für immer unversioniert liegen. */
+  /* Die Laufprotokolle gehen als Ordner mit, nicht als einzelne Datei.
+   *
+   * ⚠️ **Das Protokoll DIESES Laufs ist hier noch nicht geschrieben.** Es
+   * entsteht erst in `beendeProtokoll()`, also nach Schritt 10. Ein `git add`
+   * auf seinen Namen scheitert deshalb mit "did not match any files" — und weil
+   * das als Fehler zaehlte, blieb am 31.08.2026 ein fertiger, freigegebener
+   * Artikel uncommittet liegen. Der Lauf hatte alles richtig gemacht ausser der
+   * letzten Zeile.
+   *
+   * Der Ordner faengt stattdessen die Protokolle der VORIGEN Laeufe ein. Das
+   * heilt sich selbst: Was heute entsteht, committet der Lauf von morgen. */
   fuehreAus("git", ["add", "--", "content/seo/laeufe"]);
 
   const bereit = fuehreAus("git", ["diff", "--cached", "--name-only"]);
