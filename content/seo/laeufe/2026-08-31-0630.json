@@ -1,0 +1,28 @@
+{
+  "id": "2026-08-31-0630",
+  "gestartet": "2026-08-31T06:30:02.532Z",
+  "modus": "auto",
+  "themen": [
+    "go-digital-nachfolger"
+  ],
+  "artikel": [
+    {
+      "slug": "go-digital-nachfolger-zuschuss-alternativen",
+      "titel": "Ein go-digital Nachfolger ersetzt den alten Zuschuss nicht",
+      "status": "veroeffentlicht",
+      "durchgaenge": 0,
+      "harteFehler": 0,
+      "warnungen": 8
+    }
+  ],
+  "fehler": [
+    "Auslieferung: git add content/seo/laeufe/2026-08-31-0630.json: fatal: pathspec 'content/seo/laeufe/2026-08-31-0630.json' did not match any files\n"
+  ],
+  "kosten": {
+    "dataforseoUsd": 0.11592,
+    "firecrawlCredits": 0,
+    "claudeTokenEin": 15704,
+    "claudeTokenAus": 9650
+  },
+  "beendet": "2026-08-31T06:32:44.911Z"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "2026-09-01-0630",
+  "gestartet": "2026-09-01T06:30:02.262Z",
+  "modus": "auto",
+  "themen": [
+    "digital-jetzt-alternative"
+  ],
+  "artikel": [],
+  "fehler": [
+    "digital-jetzt-alternative: Artikel zu „digital jetzt alternative“ entspricht auch nach der Korrektur nicht dem Datenmodell:\n- interneLinks: Array must contain at least 3 element(s)"
+  ],
+  "kosten": {
+    "dataforseoUsd": 0.11592,
+    "firecrawlCredits": 0,
+    "claudeTokenEin": 15950,
+    "claudeTokenAus": 14848
+  },
+  "beendet": "2026-09-01T06:33:15.459Z"
+}
