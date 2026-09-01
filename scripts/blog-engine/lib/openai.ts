@@ -145,6 +145,9 @@ export async function openAiAufruf(optionen: {
 }): Promise<OpenAiErgebnis> {
   const { schluessel, system, nachricht, modell, maxTokens, temperatur, schema, timeoutMs } = optionen;
 
+  /* Die Nutzernachricht kann unten um das Schema wachsen — siehe `if (schema)`. */
+  let nutzerNachricht = nachricht;
+
   const koerper: Record<string, unknown> = {
     model: modell,
     /* `max_completion_tokens` — `max_tokens` ist bei den neueren Modellen
@@ -163,6 +166,8 @@ export async function openAiAufruf(optionen: {
     max_completion_tokens: tokenbudget(maxTokens),
     messages: [
       { role: "system", content: system },
+      /* Platzhalter — der endgueltige Text steht unten, nachdem feststeht, ob
+         das Schema mitgeschickt werden muss. */
       { role: "user", content: nachricht },
     ],
   };
@@ -182,13 +187,47 @@ export async function openAiAufruf(optionen: {
       : { type: "json_object" };
 
     if (!streng) {
+      /*
+       * ⚠️ **Ohne diesen Block sieht das Modell das Schema NIE.**
+       *
+       * `json_object` verlangt nur „irgendein gültiges JSON" — die Feldnamen
+       * stehen dann nirgends. Und in `prompts/` kommen sie auch nicht vor:
+       * `ankertext` und `paragraphs` null Mal, `ziel` und `heading` je einmal
+       * (und zwar in anderer Bedeutung). Der Prompt beschreibt die Form in
+       * deutscher Prosa — „Ein Link besteht aus dem Zielpfad, dem Ankertext und
+       * der Nummer des Abschnitts" — und überlässt dem Modell, wie die
+       * Schlüssel heißen.
+       *
+       * Es rät dann. In vier von vier beobachteten Aufrufen falsch: Links mit
+       * `ziel: undefined`, Abschnitte ohne `heading`/`paragraphs`. Das ist die
+       * gemeinsame Wurzel der Abbrüche vom 28.08. („undefined is not iterable")
+       * und vom 01.09. („interneLinks: at least 3") — beide Male hatte das
+       * Modell den Text geschrieben und nur die Verpackung verfehlt, nachdem
+       * Recherche und Briefing bezahlt waren.
+       *
+       * Das Schema in die Nutzernachricht zu hängen kostet Eingabe-Token und
+       * erzwingt nichts. Aber es ist der Unterschied zwischen „raten" und
+       * „abschreiben", und Eingabe-Token sind das Billigste am ganzen Lauf.
+       */
+      nutzerNachricht =
+        nachricht +
+        "\n\n# Antwortform\n" +
+        "Antworte mit genau einem JSON-Objekt nach diesem Schema. Die " +
+        "Schlüsselnamen zeichengenau übernehmen — auch die verschachtelten.\n" +
+        "```json\n" +
+        JSON.stringify(schema) +
+        "\n```";
+
       warne(
-        "OpenAI: Schema nicht streng erzwingbar (optionale Felder oder additionalProperties) — " +
-          "es gilt json_object plus die Formprüfung des Aufrufers",
+        "OpenAI: Schema nicht streng erzwingbar — es gilt json_object, das Schema " +
+          "geht stattdessen im Prompt mit",
         { modell },
       );
     }
   }
+
+  /* Erst jetzt steht der endgueltige Nutzertext fest. */
+  (koerper.messages as Array<{ role: string; content: string }>)[1].content = nutzerNachricht;
 
   let antwort: Response;
   try {

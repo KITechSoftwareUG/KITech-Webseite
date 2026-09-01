@@ -248,6 +248,30 @@ export async function main(): Promise<number> {
       );
 
       schritt(5, "Redaktionsbriefing");
+      /* ⚠️ Kein Artikel ohne gelesene Konkurrenz.
+       *
+       * Bleibt die Recherche leer, setzt `zielWortzahl(0)` still auf 900 statt
+       * auf den gemessenen Median, und der Schreib-Prompt bestellt woertlich
+       * „Keine Belege. Der Artikel enthaelt keine einzige Fremdzahl". Genau so
+       * entstand am 31.08.2026 ein 815-Woerter-Text ohne eine einzige Zahl —
+       * der war kein Ausrutscher des Modells, sondern die praezise Ausfuehrung
+       * eines Auftrags, den niemand haette erteilen duerfen.
+       *
+       * Ein Tag ohne Artikel ist der dokumentierte Normalzustand. Ein
+       * quellenloser Artikel ist es nicht. Das Thema bleibt im Vorrat. */
+      if (recherche.gelesen.length === 0 && recherche.belege.length === 0) {
+        warne(
+          `Thema "${thema.id}" uebersprungen: keine einzige Seite gelesen, keine Belege. ` +
+            `Ohne Konkurrenzbild kann der Artikel die Frage nicht beantworten, ` +
+            `was hier steht, das nicht auf den ersten zehn Ergebnissen steht.`
+        );
+        protokoll.fehler.push(
+          `${thema.id}: uebersprungen — Recherche leer (0 Seiten, 0 Belege). ` +
+            `Meist ist das Tagesbudget vorher erschoepft; siehe Kosten im Protokoll.`
+        );
+        continue;
+      }
+
       const brief = await erstelleBrief(thema, serp, recherche);
       melde(`Eigenanteil laut Briefing: ${brief.eigenanteil}`);
 
@@ -255,7 +279,7 @@ export async function main(): Promise<number> {
       const roh = await verfasse(brief, thema, [...bestand, ...fertige]);
 
       schritt(7, "Prüfen und nachbessern");
-      const geprueft = await pruefeUndBessere(roh, brief);
+      const geprueft = await pruefeUndBessere(roh, brief, bestand);
 
       const befundZahl = { hart: 0, weich: 0 };
       try {

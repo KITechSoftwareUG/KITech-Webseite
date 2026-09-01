@@ -32,6 +32,7 @@ import {
   filtereQuellen,
   liesPrompt,
   pruefeAnkertexte,
+  ergaenzeInterneLinks,
   type ModellArtikel,
 } from "./06-schreiben.js";
 
@@ -63,6 +64,8 @@ const WOERTER_JE_MINUTE = 200;
 export async function pruefeUndBessere(
   artikel: Artikel,
   brief: Brief,
+  /** Bestand — liefert die Ankerkandidaten fuer `ergaenzeInterneLinks`. */
+  vorhandene: Artikel[] = [],
   maxDurchgaenge = 3
 ): Promise<SchreibErgebnis> {
   let aktuell = artikel;
@@ -76,7 +79,7 @@ export async function pruefeUndBessere(
         `${ergebnis.harteFehler.length} harte Fehler.`
     );
 
-    const gebessert = await besserNach(aktuell, brief, ergebnis.harteFehler);
+    const gebessert = await besserNach(aktuell, brief, ergebnis.harteFehler, vorhandene);
     durchgaenge++;
 
     if (!gebessert) {
@@ -148,7 +151,9 @@ export async function pruefeUndBessere(
 async function besserNach(
   artikel: Artikel,
   brief: Brief,
-  harteFehler: Befund[]
+  harteFehler: Befund[],
+  /** Bestand — Ankerkandidaten fuer `ergaenzeInterneLinks`. */
+  vorhandene: Artikel[]
 ): Promise<Artikel | null> {
   let korrigiert: ModellArtikel;
   try {
@@ -167,9 +172,16 @@ async function besserNach(
   }
 
   const zusammengesetzt = uebernehmeUnveraenderliches(korrigiert, artikel);
-  const gefiltert = pruefeAnkertexte(
-    filtereQuellen(zusammengesetzt, brief),
-    bekannteZiele(artikel, brief)
+  /* ⚠️ `ergaenzeInterneLinks` gehört auch hierher, nicht nur in Schritt 06.
+     Ein Korrekturdurchgang formuliert Absätze um — dabei verschwinden
+     Ankertexte, `pruefeAnkertexte` wirft die Links weg, und der Artikel fällt
+     unter `interneLinks.min(3)`. Der ganze Durchgang wäre dann bezahlt und
+     verworfen, obwohl inhaltlich nichts fehlt. */
+  const ziele = bekannteZiele(artikel, brief);
+  const gefiltert = ergaenzeInterneLinks(
+    pruefeAnkertexte(filtereQuellen(zusammengesetzt, brief), ziele),
+    vorhandene,
+    ziele
   );
 
   const geprueft = artikelSchema.safeParse(gefiltert);
