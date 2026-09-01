@@ -282,6 +282,7 @@ export async function schreibeArtikel(
   let artikel = setzePflichtfelder(normalisiereModellantwort(roh), brief, thema, vorhandene);
   artikel = filtereQuellen(artikel, brief);
   artikel = pruefeAnkertexte(artikel, erlaubteZiele(brief, vorhandene));
+  artikel = ergaenzeInterneLinks(artikel, vorhandene, erlaubteZiele(brief, vorhandene));
 
   const gepruft = artikelSchema.safeParse(artikel);
   if (gepruft.success) {
@@ -317,6 +318,7 @@ export async function schreibeArtikel(
   let zweiter = setzePflichtfelder(normalisiereModellantwort(korrigiert), brief, thema, vorhandene);
   zweiter = filtereQuellen(zweiter, brief);
   zweiter = pruefeAnkertexte(zweiter, erlaubteZiele(brief, vorhandene));
+  zweiter = ergaenzeInterneLinks(zweiter, vorhandene, erlaubteZiele(brief, vorhandene));
 
   const zweitePruefung = artikelSchema.safeParse(zweiter);
   if (!zweitePruefung.success) {
@@ -415,14 +417,91 @@ export function pruefeAnkertexte(artikel: Artikel, erlaubteZiele: Set<string>): 
     return true;
   });
 
-  if (behalten.length < 3) {
+  return { ...artikel, interneLinks: behalten };
+}
+
+/**
+ * Ergänzt fehlende interne Links aus Begriffen, die schon im Text stehen.
+ *
+ * ⚠️ **Ohne diesen Schritt bricht der Lauf.** `pruefeAnkertexte` entfernt jeden
+ * Link, dessen Ankertext nicht wörtlich im zugewiesenen Absatz steht; das
+ * Zod-Schema verlangt aber **mindestens drei** (`interneLinks.min(3)`). Filter
+ * und Mindestzahl arbeiten also gegeneinander: Räumt der Filter auf vier
+ * gelieferte Links zwei weg, ist der Artikel unrettbar — und der Korrekturanlauf
+ * hilft nicht, weil derselbe Filter danach erneut läuft. Genau daran starb der
+ * Lauf vom 01.09.2026, nach bezahlter Recherche.
+ *
+ * **Deterministisch, ohne Modell, ohne Kosten.** Gesucht wird nur, was ohnehin
+ * dasteht: der Titel eines vorhandenen Artikels, sein Zielkeyword, oder der
+ * Cluster-Name. Steht einer dieser Begriffe wörtlich in einem Absatz, darf er
+ * zum Anker werden — dieselbe Regel, die der Filter prüft. Steht keiner da,
+ * wird **nichts erfunden**; dann bricht der Lauf wie bisher, und zwar zu Recht.
+ *
+ * Der Anker wird nicht in den Text geschrieben. Er markiert eine Stelle, die
+ * schon existiert — deshalb kann dieser Schritt den Text nicht verfälschen.
+ */
+export function ergaenzeInterneLinks(
+  artikel: Artikel,
+  vorhandene: Artikel[],
+  erlaubte: Set<string>
+): Artikel {
+  const vorhandeneLinks = artikel.interneLinks ?? [];
+  if (vorhandeneLinks.length >= 3) return artikel;
+
+  const belegt = new Set(vorhandeneLinks.map((l) => l.ziel));
+
+  /* Kandidaten: Ziel -> Begriffe, die dafür als Anker taugen. Längere zuerst,
+     weil „KI-Strategie im Mittelstand" ein besserer Anker ist als „KI". */
+  const kandidaten: Array<{ ziel: string; anker: string }> = [];
+  for (const eintrag of vorhandene) {
+    const ziel = `/gratis-wissen/${eintrag.slug}`;
+    if (!erlaubte.has(ziel) || belegt.has(ziel)) continue;
+    for (const anker of [eintrag.titel, eintrag.zielKeyword]) {
+      if (anker && anker.length >= 3 && anker.length <= 90) kandidaten.push({ ziel, anker });
+    }
+  }
+  kandidaten.sort((a, b) => b.anker.length - a.anker.length);
+
+  /* Wo steht der Begriff? Dieselbe Textbildung wie in `pruefeAnkertexte` —
+     stünde hier etwas anderes, würde der Filter den Link gleich wieder werfen. */
+  const abschnittstext = (index: number): string =>
+    [
+      artikel.abschnitte[index].paragraphs.join(" "),
+      ...(artikel.abschnitte[index].unterabschnitte ?? []).map((u) => u.paragraphs.join(" ")),
+    ].join(" ");
+
+  const ergaenzt = [...vorhandeneLinks];
+  for (const kandidat of kandidaten) {
+    if (ergaenzt.length >= 3) break;
+    if (belegt.has(kandidat.ziel)) continue;
+
+    let stelle: "intro" | number | null = null;
+    if (artikel.intro && artikel.intro.includes(kandidat.anker)) {
+      stelle = "intro";
+    } else {
+      for (let i = 0; i < artikel.abschnitte.length; i += 1) {
+        if (abschnittstext(i).includes(kandidat.anker)) {
+          stelle = i;
+          break;
+        }
+      }
+    }
+    if (stelle === null) continue;
+
+    ergaenzt.push({ ziel: kandidat.ziel, ankertext: kandidat.anker, abschnitt: stelle });
+    belegt.add(kandidat.ziel);
+    melde(`Interner Link ergänzt: „${kandidat.anker}“ → ${kandidat.ziel}`);
+  }
+
+  if (ergaenzt.length < 3) {
     warne(
-      `Nur noch ${behalten.length} interne Links übrig, Pflicht sind drei. ` +
-        `Der Entwurf besteht das Datenmodell so nicht.`
+      `Nur ${ergaenzt.length} interne Links, Pflicht sind drei. Kein weiterer ` +
+        `Begriff aus dem Bestand kommt im Text wörtlich vor — hier wird nichts ` +
+        `erfunden, der Entwurf besteht das Datenmodell so nicht.`
     );
   }
 
-  return { ...artikel, interneLinks: behalten };
+  return { ...artikel, interneLinks: ergaenzt };
 }
 
 /** Alle Pfade, auf die ein Artikel dieser Website zeigen darf. */

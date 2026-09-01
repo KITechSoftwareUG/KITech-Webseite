@@ -41,13 +41,20 @@ import type { KeywordDaten, ThemaImVorrat, ThemenfindungErgebnis } from "../lib/
  * also vier von fünf Abfragen bezahlt und weggeworfen. Gemessen am Lauf vom
  * 27.08.2026: 0,178 $ gesamt, davon rund 0,10 $ für diese fünf.
  *
- * Der Zuschlag von zwei ist der Spielraum für Schritt 02: Die Kandidatenliste
- * ist nach Priorität sortiert, aber die Auswahl filtert noch nach Eigenanteil
- * und Dubletten. Wer zu knapp abfragt, riskiert ein gewähltes Thema **ohne**
- * Sekundärkeywords — das kostet Qualität statt Geld und ist der schlechtere
- * Tausch.
+ * Der Zuschlag stand auf zwei, als Spielraum für die Auswahl in Schritt 02.
+ * Am 01.09.2026 auf **null** gesenkt (Ansage Ayham: Kosten sehr gering halten).
+ * Aus zwei Läufen herausgerechnet, die sich nur in dieser Zahl unterschieden:
+ *
+ *   eine Abfrage            0,0311 $
+ *   SERP + Metriken (fix)   0,0225 $
+ *   ⇒ Zuschlag 0: 0,0537 $ je Lauf statt 0,1159 — und damit unter der
+ *     Tagesbremse von 0,10, die sonst mitten im Lauf gegriffen hätte.
+ *
+ * Der Preis: Trifft die Auswahl nicht den erstplatzierten Kandidaten, hat der
+ * Artikel keine Sekundärkeywords. Das ist tragbar — `sekundaerKeywords` trägt
+ * im Zod-Schema `.default([])`, ist also kein Pflichtfeld und bricht nichts.
  */
-const VERWANDTE_ZUSCHLAG = 2;
+const VERWANDTE_ZUSCHLAG = 0;
 
 /**
  * Tiefe der „Ähnliche Suchanfragen"-Kette.
