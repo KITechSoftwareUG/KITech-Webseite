@@ -24,6 +24,10 @@ npm test               # Vitest
 npm run llms           # llms.txt + llms-full.txt neu erzeugen (nach JEDER Inhaltsänderung)
 npm run og             # Standard-Vorschaubild rendern (braucht Chrome)
 npm run pruefe:jsonld  # JSON-LD des ausgelieferten HTML prüfen (Live oder URL als Argument)
+npm run gsc            # Google Search Console abfragen (ohne Argument: alle Befehle)
+npm run gsc -- abdeckung   # jede Sitemap-Adresse einzeln bei Google nachschlagen
+npm run bing           # Bing Webmaster Tools — Index, Crawl, Keyword-Volumen
+npm run bing -- abdeckung  # dasselbe bei Bing: welche Adressen es nie geholt hat
 bash scripts/pruefe-container.sh   # Vollprüfung im Container — vor jedem Deploy
 
 npm run blog:brief -- <thema-id>   # Redaktionsbriefing, kostenlos
@@ -104,7 +108,7 @@ Dockerfile          Multi-Stage, node:22-alpine, standalone, Port 3000 — der a
 | `/warum` + zwei Sales Letter | Weiche ja, Letter **nein** | Letter sind Platzhaltertext (`isPlaceholder`) |
 | `/leistungen`, `/solo`, `/enterprise` | ja | Eine Vorlage, zwei Zielgruppen (`data/segments.ts`) |
 | `/referenzen`, `/referenzen/[slug]` | Übersicht ja, Details **nein** | Details `noindex`, solange `openPoints` offen sind |
-| `/gratis-wissen` + `[slug]`, `/thema/[cluster]`, `/rss.xml` | ja | Content-Bereich, Server Components |
+| `/gratis-wissen` + `[slug]`, `/gratis-wissen/thema/[cluster]`, `/gratis-wissen/rss.xml` | ja | Content-Bereich, Server Components. ⚠️ Alle drei liegen **unter** `/gratis-wissen` — `/rss.xml` und `/thema/…` an der Wurzel sind 404 |
 | `/autoren`, `/autoren/[slug]` | ja | `ProfilePage`, Inhalt `content/seo/autoren.json` |
 | `/haltung`, `/kontakt`, `/glossar` + `[slug]` | ja | |
 | `/karriere` + `[slug]` | **nein** | Platzhalterstellen — siehe Regel unten |
@@ -225,6 +229,34 @@ eine veraltete Fassung ist teurer als gar keine.
 dauerhaft stehen** — fällt das Tag weg, verliert die Domain **still** ihren
 Status (`suchkonsolen.test.ts`). Der TXT-Eintrag `MS=ms60455894` in der DNS-Zone
 ist Microsoft 365, nicht Bing.
+
+**Search Console API** (seit 01.09.2026): `npm run gsc` — Leistungsdaten,
+URL-Prüfung, Sitemap-Stand, jeder Befehl mit `--json`. Das ist die einzige
+Quelle, die die **eigenen** Seiten misst statt den Markt zu schätzen, und sie
+kostet nichts. Zugang über ein Dienstkonto, Schlüssel in
+`/home/deploy/KITech/infra/secrets/google-search-console.json`, Pfad in `.env`.
+⚠️ Zwei Fallen, beide melden sich als 403: Das Dienstkonto muss in der Search
+Console **als Nutzer eingetragen** sein (es hängt nicht an Ayhams Konto), und
+die Property heißt zeichengenau `https://kitech-software.de/` **mit**
+Schrägstrich. Einrichtung und Fehlerbilder: `deploy/SUCHKONSOLEN.md`.
+Es gibt bewusst **keinen** Befehl, der Indexierung erzwingt — die Indexing API
+ist auf `JobPosting`/`BroadcastEvent` beschränkt.
+
+**Bing Webmaster Tools API** (seit 01.09.2026): `npm run bing` — Index gegen
+Sitemap, Crawl-Reihe, Abdeckung je Adresse, **Suchvolumen kostenlos**. Schlüssel
+in `BING_WEBMASTER_API_KEY`, ein echtes Geheimnis (er darf einreichen und
+Sitemaps löschen) — anders als `BING_SITE_VERIFICATION`, das im HTML steht.
+⚠️ Vier Fallen, alle als **HTTP 400** oder HTML, keine als 403: `country` muss
+**klein** sein (`de`); Datum als `JJJJ-MM-TT`, nicht `/Date(…)/`; **Lesen ist
+GET, Schreiben ist POST**; und Bing schreibt „nie" als Jahr 1 bzw. 1601 statt
+`null` — wer nur auf ein gefülltes Feld prüft, zählt jede unbekannte Seite als
+geholt. Alles in `deploy/SUCHKONSOLEN.md`, die Datumsfalle unter Test.
+
+⚠️ **Bing ist nicht Google.** Volumen und Positionen von dort in Google-Fragen
+einzusetzen führt in die Irre. Der Nutzen liegt woanders: Bings Index speist
+Copilot und ChatGPTs Websuche, und Bing nimmt als einziger Einreichungen an
+(10.000/Tag) — was aber **keine Indexierung erzwingt** und `blog:indexnow`
+nicht ersetzt, sondern nur nachholt, was IndexNow nie gesehen hat.
 
 ⚠️ **Tests, die Quelltext lesen, müssen Kommentare herausschneiden**
 (`src/lib/__tests__/quelltext.ts`) — sonst verbietet der Test genau die
@@ -538,11 +570,12 @@ Companyhouse sind abgeschriebene Registerdaten und antworten Crawlern mit 403.
 
 ## Offen
 
-Stand 26.08.2026.
+Stand 01.09.2026.
 
 | Was | Wer |
 |---|---|
-| ⚠️ **DataForSEO nur noch 0,45 $** — reicht für gut zwei Auto-Läufe, danach schreibt die Automatik ohne Keyword-Daten weiter | Ayham |
+| ⚠️ **DataForSEO nur noch 0,45 $** — reicht für gut zwei Auto-Läufe, danach schreibt die Automatik ohne Keyword-Daten weiter. `npm run bing -- keyword` liefert Volumen kostenlos, misst aber Bing statt Google — als Themenfindung brauchbar, als Ersatz nicht | Ayham |
+| ⚠️ **Bing: 0 verweisende Seiten, `InIndex` fällt** (15 → 13 in vier Tagen). Bing holt die Seiten und behält sie nicht — die Ursache ist fehlende Verlinkung, nicht die Crawl-Rate. Kein Werkzeug löst das; es braucht echte Verweise von außen | Ayham |
 | ProvenExpert-Profil hat **0 Bewertungen** — fünf echte würden zugleich die Sterne auf den Kundenkarten belegen (`deploy/BEWERTUNGEN.md`) | Ayham |
 | `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
 | Themen-Cluster ohne Artikel — `content/seo/cluster.json` gegen `content/wissen/` (5 von 12) | Redaktion |

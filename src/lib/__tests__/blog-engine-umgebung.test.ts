@@ -67,3 +67,30 @@ describe("Blog-Engine: .env wird geladen", () => {
     expect(quelle).toContain("try");
   });
 });
+
+/**
+ * Dieselbe Regel gilt außerhalb der Blog-Engine: Wer einen Zugang aus
+ * `process.env` liest, muss `.env` vorher geladen haben. `scripts/suchkonsole.ts`
+ * liegt nicht unter `scripts/blog-engine/`, teilt sich aber dessen Lademodul —
+ * und damit auch dessen Falle.
+ */
+describe("Weitere Einstiegspunkte laden .env", () => {
+  const WEITERE = ["scripts/suchkonsole.ts", "scripts/bing.ts"] as const;
+
+  for (const datei of WEITERE) {
+    it(`${datei} lädt .env als ersten Import`, () => {
+      const quelle = fs.readFileSync(datei, "utf8");
+
+      const importe = quelle
+        .split("\n")
+        .map((zeile) => zeile.trim())
+        .filter((zeile) => zeile.startsWith("import "));
+
+      expect(importe.length, `${datei} hat keine Importe — Test veraltet?`).toBeGreaterThan(0);
+      expect(
+        importe[0],
+        `${datei} lädt .env nicht als ersten Import. Erste Zeile ist: ${importe[0]}`
+      ).toContain("lib/umgebung.js");
+    });
+  }
+});

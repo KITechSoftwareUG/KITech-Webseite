@@ -21,7 +21,9 @@
     "blog:brief": "tsx scripts/blog-engine/brief.ts",
     "llms": "tsx scripts/llms-txt.ts",
     "pruefe:jsonld": "node scripts/pruefe-jsonld.mjs",
-    "og": "node scripts/og-standardbild.mjs"
+    "og": "node scripts/og-standardbild.mjs",
+    "gsc": "tsx scripts/suchkonsole.ts",
+    "bing": "tsx scripts/bing.ts"
   },
   "dependencies": {
     "@fontsource-variable/recursive": "^5.2.8",
