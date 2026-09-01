@@ -25,9 +25,14 @@ export const metadata = buildMetadata({
 });
 
 /**
- * Pfad des Hero-Portraits: die freigestellte Aufnahme von Ayham, seit dem
- * 12.08.2026 im Repo (`src/assets/portrait_Ayham.svg` als Quelle, daraus
- * getrimmt und auf 700 px Höhe gerechnet — 40 KB statt 1 MB).
+ * Pfad des Hero-Portraits: die freigestellte Aufnahme von Ayham (getrimmt und
+ * auf 700 px Höhe gerechnet — 295 x 700, 29 KB).
+ *
+ * ⚠️ Freigestellt heißt hier: **transparenter Hintergrund, keine Kante.** Der
+ * Hero-Grund ist `bg-surface-strong` (0 0% 94 %), fast weiß — ein Foto mit
+ * Hintergrund säße dort als sichtbares Rechteck. Wer die Datei austauscht,
+ * tauscht sie gegen einen Freisteller, sonst klebt ein Kasten im Hero.
+ * Dieselbe Datei zeigen auch `/funnel` und die beiden Sales Letter.
  *
  * Die Prüfung läuft **hier**, in der Server Component, und damit beim Build:
  * liegt die Datei, wird sie ausgeliefert; liegt sie nicht, fällt die Startseite

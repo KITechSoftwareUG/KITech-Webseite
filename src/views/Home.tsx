@@ -111,7 +111,7 @@ export default function Home({
             src={portrait}
             alt=""
             aria-hidden="true"
-            width={356}
+            width={295}
             height={700}
             className="pointer-events-none absolute bottom-0 right-0 hidden h-[360px] w-auto select-none object-contain object-bottom dt:block dt:h-[400px]"
           />
@@ -192,7 +192,7 @@ export default function Home({
               <img
                 src={portrait}
                 alt=""
-                width={356}
+                width={295}
                 height={700}
                 className="h-[320px] w-auto select-none object-contain object-bottom"
               />
