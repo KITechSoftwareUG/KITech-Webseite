@@ -104,17 +104,17 @@ export default function Leistungen({ wissen = [] }: { wissen?: ArtikelTeaser[] }
         </div>
       </section>
 
-      {/* Weiche in die beiden Zielgruppen-Seiten. Ziele kommen aus der
+      {/* Weiche in die Beratungs- und Zielgruppen-Seiten. Ziele kommen aus der
           Navigations-Konfiguration, damit hier keine zweite Liste entsteht. */}
       <section className={`${SITE_CONTAINER} pb-16`} aria-labelledby="zielgruppen">
         <h2
           id="zielgruppen"
           className="kinetic-display text-balance text-h3 leading-tight text-foreground sm:text-[36px]"
         >
-          Zwei Ausgangslagen, zwei Wege.
+          Drei Einstiege, ein Ziel.
         </h2>
 
-        <div className="mt-9 grid gap-6 md:grid-cols-2">
+        <div className="mt-9 grid gap-6 md:grid-cols-3">
           {leistungenEntry.children?.map((child) => (
             <NavCard
               key={child.href}

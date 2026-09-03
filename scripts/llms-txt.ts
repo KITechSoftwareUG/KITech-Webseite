@@ -150,6 +150,8 @@ const SEITEN_TEXT: Record<string, string> = {
   "/": "Startseite: Positionierung, Kundenergebnisse, Team, häufige Fragen.",
   "/warum": "Einstieg zu den beiden Sales Lettern.",
   "/leistungen": "Die vier Schritte einer Zusammenarbeit und der Technologie-Stack.",
+  "/ki-beratung-mittelstand":
+    "KI-Beratung für mittelständische Unternehmen: Audit, Use Cases, Automatisierung und Betrieb.",
   "/solo": "Für Selbstständige und kleine Teams.",
   "/enterprise": "Für Unternehmen mit bestehenden Systemen und Nachweispflichten.",
   "/referenzen": "Kundenprojekte mit Kennzahl, Zeitraum und — wo vorhanden — Live-Adresse.",

@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import {
   StructuredData,
@@ -9,6 +7,18 @@ import {
 import { AnnouncementBar } from "./AnnouncementBar";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+
+/**
+ * ⚠️ **Kein `"use client"` — und das ist Absicht.** Die Komponente hat weder
+ * Hook noch Handler; sie rendert Struktur. Bis zum 01.09.2026 stand die
+ * Direktive trotzdem oben und machte den Rahmen **jeder** Seite zur
+ * Client-Komponente, auch der reinen Server-Seiten unter `/gratis-wissen`.
+ *
+ * Die drei Kinder (`AnnouncementBar`, `SiteHeader`, `SiteFooter`) bleiben
+ * Client-Komponenten — eine Server Component darf solche einbinden, das ist der
+ * normale Weg. Wer hier einen Hook braucht, holt ihn in eines der Kinder statt
+ * die Direktive zurückzuholen.
+ */
 
 /**
  * Gemeinsamer Rahmen aller Seiten:

@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { CtaLink } from "@/components/conversion/CtaLink";
 import { StructuredData, getFAQSchema, getWebPageSchema } from "@/components/seo/StructuredData";
 import { PageShell } from "@/components/layout/PageShell";
 import { CallPopup } from "@/components/conversion/CallPopup";
@@ -11,7 +9,6 @@ import { CheckEinladung } from "@/components/sections/CheckEinladung";
 import { faq } from "@/data/faq";
 import { teamRoster } from "@/data/team";
 import { angebot, verfuegbarkeitKurz } from "@/config/angebot";
-import { trackEvent } from "@/lib/plausible";
 import { WegeBlock } from "@/components/sections/WegeBlock";
 import { WeiterlesenBlock } from "@/components/sections/WeiterlesenBlock";
 import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
@@ -38,6 +35,25 @@ import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
  * **Nur eine Person im Hero** (Vorgabe 12.08.2026): "Ich moechte, dass in beiden
  * Versionen nur ich als erstes Foto auftauche." Leons Portrait ist deshalb aus
  * dem Hero genommen — er bleibt im Team-Abschnitt und als Kunde im Laufband.
+ *
+ * **Server Component seit dem 01.09.2026.** Bis dahin stand hier
+ * `"use client"` — wegen einer einzigen Zeile, dem `onClick` mit `trackEvent`
+ * am Hero-Knopf. Der Handler sitzt jetzt in `CtaLink`, das Markup bleibt auf
+ * dem Server.
+ *
+ * ⚠️ **Der Umbau hat die Ladezeit NICHT verbessert — nachgemessen.** A/B über
+ * zwei Lighthouse-Läufe je Stand im selben Container: LCP 3925 → 3915 ms,
+ * Script Evaluation 629 → 685 ms. Alles Rauschen. Der Grund: Das Bundle der
+ * Startseite kommt nicht aus dieser Datei, sondern aus dem Rahmen —
+ * `Providers` (framer-motion, next-themes, Toaster, CookieConsent) sowie
+ * `SiteHeader`, `KundenLaufband`, `CheckEinladung`, `WeiterlesenBlock` und
+ * `CallPopup`. Die waren vorher Client und sind es weiterhin.
+ *
+ * Wer hier also Ladezeit sucht, sucht am falschen Ende. Die Server Component
+ * bleibt trotzdem richtig: statisches Markup gehört nicht in den Browser, und
+ * die Grenze hält den Unterschied sichtbar. Ein `onClick` direkt in dieser
+ * Datei zieht die ganze Seite zurück — kapsle ihn in einer Client-Insel
+ * (Vorbild `CtaLink`).
  *
  * Geometrie aus der Vorlage gemessen (acquisition.com, 1440 px):
  *   grauer Bereich   432 px hoch
@@ -145,9 +161,10 @@ export default function Home({
             {HERO_SUBLINE}
           </p>
 
-          <Link
+          <CtaLink
             href={angebot.href}
-            onClick={() => trackEvent("Calendly_Klick", { position: "home-hero" })}
+            ereignis="Calendly_Klick"
+            eigenschaften={{ position: "home-hero" }}
             /* `min-h` statt `h`: die Beschriftung kommt aus `angebot.ts` und
                kann laenger werden. Auf schmalen Handys bricht sie zweizeilig
                um — mit fester Hoehe liefe sie aus der Pille heraus. */
@@ -159,7 +176,7 @@ export default function Home({
             className="mt-[39px] inline-flex min-h-[52px] w-full items-center justify-center rounded-[100px] bg-primary px-[10px] py-2 text-center text-[20px] font-bold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-[420px] dt:min-h-[56px]"
           >
             {angebot.cta}
-          </Link>
+          </CtaLink>
 
           {/* Der Hinweis steht in der Vorlage nicht — er gehoert zu unserem
               Inhalt und bleibt deshalb. Klein gesetzt, damit er die Geometrie

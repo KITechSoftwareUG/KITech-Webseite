@@ -9,7 +9,20 @@ export interface GlossaryTerm {
   shortDefinition: string;
   metaDescription: string;
   sections: GlossarySection[];
-  related: string[]; // slugs
+  /**
+   * Verwandte Begriffe, als Slugs. Erscheinen am Fuß der Detailseite.
+   *
+   * ⚠️ **Gegenseitig pflegen.** Bis zum 01.09.2026 verwies `computer-vision`
+   * auf drei andere Begriffe, aber kein einziger zurück — die Seite war eine
+   * Sackgasse mit genau einem eingehenden Link (der Übersicht). Ausgerechnet
+   * sie holte mit 15 Impressionen die meisten der ganzen Domain: Google zeigte
+   * sie, die Website behandelte sie wie eine Nebenseite.
+   *
+   * Wer einen Verweis einträgt, prüft den Rückweg mit. Er muss inhaltlich
+   * tragen — ein Ring aus Links, den niemand liest, ist ein Rankingtrick und
+   * kein Wegweiser.
+   */
+  related: string[];
   faqs?: { question: string; answer: string }[];
   datePublished?: string;
   dateModified?: string;
@@ -100,7 +113,7 @@ export const glossaryTerms: GlossaryTerm[] = [
           "Während klassische KI-Strategieberatung oft auf Vision und Marktanalyse abzielt, ist ein KI-Audit operativ und umsetzungsnah. Es liefert keine Powerpoint-Strategie, sondern konkrete, umsetzbare Maßnahmen mit Aufwand und Nutzen in Euro.",
       },
     ],
-    related: ["roi-garantie", "dsgvo-konforme-ki", "mlops"],
+    related: ["roi-garantie", "dsgvo-konforme-ki", "mlops", "computer-vision"],
     faqs: [
       {
         question: "Wie lange dauert ein KI-Audit?",
@@ -164,7 +177,7 @@ export const glossaryTerms: GlossaryTerm[] = [
           "Der EU AI Act ergänzt die DSGVO durch ein risikobasiertes Klassifikationssystem. Je nach Risikoklasse gelten zusätzliche Pflichten – etwa Risikomanagement, Transparenz, menschliche Aufsicht und Konformitätsbewertung. KI-Systeme mit hohem Risiko unterliegen umfangreichen Dokumentations- und Auditpflichten.",
       },
     ],
-    related: ["ki-audit", "llm-integration", "mlops"],
+    related: ["ki-audit", "llm-integration", "mlops", "computer-vision"],
   },
   {
     slug: "mlops",
@@ -190,7 +203,7 @@ export const glossaryTerms: GlossaryTerm[] = [
           "Ein KI-Modell ohne MLOps verliert mit der Zeit an Genauigkeit – die reale Welt verändert sich, die Trainingsdaten nicht. Ohne Monitoring bleibt diese Degradation unentdeckt. Erst MLOps macht den in der ROI-Garantie zugesicherten Wertbeitrag dauerhaft messbar und sicherbar.",
       },
     ],
-    related: ["roi-garantie", "ki-audit", "llm-integration"],
+    related: ["roi-garantie", "ki-audit", "llm-integration", "computer-vision"],
   },
   {
     slug: "computer-vision",

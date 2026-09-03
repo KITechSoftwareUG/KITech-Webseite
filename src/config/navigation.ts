@@ -61,6 +61,11 @@ export const leistungenEntry: NavEntry = {
   description: "Was wir bauen — vom Prozess-Audit bis zum laufenden Betrieb.",
   children: [
     {
+      label: "KI-Beratung Mittelstand",
+      href: "/ki-beratung-mittelstand",
+      description: "Use Cases, ROI, Datenschutz und Betrieb vor der Umsetzung klären.",
+    },
+    {
       label: "Für Selbstständige",
       href: "/solo",
       description: "Ein bis sechs Leute, kein IT-Team im Rücken.",
@@ -114,6 +119,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
     title: "Angebot",
     links: [
       { label: "Leistungen", href: "/leistungen" },
+      { label: "KI-Beratung Mittelstand", href: "/ki-beratung-mittelstand" },
       { label: "Für Selbstständige", href: "/solo" },
       { label: "Für Unternehmen", href: "/enterprise" },
       { label: "1:1-KI-Check sichern", href: "/lass-uns-reden" },
@@ -221,6 +227,7 @@ export const siteRoutes: RouteDefinition[] = [
   },
 
   { path: "/leistungen", indexable: true, lastModified: "2026-08-05" },
+  { path: "/ki-beratung-mittelstand", indexable: true, lastModified: "2026-09-02" },
   { path: "/solo", indexable: true, lastModified: "2026-08-05" },
   { path: "/enterprise", indexable: true, lastModified: "2026-08-05" },
 

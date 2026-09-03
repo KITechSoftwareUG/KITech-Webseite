@@ -88,3 +88,54 @@ describe("Glossary data integrity", () => {
     }
   });
 });
+
+/**
+ * Kein Glossarbegriff darf eine Sackgasse sein.
+ *
+ * **Warum das ein Test ist.** Am 01.09.2026 gemessen: `computer-vision`
+ * verwies auf drei andere Begriffe, aber **kein einziger verwies zurück**. Der
+ * einzige eingehende Link kam von der Übersicht `/glossar`. Ausgerechnet diese
+ * Seite holte mit 15 Impressionen die meisten der ganzen Domain — Google zeigte
+ * sie, die Website selbst behandelte sie wie eine Nebenseite.
+ *
+ * Der Fehler ist von außen unsichtbar: Die Seite sieht vollständig aus, sie
+ * verlinkt ja. Erst wer die Richtung zählt, sieht ihn. Genau deshalb steht er
+ * unter Test statt in einer Notiz.
+ */
+describe("Glossar: Verweise sind gegenseitig", () => {
+  it("jeder Begriff wird von mindestens einem anderen verlinkt", () => {
+    const eingehend = new Map<string, string[]>(glossaryTerms.map((t) => [t.slug, []]));
+
+    for (const term of glossaryTerms) {
+      for (const ziel of term.related) {
+        eingehend.get(ziel)?.push(term.slug);
+      }
+    }
+
+    const sackgassen = [...eingehend.entries()].filter(([, von]) => von.length === 0);
+
+    expect(
+      sackgassen.map(([slug]) => slug),
+      "Diese Begriffe verlinken nur nach außen. Wer eine Seite in `related` " +
+        "aufnimmt, trägt den Rückweg mit ein — sofern er inhaltlich trägt."
+    ).toEqual([]);
+  });
+
+  it("kein Verweis zeigt auf einen Begriff, den es nicht gibt", () => {
+    const vorhanden = new Set(glossaryTerms.map((t) => t.slug));
+
+    for (const term of glossaryTerms) {
+      for (const ziel of term.related) {
+        expect(vorhanden.has(ziel), `${term.slug} verweist auf „${ziel}“ — den gibt es nicht`).toBe(
+          true
+        );
+      }
+    }
+  });
+
+  it("kein Begriff verweist auf sich selbst", () => {
+    for (const term of glossaryTerms) {
+      expect(term.related, `${term.slug} verweist auf sich selbst`).not.toContain(term.slug);
+    }
+  });
+});
