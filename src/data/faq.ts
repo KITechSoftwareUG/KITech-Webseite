@@ -1,9 +1,12 @@
 /**
- * Die fünf Fragen unter dem Gründerwort auf der Startseite.
+ * Die sechs Fragen unter dem Gründerwort auf der Startseite.
  *
  * **Auf Ansage (14.08.2026)** ausgewählt: die Einwände, die im Gespräch als
  * erstes kommen — Preis, Dauer, „lohnt sich das bei uns überhaupt", Daten,
- * und was nach dem Projekt passiert.
+ * und was nach dem Projekt passiert. Am 04.09.2026 kam die Microsoft-Frage
+ * dazu (Ansage): Bei Unternehmen mit Microsoft-Landschaft ist „passt ihr zu
+ * unserem System" der Einwand, der vor allen anderen steht — und er entscheidet,
+ * ob überhaupt weitergelesen wird.
  *
  * **Jede Antwort ist im Repo belegt** und nicht neu erfunden:
  *
@@ -12,7 +15,8 @@
  *   | Kosten     | `src/config/angebot.ts` (kostenlos, 30 Min), `services[0]` |
  *   | Dauer      | `src/data/client-results.ts` (40 Tage, 60 Tage, 2 Monate) |
  *   | Lohnt sich | `services[0]`, `principles` („Nicht jedes Problem …")     |
- *   | Daten      | `services[2]` (EU-Region über AWS/Azure mit AVV, eigene Hardware) |
+ *   | Microsoft  | `techStack` und `services[2]` in `src/data/services.ts`   |
+ *   | Daten      | `services[3]` (EU-Region über Azure/AWS mit AVV, eigene Hardware) |
  *   | Danach     | `services[3]`, `commitments` (Code gehört euch, Wartung)  |
  *
  * **Gekürzt am 17.08.2026, auf Ansage:** „Auch die FAQs sind ein bisschen zu
@@ -57,6 +61,11 @@ export const faq: FaqEintrag[] = [
     frage: "Was, wenn sich KI bei uns nicht lohnt?",
     antwort:
       "Dann sagen wir das. Passt eine einfachere Lösung besser, empfehlen wir sie — auch wenn wir daran weniger verdienen.",
+  },
+  {
+    frage: "Wir arbeiten mit Microsoft — passt das?",
+    antwort:
+      "Das ist unser Feld: Power Automate, Power BI, Dynamics 365 und Power Apps, angebunden an Microsoft 365 und Azure. Wer Microsoft im Haus hat, braucht kein zweites System daneben.",
   },
   {
     frage: "Was passiert mit unseren Daten?",

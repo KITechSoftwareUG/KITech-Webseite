@@ -153,6 +153,17 @@ umformulieren, auch nicht „glätten".
 nie per `window.open()` zu Calendly. Die einzige externe Calendly-URL ist die
 `data-url` im Embed selbst.
 
+**Microsoft-Produktnamen zeichengenau.** Seit dem 04.09.2026 ist der
+Enterprise-Stack die Positionierung: **Power Automate**, **Power BI**,
+**Dynamics 365 Sales**, **Power Apps**, **Microsoft 365**, **Azure**. Nicht
+„Dynamic Sales", und ein „Dynamics BI" gibt es nicht — das BI-Produkt heißt
+Power BI. Auf der Gegenseite sitzt jemand, der die Namen täglich benutzt; ein
+falscher Name kostet mehr Glaubwürdigkeit, als die ganze Liste aufbaut.
+Gepflegt an vier Stellen, die zusammenpassen müssen: `data/services.ts`
+(`techStack`, Schritt 03), `data/segments.ts` (nur `enterprise` — `/solo`
+behält n8n/Supabase, dort stimmt es), `data/faq.ts` und `sections/WegeBlock.tsx`.
+Dazu `knowsAbout` in `getOrganizationSchema()`.
+
 **Naming:** Dateien kebab-case, Komponenten PascalCase, TS-Variablen camelCase,
 Konstanten UPPER_SNAKE.
 
@@ -579,7 +590,7 @@ Stand 01.09.2026.
 | ProvenExpert-Profil hat **0 Bewertungen** — fünf echte würden zugleich die Sterne auf den Kundenkarten belegen (`deploy/BEWERTUNGEN.md`) | Ayham |
 | `openPoints` der sechs Referenzfälle — solange sie stehen, ist **keine** Detailseite indexiert | Kundenfreigaben |
 | Themen-Cluster ohne Artikel — `content/seo/cluster.json` gegen `content/wissen/` (5 von 12) | Redaktion |
-| `techStack` in `services.ts` (PyTorch, Kubernetes, LangChain) ist Altbestand der Vorgängerseite | inhaltliche Entscheidung |
 | KI-Partner-Verzeichnis der Wirtschaftsförderung Region Hannover: Aufnahme | Ayham |
+| **Microsoft-Referenzen fehlen** — die Positionierung steht seit 04.09.2026 auf Power Automate, Power BI und Dynamics 365, aber `client-results.ts` belegt keinen einzigen Fall daraus. Bis dahin ist es eine Behauptung ohne Beweis | Ayham |
 | Sales Letter und `/funnel` tragen Platzhaltertext | Ayham |
 | `/api/funnel-besuch` und `/api/ereignis` gehören zusammengelegt | technische Schuld |

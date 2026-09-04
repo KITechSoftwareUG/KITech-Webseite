@@ -31,6 +31,19 @@ import type { ArtikelTeaser } from "@/lib/wissen/empfehlungen";
  *
  * Inhalte in `src/data/services.ts`.
  */
+/**
+ * Zahlwörter für die Überschrift. Ausgeschrieben, weil „5 Schritte" in einer
+ * Aussage-Überschrift wie eine Aufzählung aussieht statt wie ein Satz.
+ *
+ * Wächst die Liste über neun, greift der Rückfall auf die Ziffer — das ist
+ * hässlich und genau deshalb der richtige Moment, die Seite neu zu denken.
+ */
+const ZAHLWORT = ["null", "Ein", "Zwei", "Drei", "Vier", "Fünf", "Sechs", "Sieben", "Acht", "Neun"];
+const SCHRITTZAHL =
+  services.length === 1
+    ? "Ein Schritt"
+    : `${ZAHLWORT[services.length] ?? services.length} Schritte`;
+
 export default function Leistungen({ wissen = [] }: { wissen?: ArtikelTeaser[] }) {
   return (
     <PageShell>
@@ -38,7 +51,7 @@ export default function Leistungen({ wissen = [] }: { wissen?: ArtikelTeaser[] }
         data={[
           getWebPageSchema(
             "Leistungen",
-            "Vom Prozess-Audit über individuelle KI-Agenten bis zum laufenden Betrieb.",
+            "Vom Prozess-Audit über Power Automate und KI-Agenten bis zum laufenden Betrieb.",
             `${BASE_URL}/leistungen`
           ),
           getBreadcrumbSchema([
@@ -47,13 +60,22 @@ export default function Leistungen({ wissen = [] }: { wissen?: ArtikelTeaser[] }
           ]),
           getServiceSchema(
             "KI-Automatisierung und individuelle Softwarelösungen",
-            "Prozess-Audit, individuelle KI-Agenten, Datenplattform und laufender Betrieb für den deutschen Mittelstand."
+            "Prozess-Audit, KI-Agenten an euren Daten, Power Automate, Power BI und Dynamics 365 sowie laufender Betrieb für den deutschen Mittelstand."
           ),
         ]}
       />
 
       <PageHeading
-        title="Vier Schritte. In dieser Reihenfolge."
+        /*
+         * ⚠️ Die Zahl kommt aus `services`, sie steht nicht im Text.
+         *
+         * Hier stand „Vier Schritte", während die Datei bereits fünf führte —
+         * eine Überschrift, die ihrer eigenen Seite widerspricht, und der
+         * Besucher zählt nach. Der Fehler entsteht zwangsläufig, sobald jemand
+         * eine Leistung ergänzt und die H1 nicht mitliest. Abgeleitet kann er
+         * nicht mehr auftreten.
+         */
+        title={`${SCHRITTZAHL}. In dieser Reihenfolge.`}
         lead="Erst rechnen, dann bauen, dann betreiben — und nur da, wo es sich trägt."
       />
 

@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand.
 
-Stand: 26.08.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
+Stand: 02.09.2026. Erzeugt aus den Datenquellen der Website (`npm run llms`). Was hier steht, steht auch auf einer Seite.
 
 ---
 
@@ -38,11 +38,15 @@ Wir sehen uns eure Abläufe an und sagen, an welcher Stelle Automatisierung etwa
 
 Agenten, die an eure Systeme angeschlossen sind statt danebenzustehen: Dokumente, Datenbanken, Fachanwendungen. Ohne diesen Anschluss bleibt jedes Sprachmodell ein besserer Chat.
 
-### 03 — Enterprise-Betrieb: AWS, Azure oder im eigenen Haus
+### 03 — In der Microsoft-Welt, in der ihr ohnehin arbeitet
 
-Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über AWS oder Azure, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.
+Power Automate, Power BI, Dynamics 365 und Power Apps — angebunden an Microsoft 365 und Azure, mit den Rechten und Protokollen, die dort schon gelten. Wer Microsoft im Haus hat, braucht kein zweites System daneben, sondern jemanden, der das vorhandene zu Ende baut.
 
-### 04 — Betrieb und Wartung
+### 04 — Betrieb dort, wo die Daten liegen dürfen
+
+Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über Azure oder AWS, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.
+
+### 05 — Betrieb und Wartung
 
 Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — und ein fester Ansprechpartner statt einer Ticketschlange.
 
@@ -167,6 +171,10 @@ Wochen, keine Quartale. Das NiImmo-Portal war nach 40 Tagen live, cert consultin
 
 Dann sagen wir das. Passt eine einfachere Lösung besser, empfehlen wir sie — auch wenn wir daran weniger verdienen.
 
+**Wir arbeiten mit Microsoft — passt das?**
+
+Das ist unser Feld: Power Automate, Power BI, Dynamics 365 und Power Apps, angebunden an Microsoft 365 und Azure. Wer Microsoft im Haus hat, braucht kein zweites System daneben.
+
 **Was passiert mit unseren Daten?**
 
 Was ihr wollt: europäische Region mit Auftragsverarbeitungsvertrag oder eure eigene Hardware. Ihr entscheidet, nicht der Anbieter.
@@ -179,14 +187,15 @@ Der Code gehört euch, dokumentiert und wartbar. Betrieb und Weiterentwicklung l
 
 ## 8. Technologie
 
+- Power Automate (Prozessautomatisierung)
+- Power BI (Auswertung)
+- Dynamics 365 Sales (CRM)
+- Power Apps (Fachanwendungen)
+- Microsoft Graph (Microsoft 365)
+- Azure (Cloud und KI-Dienste)
 - Python (Backend)
-- PyTorch (ML-Framework)
-- Hugging Face (Sprachmodelle)
-- LangChain (Orchestrierung)
 - PostgreSQL (Datenbank)
-- Docker (Container)
-- Kubernetes (Betrieb)
-- Azure / AWS (Cloud)
+- Docker (Betrieb)
 
 ---
 
@@ -273,7 +282,8 @@ Wie eine Zusammenarbeit abläuft, was sie kostet, und was regional an Förderung
 
 - [/](https://kitech-software.de): Startseite: Positionierung, Kundenergebnisse, Team, häufige Fragen.
 - [/warum](https://kitech-software.de/warum): Einstieg zu den beiden Sales Lettern.
-- [/leistungen](https://kitech-software.de/leistungen): Die vier Schritte einer Zusammenarbeit und der Technologie-Stack.
+- [/leistungen](https://kitech-software.de/leistungen): Die Schritte einer Zusammenarbeit — Prozess-Audit, Power Automate und Power BI, KI-Agenten, Betrieb.
+- [/ki-beratung-mittelstand](https://kitech-software.de/ki-beratung-mittelstand): KI-Beratung für mittelständische Unternehmen: Audit, Use Cases, Automatisierung und Betrieb.
 - [/solo](https://kitech-software.de/solo): Für Selbstständige und kleine Teams.
 - [/enterprise](https://kitech-software.de/enterprise): Für Unternehmen mit bestehenden Systemen und Nachweispflichten.
 - [/referenzen](https://kitech-software.de/referenzen): Kundenprojekte mit Kennzahl, Zeitraum und — wo vorhanden — Live-Adresse.

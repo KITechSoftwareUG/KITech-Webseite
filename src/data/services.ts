@@ -56,13 +56,20 @@ export const services: Service[] = [
   },
   {
     step: "03",
-    title: "Enterprise-Betrieb: AWS, Azure oder im eigenen Haus",
+    title: "In der Microsoft-Welt, in der ihr ohnehin arbeitet",
     description:
-      "Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über AWS oder Azure, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.",
+      "Power Automate, Power BI, Dynamics 365 und Power Apps — angebunden an Microsoft 365 und Azure, mit den Rechten und Protokollen, die dort schon gelten. Wer Microsoft im Haus hat, braucht kein zweites System daneben, sondern jemanden, der das vorhandene zu Ende baut.",
     bullets: [],
   },
   {
     step: "04",
+    title: "Betrieb dort, wo die Daten liegen dürfen",
+    description:
+      "Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über Azure oder AWS, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.",
+    bullets: [],
+  },
+  {
+    step: "05",
     title: "Betrieb und Wartung",
     description:
       "Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — und ein fester Ansprechpartner statt einer Ticketschlange.",
@@ -71,16 +78,33 @@ export const services: Service[] = [
 ];
 
 /**
- * Der Technologie-Stack der Alt-Seite. Steht bewusst als schlichte Zeile am Ende
- * der Seite, nicht als Kachelraster: er ist ein Beleg, kein Verkaufsargument.
+ * Womit gebaut wird. Steht bewusst als schlichte Zeile am Ende der Seite, nicht
+ * als Kachelraster: er ist ein Beleg, kein Verkaufsargument.
+ *
+ * **Microsoft steht vorn (Ansage 04.09.2026).** Der Enterprise-Stack ist das
+ * Feld, in dem die Arbeit stattfindet, und die Reihenfolge hier ist die
+ * Aussage — wer die Liste überfliegt, liest die ersten vier Einträge.
+ *
+ * ⚠️ **Die Produktnamen sind zeichengenau.** Es heißt *Dynamics 365 Sales*,
+ * nicht „Dynamic Sales", und das BI-Produkt heißt *Power BI* — ein „Dynamics
+ * BI" gibt es nicht. Bei dieser Zielgruppe sitzt auf der Gegenseite jemand, der
+ * die Namen täglich benutzt; ein falscher Name kostet mehr Glaubwürdigkeit, als
+ * die ganze Liste aufbaut.
+ *
+ * Herausgenommen am 04.09.2026: PyTorch, Hugging Face, LangChain und
+ * Kubernetes. Sie standen hier als Altbestand der Vorgängerseite (in CLAUDE.md
+ * als offener Punkt geführt) und beschrieben Arbeit, die so nicht stattfindet.
+ * Eine Liste, die Können behauptet statt es zu belegen, ist beim ersten
+ * Rückfragen schlechter als eine kurze.
  */
 export const techStack: Array<{ name: string; category: string }> = [
+  { name: "Power Automate", category: "Prozessautomatisierung" },
+  { name: "Power BI", category: "Auswertung" },
+  { name: "Dynamics 365 Sales", category: "CRM" },
+  { name: "Power Apps", category: "Fachanwendungen" },
+  { name: "Microsoft Graph", category: "Microsoft 365" },
+  { name: "Azure", category: "Cloud und KI-Dienste" },
   { name: "Python", category: "Backend" },
-  { name: "PyTorch", category: "ML-Framework" },
-  { name: "Hugging Face", category: "Sprachmodelle" },
-  { name: "LangChain", category: "Orchestrierung" },
   { name: "PostgreSQL", category: "Datenbank" },
-  { name: "Docker", category: "Container" },
-  { name: "Kubernetes", category: "Betrieb" },
-  { name: "Azure / AWS", category: "Cloud" },
+  { name: "Docker", category: "Betrieb" },
 ];

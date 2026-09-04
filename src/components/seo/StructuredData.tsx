@@ -179,7 +179,28 @@ export function getOrganizationSchema(): SchemaBase {
       },
       geoRadius: "500 km",
     },
+    /*
+     * Themen, für die diese Entität steht. Anders als Fließtext ist das eine
+     * Aussage, die Suchmaschinen und Sprachmodelle als Fakt einlesen können —
+     * die Frage „wer macht Power Automate im Raum Hannover" wird nicht aus
+     * Absätzen beantwortet, sondern aus dem Graph.
+     *
+     * Microsoft ergänzt am 04.09.2026 (Ansage): Der Enterprise-Stack ist das
+     * Feld, in dem die Arbeit stattfindet.
+     *
+     * ⚠️ **Nur die amtlichen Produktnamen eintragen.** Ein erfundener Name
+     * („Dynamics BI") löst auf keine bekannte Entität auf und schwächt den
+     * Knoten, statt ihn zu stützen — die Liste ist nur so viel wert, wie sich
+     * ihre Einträge abgleichen lassen.
+     */
     knowsAbout: [
+      "Microsoft Power Platform",
+      "Microsoft Power Automate",
+      "Microsoft Power BI",
+      "Microsoft Dynamics 365",
+      "Microsoft Power Apps",
+      "Microsoft 365",
+      "Microsoft Azure",
       "Künstliche Intelligenz",
       "Machine Learning",
       "LLM Integration",

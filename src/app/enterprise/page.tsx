@@ -14,9 +14,9 @@ export const metadata = buildMetadata({
      "Datenmanagement" steht bewusst NICHT drin: Der Begriff kommt im Inhalt
      null Mal vor, und ein Titel, der etwas verspricht, das die Seite nicht
      einloest, kostet mehr als er bringt. */
-  title: "KI-Software für Unternehmen: Audit, Umsetzung, Betrieb",
+  title: "KI und Power Platform für Unternehmen: Audit bis Betrieb",
   description:
-    "Für Unternehmen mit gewachsenen Prozessen und echten Compliance-Anforderungen: Audit, Business Case, Umsetzung gegen feste Ziele und laufender Nachweis.",
+    "Für Unternehmen mit Microsoft-Landschaft: Power Automate, Power BI und Dynamics 365 – Audit, Umsetzung gegen feste Ziele, laufender Nachweis.",
   path: "/enterprise",
 });
 

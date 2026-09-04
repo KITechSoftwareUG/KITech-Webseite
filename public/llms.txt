@@ -2,7 +2,7 @@
 
 > Automatisierungen und individuelle Softwarelösungen für den deutschen Mittelstand. Sitz in Hannover. Gebaut wird, was im Tagesgeschäft läuft — betrieben in europäischer Region über AWS oder Azure mit Auftragsverarbeitungsvertrag oder auf eigener Hardware.
 
-Stand: 26.08.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
+Stand: 02.09.2026. Diese Datei wird aus den Datenquellen der Website erzeugt (`npm run llms`) und beschreibt deshalb denselben Stand wie die Seiten.
 
 ## Unternehmen
 
@@ -28,10 +28,13 @@ Wir sehen uns eure Abläufe an und sagen, an welcher Stelle Automatisierung etwa
 ### 02 KI-Agenten, die an euren Daten arbeiten
 Agenten, die an eure Systeme angeschlossen sind statt danebenzustehen: Dokumente, Datenbanken, Fachanwendungen. Ohne diesen Anschluss bleibt jedes Sprachmodell ein besserer Chat.
 
-### 03 Enterprise-Betrieb: AWS, Azure oder im eigenen Haus
-Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über AWS oder Azure, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.
+### 03 In der Microsoft-Welt, in der ihr ohnehin arbeitet
+Power Automate, Power BI, Dynamics 365 und Power Apps — angebunden an Microsoft 365 und Azure, mit den Rechten und Protokollen, die dort schon gelten. Wer Microsoft im Haus hat, braucht kein zweites System daneben, sondern jemanden, der das vorhandene zu Ende baut.
 
-### 04 Betrieb und Wartung
+### 04 Betrieb dort, wo die Daten liegen dürfen
+Für Betriebe mit echten Anforderungen an Datenschutz und Nachweisbarkeit: Betrieb in europäischer Region über Azure oder AWS, mit Auftragsverarbeitungsvertrag — oder auf eigener Hardware, wenn die Daten das Haus nicht verlassen dürfen.
+
+### 05 Betrieb und Wartung
 Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — und ein fester Ansprechpartner statt einer Ticketschlange.
 
 ## Referenzen
@@ -73,7 +76,8 @@ Was gebaut ist, muss laufen. Überwachung, Nachjustieren, Weiterentwicklung — 
 
 - [/](https://kitech-software.de): Startseite: Positionierung, Kundenergebnisse, Team, häufige Fragen.
 - [/warum](https://kitech-software.de/warum): Einstieg zu den beiden Sales Lettern.
-- [/leistungen](https://kitech-software.de/leistungen): Die vier Schritte einer Zusammenarbeit und der Technologie-Stack.
+- [/leistungen](https://kitech-software.de/leistungen): Die Schritte einer Zusammenarbeit — Prozess-Audit, Power Automate und Power BI, KI-Agenten, Betrieb.
+- [/ki-beratung-mittelstand](https://kitech-software.de/ki-beratung-mittelstand): KI-Beratung für mittelständische Unternehmen: Audit, Use Cases, Automatisierung und Betrieb.
 - [/solo](https://kitech-software.de/solo): Für Selbstständige und kleine Teams.
 - [/enterprise](https://kitech-software.de/enterprise): Für Unternehmen mit bestehenden Systemen und Nachweispflichten.
 - [/referenzen](https://kitech-software.de/referenzen): Kundenprojekte mit Kennzahl, Zeitraum und — wo vorhanden — Live-Adresse.

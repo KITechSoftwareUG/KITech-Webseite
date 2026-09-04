@@ -149,7 +149,11 @@ function seitenZeilen(beschreibungen: Record<string, string>): string[] {
 const SEITEN_TEXT: Record<string, string> = {
   "/": "Startseite: Positionierung, Kundenergebnisse, Team, häufige Fragen.",
   "/warum": "Einstieg zu den beiden Sales Lettern.",
-  "/leistungen": "Die vier Schritte einer Zusammenarbeit und der Technologie-Stack.",
+  /* Ohne Zahl: services.ts ist am 04.09.2026 von vier auf fünf Schritte gewachsen,
+     und diese Zeile stand danach falsch da. Eine Anzahl in einer Beschreibung
+     veraltet bei jeder Inhaltsänderung und sucht ohnehin niemand. */
+  "/leistungen":
+    "Die Schritte einer Zusammenarbeit — Prozess-Audit, Power Automate und Power BI, KI-Agenten, Betrieb.",
   "/ki-beratung-mittelstand":
     "KI-Beratung für mittelständische Unternehmen: Audit, Use Cases, Automatisierung und Betrieb.",
   "/solo": "Für Selbstständige und kleine Teams.",

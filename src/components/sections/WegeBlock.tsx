@@ -22,6 +22,12 @@ import { SITE_CONTAINER } from "@/components/layout/site-container";
  * Kacheln, keine `rounded-*`, kein Icon im abgerundeten Quadrat. Die Sätze sind
  * die Beschreibungen der Zielseiten, nicht neu erfunden — was hier steht, muss
  * dort auch stehen.
+ *
+ * ⚠️ Das gilt auch für die Produktnamen. Seit dem 04.09.2026 nennen zwei der
+ * drei Wege den Microsoft-Stack; er steht deshalb genauso in
+ * `segments.ts` (enterprise) und `services.ts`. Wer ihn hier ändert, ohne dort
+ * nachzuziehen, baut ein Versprechen, das die Zielseite nicht einlöst — der
+ * Besucher klickt genau deswegen.
  */
 
 const WEGE = [
@@ -33,12 +39,12 @@ const WEGE = [
   {
     href: "/enterprise",
     label: "Ihr habt gewachsene Prozesse und Compliance",
-    text: "Audit, Business Case, Umsetzung gegen feste Ziele und laufender Nachweis, dass es trägt.",
+    text: "Power Automate, Power BI und Dynamics 365 — Umsetzung gegen feste Ziele und laufender Nachweis, dass es trägt.",
   },
   {
     href: "/leistungen",
     label: "Du willst erst wissen, was wir überhaupt machen",
-    text: "Vom Prozess-Audit über KI-Agenten an euren Daten bis zu Betrieb und Wartung.",
+    text: "Vom Prozess-Audit über Power Automate und KI-Agenten an euren Daten bis zu Betrieb und Wartung.",
   },
 ] as const;
 

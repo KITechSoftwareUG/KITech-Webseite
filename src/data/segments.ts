@@ -15,6 +15,17 @@
  * Unternehmen siezte als einzige Seite im Repo — auf einer Website, die ab dem
  * Hero duzt, fällt das auf.
  *
+ * MICROSOFT (Ansage 04.09.2026): Auf `/enterprise` nennen die `stack`-Zeilen
+ * den Microsoft-Stack — Power Automate, Power BI, Dynamics 365. Vorher standen
+ * dort n8n und Supabase. Beides ist reale Arbeit, aber es sind Werkzeuge aus
+ * einer anderen Welt: Wer Compliance, Governance und Nachweisbarkeit verspricht
+ * und dann Startup-Werkzeuge auflistet, widerspricht sich in derselben Spalte.
+ * Auf `/solo` bleiben n8n und Supabase deshalb stehen — dort stimmen sie.
+ *
+ * ⚠️ Produktnamen zeichengenau: *Dynamics 365 Sales*, *Power BI*, *Power
+ * Automate*. Nicht „Dynamic Sales", kein „Dynamics BI" — das Produkt gibt es
+ * nicht.
+ *
  * OFFEN: Ayhams aktueller Wortlaut ersetzt diese Texte. Nur diese Datei ändern,
  * `Segment.tsx` bleibt unberührt.
  */
@@ -155,25 +166,25 @@ export const enterpriseSegment: SegmentContent = {
       title: "Prozessautomatisierung",
       description:
         "Wiederkehrende Abläufe wie Rechnungsprüfung, Auftragsbearbeitung und Reporting laufen automatisiert – geprüft werden nur noch die Ausnahmen.",
-      stack: "n8n · Python · Supabase",
+      stack: "Power Automate · Azure Logic Apps",
     },
     {
       title: "Wissensmanagement und RAG",
       description:
         "Internes Wissen wird durchsuchbar: Antworten auf Basis eurer eigenen Dokumente – mit Quellenangabe statt Halluzination.",
-      stack: "Azure AI Search · RAG",
+      stack: "Azure AI Search · Microsoft 365 · RAG",
     },
     {
       title: "Kundenservice",
       description:
         "Erster Kontaktpunkt für Anfragen, Termine und Angebote – rund um die Uhr, mit sauberer Übergabe an euer Team, wenn es nötig wird.",
-      stack: "n8n · CRM-Anbindung",
+      stack: "Dynamics 365 Sales · Power Automate",
     },
     {
       title: "Datenanalyse",
       description:
-        "Rohdaten aus ERP, CRM und Tabellen werden automatisch aufbereitet und in Auswertungen nutzbar, statt in Dateien zu versanden.",
-      stack: "Python · Supabase",
+        "Rohdaten aus ERP, Dynamics und Tabellen laufen automatisch in Power-BI-Berichte, die sich selbst aktualisieren — statt in Dateien zu versanden, die einmal im Quartal jemand von Hand baut.",
+      stack: "Power BI · Azure",
     },
   ],
 

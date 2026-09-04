@@ -15,13 +15,18 @@ import { empfehlungenFuer } from "@/lib/wissen/empfehlungen";
  * am 20.08.2026 fuer Artikel-, Autoren- und Hub-Seiten.
  *
  * Die Beschreibung nannte "Sechs Schritte" und eine "Datenplattform". Beides
- * stimmt seit dem 12.08.2026 nicht mehr: services.ts fuehrt vier Schritte, und
- * die H1 der Seite sagt "Vier Schritte. In dieser Reihenfolge."
+ * stimmt seit dem 12.08.2026 nicht mehr.
+ *
+ * ⚠️ Die Zahl der Schritte gehoert NICHT in die Beschreibung. Sie stand hier
+ * als "Vier Schritte" und war am 04.09.2026 schon wieder falsch, weil
+ * services.ts auf fuenf gewachsen ist — eine Angabe, die bei jeder
+ * Inhaltsaenderung veraltet und die niemand sucht. Stattdessen stehen dort
+ * jetzt die Produktnamen, nach denen tatsaechlich gesucht wird.
  */
 export const metadata = buildMetadata({
-  title: "Prozesse automatisieren: Audit, KI-Agenten, Betrieb",
+  title: "Prozesse automatisieren: Power Automate, KI, Betrieb",
   description:
-    "Vom Prozess-Audit über KI-Agenten an euren Daten bis zu Betrieb und Wartung – auf AWS, Azure oder eigener Hardware. Vier Schritte für den Mittelstand.",
+    "Vom Prozess-Audit über Power Automate, Power BI und Dynamics 365 bis zu Betrieb und Wartung – in eurer Microsoft-Umgebung oder auf eigener Hardware.",
   path: "/leistungen",
 });
 
