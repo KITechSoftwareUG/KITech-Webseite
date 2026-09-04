@@ -210,7 +210,7 @@ export interface RouteDefinition {
  * hier fehlt oder dort nicht existiert, lässt den Test fehlschlagen.
  */
 export const siteRoutes: RouteDefinition[] = [
-  { path: "/", indexable: true, lastModified: "2026-08-05" },
+  { path: "/", indexable: true, lastModified: "2026-09-04" },
 
   // Warum? — die Übersicht ist indexierbar, die beiden Letter bleiben draußen,
   // solange sie Platzhaltertext tragen (isPlaceholder in sales-letters.ts).
@@ -226,10 +226,10 @@ export const siteRoutes: RouteDefinition[] = [
     lastModified: "2026-08-05",
   },
 
-  { path: "/leistungen", indexable: true, lastModified: "2026-08-05" },
+  { path: "/leistungen", indexable: true, lastModified: "2026-09-04" },
   { path: "/ki-beratung-mittelstand", indexable: true, lastModified: "2026-09-02" },
   { path: "/solo", indexable: true, lastModified: "2026-08-05" },
-  { path: "/enterprise", indexable: true, lastModified: "2026-08-05" },
+  { path: "/enterprise", indexable: true, lastModified: "2026-09-04" },
 
   { path: "/referenzen", indexable: true, lastModified: "2026-08-05" },
   {
